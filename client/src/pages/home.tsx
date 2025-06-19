@@ -118,18 +118,18 @@ export default function Home() {
             
             <h1 className="text-7xl md:text-9xl font-bold mb-12 leading-tight font-cyber typewriter">
               <HolographicText>
-                <span className="block">CUSTOM WEBSITES</span>
-                <span className="block">BUILT FOR</span>
-                <span className="block text-glow-accent">IMPACT</span>
+                <span className="block">TRANSFORM</span>
+                <span className="block">YOUR DIGITAL</span>
+                <span className="block text-glow-accent">PRESENCE</span>
               </HolographicText>
             </h1>
             
             <div className="max-w-4xl mx-auto premium-card p-12 mb-16 scan-lines">
               <div className="data-stream absolute inset-0"></div>
               <p className="text-2xl text-gray-300 leading-relaxed relative z-10">
-                No templates. No fluff. Just sleek, powerful websites coded to <span className="text-cyan-400 font-cyber">grow your business</span>.
+                From vision to velocity, we code <HolographicText>transformation</HolographicText>.
                 <br />
-                Premium digital experiences that <span className="text-glow-primary">mesmerize</span> and <span className="text-glow-accent">convert</span>.
+                Premium websites that <span className="text-glow-primary">mesmerize</span> and <span className="text-glow-accent">convert</span>.
               </p>
             </div>
 
@@ -139,9 +139,9 @@ export default function Home() {
                 className="cyber-button premium-hover glow-primary bg-cyan-400/20 border-cyan-400 text-cyan-400 hover:bg-cyan-400/30 font-cyber px-12 py-6 text-lg"
                 asChild
               >
-                <Link href="/services">
+                <Link href="/contact">
                   <Cpu className="w-6 h-6 mr-3" />
-                  VIEW PACKAGES
+                  INITIATE PROJECT
                   <ArrowRight className="w-6 h-6 ml-3" />
                 </Link>
               </Button>
@@ -150,9 +150,9 @@ export default function Home() {
                 className="cyber-button premium-hover bg-purple-500/20 border-purple-500 text-purple-400 hover:bg-purple-500/30 font-cyber px-12 py-6 text-lg"
                 asChild
               >
-                <Link href="/tools">
+                <Link href="/portfolio">
                   <Zap className="w-6 h-6 mr-3" />
-                  FREE AUDIT
+                  VIEW PORTFOLIO
                 </Link>
               </Button>
             </div>
@@ -357,10 +357,10 @@ export default function Home() {
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <div className="premium-card p-16">
             <h2 className="text-6xl font-bold mb-8 font-cyber">
-              <HolographicText>READY TO SCALE?</HolographicText>
+              <HolographicText>READY TO TRANSCEND?</HolographicText>
             </h2>
             <p className="text-2xl mb-12 text-gray-300 max-w-3xl mx-auto">
-              Let's build something that drives real <span className="text-glow-primary">results</span> for your business.
+              Join the elite who chose <span className="text-glow-primary">premium</span> digital transformation.
             </p>
             <div className="flex flex-col lg:flex-row gap-8 justify-center">
               <Button 
@@ -370,7 +370,7 @@ export default function Home() {
               >
                 <Link href="/contact">
                   <Cpu className="w-8 h-8 mr-3" />
-                  GET STARTED
+                  START TRANSFORMATION
                 </Link>
               </Button>
               <Button 
@@ -380,7 +380,7 @@ export default function Home() {
               >
                 <Link href="/tools">
                   <Zap className="w-8 h-8 mr-3" />
-                  FREE AUDIT
+                  FREE NEURAL AUDIT
                 </Link>
               </Button>
             </div>
