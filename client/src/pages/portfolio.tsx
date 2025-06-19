@@ -1,197 +1,242 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { ArrowRight, ExternalLink, Code, TrendingUp, Zap } from "lucide-react";
+import { useEffect, useState } from "react";
+
+// Floating Particles Component
+function FloatingParticles() {
+  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, delay: number}>>([]);
+
+  useEffect(() => {
+    const newParticles = Array.from({length: 20}, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      delay: Math.random() * 6
+    }));
+    setParticles(newParticles);
+  }, []);
+
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden">
+      {particles.map((particle) => (
+        <div
+          key={particle.id}
+          className="absolute w-1 h-1 bg-cyan-400 floating-particle"
+          style={{
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+            animationDelay: `${particle.delay}s`
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function Portfolio() {
   const projects = [
     {
-      title: "RESTAURANT ORDERING",
-      description: "Advanced ordering system with real-time menu management",
-      results: "+300% ONLINE ORDERS",
-      color: "primary",
-      icon: (
-        <div className="w-24 h-24 mx-auto bg-gradient-to-br from-primary to-purple-400 rounded-lg flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-2 bg-black rounded opacity-80"></div>
-          <div className="relative z-10 grid grid-cols-3 gap-1 p-2">
-            <div className="w-2 h-2 bg-primary rounded-sm animate-pulse"></div>
-            <div className="w-2 h-2 bg-yellow-400 rounded-sm animate-pulse" style={{animationDelay: '0.2s'}}></div>
-            <div className="w-2 h-2 bg-purple-400 rounded-sm animate-pulse" style={{animationDelay: '0.4s'}}></div>
-            <div className="w-2 h-2 bg-purple-400 rounded-sm animate-pulse" style={{animationDelay: '0.6s'}}></div>
-            <div className="w-2 h-2 bg-primary rounded-sm animate-pulse" style={{animationDelay: '0.8s'}}></div>
-            <div className="w-2 h-2 bg-yellow-400 rounded-sm animate-pulse" style={{animationDelay: '1s'}}></div>
-          </div>
-          <div className="absolute bottom-1 left-1 right-1 h-1 bg-primary rounded-full animate-pulse"></div>
-        </div>
-      ),
+      title: "TECHCORP SOLUTIONS",
+      category: "E-COMMERCE",
+      description: "Complete digital transformation with 300% conversion increase",
+      metrics: { visitors: "+150%", sales: "+300%", speed: "0.8s" },
+      tech: ["React", "Node.js", "PostgreSQL"],
+      color: "cyan-400"
     },
     {
-      title: "HEALTHCARE PLATFORM",
-      description: "Patient management with secure data protocols",
-      results: "+150% PATIENT BOOKINGS",
-      color: "purple-400",
-      icon: (
-        <div className="w-24 h-24 mx-auto bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-2 bg-black rounded opacity-80"></div>
-          <div className="relative z-10">
-            <div className="w-8 h-8 border-2 border-primary rounded-full flex items-center justify-center">
-              <div className="w-4 h-4 relative">
-                <div className="absolute inset-0 border border-primary rounded-full animate-ping"></div>
-                <div className="w-1 h-4 bg-primary mx-auto"></div>
-                <div className="w-4 h-1 bg-primary absolute top-1.5 left-0"></div>
-              </div>
-            </div>
-          </div>
-          <div className="absolute top-1 right-1 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-          <div className="absolute bottom-1 left-1 w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-        </div>
-      ),
+      title: "NEXUS FINANCE",
+      category: "FINTECH",
+      description: "Secure financial platform with real-time analytics",
+      metrics: { users: "+250%", uptime: "99.9%", speed: "0.6s" },
+      tech: ["Vue.js", "Express", "MongoDB"],
+      color: "purple-400"
     },
     {
-      title: "E-COMMERCE HUB",
-      description: "Full marketplace with payment gateway integration",
-      results: "+400% REVENUE GROWTH",
-      color: "yellow-400",
-      icon: (
-        <div className="w-24 h-24 mx-auto bg-gradient-to-br from-yellow-400 to-primary rounded-lg flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-2 bg-black rounded opacity-80"></div>
-          <div className="relative z-10 grid grid-cols-2 gap-2 p-2">
-            <div className="h-2 bg-primary rounded animate-pulse"></div>
-            <div className="h-2 bg-purple-400 rounded animate-pulse" style={{animationDelay: '0.3s'}}></div>
-            <div className="h-2 bg-yellow-400 rounded animate-pulse" style={{animationDelay: '0.6s'}}></div>
-            <div className="h-2 bg-pink-400 rounded animate-pulse" style={{animationDelay: '0.9s'}}></div>
-          </div>
-          <div className="absolute bottom-1 left-1 w-3 h-3 border border-primary rounded flex items-center justify-center">
-            <div className="w-1 h-1 bg-primary rounded-full"></div>
-          </div>
-          <div className="absolute top-1 right-1 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-        </div>
-      ),
-    },
-  ];
-
-  const testimonials = [
-    {
-      name: "Sarah Chen",
-      business: "TechFlow Restaurants",
-      rating: 5,
-      quote: "Primorpho transformed our online presence completely. Orders increased 300% in the first month after launch.",
-      package: "Pro Presence",
+      title: "QUANTUM LOGISTICS",
+      category: "LOGISTICS",
+      description: "AI-powered supply chain management system",
+      metrics: { efficiency: "+180%", costs: "-40%", speed: "0.9s" },
+      tech: ["Angular", "Python", "Redis"],
+      color: "yellow-400"
     },
     {
-      name: "Dr. Michael Torres",
-      business: "HealthCare Plus",
-      rating: 5,
-      quote: "The security and performance of our new platform exceeded all expectations. Patient satisfaction is at an all-time high.",
-      package: "Smart Business",
+      title: "BIOTECH INNOVATIONS",
+      category: "HEALTHCARE",
+      description: "Medical research portal with advanced data visualization",
+      metrics: { research: "+200%", access: "+120%", speed: "0.7s" },
+      tech: ["React", "GraphQL", "AWS"],
+      color: "cyan-400"
     },
     {
-      name: "Lisa Wang",
-      business: "EcoMart Online",
-      rating: 5,
-      quote: "ROI was immediate. The e-commerce integration is flawless and our revenue has quadrupled since the new site went live.",
-      package: "Smart Business",
+      title: "NEURAL NETWORKS",
+      category: "AI/ML",
+      description: "Machine learning platform for predictive analytics",
+      metrics: { accuracy: "+95%", speed: "+300%", load: "0.5s" },
+      tech: ["Python", "TensorFlow", "Docker"],
+      color: "purple-400"
     },
+    {
+      title: "CRYPTO EXCHANGE",
+      category: "BLOCKCHAIN",
+      description: "Secure cryptocurrency trading platform",
+      metrics: { trades: "+400%", security: "100%", speed: "0.4s" },
+      tech: ["Next.js", "Solidity", "Web3"],
+      color: "yellow-400"
+    }
   ];
 
   return (
-    <div className="pt-16">
-      {/* Hero Section */}
-      <section className="py-20 relative grid-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
-              NEURAL.<span className="text-purple-400 animate-glow-pulse">PORTFOLIO</span>
-            </h1>
-            <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">
-              Quantum-enhanced websites delivering measurable results for diverse business sectors.
+    <div className="min-h-screen bg-background neural-bg">
+      <FloatingParticles />
+      
+      {/* Header Section */}
+      <section className="pt-32 pb-16 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="mb-8">
+            <span className="font-cyber text-sm text-cyan-400 tracking-wider border border-cyan-400/30 px-4 py-2 rounded">
+              NEURAL WEB SOLUTIONS
+            </span>
+          </div>
+          
+          <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight">
+            <span className="text-glow-primary block">PROJECT</span>
+            <span className="text-glow-accent block">PORTFOLIO</span>
+          </h1>
+          
+          <div className="max-w-3xl mx-auto glass-card p-8 mb-16 border border-cyan-400/30">
+            <p className="text-xl text-gray-300 leading-relaxed">
+              Showcasing our latest <span className="text-cyan-400 font-cyber">digital transformations</span>.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Portfolio Grid */}
-      <section className="py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 mb-20">
+      {/* Projects Grid */}
+      <section className="pb-24 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <Card key={index} className="glass-card border-primary/30 hover:animate-neural-pulse transition-all duration-300">
-                <CardContent className="p-8 text-center">
-                  <div className="mb-6">
-                    {project.icon}
+              <Card 
+                key={project.title} 
+                className={`glass-card border border-${project.color}/30 bg-${project.color}/5 hover:scale-105 transition-all duration-300 group`}
+              >
+                <CardContent className="p-6 space-y-6">
+                  <div className="space-y-2">
+                    <div className={`text-xs font-cyber text-${project.color} tracking-wider`}>
+                      {project.category}
+                    </div>
+                    <h3 className={`text-xl font-bold font-cyber text-${project.color} tracking-wider`}>
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm">
+                      {project.description}
+                    </p>
                   </div>
-                  <h3 className={`text-xl font-cyber text-${project.color} mb-2`}>
-                    {project.title}
-                  </h3>
-                  <p className="white-highlight text-sm mb-4">{project.description}</p>
-                  <div className="text-center">
-                    <div className="text-2xl font-cyber text-yellow-400 mb-1">
-                      {project.results.split(' ')[0]}
+
+                  {/* Metrics */}
+                  <div className="grid grid-cols-3 gap-3">
+                    {Object.entries(project.metrics).map(([key, value], metricIndex) => (
+                      <div key={key} className={`glass-card bg-${project.color}/10 border border-${project.color}/20 p-3 text-center`}>
+                        <div className={`text-lg font-bold font-cyber text-${project.color}`}>
+                          {value}
+                        </div>
+                        <div className="text-xs text-gray-400 uppercase tracking-wider">
+                          {key}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Tech Stack */}
+                  <div className="space-y-2">
+                    <div className="text-xs text-gray-400 font-cyber tracking-wider">TECH STACK</div>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.map((tech, techIndex) => (
+                        <span 
+                          key={tech} 
+                          className={`text-xs px-2 py-1 bg-${project.color}/20 border border-${project.color}/30 text-${project.color} font-cyber tracking-wider rounded`}
+                        >
+                          {tech}
+                        </span>
+                      ))}
                     </div>
-                    <div className="text-sm white-highlight">
-                      {project.results.split(' ').slice(1).join(' ')}
-                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-3">
+                    <Button 
+                      size="sm" 
+                      className={`flex-1 cyber-button bg-${project.color}/20 border-${project.color} text-${project.color} hover:bg-${project.color}/30 font-cyber text-xs`}
+                    >
+                      <ExternalLink className="w-3 h-3 mr-1" />
+                      VIEW LIVE
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      className={`cyber-button border-${project.color}/50 text-${project.color} hover:bg-${project.color}/10 font-cyber text-xs`}
+                    >
+                      <Code className="w-3 h-3" />
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
-
-          {/* Results Summary */}
-          <div className="glass-card p-12 rounded-xl text-center scan-line">
-            <h2 className="text-3xl md:text-5xl font-cyber font-bold mb-8 white-highlight">
-              PROVEN <span className="text-primary animate-glow-pulse">RESULTS</span>
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div>
-                <div className="text-4xl font-cyber text-primary mb-2">7</div>
-                <div className="white-highlight">Websites Delivered</div>
-              </div>
-              <div>
-                <div className="text-4xl font-cyber text-yellow-400 mb-2">300%</div>
-                <div className="white-highlight">Average Growth</div>
-              </div>
-              <div>
-                <div className="text-4xl font-cyber text-purple-400 mb-2">100%</div>
-                <div className="white-highlight">Client Satisfaction</div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
-              CLIENT.<span className="text-yellow-400 animate-glow-pulse">FEEDBACK</span>
+      {/* Results Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 font-cyber text-glow-primary">
+              MEASURABLE RESULTS
             </h2>
-            <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">
-              Authentic testimonials from business owners who experienced quantum growth.
+            <p className="text-gray-300">
+              Every project delivers <span className="text-cyan-400">real impact</span> for our clients.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="glass-card border-primary/30 hover:animate-neural-pulse">
-                <CardContent className="p-8">
-                  <div className="flex items-center mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <span key={i} className="text-yellow-400 text-lg">★</span>
-                    ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <TrendingUp className="w-8 h-8 text-cyan-400" />,
+                metric: "250%",
+                label: "AVERAGE GROWTH",
+                description: "Revenue increase for clients",
+                color: "cyan-400"
+              },
+              {
+                icon: <Zap className="w-8 h-8 text-yellow-400" />,
+                metric: "0.6s",
+                label: "LOAD TIMES",
+                description: "Average page speed",
+                color: "yellow-400"
+              },
+              {
+                icon: <Code className="w-8 h-8 text-purple-400" />,
+                metric: "99.9%",
+                label: "UPTIME",
+                description: "System reliability",
+                color: "purple-400"
+              }
+            ].map((result, index) => (
+              <Card key={index} className={`glass-card bg-${result.color}/10 border border-${result.color}/30 p-6 text-center hover:scale-105 transition-transform duration-300`}>
+                <CardContent className="pt-6">
+                  <div className="flex justify-center mb-4">
+                    {result.icon}
                   </div>
-                  
-                  <p className="white-highlight text-sm mb-6 italic">
-                    "{testimonial.quote}"
-                  </p>
-                  
-                  <div className="border-t border-primary/30 pt-4">
-                    <div className="white-highlight font-semibold">{testimonial.name}</div>
-                    <div className="text-primary text-sm">{testimonial.business}</div>
-                    <Badge variant="outline" className="mt-2 border-yellow-400 text-yellow-400">
-                      {testimonial.package}
-                    </Badge>
+                  <div className={`text-4xl font-bold font-cyber text-${result.color} mb-2`}>
+                    {result.metric}
+                  </div>
+                  <div className={`text-${result.color}/80 font-cyber text-xs tracking-wider mb-1`}>
+                    {result.label}
+                  </div>
+                  <div className="text-gray-300 text-xs">
+                    {result.description}
                   </div>
                 </CardContent>
               </Card>
@@ -201,26 +246,54 @@ export default function Portfolio() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="glass-card p-12 rounded-xl scan-line">
-            <h2 className="text-3xl md:text-5xl font-cyber font-bold mb-6 white-highlight">
-              NEXT <span className="text-primary animate-glow-pulse">SUCCESS STORY</span>?
-            </h2>
-            <p className="text-xl white-highlight mb-8 max-w-2xl mx-auto">
-              Join these successful businesses. Get measurable results with a quantum-enhanced website.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/reserve-slot">
-                <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-primary text-white hover:bg-primary/10">
-                  START YOUR PROJECT
-                </Button>
-              </Link>
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto text-center glass-card border border-cyan-400/30 p-12">
+          <h2 className="text-4xl font-bold mb-6 font-cyber text-glow-primary">
+            READY FOR YOUR PROJECT?
+          </h2>
+          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+            Let's create something <span className="text-cyan-400">extraordinary</span> for your business.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Button size="lg" className="cyber-button glow-primary bg-cyan-400/20 border-cyan-400 text-cyan-400 hover:bg-cyan-400/30 font-cyber px-8 py-4" asChild>
               <Link href="/contact">
-                <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-yellow-400 text-white hover:bg-yellow-400/10">
-                  DISCUSS REQUIREMENTS
-                </Button>
+                <ArrowRight className="w-5 h-5 mr-2" />
+                START PROJECT
               </Link>
+            </Button>
+            <Button size="lg" className="cyber-button bg-purple-500/20 border-purple-500 text-purple-400 hover:bg-purple-500/30 font-cyber px-8 py-4" asChild>
+              <Link href="/services">VIEW PACKAGES</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom Navigation */}
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="glass-card border border-cyan-400/30 p-6">
+              <h3 className="font-cyber text-cyan-400 text-lg tracking-wider mb-4">Primorpho</h3>
+              <p className="text-gray-300 text-sm mb-4">Neural web solutions for the future</p>
+            </div>
+            
+            <div className="glass-card border border-cyan-400/30 p-6">
+              <h3 className="font-cyber text-cyan-400 text-lg tracking-wider mb-4">Services</h3>
+              <ul className="space-y-2 text-gray-300 text-sm">
+                <li><Link href="/services" className="hover:text-cyan-400 transition-colors">LaunchPad - $2,500</Link></li>
+                <li><Link href="/services" className="hover:text-cyan-400 transition-colors">Pro Presence - $5,500</Link></li>
+                <li><Link href="/services" className="hover:text-cyan-400 transition-colors">Smart Business - $12,000</Link></li>
+              </ul>
+            </div>
+            
+            <div className="glass-card border border-cyan-400/30 p-6">
+              <h3 className="font-cyber text-yellow-400 text-lg tracking-wider mb-4">Navigation</h3>
+              <ul className="space-y-2 text-gray-300 text-sm">
+                <li><Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link></li>
+                <li><Link href="/services" className="hover:text-cyan-400 transition-colors">Services</Link></li>
+                <li><Link href="/about" className="hover:text-cyan-400 transition-colors">About</Link></li>
+                <li><Link href="/contact" className="hover:text-cyan-400 transition-colors">Contact</Link></li>
+              </ul>
             </div>
           </div>
         </div>

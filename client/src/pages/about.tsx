@@ -1,163 +1,219 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Calendar, Code, Database, Cloud, Cpu, Shield } from "lucide-react";
+import { ArrowRight, User, Award, Globe } from "lucide-react";
+import { useEffect, useState } from "react";
+
+// Floating Particles Component
+function FloatingParticles() {
+  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, delay: number}>>([]);
+
+  useEffect(() => {
+    const newParticles = Array.from({length: 20}, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      delay: Math.random() * 6
+    }));
+    setParticles(newParticles);
+  }, []);
+
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden">
+      {particles.map((particle) => (
+        <div
+          key={particle.id}
+          className="absolute w-1 h-1 bg-cyan-400 floating-particle"
+          style={{
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+            animationDelay: `${particle.delay}s`
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function About() {
   return (
-    <div className="pt-16">
-      {/* Hero Section */}
-      <section className="py-20 relative grid-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
-              ORIGIN.<span className="text-primary animate-glow-pulse">STORY</span>
-            </h1>
-            <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">
-              The neural pathways behind quantum-enhanced digital solutions.
+    <div className="min-h-screen bg-background neural-bg">
+      <FloatingParticles />
+      
+      {/* Header Section */}
+      <section className="pt-32 pb-16 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="mb-8">
+            <span className="font-cyber text-sm text-cyan-400 tracking-wider border border-cyan-400/30 px-4 py-2 rounded">
+              NEURAL WEB SOLUTIONS
+            </span>
+          </div>
+          
+          <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight">
+            <span className="text-glow-primary block">ABOUT</span>
+            <span className="text-glow-accent block">PRIMORPHO</span>
+          </h1>
+          
+          <div className="max-w-3xl mx-auto glass-card p-8 mb-16 border border-cyan-400/30">
+            <p className="text-xl text-gray-300 leading-relaxed">
+              Creating the future of digital <span className="text-cyan-400 font-cyber">experiences</span>.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Story Section */}
-      <section className="py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-5xl font-cyber font-bold mb-8 white-highlight">
-                THE <span className="text-primary animate-glow-pulse">DEVELOPER</span>
-              </h2>
-              <div className="space-y-6 text-lg white-highlight font-futura">
-                <p>
-                  7 years of crafting digital experiences. Background in Intel partnership programs, 
-                  bringing enterprise-level precision to every project.
-                </p>
-                <p>
-                  No templates. No shortcuts. Every website is hand-coded with neural-enhanced 
-                  optimization for maximum performance and conversion.
-                </p>
-                <p className="text-purple-400 font-semibold">
-                  "I don't just build websites. I engineer quantum-optimized digital ecosystems 
-                  that grow with your business."
-                </p>
-              </div>
-              <div className="mt-8">
-                <Link href="/book-consultation">
-                  <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold bg-transparent border border-primary text-white hover:bg-primary/10">
-                    <Calendar className="w-5 h-5 mr-2" />
-                    SCHEDULE CONSULTATION
-                  </Button>
+      {/* Main Content */}
+      <section className="pb-24 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+            <div className="glass-card border border-cyan-400/30 p-8">
+              <h2 className="font-cyber text-cyan-400 text-2xl tracking-wider mb-6">OUR MISSION</h2>
+              <p className="text-gray-300 leading-relaxed mb-4">
+                Founded with a vision to bridge the gap between cutting-edge technology and business success, 
+                Primorpho crafts custom web solutions that deliver measurable results.
+              </p>
+              <p className="text-gray-300 leading-relaxed">
+                We believe every business deserves a website that not only looks stunning but also converts 
+                visitors into customers. Performance, user experience, and growth-driven design are our core focus.
+              </p>
+            </div>
+
+            <div className="glass-card border border-purple-400/30 p-8 bg-purple-400/5">
+              <h2 className="font-cyber text-purple-400 text-2xl tracking-wider mb-6">OUR EXPERTISE</h2>
+              <p className="text-gray-300 leading-relaxed mb-4">
+                Our team combines years of development expertise with deep understanding of digital marketing 
+                to create websites that work as hard as you do.
+              </p>
+              <p className="text-gray-300 leading-relaxed">
+                From custom development to performance optimization, we handle every aspect of your digital presence 
+                with precision and innovation.
+              </p>
+            </div>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {[
+              {
+                icon: <User className="w-8 h-8 text-cyan-400" />,
+                number: "100+",
+                label: "PROJECTS DELIVERED",
+                description: "Custom solutions built",
+                color: "cyan-400"
+              },
+              {
+                icon: <Award className="w-8 h-8 text-yellow-400" />,
+                number: "99%",
+                label: "CLIENT SATISFACTION",
+                description: "Happy customers guaranteed",
+                color: "yellow-400"
+              },
+              {
+                icon: <Globe className="w-8 h-8 text-purple-400" />,
+                number: "7+",
+                label: "YEARS EXPERIENCE",
+                description: "Industry expertise",
+                color: "purple-400"
+              }
+            ].map((stat, index) => (
+              <Card key={index} className={`glass-card bg-${stat.color}/10 border border-${stat.color}/30 p-6 text-center hover:scale-105 transition-transform duration-300`}>
+                <CardContent className="pt-6">
+                  <div className="flex justify-center mb-4">
+                    {stat.icon}
+                  </div>
+                  <div className={`text-4xl font-bold font-cyber text-${stat.color} mb-2`}>
+                    {stat.number}
+                  </div>
+                  <div className={`text-${stat.color}/80 font-cyber text-xs tracking-wider mb-1`}>
+                    {stat.label}
+                  </div>
+                  <div className="text-gray-300 text-xs">
+                    {stat.description}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Skills Section */}
+          <div className="glass-card border border-cyan-400/30 p-8 mb-16">
+            <h2 className="font-cyber text-cyan-400 text-2xl tracking-wider mb-8 text-center">CORE CAPABILITIES</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { title: "CUSTOM DEVELOPMENT", level: 95, color: "cyan-400" },
+                { title: "PERFORMANCE OPTIMIZATION", level: 90, color: "purple-400" },
+                { title: "SEO & MARKETING", level: 88, color: "yellow-400" },
+                { title: "MOBILE RESPONSIVE", level: 98, color: "cyan-400" },
+                { title: "SECURITY & MAINTENANCE", level: 92, color: "purple-400" },
+                { title: "USER EXPERIENCE", level: 94, color: "yellow-400" }
+              ].map((skill, index) => (
+                <div key={index} className={`glass-card bg-${skill.color}/10 border border-${skill.color}/30 p-4 text-center`}>
+                  <h3 className={`font-cyber text-${skill.color} text-sm tracking-wider mb-2`}>
+                    {skill.title}
+                  </h3>
+                  <div className={`text-2xl font-bold font-cyber text-${skill.color} mb-2`}>
+                    {skill.level}%
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-1">
+                    <div 
+                      className={`bg-${skill.color} h-1 rounded-full transition-all duration-1000`}
+                      style={{ width: `${skill.level}%` }}
+                    ></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className="text-center glass-card border border-cyan-400/30 p-12">
+            <h2 className="text-4xl font-bold mb-6 font-cyber text-glow-primary">
+              READY TO COLLABORATE?
+            </h2>
+            <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+              Let's discuss your project and create something <span className="text-cyan-400">extraordinary</span> together.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button size="lg" className="cyber-button glow-primary bg-cyan-400/20 border-cyan-400 text-cyan-400 hover:bg-cyan-400/30 font-cyber px-8 py-4" asChild>
+                <Link href="/contact">
+                  <ArrowRight className="w-5 h-5 mr-2" />
+                  START PROJECT
                 </Link>
-              </div>
-            </div>
-
-            {/* Tech Stack */}
-            <div className="glass-card p-8 rounded-xl">
-              <h3 className="text-2xl font-cyber text-yellow-400 mb-6">TECH STACK</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-card rounded-lg border border-primary/30">
-                  <Code className="w-8 h-8 text-primary mb-2 mx-auto" />
-                  <div className="white-highlight font-cyber text-sm">REACT</div>
-                </div>
-                <div className="text-center p-4 bg-card rounded-lg border border-yellow-400/30">
-                  <Cpu className="w-8 h-8 text-yellow-400 mb-2 mx-auto" />
-                  <div className="white-highlight font-cyber text-sm">NODE.JS</div>
-                </div>
-                <div className="text-center p-4 bg-card rounded-lg border border-purple-400/30">
-                  <Database className="w-8 h-8 text-purple-400 mb-2 mx-auto" />
-                  <div className="white-highlight font-cyber text-sm">POSTGRESQL</div>
-                </div>
-                <div className="text-center p-4 bg-card rounded-lg border border-pink-400/30">
-                  <Cloud className="w-8 h-8 text-pink-400 mb-2 mx-auto" />
-                  <div className="white-highlight font-cyber text-sm">CLOUD</div>
-                </div>
-              </div>
+              </Button>
+              <Button size="lg" className="cyber-button bg-purple-500/20 border-purple-500 text-purple-400 hover:bg-purple-500/30 font-cyber px-8 py-4" asChild>
+                <Link href="/portfolio">VIEW PORTFOLIO</Link>
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Experience Section */}
-      <section className="py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
-              INTEL.<span className="text-yellow-400 animate-glow-pulse">PARTNERSHIP</span>
-            </h2>
-            <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">
-              Enterprise-level expertise applied to every project, regardless of size.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="glass-card border-primary/30 hover:animate-neural-pulse">
-              <CardContent className="p-8 text-center">
-                <div className="text-4xl font-cyber text-primary mb-4">7</div>
-                <div className="white-highlight font-cyber">YEARS EXPERIENCE</div>
-                <div className="text-sm text-yellow-400 mt-2">Building digital solutions</div>
-              </CardContent>
-            </Card>
-
-            <Card className="glass-card border-yellow-400/30 hover:animate-neural-pulse">
-              <CardContent className="p-8 text-center">
-                <div className="text-4xl font-cyber text-yellow-400 mb-4">7</div>
-                <div className="white-highlight font-cyber">WEBSITES DELIVERED</div>
-                <div className="text-sm text-primary mt-2">Successful projects</div>
-              </CardContent>
-            </Card>
-
-            <Card className="glass-card border-purple-400/30 hover:animate-neural-pulse">
-              <CardContent className="p-8 text-center">
-                <div className="text-4xl font-cyber text-purple-400 mb-4">100%</div>
-                <div className="white-highlight font-cyber">CLIENT SATISFACTION</div>
-                <div className="text-sm text-yellow-400 mt-2">Project success rate</div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Philosophy Section */}
-      <section className="py-20 relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-card p-12 rounded-xl scan-line">
-            <h2 className="text-3xl md:text-5xl font-cyber font-bold mb-8 text-center white-highlight">
-              DEVELOPMENT <span className="text-primary animate-glow-pulse">PHILOSOPHY</span>
-            </h2>
+      {/* Bottom Navigation */}
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="glass-card border border-cyan-400/30 p-6">
+              <h3 className="font-cyber text-cyan-400 text-lg tracking-wider mb-4">Primorpho</h3>
+              <p className="text-gray-300 text-sm mb-4">Neural web solutions for the future</p>
+            </div>
             
-            <div className="space-y-8">
-              <div className="border-l-2 border-primary pl-6">
-                <h3 className="text-xl font-cyber text-primary mb-2">NO TEMPLATES</h3>
-                <p className="white-highlight">
-                  Every line of code is written specifically for your business needs. 
-                  No cookie-cutter solutions, no bloated frameworks.
-                </p>
-              </div>
-
-              <div className="border-l-2 border-yellow-400 pl-6">
-                <h3 className="text-xl font-cyber text-yellow-400 mb-2">QUANTUM OPTIMIZATION</h3>
-                <p className="white-highlight">
-                  Performance is not negotiable. Every website is optimized at the molecular level 
-                  for speed, security, and scalability.
-                </p>
-              </div>
-
-              <div className="border-l-2 border-purple-400 pl-6">
-                <h3 className="text-xl font-cyber text-purple-400 mb-2">GROWTH FOCUSED</h3>
-                <p className="white-highlight">
-                  Your website should be a business asset, not just a digital brochure. 
-                  Every element is designed to drive measurable results.
-                </p>
-              </div>
+            <div className="glass-card border border-cyan-400/30 p-6">
+              <h3 className="font-cyber text-cyan-400 text-lg tracking-wider mb-4">Services</h3>
+              <ul className="space-y-2 text-gray-300 text-sm">
+                <li><Link href="/services" className="hover:text-cyan-400 transition-colors">LaunchPad - $2,500</Link></li>
+                <li><Link href="/services" className="hover:text-cyan-400 transition-colors">Pro Presence - $5,500</Link></li>
+                <li><Link href="/services" className="hover:text-cyan-400 transition-colors">Smart Business - $12,000</Link></li>
+              </ul>
             </div>
-
-            <div className="text-center mt-12">
-              <Link href="/contact">
-                <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-primary text-white hover:bg-primary/10">
-                  DISCUSS YOUR PROJECT
-                </Button>
-              </Link>
+            
+            <div className="glass-card border border-cyan-400/30 p-6">
+              <h3 className="font-cyber text-yellow-400 text-lg tracking-wider mb-4">Navigation</h3>
+              <ul className="space-y-2 text-gray-300 text-sm">
+                <li><Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link></li>
+                <li><Link href="/services" className="hover:text-cyan-400 transition-colors">Services</Link></li>
+                <li><Link href="/portfolio" className="hover:text-cyan-400 transition-colors">Portfolio</Link></li>
+                <li><Link href="/contact" className="hover:text-cyan-400 transition-colors">Contact</Link></li>
+              </ul>
             </div>
           </div>
         </div>
