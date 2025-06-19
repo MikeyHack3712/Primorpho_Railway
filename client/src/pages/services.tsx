@@ -174,15 +174,45 @@ export default function Services() {
           <h1 className="text-6xl font-bold mb-6 font-cyber text-cyan-400">
             PREMIUM PACKAGES
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
             Choose your transformation level and customize with powerful add-ons.
           </p>
+          
+          {/* Quick Navigation */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <Button 
+              onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
+              className="cyber-button bg-cyan-400/20 border-cyan-400 text-cyan-400 hover:bg-cyan-400/30 font-cyber px-6 py-3"
+            >
+              VIEW PACKAGES
+            </Button>
+            <Button 
+              onClick={() => document.getElementById('comparison')?.scrollIntoView({ behavior: 'smooth' })}
+              className="cyber-button bg-purple-400/20 border-purple-400 text-purple-400 hover:bg-purple-400/30 font-cyber px-6 py-3"
+            >
+              COMPARE FEATURES
+            </Button>
+            {selectedPackage && (
+              <Button 
+                onClick={() => document.getElementById('addons')?.scrollIntoView({ behavior: 'smooth' })}
+                className="cyber-button bg-yellow-400/20 border-yellow-400 text-yellow-400 hover:bg-yellow-400/30 font-cyber px-6 py-3"
+              >
+                CUSTOMIZE
+              </Button>
+            )}
+          </div>
         </div>
       </section>
 
       {/* Package Selection */}
-      <section className="pb-16 px-4">
+      <section id="packages" className="pb-16 px-4">
         <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold font-cyber text-purple-400 mb-4">
+              SELECT YOUR PACKAGE
+            </h2>
+            <p className="text-gray-300">Click on any package to see available customizations</p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {packages.map((pkg) => (
               <Card 
@@ -245,14 +275,111 @@ export default function Services() {
         </div>
       </section>
 
+      {/* Package Comparison Table */}
+      <section id="comparison" className="py-16 px-4 bg-black/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold font-cyber text-cyan-400 mb-4">
+              COMPARE PACKAGES
+            </h2>
+            <p className="text-gray-300">Detailed feature comparison to help you choose</p>
+          </div>
+          
+          <div className="glass-card p-8 overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-700">
+                  <th className="text-left py-4 px-4 font-cyber text-gray-300">FEATURES</th>
+                  <th className="text-center py-4 px-4 font-cyber text-yellow-400">LAUNCHPAD</th>
+                  <th className="text-center py-4 px-4 font-cyber text-purple-400">PRO PRESENCE</th>
+                  <th className="text-center py-4 px-4 font-cyber text-cyan-400">SMART BUSINESS</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-300">
+                <tr className="border-b border-gray-800">
+                  <td className="py-3 px-4">Pages Included</td>
+                  <td className="text-center py-3 px-4">3-5</td>
+                  <td className="text-center py-3 px-4">8-12</td>
+                  <td className="text-center py-3 px-4">Unlimited</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-3 px-4">Design Complexity</td>
+                  <td className="text-center py-3 px-4">Template-based</td>
+                  <td className="text-center py-3 px-4">Custom Design</td>
+                  <td className="text-center py-3 px-4">Fully Custom</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-3 px-4">SEO Optimization</td>
+                  <td className="text-center py-3 px-4">Basic</td>
+                  <td className="text-center py-3 px-4">Advanced</td>
+                  <td className="text-center py-3 px-4">Enterprise</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-3 px-4">Content Management</td>
+                  <td className="text-center py-3 px-4">Static</td>
+                  <td className="text-center py-3 px-4">Blog/CMS</td>
+                  <td className="text-center py-3 px-4">Full CMS</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-3 px-4">Database Integration</td>
+                  <td className="text-center py-3 px-4">-</td>
+                  <td className="text-center py-3 px-4">Optional</td>
+                  <td className="text-center py-3 px-4">Advanced</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-3 px-4">API Development</td>
+                  <td className="text-center py-3 px-4">-</td>
+                  <td className="text-center py-3 px-4">Basic</td>
+                  <td className="text-center py-3 px-4">Custom APIs</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-3 px-4">AI Features</td>
+                  <td className="text-center py-3 px-4">-</td>
+                  <td className="text-center py-3 px-4">-</td>
+                  <td className="text-center py-3 px-4">Included</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-3 px-4">Support Duration</td>
+                  <td className="text-center py-3 px-4">1 Month</td>
+                  <td className="text-center py-3 px-4">3 Months</td>
+                  <td className="text-center py-3 px-4">Ongoing</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-3 px-4">Available Add-ons</td>
+                  <td className="text-center py-3 px-4">6 Options</td>
+                  <td className="text-center py-3 px-4">13 Options</td>
+                  <td className="text-center py-3 px-4">15 Options</td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 font-cyber">Best For</td>
+                  <td className="text-center py-3 px-4 text-xs">Small businesses, startups</td>
+                  <td className="text-center py-3 px-4 text-xs">Established businesses</td>
+                  <td className="text-center py-3 px-4 text-xs">Enterprise, complex needs</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       {/* Add-ons Selection */}
       {selectedPackage && (
-        <section className="pb-16 px-4">
+        <section id="addons" className="pb-16 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="glass-card p-8 mb-8">
               <h2 className="text-3xl font-bold font-cyber text-cyan-400 mb-6 text-center">
                 CUSTOMIZE YOUR PACKAGE
               </h2>
+              <div className="text-center mb-8">
+                <p className="text-gray-300 mb-4">
+                  Selected: <span className="text-cyan-400 font-cyber">
+                    {packages.find(p => p.id === selectedPackage)?.name}
+                  </span>
+                </p>
+                <p className="text-sm text-gray-400">
+                  Choose add-ons to enhance your package. Prices update automatically.
+                </p>
+              </div>
               
               {Object.entries(groupedAddOns).map(([category, addOns]) => (
                 <div key={category} className="mb-8">
