@@ -362,120 +362,194 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Add-ons Selection */}
+      {/* Add-ons Selection with Sticky Calculator */}
       {selectedPackage && (
         <section id="addons" className="pb-16 px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="glass-card p-8 mb-8">
-              <h2 className="text-3xl font-bold font-cyber text-cyan-400 mb-6 text-center">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold font-cyber text-cyan-400 mb-4">
                 CUSTOMIZE YOUR PACKAGE
               </h2>
-              <div className="text-center mb-8">
-                <p className="text-gray-300 mb-4">
-                  Selected: <span className="text-cyan-400 font-cyber">
-                    {packages.find(p => p.id === selectedPackage)?.name}
-                  </span>
-                </p>
-                <p className="text-sm text-gray-400">
-                  Choose add-ons to enhance your package. Prices update automatically.
-                </p>
-              </div>
-              
-              {Object.entries(groupedAddOns).map(([category, addOns]) => (
-                <div key={category} className="mb-8">
-                  <h3 className="text-xl font-cyber text-purple-400 mb-4 tracking-wider">
-                    {category.toUpperCase()} ADD-ONS
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {addOns.map((addOn) => (
-                      <div 
-                        key={addOn.id}
-                        className={`p-4 rounded border cursor-pointer transition-all duration-300 ${
-                          selectedAddOns.includes(addOn.id)
-                            ? 'border-cyan-400 bg-cyan-400/10'
-                            : 'border-gray-700 bg-gray-800/20 hover:border-gray-600'
-                        }`}
-                        onClick={() => handleAddOnToggle(addOn.id)}
-                      >
-                        <div className="flex items-start space-x-3">
-                          <Checkbox 
-                            checked={selectedAddOns.includes(addOn.id)}
-                            onChange={() => handleAddOnToggle(addOn.id)}
-                            className="mt-1"
-                          />
-                          <div className="flex-1">
-                            <div className="flex items-center space-x-2 mb-2">
-                              {addOn.icon}
-                              <span className="font-cyber text-sm text-cyan-400">
-                                {addOn.name}
-                              </span>
-                              <span className="font-cyber text-sm text-yellow-400">
-                                +${addOn.price}
-                              </span>
-                            </div>
-                            <p className="text-xs text-gray-400">{addOn.description}</p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              <p className="text-gray-300 mb-2">
+                Selected: <span className="text-cyan-400 font-cyber">
+                  {packages.find(p => p.id === selectedPackage)?.name}
+                </span>
+              </p>
+              <p className="text-sm text-gray-400">
+                Choose add-ons below. Your pricing updates instantly on the right.
+              </p>
             </div>
 
-            {/* Price Summary */}
-            <div className="glass-card p-8 text-center">
-              <div className="mb-6">
-                <h3 className="text-2xl font-cyber text-cyan-400 mb-4">PACKAGE SUMMARY</h3>
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-300">Base Package:</span>
-                    <span className="text-white font-cyber">
-                      ${packages.find(p => p.id === selectedPackage)?.basePrice.toLocaleString()}
-                    </span>
-                  </div>
-                  {selectedAddOns.length > 0 && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Add-ons ({selectedAddOns.length}):</span>
-                      <span className="text-yellow-400 font-cyber">
-                        +${selectedAddOns.reduce((total, addOnId) => {
-                          const addOn = allAddOns.find(a => a.id === addOnId);
-                          return total + (addOn?.price || 0);
-                        }, 0).toLocaleString()}
-                      </span>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Add-ons Selection - Left Side */}
+              <div className="lg:col-span-2">
+                <div className="glass-card p-6">
+                  {Object.entries(groupedAddOns).map(([category, addOns]) => (
+                    <div key={category} className="mb-8">
+                      <h3 className="text-lg font-cyber text-purple-400 mb-4 tracking-wider flex items-center">
+                        <div className="w-1 h-6 bg-purple-400 mr-3"></div>
+                        {category.toUpperCase()} ADD-ONS
+                      </h3>
+                      <div className="space-y-3">
+                        {addOns.map((addOn) => (
+                          <div 
+                            key={addOn.id}
+                            className={`p-4 rounded border cursor-pointer transition-all duration-300 ${
+                              selectedAddOns.includes(addOn.id)
+                                ? 'border-cyan-400 bg-cyan-400/10 shadow-lg shadow-cyan-400/20'
+                                : 'border-gray-700 bg-gray-800/20 hover:border-gray-600 hover:bg-gray-700/20'
+                            }`}
+                            onClick={() => handleAddOnToggle(addOn.id)}
+                          >
+                            <div className="flex items-start space-x-4">
+                              <Checkbox 
+                                checked={selectedAddOns.includes(addOn.id)}
+                                onChange={() => handleAddOnToggle(addOn.id)}
+                                className="mt-1"
+                              />
+                              <div className="flex-1">
+                                <div className="flex items-center justify-between mb-2">
+                                  <div className="flex items-center space-x-2">
+                                    {addOn.icon}
+                                    <span className="font-cyber text-sm text-cyan-400 font-semibold">
+                                      {addOn.name}
+                                    </span>
+                                  </div>
+                                  <span className="font-cyber text-lg text-yellow-400 font-bold">
+                                    +${addOn.price}
+                                  </span>
+                                </div>
+                                <p className="text-xs text-gray-400 leading-relaxed">{addOn.description}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  )}
-                  <div className="border-t border-gray-700 pt-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-xl font-cyber text-cyan-400">TOTAL:</span>
-                      <span className="text-3xl font-bold font-cyber text-cyan-400">
-                        ${calculateTotal().toLocaleString()}
-                      </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sticky Calculator - Right Side */}
+              <div className="lg:col-span-1">
+                <div className="sticky top-32">
+                  <div className="glass-card p-6 border-cyan-400/30">
+                    <h3 className="text-xl font-cyber text-cyan-400 mb-6 text-center">
+                      PRICE CALCULATOR
+                    </h3>
+                    
+                    {/* Selected Package Display */}
+                    <div className="mb-6 p-4 bg-gray-800/30 rounded border border-gray-700">
+                      <div className="text-center">
+                        <div className="text-sm text-gray-400 mb-1">SELECTED PACKAGE</div>
+                        <div className="font-cyber text-lg text-cyan-400 mb-2">
+                          {packages.find(p => p.id === selectedPackage)?.name}
+                        </div>
+                        <div className="text-2xl font-bold font-cyber text-white">
+                          ${packages.find(p => p.id === selectedPackage)?.basePrice.toLocaleString()}
+                        </div>
+                        {packages.find(p => p.id === selectedPackage)?.monthlyPrice && (
+                          <div className="text-sm text-gray-400 mt-1">
+                            + ${packages.find(p => p.id === selectedPackage)?.monthlyPrice}/month
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Selected Add-ons */}
+                    <div className="mb-6">
+                      <div className="text-sm font-cyber text-purple-400 mb-3 tracking-wider">
+                        SELECTED ADD-ONS ({selectedAddOns.length})
+                      </div>
+                      {selectedAddOns.length === 0 ? (
+                        <div className="text-center py-4 text-gray-500 text-sm">
+                          No add-ons selected
+                        </div>
+                      ) : (
+                        <div className="space-y-2 max-h-64 overflow-y-auto">
+                          {selectedAddOns.map((addOnId) => {
+                            const addOn = allAddOns.find(a => a.id === addOnId);
+                            if (!addOn) return null;
+                            return (
+                              <div key={addOnId} className="flex items-center justify-between py-2 px-3 bg-gray-800/20 rounded">
+                                <div className="flex items-center space-x-2">
+                                  {addOn.icon}
+                                  <span className="text-xs text-gray-300">{addOn.name}</span>
+                                </div>
+                                <span className="text-xs font-cyber text-yellow-400">
+                                  +${addOn.price}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Pricing Breakdown */}
+                    <div className="border-t border-gray-700 pt-4 mb-6">
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-300">Base Package:</span>
+                          <span className="text-white font-cyber">
+                            ${packages.find(p => p.id === selectedPackage)?.basePrice.toLocaleString()}
+                          </span>
+                        </div>
+                        {selectedAddOns.length > 0 && (
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-300">Add-ons:</span>
+                            <span className="text-yellow-400 font-cyber">
+                              +${selectedAddOns.reduce((total, addOnId) => {
+                                const addOn = allAddOns.find(a => a.id === addOnId);
+                                return total + (addOn?.price || 0);
+                              }, 0).toLocaleString()}
+                            </span>
+                          </div>
+                        )}
+                        <div className="border-t border-gray-600 pt-2">
+                          <div className="flex justify-between items-center">
+                            <span className="text-xl font-cyber text-cyan-400">TOTAL:</span>
+                            <span className="text-3xl font-bold font-cyber text-cyan-400">
+                              ${calculateTotal().toLocaleString()}
+                            </span>
+                          </div>
+                        </div>
+                        {packages.find(p => p.id === selectedPackage)?.monthlyPrice && (
+                          <div className="text-center text-sm text-gray-400 mt-2">
+                            + ${packages.find(p => p.id === selectedPackage)?.monthlyPrice}/month ongoing
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="space-y-3">
+                      <Button 
+                        className="w-full cyber-button bg-cyan-400/20 border-cyan-400 text-cyan-400 hover:bg-cyan-400/30 font-cyber py-3"
+                        asChild
+                      >
+                        <Link href="/reserve-slot">
+                          <ArrowRight className="w-4 h-4 mr-2" />
+                          RESERVE SLOT
+                        </Link>
+                      </Button>
+                      <Button 
+                        className="w-full cyber-button bg-purple-400/20 border-purple-400 text-purple-400 hover:bg-purple-400/30 font-cyber py-3"
+                        asChild
+                      >
+                        <Link href="/contact">
+                          CUSTOM QUOTE
+                        </Link>
+                      </Button>
+                      <Button 
+                        onClick={() => setSelectedPackage(null)}
+                        className="w-full cyber-button bg-gray-600/20 border-gray-600 text-gray-400 hover:bg-gray-600/30 font-cyber py-2 text-sm"
+                      >
+                        CHANGE PACKAGE
+                      </Button>
                     </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="flex flex-col lg:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  className="cyber-button bg-cyan-400/20 border-cyan-400 text-cyan-400 hover:bg-cyan-400/30 font-cyber px-12 py-6 text-lg"
-                  asChild
-                >
-                  <Link href="/reserve-slot">
-                    RESERVE YOUR SLOT
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Link>
-                </Button>
-                <Button 
-                  size="lg" 
-                  className="cyber-button bg-purple-400/20 border-purple-400 text-purple-400 hover:bg-purple-400/30 font-cyber px-12 py-6 text-lg"
-                  asChild
-                >
-                  <Link href="/contact">
-                    DISCUSS CUSTOM NEEDS
-                  </Link>
-                </Button>
               </div>
             </div>
           </div>
