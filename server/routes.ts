@@ -163,7 +163,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Website audit tool
   app.post('/api/audit', async (req, res) => {
     try {
-      const { websiteUrl } = auditFormSchema.parse(req.body);
+      const { websiteUrl: rawUrl } = auditFormSchema.parse(req.body);
+      
+      // Normalize URL - add https:// if no protocol specified
+      let websiteUrl = rawUrl.trim();
+      if (!websiteUrl.startsWith('http://') && !websiteUrl.startsWith('https://')) {
+        websiteUrl = 'https://' + websiteUrl;
+      }
+      
+      // Basic URL validation
+      try {
+        new URL(websiteUrl);
+      } catch (error) {
+        return res.status(400).json({ 
+          success: false,
+          message: "Invalid URL format. Please enter a valid website address." 
+        });
+      }
       
       // Check if we have a recent audit for this URL
       const existingAudit = await storage.getAuditResultByUrl(websiteUrl);
@@ -188,7 +204,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         
         if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          if (response.status === 404) {
+            throw new Error("Website not found. Please check the URL and try again.");
+          } else if (response.status >= 500) {
+            throw new Error("Website is currently unavailable. Please try again later.");
+          } else if (response.status === 403) {
+            throw new Error("Access denied. The website may be blocking automated requests.");
+          } else {
+            throw new Error(`Unable to access website (HTTP ${response.status}). Please verify the URL is correct.`);
+          }
         }
         
         const html = await response.text();
@@ -235,6 +259,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
       } catch (error) {
         console.error("Website audit error:", error);
+        
+        let errorMessage = "Failed to audit website";
+        let suggestions = ['Check if the website is accessible and properly configured'];
+        
+        if (error instanceof Error) {
+          if (error.message.includes('ENOTFOUND') || error.message.includes('getaddrinfo')) {
+            errorMessage = "Website not found. Please check if the domain name is correct.";
+            suggestions = ['Verify the website address is spelled correctly', 'Make sure the website exists and is online'];
+          } else if (error.message.includes('ECONNREFUSED')) {
+            errorMessage = "Connection refused. The website may be down or blocking requests.";
+            suggestions = ['Try again later', 'Check if the website is online in your browser'];
+          } else if (error.message.includes('timeout') || error.message.includes('ETIMEDOUT')) {
+            errorMessage = "Website took too long to respond. It may be slow or unavailable.";
+            suggestions = ['Try again in a few minutes', 'Check if the website loads in your browser'];
+          } else {
+            errorMessage = error.message;
+          }
+        }
+        
         auditResults = {
           websiteUrl,
           performanceScore: 0,
@@ -243,8 +286,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           mobileScore: 0,
           accessibilityScore: 0,
           recommendations: {
-            error: `Failed to audit website: ${error instanceof Error ? error.message : 'Unknown error'}`,
-            suggestions: ['Check if the website is accessible and properly configured']
+            error: errorMessage,
+            suggestions: suggestions
           }
         };
       }

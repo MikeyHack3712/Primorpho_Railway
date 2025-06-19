@@ -49,24 +49,32 @@ export default function Tools() {
 
   const auditMutation = useMutation({
     mutationFn: async (data: AuditFormData) => {
-      console.log("Audit request data:", data);
       const response = await apiRequest("POST", "/api/audit", data);
       const result = await response.json();
-      console.log("Audit response:", result);
       return result;
     },
     onSuccess: (data) => {
-      console.log("Audit success data:", data);
-      setAuditResult(data.audit);
+      // Handle successful audit with results or error state
+      if (data.success && data.audit) {
+        setAuditResult(data.audit);
+        toast({
+          title: "Neural Scan Complete!",
+          description: data.cached ? "Retrieved from quantum cache" : "Fresh analysis completed",
+          className: "bg-gray-900/90 border-cyan-300/30 text-white",
+        });
+      } else if (data.audit && data.audit.recommendations && data.audit.recommendations.error) {
+        // Handle audit that completed but found an error (invalid/unreachable website)
+        setAuditResult(data.audit);
+        toast({
+          title: "Website Issue Detected",
+          description: data.audit.recommendations.error,
+          variant: "destructive",
+          className: "bg-gray-900/90 border-red-500/30 text-white",
+        });
+      }
       setIsAnalyzing(false);
-      toast({
-        title: "Neural Scan Complete!",
-        description: data.cached ? "Retrieved from quantum cache" : "Fresh analysis completed",
-        className: "bg-gray-900/90 border-cyan-300/30 text-white",
-      });
     },
     onError: (error) => {
-      console.error("Audit error:", error);
       setIsAnalyzing(false);
       toast({
         title: "Scan Failed",
@@ -141,9 +149,9 @@ export default function Tools() {
                 <div className="flex gap-4">
                   <Input
                     id="websiteUrl"
-                    type="url"
+                    type="text"
                     {...form.register("websiteUrl")}
-                    placeholder="https://your-website.com"
+                    placeholder="example.com (no need for https://)"
                     className="flex-1 bg-gray-800/50 border-gray-600/30 text-white placeholder-gray-400"
                     disabled={isAnalyzing}
                   />
