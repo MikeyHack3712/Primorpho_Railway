@@ -82,12 +82,12 @@
 }
 
 .glass-card {
-  background: rgba(0, 20, 40, 0.3);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 255, 255, 0.2);
+  background: rgba(0, 20, 40, 0.2);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 255, 255, 0.15);
   box-shadow: 
-    0 0 20px rgba(0, 255, 255, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 0 10px rgba(0, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .premium-card {
@@ -154,19 +154,16 @@
 }
 
 .cyber-button:hover {
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-  border-color: rgba(0, 255, 255, 0.6);
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.4);
 }
 
 .text-glow-primary {
   color: #00ffff;
   text-shadow: 
-    0 0 5px #00ffff,
-    0 0 10px #00ffff,
-    0 0 20px #00ffff,
-    0 0 40px #00ffff,
-    0 0 80px #00ffff;
-  animation: textPulse 2s ease-in-out infinite alternate;
+    0 0 2px #00ffff,
+    0 0 4px #00ffff,
+    0 0 8px #00ffff;
 }
 
 .text-glow-secondary {
@@ -497,4 +494,64 @@
 @keyframes statusPulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+/* Subtle Futuristic Navigation Effects */
+.nav-scan::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
+  animation: navScan 4s ease-in-out infinite;
+}
+
+@keyframes navScan {
+  0% { left: -100%; opacity: 0; }
+  50% { left: 50%; opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+.futuristic-underline {
+  position: relative;
+}
+
+.futuristic-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 255, 255, 0.6), rgba(255, 0, 255, 0.4));
+  transition: width 0.3s ease;
+}
+
+.futuristic-underline:hover::after {
+  width: 100%;
+}
+
+.data-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+.subtle-glow {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.subtle-glow:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
 }
