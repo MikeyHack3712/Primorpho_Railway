@@ -291,7 +291,7 @@ export default function Contact() {
                     </div>
                     <div className="flex justify-between">
                       <span className="white-highlight">Response Time</span>
-                      <span className="text-yellow-400 font-cyber">< 24H</span>
+                      <span className="text-yellow-400 font-cyber">&lt; 24H</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="white-highlight">Next Available</span>
