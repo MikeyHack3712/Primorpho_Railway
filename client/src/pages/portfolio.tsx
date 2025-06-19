@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, ExternalLink, Code, TrendingUp, Zap } from "lucide-react";
+import TechBackground from "@/components/ui/tech-background";
 
 export default function Portfolio() {
   const projects = [
@@ -56,7 +57,8 @@ export default function Portfolio() {
   ];
 
   return (
-    <div className="min-h-screen bg-background neural-bg">
+    <div className="min-h-screen bg-background neural-bg relative">
+      <TechBackground />
       {/* Header Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-6xl mx-auto text-center">

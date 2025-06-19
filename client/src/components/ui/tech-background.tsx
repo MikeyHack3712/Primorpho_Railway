@@ -44,6 +44,14 @@ export default function TechBackground() {
           <circle cx="170" cy="220" r="2" className="animate-pulse" style={{ animationDelay: '0.5s', animationDuration: '4s' }} />
           <circle cx="380" cy="370" r="2" className="animate-pulse" style={{ animationDelay: '2.5s', animationDuration: '3s' }} />
         </g>
+        
+        {/* Neural Connection Lines */}
+        <g stroke="url(#circuitGradient)" strokeWidth="0.5" fill="none" opacity="0.4">
+          <path d="M200,100 Q300,150 400,200" className="animate-pulse" style={{ animationDelay: '0s', animationDuration: '6s' }} />
+          <path d="M400,200 Q275,250 150,300" className="animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }} />
+          <path d="M150,300 Q375,375 600,450" className="animate-pulse" style={{ animationDelay: '4s', animationDuration: '7s' }} />
+          <path d="M170,220 Q290,295 380,370" className="animate-pulse" style={{ animationDelay: '1s', animationDuration: '4s' }} />
+        </g>
       </svg>
       
       {/* Floating Tech Icons */}

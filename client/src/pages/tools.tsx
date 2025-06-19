@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { auditFormSchema } from "@shared/schema";
 import { z } from "zod";
 import { Search, Zap, Shield, Smartphone, Eye, AlertTriangle, CheckCircle, ArrowRight } from "lucide-react";
+import TechBackground from "@/components/ui/tech-background";
 
 type AuditFormData = z.infer<typeof auditFormSchema>;
 
@@ -105,7 +106,8 @@ export default function Tools() {
   };
 
   return (
-    <div className="min-h-screen bg-background neural-bg">
+    <div className="min-h-screen bg-background neural-bg relative">
+      <TechBackground />
       {/* Header Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
