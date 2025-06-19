@@ -1,20 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "wouter";
-import { ArrowRight, Check, Rocket, Zap, Shield, Clock, Star, Globe, Search, Code, Database, Palette, Users, ShoppingCart, Mail, Phone, BarChart3 } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, Check, Rocket, Zap, Shield } from "lucide-react";
 import { useLocation } from "wouter";
-
-interface AddOn {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  icon: React.ReactNode;
-  category: string;
-}
 
 interface Package {
   id: string;
@@ -27,35 +16,7 @@ interface Package {
   description: string;
   features: string[];
   popular?: boolean;
-  availableAddOns: string[];
 }
-
-const allAddOns: AddOn[] = [
-  // Design & Branding
-  { id: "logo", name: "Custom Logo Design", price: 350, description: "Professional logo with 3 concepts", icon: <Palette className="w-4 h-4" />, category: "Design" },
-  { id: "branding", name: "Brand Identity Kit", price: 750, description: "Complete brand guidelines and assets", icon: <Star className="w-4 h-4" />, category: "Design" },
-  { id: "ui-upgrade", name: "Premium UI Components", price: 500, description: "Advanced animations and interactions", icon: <Code className="w-4 h-4" />, category: "Design" },
-  
-  // Content & SEO
-  { id: "copywriting", name: "Professional Copywriting", price: 450, description: "SEO-optimized content for all pages", icon: <Search className="w-4 h-4" />, category: "Content" },
-  { id: "seo-premium", name: "Advanced SEO Package", price: 650, description: "Technical SEO + keyword research", icon: <BarChart3 className="w-4 h-4" />, category: "SEO" },
-  { id: "blog-setup", name: "Blog System Setup", price: 400, description: "CMS integration with 5 starter posts", icon: <Globe className="w-4 h-4" />, category: "Content" },
-  
-  // Functionality
-  { id: "contact-forms", name: "Advanced Contact Forms", price: 300, description: "Multi-step forms with validation", icon: <Mail className="w-4 h-4" />, category: "Features" },
-  { id: "booking-system", name: "Appointment Booking", price: 800, description: "Calendar integration and scheduling", icon: <Clock className="w-4 h-4" />, category: "Features" },
-  { id: "user-accounts", name: "User Account System", price: 950, description: "Registration, login, and profiles", icon: <Users className="w-4 h-4" />, category: "Features" },
-  { id: "ecommerce", name: "E-commerce Integration", price: 1200, description: "Shopping cart and payment processing", icon: <ShoppingCart className="w-4 h-4" />, category: "Features" },
-  
-  // Technical
-  { id: "database", name: "Custom Database", price: 600, description: "Tailored data management system", icon: <Database className="w-4 h-4" />, category: "Technical" },
-  { id: "api-integration", name: "Third-party API Integration", price: 700, description: "Connect external services", icon: <Code className="w-4 h-4" />, category: "Technical" },
-  { id: "analytics", name: "Advanced Analytics Setup", price: 250, description: "Detailed tracking and reporting", icon: <BarChart3 className="w-4 h-4" />, category: "Technical" },
-  
-  // Support & Maintenance
-  { id: "priority-support", name: "Priority Support (3 months)", price: 400, description: "24/7 priority assistance", icon: <Phone className="w-4 h-4" />, category: "Support" },
-  { id: "training", name: "Team Training Session", price: 350, description: "2-hour comprehensive training", icon: <Users className="w-4 h-4" />, category: "Support" },
-];
 
 const packages: Package[] = [
   {
@@ -74,8 +35,7 @@ const packages: Package[] = [
       "Social Media Links",
       "Google Analytics Setup",
       "1 Month Free Support"
-    ],
-    availableAddOns: ["logo", "copywriting", "contact-forms", "analytics", "priority-support", "training"]
+    ]
   },
   {
     id: "pro-presence",
@@ -95,8 +55,7 @@ const packages: Package[] = [
       "Social Media Integration",
       "3 Months Free Support"
     ],
-    popular: true,
-    availableAddOns: ["logo", "branding", "ui-upgrade", "copywriting", "seo-premium", "blog-setup", "booking-system", "user-accounts", "database", "api-integration", "analytics", "priority-support", "training"]
+    popular: true
   },
   {
     id: "smart-business",
@@ -117,8 +76,7 @@ const packages: Package[] = [
       "Performance Monitoring",
       "Ongoing Optimization",
       "Priority Support"
-    ],
-    availableAddOns: ["logo", "branding", "ui-upgrade", "copywriting", "seo-premium", "blog-setup", "booking-system", "user-accounts", "ecommerce", "database", "api-integration", "analytics", "priority-support", "training"]
+    ]
   }
 ];
 
@@ -129,54 +87,29 @@ export default function Services() {
     setLocation(`/customize-package?package=${packageId}`);
   };
 
-
-
   return (
     <div className="min-h-screen bg-background neural-bg">
       {/* Header */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-6xl font-bold mb-6 font-cyber text-cyan-400">
-            PREMIUM PACKAGES
+          <h1 className="text-6xl font-bold mb-6 font-cyber">
+            <span className="text-cyan-400">SERVICE</span>{" "}
+            <span className="text-purple-400">PACKAGES</span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Choose your transformation level and customize with powerful add-ons.
+          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+            Choose the perfect package for your digital transformation. Each solution is designed to deliver measurable results and accelerate your business growth.
           </p>
-          
-          {/* Quick Navigation */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Button 
-              onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-              className="cyber-button bg-cyan-400/20 border-cyan-400 text-cyan-400 hover:bg-cyan-400/30 font-cyber px-6 py-3"
-            >
-              VIEW PACKAGES
-            </Button>
-            <Button 
-              onClick={() => document.getElementById('comparison')?.scrollIntoView({ behavior: 'smooth' })}
-              className="cyber-button bg-purple-400/20 border-purple-400 text-purple-400 hover:bg-purple-400/30 font-cyber px-6 py-3"
-            >
-              COMPARE FEATURES
-            </Button>
-            {selectedPackage && (
-              <Button 
-                onClick={() => document.getElementById('addons')?.scrollIntoView({ behavior: 'smooth' })}
-                className="cyber-button bg-yellow-400/20 border-yellow-400 text-yellow-400 hover:bg-yellow-400/30 font-cyber px-6 py-3"
-              >
-                CUSTOMIZE
-              </Button>
-            )}
-          </div>
         </div>
       </section>
 
       {/* Package Selection */}
-      <section id="packages" className="pb-16 px-4">
+      <section className="pb-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold font-cyber text-purple-400 mb-4">
-              SELECT YOUR PACKAGE
+            <h2 className="text-3xl font-bold font-cyber text-purple-400 mb-4">
+              CHOOSE YOUR TRANSFORMATION
             </h2>
-            <p className="text-gray-300">Click on any package to see available customizations</p>
+            <p className="text-gray-300">Click on any package to customize it with powerful add-ons</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {packages.map((pkg) => (
@@ -216,20 +149,17 @@ export default function Services() {
                   <div className="space-y-3 mb-8">
                     {pkg.features.map((feature, index) => (
                       <div key={index} className="flex items-center justify-center">
-                        <Check className="w-4 h-4 text-green-400 mr-3" />
-                        <span className="text-sm text-gray-300">{feature}</span>
+                        <Check className="w-4 h-4 text-green-400 mr-3 flex-shrink-0" />
+                        <span className="text-gray-300 text-sm">{feature}</span>
                       </div>
                     ))}
                   </div>
                   
                   <Button 
-                    className={`w-full cyber-button ${
-                      selectedPackage === pkg.id 
-                        ? `bg-${pkg.color}/30 border-${pkg.color} text-${pkg.color}` 
-                        : `bg-${pkg.color}/20 border-${pkg.color} text-${pkg.color}`
-                    } font-cyber py-3 tracking-wider`}
+                    className={`w-full cyber-button bg-${pkg.color}/20 border-${pkg.color} text-${pkg.color} hover:bg-${pkg.color}/30 font-cyber py-3`}
                   >
-                    {selectedPackage === pkg.id ? 'SELECTED' : 'SELECT PACKAGE'}
+                    <ArrowRight className="w-4 h-4 mr-2" />
+                    CUSTOMIZE PACKAGE
                   </Button>
                 </CardContent>
               </Card>
@@ -238,312 +168,40 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Package Comparison Table */}
-      <section id="comparison" className="py-16 px-4 bg-black/20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold font-cyber text-cyan-400 mb-4">
-              COMPARE PACKAGES
-            </h2>
-            <p className="text-gray-300">Detailed feature comparison to help you choose</p>
-          </div>
-          
-          <div className="glass-card p-8 overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-700">
-                  <th className="text-left py-4 px-4 font-cyber text-gray-300">FEATURES</th>
-                  <th className="text-center py-4 px-4 font-cyber text-yellow-400">LAUNCHPAD</th>
-                  <th className="text-center py-4 px-4 font-cyber text-purple-400">PRO PRESENCE</th>
-                  <th className="text-center py-4 px-4 font-cyber text-cyan-400">SMART BUSINESS</th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-300">
-                <tr className="border-b border-gray-800">
-                  <td className="py-3 px-4">Pages Included</td>
-                  <td className="text-center py-3 px-4">3-5</td>
-                  <td className="text-center py-3 px-4">8-12</td>
-                  <td className="text-center py-3 px-4">Unlimited</td>
-                </tr>
-                <tr className="border-b border-gray-800">
-                  <td className="py-3 px-4">Design Complexity</td>
-                  <td className="text-center py-3 px-4">Template-based</td>
-                  <td className="text-center py-3 px-4">Custom Design</td>
-                  <td className="text-center py-3 px-4">Fully Custom</td>
-                </tr>
-                <tr className="border-b border-gray-800">
-                  <td className="py-3 px-4">SEO Optimization</td>
-                  <td className="text-center py-3 px-4">Basic</td>
-                  <td className="text-center py-3 px-4">Advanced</td>
-                  <td className="text-center py-3 px-4">Enterprise</td>
-                </tr>
-                <tr className="border-b border-gray-800">
-                  <td className="py-3 px-4">Content Management</td>
-                  <td className="text-center py-3 px-4">Static</td>
-                  <td className="text-center py-3 px-4">Blog/CMS</td>
-                  <td className="text-center py-3 px-4">Full CMS</td>
-                </tr>
-                <tr className="border-b border-gray-800">
-                  <td className="py-3 px-4">Database Integration</td>
-                  <td className="text-center py-3 px-4">-</td>
-                  <td className="text-center py-3 px-4">Optional</td>
-                  <td className="text-center py-3 px-4">Advanced</td>
-                </tr>
-                <tr className="border-b border-gray-800">
-                  <td className="py-3 px-4">API Development</td>
-                  <td className="text-center py-3 px-4">-</td>
-                  <td className="text-center py-3 px-4">Basic</td>
-                  <td className="text-center py-3 px-4">Custom APIs</td>
-                </tr>
-                <tr className="border-b border-gray-800">
-                  <td className="py-3 px-4">AI Features</td>
-                  <td className="text-center py-3 px-4">-</td>
-                  <td className="text-center py-3 px-4">-</td>
-                  <td className="text-center py-3 px-4">Included</td>
-                </tr>
-                <tr className="border-b border-gray-800">
-                  <td className="py-3 px-4">Support Duration</td>
-                  <td className="text-center py-3 px-4">1 Month</td>
-                  <td className="text-center py-3 px-4">3 Months</td>
-                  <td className="text-center py-3 px-4">Ongoing</td>
-                </tr>
-                <tr className="border-b border-gray-800">
-                  <td className="py-3 px-4">Available Add-ons</td>
-                  <td className="text-center py-3 px-4">6 Options</td>
-                  <td className="text-center py-3 px-4">13 Options</td>
-                  <td className="text-center py-3 px-4">15 Options</td>
-                </tr>
-                <tr>
-                  <td className="py-3 px-4 font-cyber">Best For</td>
-                  <td className="text-center py-3 px-4 text-xs">Small businesses, startups</td>
-                  <td className="text-center py-3 px-4 text-xs">Established businesses</td>
-                  <td className="text-center py-3 px-4 text-xs">Enterprise, complex needs</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      {/* Call to Action */}
+      <section className="pb-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <Card className="glass-card">
+            <CardContent className="p-8 text-center">
+              <h3 className="text-2xl font-bold font-cyber text-cyan-400 mb-4">
+                NEED SOMETHING CUSTOM?
+              </h3>
+              <p className="text-gray-300 mb-6">
+                Every business is unique. If none of our packages fit your exact needs, 
+                let's discuss a custom solution tailored specifically for you.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  className="cyber-button bg-purple-400/20 border-purple-400 text-purple-400 hover:bg-purple-400/30 font-cyber px-8 py-3"
+                  asChild
+                >
+                  <Link href="/contact">
+                    REQUEST CUSTOM QUOTE
+                  </Link>
+                </Button>
+                <Button 
+                  className="cyber-button bg-cyan-400/20 border-cyan-400 text-cyan-400 hover:bg-cyan-400/30 font-cyber px-8 py-3"
+                  asChild
+                >
+                  <Link href="/book-consultation">
+                    BOOK CONSULTATION
+                  </Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
-
-      {/* Add-ons Selection with Sticky Calculator */}
-      {selectedPackage && (
-        <section id="addons" className="pb-16 px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold font-cyber text-cyan-400 mb-4">
-                CUSTOMIZE YOUR PACKAGE
-              </h2>
-              <p className="text-gray-300 mb-2">
-                Selected: <span className="text-cyan-400 font-cyber">
-                  {packages.find(p => p.id === selectedPackage)?.name}
-                </span>
-              </p>
-              <p className="text-sm text-gray-400">
-                Choose add-ons below. Your pricing updates instantly on the right.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Add-ons Selection - Left Side */}
-              <div className="lg:col-span-2">
-                <div className="glass-card p-6">
-                  {Object.entries(groupedAddOns).map(([category, addOns]) => (
-                    <div key={category} className="mb-8">
-                      <h3 className="text-lg font-cyber text-purple-400 mb-4 tracking-wider flex items-center">
-                        <div className="w-1 h-6 bg-purple-400 mr-3"></div>
-                        {category.toUpperCase()} ADD-ONS
-                      </h3>
-                      <div className="space-y-3">
-                        {addOns.map((addOn) => (
-                          <div 
-                            key={addOn.id}
-                            className={`p-4 rounded border cursor-pointer transition-all duration-300 ${
-                              selectedAddOns.includes(addOn.id)
-                                ? 'border-cyan-400 bg-cyan-400/10 shadow-lg shadow-cyan-400/20'
-                                : 'border-gray-700 bg-gray-800/20 hover:border-gray-600 hover:bg-gray-700/20'
-                            }`}
-                            onClick={() => handleAddOnToggle(addOn.id)}
-                          >
-                            <div className="flex items-start space-x-4">
-                              <Checkbox 
-                                checked={selectedAddOns.includes(addOn.id)}
-                                onChange={() => handleAddOnToggle(addOn.id)}
-                                className="mt-1"
-                              />
-                              <div className="flex-1">
-                                <div className="flex items-center justify-between mb-2">
-                                  <div className="flex items-center space-x-2">
-                                    {addOn.icon}
-                                    <span className="font-cyber text-sm text-cyan-400 font-semibold">
-                                      {addOn.name}
-                                    </span>
-                                  </div>
-                                  <span className="font-cyber text-lg text-yellow-400 font-bold">
-                                    +${addOn.price}
-                                  </span>
-                                </div>
-                                <p className="text-xs text-gray-400 leading-relaxed">{addOn.description}</p>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Sticky Calculator - Right Side */}
-              <div className="lg:col-span-1">
-                <div className="sticky top-32">
-                  <div className="glass-card p-6 border-cyan-400/30">
-                    <h3 className="text-xl font-cyber text-cyan-400 mb-6 text-center">
-                      PRICE CALCULATOR
-                    </h3>
-                    
-                    {/* Selected Package Display */}
-                    <div className="mb-6 p-4 bg-gray-800/30 rounded border border-gray-700">
-                      <div className="text-center">
-                        <div className="text-sm text-gray-400 mb-1">SELECTED PACKAGE</div>
-                        <div className="font-cyber text-lg text-cyan-400 mb-2">
-                          {packages.find(p => p.id === selectedPackage)?.name}
-                        </div>
-                        <div className="text-2xl font-bold font-cyber text-white">
-                          ${packages.find(p => p.id === selectedPackage)?.basePrice.toLocaleString()}
-                        </div>
-                        {packages.find(p => p.id === selectedPackage)?.monthlyPrice && (
-                          <div className="text-sm text-gray-400 mt-1">
-                            + ${packages.find(p => p.id === selectedPackage)?.monthlyPrice}/month
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Selected Add-ons */}
-                    <div className="mb-6">
-                      <div className="text-sm font-cyber text-purple-400 mb-3 tracking-wider">
-                        SELECTED ADD-ONS ({selectedAddOns.length})
-                      </div>
-                      {selectedAddOns.length === 0 ? (
-                        <div className="text-center py-4 text-gray-500 text-sm">
-                          No add-ons selected
-                        </div>
-                      ) : (
-                        <div className="space-y-2 max-h-64 overflow-y-auto">
-                          {selectedAddOns.map((addOnId) => {
-                            const addOn = allAddOns.find(a => a.id === addOnId);
-                            if (!addOn) return null;
-                            return (
-                              <div key={addOnId} className="flex items-center justify-between py-2 px-3 bg-gray-800/20 rounded">
-                                <div className="flex items-center space-x-2">
-                                  {addOn.icon}
-                                  <span className="text-xs text-gray-300">{addOn.name}</span>
-                                </div>
-                                <span className="text-xs font-cyber text-yellow-400">
-                                  +${addOn.price}
-                                </span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Pricing Breakdown */}
-                    <div className="border-t border-gray-700 pt-4 mb-6">
-                      <div className="space-y-2">
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-300">Base Package:</span>
-                          <span className="text-white font-cyber">
-                            ${packages.find(p => p.id === selectedPackage)?.basePrice.toLocaleString()}
-                          </span>
-                        </div>
-                        {selectedAddOns.length > 0 && (
-                          <div className="flex justify-between items-center">
-                            <span className="text-gray-300">Add-ons:</span>
-                            <span className="text-yellow-400 font-cyber">
-                              +${selectedAddOns.reduce((total, addOnId) => {
-                                const addOn = allAddOns.find(a => a.id === addOnId);
-                                return total + (addOn?.price || 0);
-                              }, 0).toLocaleString()}
-                            </span>
-                          </div>
-                        )}
-                        <div className="border-t border-gray-600 pt-2">
-                          <div className="flex justify-between items-center">
-                            <span className="text-xl font-cyber text-cyan-400">TOTAL:</span>
-                            <span className="text-3xl font-bold font-cyber text-cyan-400">
-                              ${calculateTotal().toLocaleString()}
-                            </span>
-                          </div>
-                        </div>
-                        {packages.find(p => p.id === selectedPackage)?.monthlyPrice && (
-                          <div className="text-center text-sm text-gray-400 mt-2">
-                            + ${packages.find(p => p.id === selectedPackage)?.monthlyPrice}/month ongoing
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="space-y-3">
-                      <Button 
-                        className="w-full cyber-button bg-cyan-400/20 border-cyan-400 text-cyan-400 hover:bg-cyan-400/30 font-cyber py-3"
-                        asChild
-                      >
-                        <Link href="/reserve-slot">
-                          <ArrowRight className="w-4 h-4 mr-2" />
-                          RESERVE SLOT
-                        </Link>
-                      </Button>
-                      <Button 
-                        className="w-full cyber-button bg-purple-400/20 border-purple-400 text-purple-400 hover:bg-purple-400/30 font-cyber py-3"
-                        asChild
-                      >
-                        <Link href="/contact">
-                          CUSTOM QUOTE
-                        </Link>
-                      </Button>
-                      <Button 
-                        onClick={() => setSelectedPackage(null)}
-                        className="w-full cyber-button bg-gray-600/20 border-gray-600 text-gray-400 hover:bg-gray-600/30 font-cyber py-2 text-sm"
-                      >
-                        CHANGE PACKAGE
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Call to Action */}
-      {!selectedPackage && (
-        <section className="py-16 px-4">
-          <div className="max-w-5xl mx-auto text-center">
-            <div className="glass-card p-12">
-              <h2 className="text-4xl font-bold mb-6 font-cyber text-cyan-400">
-                NEED SOMETHING CUSTOM?
-              </h2>
-              <p className="text-xl mb-8 text-gray-300">
-                Every business is unique. Let's discuss your specific requirements.
-              </p>
-              <Button 
-                size="lg" 
-                className="cyber-button bg-yellow-400/20 border-yellow-400 text-yellow-400 hover:bg-yellow-400/30 font-cyber px-12 py-6 text-lg"
-                asChild
-              >
-                <Link href="/contact">
-                  GET CUSTOM QUOTE
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-      )}
     </div>
   );
 }
