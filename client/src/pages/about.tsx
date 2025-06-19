@@ -21,8 +21,8 @@ export default function About() {
           </h1>
           
           <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 mb-16">
-            <p className="text-xl text-gray-300 leading-relaxed">
-              Creating the future of digital <span className="text-cyan-300">experiences</span>.
+            <p className="text-xl text-readable leading-relaxed">
+              Creating the future of digital <span className="text-cyan-300 font-semibold">experiences</span>.
             </p>
           </div>
         </div>

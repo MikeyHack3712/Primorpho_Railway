@@ -22,8 +22,8 @@ export default function Home() {
           </h1>
           
           <div className="max-w-3xl mx-auto mb-12">
-            <p className="text-xl text-gray-300 leading-relaxed">
-              From vision to velocity, we code <span className="text-cyan-300">TRANSFORMATION</span>.
+            <p className="text-xl text-readable leading-relaxed">
+              From vision to velocity, we code <span className="text-cyan-300 font-semibold">TRANSFORMATION</span>.
             </p>
           </div>
 
@@ -91,10 +91,10 @@ export default function Home() {
       <section className="py-24 px-4 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-6 font-cyber text-cyan-400">
+            <h2 className="text-5xl font-bold mb-6 font-cyber text-cyan-400 text-heading">
               PREMIUM PACKAGES
             </h2>
-            <p className="text-xl text-gray-300">
+            <p className="text-xl text-readable">
               Choose your transformation level.
             </p>
           </div>
@@ -152,7 +152,7 @@ export default function Home() {
                       {service.duration}
                     </div>
                   </div>
-                  <p className="text-gray-300 mb-8">{service.description}</p>
+                  <p className="text-readable mb-8">{service.description}</p>
                   
                   <Button 
                     className={`w-full cyber-button bg-${service.color}/20 border-${service.color} text-${service.color} font-cyber py-3 tracking-wider`}
@@ -174,10 +174,10 @@ export default function Home() {
       <section className="py-24 px-4 relative overflow-hidden">
         <div className="max-w-5xl mx-auto text-center relative">
           <div className="glass-card p-16">
-            <h2 className="text-5xl font-bold mb-8 font-cyber text-cyan-400">
+            <h2 className="text-5xl font-bold mb-8 font-cyber text-cyan-400 text-heading">
               READY TO TRANSCEND?
             </h2>
-            <p className="text-xl mb-12 text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl mb-12 text-readable max-w-3xl mx-auto">
               Join the elite who chose premium digital transformation.
             </p>
             <div className="flex flex-col lg:flex-row gap-8 justify-center">
