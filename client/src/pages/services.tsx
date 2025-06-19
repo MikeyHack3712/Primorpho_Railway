@@ -1,179 +1,242 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "wouter";
-import { ArrowRight, Check, Rocket, Zap, Shield } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowRight, Check, Rocket, Zap, Shield, Clock, Star, Globe, Search, Code, Database, Palette, Users, ShoppingCart, Mail, Phone, BarChart3 } from "lucide-react";
+import { useState } from "react";
 
-// Floating Particles Component
-function FloatingParticles() {
-  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, delay: number}>>([]);
-
-  useEffect(() => {
-    const newParticles = Array.from({length: 20}, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      delay: Math.random() * 6
-    }));
-    setParticles(newParticles);
-  }, []);
-
-  return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      {particles.map((particle) => (
-        <div
-          key={particle.id}
-          className="absolute w-1 h-1 bg-cyan-400 floating-particle"
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            animationDelay: `${particle.delay}s`
-          }}
-        />
-      ))}
-    </div>
-  );
+interface AddOn {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  icon: React.ReactNode;
+  category: string;
 }
 
+interface Package {
+  id: string;
+  name: string;
+  basePrice: number;
+  monthlyPrice?: number;
+  duration: string;
+  color: string;
+  icon: React.ReactNode;
+  description: string;
+  features: string[];
+  popular?: boolean;
+  availableAddOns: string[];
+}
+
+const allAddOns: AddOn[] = [
+  // Design & Branding
+  { id: "logo", name: "Custom Logo Design", price: 350, description: "Professional logo with 3 concepts", icon: <Palette className="w-4 h-4" />, category: "Design" },
+  { id: "branding", name: "Brand Identity Kit", price: 750, description: "Complete brand guidelines and assets", icon: <Star className="w-4 h-4" />, category: "Design" },
+  { id: "ui-upgrade", name: "Premium UI Components", price: 500, description: "Advanced animations and interactions", icon: <Code className="w-4 h-4" />, category: "Design" },
+  
+  // Content & SEO
+  { id: "copywriting", name: "Professional Copywriting", price: 450, description: "SEO-optimized content for all pages", icon: <Search className="w-4 h-4" />, category: "Content" },
+  { id: "seo-premium", name: "Advanced SEO Package", price: 650, description: "Technical SEO + keyword research", icon: <BarChart3 className="w-4 h-4" />, category: "SEO" },
+  { id: "blog-setup", name: "Blog System Setup", price: 400, description: "CMS integration with 5 starter posts", icon: <Globe className="w-4 h-4" />, category: "Content" },
+  
+  // Functionality
+  { id: "contact-forms", name: "Advanced Contact Forms", price: 300, description: "Multi-step forms with validation", icon: <Mail className="w-4 h-4" />, category: "Features" },
+  { id: "booking-system", name: "Appointment Booking", price: 800, description: "Calendar integration and scheduling", icon: <Clock className="w-4 h-4" />, category: "Features" },
+  { id: "user-accounts", name: "User Account System", price: 950, description: "Registration, login, and profiles", icon: <Users className="w-4 h-4" />, category: "Features" },
+  { id: "ecommerce", name: "E-commerce Integration", price: 1200, description: "Shopping cart and payment processing", icon: <ShoppingCart className="w-4 h-4" />, category: "Features" },
+  
+  // Technical
+  { id: "database", name: "Custom Database", price: 600, description: "Tailored data management system", icon: <Database className="w-4 h-4" />, category: "Technical" },
+  { id: "api-integration", name: "Third-party API Integration", price: 700, description: "Connect external services", icon: <Code className="w-4 h-4" />, category: "Technical" },
+  { id: "analytics", name: "Advanced Analytics Setup", price: 250, description: "Detailed tracking and reporting", icon: <BarChart3 className="w-4 h-4" />, category: "Technical" },
+  
+  // Support & Maintenance
+  { id: "priority-support", name: "Priority Support (3 months)", price: 400, description: "24/7 priority assistance", icon: <Phone className="w-4 h-4" />, category: "Support" },
+  { id: "training", name: "Team Training Session", price: 350, description: "2-hour comprehensive training", icon: <Users className="w-4 h-4" />, category: "Support" },
+];
+
+const packages: Package[] = [
+  {
+    id: "launchpad",
+    name: "LAUNCHPAD",
+    basePrice: 2500,
+    duration: "1-2 WEEKS",
+    color: "yellow-400",
+    icon: <Rocket className="w-8 h-8 text-yellow-400" />,
+    description: "Perfect for getting your business online quickly with professional presence.",
+    features: [
+      "3-5 Page Website",
+      "Mobile Responsive Design", 
+      "Basic SEO Optimization",
+      "Contact Form Integration",
+      "Social Media Links",
+      "Google Analytics Setup",
+      "1 Month Free Support"
+    ],
+    availableAddOns: ["logo", "copywriting", "contact-forms", "analytics", "priority-support", "training"]
+  },
+  {
+    id: "pro-presence",
+    name: "PRO PRESENCE", 
+    basePrice: 5500,
+    duration: "2-3 WEEKS",
+    color: "purple-400",
+    icon: <Zap className="w-8 h-8 text-purple-400" />,
+    description: "Comprehensive solution for established businesses seeking premium digital presence.",
+    features: [
+      "8-12 Page Website",
+      "Custom Design System",
+      "Advanced SEO Package",
+      "Blog/News Section",
+      "Lead Generation Forms",
+      "Performance Optimization",
+      "Social Media Integration",
+      "3 Months Free Support"
+    ],
+    popular: true,
+    availableAddOns: ["logo", "branding", "ui-upgrade", "copywriting", "seo-premium", "blog-setup", "booking-system", "user-accounts", "database", "api-integration", "analytics", "priority-support", "training"]
+  },
+  {
+    id: "smart-business",
+    name: "SMART BUSINESS",
+    basePrice: 12000,
+    monthlyPrice: 800,
+    duration: "3-4 WEEKS + ONGOING",
+    color: "cyan-400", 
+    icon: <Shield className="w-8 h-8 text-cyan-400" />,
+    description: "Enterprise-level solution with AI integration and ongoing optimization.",
+    features: [
+      "Unlimited Pages",
+      "Custom Web Application",
+      "AI-Powered Features",
+      "Advanced Database Design",
+      "API Development",
+      "Third-party Integrations",
+      "Performance Monitoring",
+      "Ongoing Optimization",
+      "Priority Support"
+    ],
+    availableAddOns: ["logo", "branding", "ui-upgrade", "copywriting", "seo-premium", "blog-setup", "booking-system", "user-accounts", "ecommerce", "database", "api-integration", "analytics", "priority-support", "training"]
+  }
+];
+
 export default function Services() {
-  const packages = [
-    {
-      name: "LAUNCHPAD",
-      price: "$2,500",
-      duration: "1-2 WEEKS",
-      color: "yellow-400",
-      icon: <Rocket className="w-8 h-8 text-yellow-400" />,
-      description: "Perfect for getting your business online quickly with professional presence.",
-      features: [
-        "3-5 Page Website",
-        "Mobile Responsive Design",
-        "Basic SEO Optimization",
-        "Contact Form Integration",
-        "SSL Security Certificate",
-        "1 Month Support"
-      ]
-    },
-    {
-      name: "PRO PRESENCE",
-      price: "$5,500",
-      duration: "2-3 WEEKS",
-      color: "purple-400",
-      icon: <Zap className="w-8 h-8 text-purple-400" />,
-      popular: true,
-      description: "Comprehensive solution for businesses ready to make serious impact online.",
-      features: [
-        "5-10 Page Website",
-        "Custom Design System",
-        "Advanced SEO & Analytics",
-        "Content Management System",
-        "Performance Optimization",
-        "3 Months Support & Updates"
-      ]
-    },
-    {
-      name: "SMART BUSINESS",
-      price: "$12,000",
-      duration: "3-4 WEEKS + ONGOING",
-      color: "cyan-400",
-      icon: <Shield className="w-8 h-8 text-cyan-400" />,
-      monthly: "+ $800/MONTH",
-      description: "Complete digital transformation with ongoing optimization support.",
-      features: [
-        "Full Business Website",
-        "E-commerce Integration",
-        "Marketing Automation",
-        "A/B Testing & Optimization",
-        "Priority Support & Maintenance",
-        "Monthly Strategy Reviews"
-      ]
+  const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
+  const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
+
+  const handlePackageSelect = (packageId: string) => {
+    setSelectedPackage(packageId);
+    setSelectedAddOns([]);
+  };
+
+  const handleAddOnToggle = (addOnId: string) => {
+    setSelectedAddOns(prev => 
+      prev.includes(addOnId) 
+        ? prev.filter(id => id !== addOnId)
+        : [...prev, addOnId]
+    );
+  };
+
+  const calculateTotal = () => {
+    const pkg = packages.find(p => p.id === selectedPackage);
+    if (!pkg) return 0;
+    
+    const addOnTotal = selectedAddOns.reduce((total, addOnId) => {
+      const addOn = allAddOns.find(a => a.id === addOnId);
+      return total + (addOn?.price || 0);
+    }, 0);
+    
+    return pkg.basePrice + addOnTotal;
+  };
+
+  const getAvailableAddOns = () => {
+    const pkg = packages.find(p => p.id === selectedPackage);
+    if (!pkg) return [];
+    
+    return allAddOns.filter(addOn => pkg.availableAddOns.includes(addOn.id));
+  };
+
+  const groupedAddOns = getAvailableAddOns().reduce((groups, addOn) => {
+    const category = addOn.category;
+    if (!groups[category]) {
+      groups[category] = [];
     }
-  ];
+    groups[category].push(addOn);
+    return groups;
+  }, {} as Record<string, AddOn[]>);
 
   return (
     <div className="min-h-screen bg-background neural-bg">
-      <FloatingParticles />
-      
-      {/* Header Section */}
+      {/* Header */}
       <section className="pt-32 pb-16 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="mb-8">
-            <span className="font-cyber text-sm text-cyan-400 tracking-wider border border-cyan-400/30 px-4 py-2 rounded">
-              NEURAL WEB SOLUTIONS
-            </span>
-          </div>
-          
-          <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight">
-            <span className="text-glow-primary block">SERVICE</span>
-            <span className="text-glow-accent block">PACKAGES</span>
+        <div className="max-w-7xl mx-auto text-center">
+          <h1 className="text-6xl font-bold mb-6 font-cyber text-cyan-400">
+            PREMIUM PACKAGES
           </h1>
-          
-          <div className="max-w-3xl mx-auto glass-card p-8 mb-16 border border-cyan-400/30">
-            <p className="text-xl text-gray-300 leading-relaxed">
-              Choose the perfect package for your <span className="text-cyan-400 font-cyber">business needs</span>.
-            </p>
-          </div>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Choose your transformation level and customize with powerful add-ons.
+          </p>
         </div>
       </section>
 
-      {/* Service Packages */}
-      <section className="pb-24 px-4">
+      {/* Package Selection */}
+      <section className="pb-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {packages.map((pkg, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {packages.map((pkg) => (
               <Card 
-                key={pkg.name} 
-                className={`glass-card p-6 border border-${pkg.color}/30 ${pkg.popular ? 'ring-2 ring-purple-400 bg-purple-400/5' : `bg-${pkg.color}/5`} hover:scale-105 transition-all duration-300`}
+                key={pkg.id}
+                className={`glass-card cursor-pointer transition-all duration-300 ${
+                  selectedPackage === pkg.id ? 'ring-2 ring-' + pkg.color : ''
+                } ${pkg.popular ? 'ring-2 ring-purple-400' : ''}`}
+                onClick={() => handlePackageSelect(pkg.id)}
               >
                 {pkg.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-purple-400 text-black px-3 py-1 rounded text-xs font-cyber tracking-wider">
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                    <Badge className="bg-gradient-to-r from-purple-500 to-cyan-400 text-black px-6 py-2 font-cyber tracking-wider">
                       MOST POPULAR
-                    </span>
+                    </Badge>
                   </div>
                 )}
                 
-                <CardContent className="pt-6 space-y-6">
-                  <div className="text-center">
-                    <div className="flex justify-center mb-4">
-                      {pkg.icon}
+                <CardContent className="pt-8 pb-8 text-center">
+                  <div className="mb-6">{pkg.icon}</div>
+                  <h3 className={`text-2xl font-bold font-cyber text-${pkg.color} mb-4 tracking-wider`}>
+                    {pkg.name}
+                  </h3>
+                  <div className="mb-6">
+                    <div className={`text-4xl font-bold font-cyber text-${pkg.color} mb-2`}>
+                      ${pkg.basePrice.toLocaleString()}
                     </div>
-                    <h3 className={`text-2xl font-bold font-cyber text-${pkg.color} mb-2 tracking-wider`}>
-                      {pkg.name}
-                    </h3>
-                    <div className="space-y-1">
-                      <div className={`text-4xl font-bold font-cyber text-${pkg.color}`}>
-                        {pkg.price}
+                    {pkg.monthlyPrice && (
+                      <div className="text-lg text-gray-400 font-cyber mb-1">
+                        + ${pkg.monthlyPrice}/month
                       </div>
-                      {pkg.monthly && (
-                        <div className="text-sm text-gray-400 font-cyber">{pkg.monthly}</div>
-                      )}
-                      <div className="text-xs text-gray-500 font-cyber tracking-wider">
-                        {pkg.duration}
-                      </div>
+                    )}
+                    <div className="text-sm text-gray-500 font-cyber tracking-wider">
+                      {pkg.duration}
                     </div>
                   </div>
-
-                  <p className="text-gray-300 text-center text-sm">
-                    {pkg.description}
-                  </p>
+                  <p className="text-gray-300 mb-8">{pkg.description}</p>
                   
-                  <ul className="space-y-3">
-                    {pkg.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start gap-3">
-                        <Check className={`w-4 h-4 text-${pkg.color} flex-shrink-0 mt-0.5`} />
+                  <div className="space-y-3 mb-8">
+                    {pkg.features.map((feature, index) => (
+                      <div key={index} className="flex items-center justify-center">
+                        <Check className="w-4 h-4 text-green-400 mr-3" />
                         <span className="text-sm text-gray-300">{feature}</span>
-                      </li>
+                      </div>
                     ))}
-                  </ul>
-
+                  </div>
+                  
                   <Button 
-                    className={`w-full cyber-button font-cyber bg-${pkg.color}/20 border-${pkg.color} text-${pkg.color} hover:bg-${pkg.color}/30 tracking-wider`}
-                    asChild
+                    className={`w-full cyber-button ${
+                      selectedPackage === pkg.id 
+                        ? `bg-${pkg.color}/30 border-${pkg.color} text-${pkg.color}` 
+                        : `bg-${pkg.color}/20 border-${pkg.color} text-${pkg.color}`
+                    } font-cyber py-3 tracking-wider`}
                   >
-                    <Link href="/contact">
-                      SELECT PACKAGE
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Link>
+                    {selectedPackage === pkg.id ? 'SELECTED' : 'SELECT PACKAGE'}
                   </Button>
                 </CardContent>
               </Card>
@@ -182,36 +245,141 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Bottom Navigation */}
-      <section className="py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="glass-card border border-cyan-400/30 p-6">
-              <h3 className="font-cyber text-cyan-400 text-lg tracking-wider mb-4">Primorpho</h3>
-              <p className="text-gray-300 text-sm mb-4">Neural web solutions for the future</p>
+      {/* Add-ons Selection */}
+      {selectedPackage && (
+        <section className="pb-16 px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="glass-card p-8 mb-8">
+              <h2 className="text-3xl font-bold font-cyber text-cyan-400 mb-6 text-center">
+                CUSTOMIZE YOUR PACKAGE
+              </h2>
+              
+              {Object.entries(groupedAddOns).map(([category, addOns]) => (
+                <div key={category} className="mb-8">
+                  <h3 className="text-xl font-cyber text-purple-400 mb-4 tracking-wider">
+                    {category.toUpperCase()} ADD-ONS
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {addOns.map((addOn) => (
+                      <div 
+                        key={addOn.id}
+                        className={`p-4 rounded border cursor-pointer transition-all duration-300 ${
+                          selectedAddOns.includes(addOn.id)
+                            ? 'border-cyan-400 bg-cyan-400/10'
+                            : 'border-gray-700 bg-gray-800/20 hover:border-gray-600'
+                        }`}
+                        onClick={() => handleAddOnToggle(addOn.id)}
+                      >
+                        <div className="flex items-start space-x-3">
+                          <Checkbox 
+                            checked={selectedAddOns.includes(addOn.id)}
+                            onChange={() => handleAddOnToggle(addOn.id)}
+                            className="mt-1"
+                          />
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-2 mb-2">
+                              {addOn.icon}
+                              <span className="font-cyber text-sm text-cyan-400">
+                                {addOn.name}
+                              </span>
+                              <span className="font-cyber text-sm text-yellow-400">
+                                +${addOn.price}
+                              </span>
+                            </div>
+                            <p className="text-xs text-gray-400">{addOn.description}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
-            
-            <div className="glass-card border border-cyan-400/30 p-6">
-              <h3 className="font-cyber text-cyan-400 text-lg tracking-wider mb-4">Services</h3>
-              <ul className="space-y-2 text-gray-300 text-sm">
-                <li>LaunchPad - $2,500</li>
-                <li>Pro Presence - $5,500</li>
-                <li>Smart Business - $12,000</li>
-              </ul>
-            </div>
-            
-            <div className="glass-card border border-cyan-400/30 p-6">
-              <h3 className="font-cyber text-yellow-400 text-lg tracking-wider mb-4">Navigation</h3>
-              <ul className="space-y-2 text-gray-300 text-sm">
-                <li><Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link></li>
-                <li><Link href="/portfolio" className="hover:text-cyan-400 transition-colors">Portfolio</Link></li>
-                <li><Link href="/about" className="hover:text-cyan-400 transition-colors">About</Link></li>
-                <li><Link href="/contact" className="hover:text-cyan-400 transition-colors">Contact</Link></li>
-              </ul>
+
+            {/* Price Summary */}
+            <div className="glass-card p-8 text-center">
+              <div className="mb-6">
+                <h3 className="text-2xl font-cyber text-cyan-400 mb-4">PACKAGE SUMMARY</h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-300">Base Package:</span>
+                    <span className="text-white font-cyber">
+                      ${packages.find(p => p.id === selectedPackage)?.basePrice.toLocaleString()}
+                    </span>
+                  </div>
+                  {selectedAddOns.length > 0 && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-300">Add-ons ({selectedAddOns.length}):</span>
+                      <span className="text-yellow-400 font-cyber">
+                        +${selectedAddOns.reduce((total, addOnId) => {
+                          const addOn = allAddOns.find(a => a.id === addOnId);
+                          return total + (addOn?.price || 0);
+                        }, 0).toLocaleString()}
+                      </span>
+                    </div>
+                  )}
+                  <div className="border-t border-gray-700 pt-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xl font-cyber text-cyan-400">TOTAL:</span>
+                      <span className="text-3xl font-bold font-cyber text-cyan-400">
+                        ${calculateTotal().toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex flex-col lg:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg" 
+                  className="cyber-button bg-cyan-400/20 border-cyan-400 text-cyan-400 hover:bg-cyan-400/30 font-cyber px-12 py-6 text-lg"
+                  asChild
+                >
+                  <Link href="/reserve-slot">
+                    RESERVE YOUR SLOT
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Link>
+                </Button>
+                <Button 
+                  size="lg" 
+                  className="cyber-button bg-purple-400/20 border-purple-400 text-purple-400 hover:bg-purple-400/30 font-cyber px-12 py-6 text-lg"
+                  asChild
+                >
+                  <Link href="/contact">
+                    DISCUSS CUSTOM NEEDS
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Call to Action */}
+      {!selectedPackage && (
+        <section className="py-16 px-4">
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="glass-card p-12">
+              <h2 className="text-4xl font-bold mb-6 font-cyber text-cyan-400">
+                NEED SOMETHING CUSTOM?
+              </h2>
+              <p className="text-xl mb-8 text-gray-300">
+                Every business is unique. Let's discuss your specific requirements.
+              </p>
+              <Button 
+                size="lg" 
+                className="cyber-button bg-yellow-400/20 border-yellow-400 text-yellow-400 hover:bg-yellow-400/30 font-cyber px-12 py-6 text-lg"
+                asChild
+              >
+                <Link href="/contact">
+                  GET CUSTOM QUOTE
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
