@@ -84,6 +84,8 @@ export default function Services() {
   const [, setLocation] = useLocation();
 
   const handlePackageSelect = (packageId: string) => {
+    console.log('Package selected:', packageId);
+    console.log('Navigating to:', `/customize-package?package=${packageId}`);
     setLocation(`/customize-package?package=${packageId}`);
   };
 

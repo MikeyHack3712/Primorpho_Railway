@@ -126,19 +126,33 @@ export default function CustomizePackage() {
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
   
   // Get package from URL parameters
-  const urlParams = new URLSearchParams(location.split('?')[1] || '');
+  const urlParams = new URLSearchParams(window.location.search);
   const packageId = urlParams.get('package');
   const selectedPackage = packages.find(p => p.id === packageId);
+  
+  console.log('CustomizePackage loaded');
+  console.log('URL search:', window.location.search);
+  console.log('Package ID:', packageId);
+  console.log('Selected package:', selectedPackage);
 
   // Redirect if no valid package
   useEffect(() => {
-    if (!selectedPackage) {
+    if (!packageId) {
+      console.log('No package ID found, redirecting to services');
+      window.location.href = '/services';
+    } else if (!selectedPackage) {
+      console.log('Invalid package ID:', packageId, 'redirecting to services');
       window.location.href = '/services';
     }
-  }, [selectedPackage]);
+  }, [packageId, selectedPackage]);
 
-  if (!selectedPackage) {
-    return null;
+  if (!packageId || !selectedPackage) {
+    return <div className="min-h-screen bg-background neural-bg flex items-center justify-center">
+      <div className="text-center">
+        <div className="text-cyan-400 font-cyber text-xl mb-4">LOADING PACKAGE...</div>
+        <div className="text-gray-400">Redirecting to services if package not found</div>
+      </div>
+    </div>;
   }
 
   const handleAddOnToggle = (addOnId: string) => {
