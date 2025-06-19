@@ -49,10 +49,14 @@ export default function Tools() {
 
   const auditMutation = useMutation({
     mutationFn: async (data: AuditFormData) => {
+      console.log("Audit request data:", data);
       const response = await apiRequest("POST", "/api/audit", data);
-      return response.json();
+      const result = await response.json();
+      console.log("Audit response:", result);
+      return result;
     },
     onSuccess: (data) => {
+      console.log("Audit success data:", data);
       setAuditResult(data.audit);
       setIsAnalyzing(false);
       toast({
@@ -62,6 +66,7 @@ export default function Tools() {
       });
     },
     onError: (error) => {
+      console.error("Audit error:", error);
       setIsAnalyzing(false);
       toast({
         title: "Scan Failed",
