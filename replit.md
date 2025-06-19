@@ -162,6 +162,14 @@ Changelog:
   * Updated Portfolio project cards with clean glass morphism design
   * Consistent use of cyan-300, purple-300, yellow-300 colors with opacity for softer look
   * All pages now have unified clean, professional futuristic aesthetic
+- June 19, 2025. Enhanced neural audit system with improved user experience
+  * Fixed compilation errors and restored full audit functionality
+  * Added automatic URL normalization (auto-adds https:// when missing)
+  * Implemented comprehensive error handling for invalid/unreachable websites
+  * Added specific error messages for DNS failures, connection issues, and timeouts
+  * Updated placeholder text to clarify users don't need to type "https://"
+  * Enhanced frontend error display with helpful suggestions for website issues
+  * Neural audit tool now provides clear feedback for all website validation scenarios
 ```
 
 ## User Preferences

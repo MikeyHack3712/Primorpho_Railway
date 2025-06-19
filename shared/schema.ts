@@ -121,5 +121,5 @@ export const slotReservationFormSchema = insertSlotReservationSchema.pick({
 });
 
 export const auditFormSchema = z.object({
-  websiteUrl: z.string().url("Please enter a valid URL"),
+  websiteUrl: z.string().min(1, "Please enter a website URL").trim(),
 });
