@@ -195,37 +195,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const $ = cheerio.load(html);
         
         // Performance analysis
-        const performanceScore = calculatePerformanceScore($, html);
+        const performanceData = calculatePerformanceScore($, html);
         
         // SEO analysis
-        const seoScore = calculateSEOScore($);
+        const seoData = calculateSEOScore($);
         
         // Security analysis
-        const securityScore = calculateSecurityScore($, response);
+        const securityData = calculateSecurityScore($, response);
         
         // Mobile analysis
-        const mobileScore = calculateMobileScore($);
+        const mobileData = calculateMobileScore($);
         
         // Accessibility analysis
-        const accessibilityScore = calculateAccessibilityScore($);
+        const accessibilityData = calculateAccessibilityScore($);
         
-        // Generate recommendations
-        const recommendations = generateRecommendations({
-          performance: performanceScore,
-          seo: seoScore,
-          security: securityScore,
-          mobile: mobileScore,
-          accessibility: accessibilityScore
-        }, $);
+        // Combine all recommendations
+        const allRecommendations = {
+          performance: performanceData.recommendations,
+          seo: seoData.recommendations,
+          security: securityData.recommendations,
+          mobile: mobileData.recommendations,
+          accessibility: accessibilityData.recommendations,
+          priority: [
+            ...performanceData.recommendations.filter((r: string) => r.includes('large') || r.includes('slow')),
+            ...seoData.recommendations.filter((r: string) => r.includes('Missing') || r.includes('title')),
+            ...securityData.recommendations.filter((r: string) => r.includes('HTTPS') || r.includes('security'))
+          ].slice(0, 5) // Top 5 priority issues
+        };
         
         auditResults = {
           websiteUrl,
-          performanceScore,
-          seoScore,
-          securityScore,
-          mobileScore,
-          accessibilityScore,
-          recommendations
+          performanceScore: performanceData.score,
+          seoScore: seoData.score,
+          securityScore: securityData.score,
+          mobileScore: mobileData.score,
+          accessibilityScore: accessibilityData.score,
+          recommendations: allRecommendations
         };
         
       } catch (error) {
@@ -513,85 +518,48 @@ function calculateMobileScore($: cheerio.CheerioAPI): { score: number; recommend
     recommendations.push(`${smallText} elements with small text detected. Use minimum 14px font size for mobile readability.`);
   }
   
-  return Math.max(0, score);
+  return { score: Math.max(0, score), recommendations };
 }
 
-function calculateAccessibilityScore($: cheerio.CheerioAPI): number {
+function calculateAccessibilityScore($: cheerio.CheerioAPI): { score: number; recommendations: string[] } {
   let score = 100;
+  const recommendations: string[] = [];
   
   // Check for alt attributes on images
   const imagesWithoutAlt = $('img:not([alt])').length;
-  if (imagesWithoutAlt > 0) score -= Math.min(25, imagesWithoutAlt * 5);
+  if (imagesWithoutAlt > 0) {
+    score -= Math.min(25, imagesWithoutAlt * 5);
+    recommendations.push(`${imagesWithoutAlt} images missing alt attributes. Add descriptive alt text for screen readers.`);
+  }
   
   // Check for form labels
   const inputsWithoutLabels = $('input:not([aria-label]):not([id])').length;
-  if (inputsWithoutLabels > 0) score -= Math.min(20, inputsWithoutLabels * 5);
+  if (inputsWithoutLabels > 0) {
+    score -= Math.min(20, inputsWithoutLabels * 5);
+    recommendations.push(`${inputsWithoutLabels} form inputs missing labels. Add proper label associations.`);
+  }
   
   // Check for proper heading hierarchy
   const h1Count = $('h1').length;
-  if (h1Count !== 1) score -= 10;
-  
-  // Check for color contrast indicators
-  const colorStyles = $('[style*="color"]').length;
-  if (colorStyles === 0) score -= 5;
+  if (h1Count !== 1) {
+    score -= 10;
+    recommendations.push(`Found ${h1Count} H1 tags. Use exactly one H1 per page for proper structure.`);
+  }
   
   // Check for ARIA attributes
   const ariaElements = $('[aria-label], [aria-describedby], [role]').length;
-  if (ariaElements === 0) score -= 15;
+  if (ariaElements === 0) {
+    score -= 15;
+    recommendations.push("No ARIA attributes found. Add ARIA labels and roles for better accessibility.");
+  }
   
-  return Math.max(0, score);
-}
-
-function generateRecommendations(scores: any, $: cheerio.CheerioAPI) {
-  const recommendations = {
-    performance: [] as string[],
-    seo: [] as string[],
-    security: [] as string[],
-    mobile: [] as string[],
-    accessibility: [] as string[],
-    priority: [] as string[]
-  };
-
-  // Performance recommendations
-  if (scores.performance < 80) {
-    recommendations.performance.push('Optimize images and enable compression');
-    recommendations.performance.push('Minimize CSS and JavaScript files');
-    recommendations.performance.push('Implement caching strategies');
-    recommendations.priority.push('Performance optimization is critical for user experience');
+  // Check for keyboard navigation
+  const focusableElements = $('a, button, input, select, textarea').length;
+  const elementsWithTabIndex = $('[tabindex]').length;
+  if (focusableElements > 0 && elementsWithTabIndex === 0) {
+    score -= 10;
+    recommendations.push("Consider adding tabindex attributes for better keyboard navigation.");
   }
-
-  // SEO recommendations
-  if (scores.seo < 80) {
-    if (!$('title').text()) recommendations.seo.push('Add a descriptive title tag');
-    if (!$('meta[name="description"]').attr('content')) recommendations.seo.push('Add a meta description');
-    if ($('img:not([alt])').length > 0) recommendations.seo.push('Add alt attributes to all images');
-    recommendations.priority.push('SEO improvements will increase search visibility');
-  }
-
-  // Security recommendations
-  if (scores.security < 80) {
-    recommendations.security.push('Implement HTTPS if not already enabled');
-    recommendations.security.push('Remove or secure inline scripts');
-    recommendations.security.push('Add Content Security Policy headers');
-    recommendations.priority.push('Security vulnerabilities pose significant risks');
-  }
-
-  // Mobile recommendations
-  if (scores.mobile < 80) {
-    if (!$('meta[name="viewport"]').attr('content')) {
-      recommendations.mobile.push('Add viewport meta tag for mobile optimization');
-    }
-    recommendations.mobile.push('Test and improve mobile responsiveness');
-    recommendations.mobile.push('Optimize touch targets and font sizes');
-  }
-
-  // Accessibility recommendations
-  if (scores.accessibility < 80) {
-    recommendations.accessibility.push('Improve color contrast ratios');
-    recommendations.accessibility.push('Add ARIA labels and descriptions');
-    recommendations.accessibility.push('Ensure keyboard navigation works properly');
-    recommendations.priority.push('Accessibility improvements help all users');
-  }
-
-  return recommendations;
+  
+  return { score: Math.max(0, score), recommendations };
 }
