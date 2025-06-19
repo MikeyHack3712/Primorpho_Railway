@@ -58,7 +58,7 @@ export default function Tools() {
       toast({
         title: "Neural Scan Complete!",
         description: data.cached ? "Retrieved from quantum cache" : "Fresh analysis completed",
-        className: "glass-card border-primary/30 text-white",
+        className: "bg-gray-900/90 border-cyan-300/30 text-white",
       });
     },
     onError: (error) => {
@@ -67,7 +67,7 @@ export default function Tools() {
         title: "Scan Failed",
         description: error.message || "Failed to analyze website. Please check the URL and try again.",
         variant: "destructive",
-        className: "glass-card border-red-500/30 text-white",
+        className: "bg-gray-900/90 border-red-500/30 text-white",
       });
     },
   });
@@ -79,7 +79,7 @@ export default function Tools() {
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-primary";
+    if (score >= 80) return "text-green-400";
     if (score >= 60) return "text-yellow-400";
     return "text-red-400";
   };
@@ -92,383 +92,296 @@ export default function Tools() {
   };
 
   return (
-    <div className="pt-16">
-      {/* Hero Section */}
-      <section className="py-20 relative grid-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
-              NEURAL.<span className="text-yellow-400 animate-glow-pulse">AUDIT</span>
-            </h1>
-            <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">
-              Get an instant quantum analysis of your website's performance, SEO, security, and optimization protocols.
+    <div className="min-h-screen bg-background neural-bg">
+      {/* Header Section */}
+      <section className="pt-32 pb-16 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="mb-8">
+            <span className="text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-6 py-2 rounded-md bg-cyan-300/5">
+              NEURAL WEB SOLUTIONS
+            </span>
+          </div>
+          
+          <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
+            <span className="text-cyan-300 block">NEURAL</span>
+            <span className="text-yellow-300 block">AUDIT</span>
+          </h1>
+          
+          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 mb-16">
+            <p className="text-xl text-gray-300 leading-relaxed">
+              Get instant analysis of your website's <span className="text-cyan-300">performance</span>, <span className="text-purple-300">SEO</span>, and <span className="text-yellow-300">optimization</span>.
             </p>
           </div>
         </div>
       </section>
 
       {/* Audit Tool */}
-      <section className="py-20 relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="glass-card border-primary/30 mb-12">
-            <CardHeader>
-              <CardTitle className="text-2xl font-cyber text-primary text-center">
-                WEBSITE QUANTUM SCANNER
-              </CardTitle>
-              <p className="text-center white-highlight">
-                Advanced neural analysis using authentic data extraction and performance metrics
+      <section className="pb-24 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 mb-12">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl text-cyan-300 font-bold mb-4">
+                WEBSITE NEURAL SCANNER
+              </h2>
+              <p className="text-gray-300">
+                Advanced analysis using authentic data extraction and performance metrics
               </p>
-            </CardHeader>
-            <CardContent className="p-8">
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <div>
-                  <Label htmlFor="websiteUrl" className="text-sm font-cyber white-highlight mb-2 block">
-                    WEBSITE URL *
-                  </Label>
-                  <div className="flex gap-4">
-                    <Input
-                      id="websiteUrl"
-                      type="url"
-                      {...form.register("websiteUrl")}
-                      placeholder="https://your-website.com"
-                      className="flex-1 bg-transparent border-primary/30 text-white"
-                      disabled={isAnalyzing}
-                    />
-                    <Button
-                      type="submit"
-                      disabled={isAnalyzing || auditMutation.isPending}
-                      className="cyber-button-hover px-8 py-3 rounded-lg font-cyber font-semibold bg-transparent border border-primary text-white hover:bg-primary/10"
-                    >
-                      {isAnalyzing || auditMutation.isPending ? (
-                        "SCANNING..."
-                      ) : (
-                        <>
-                          <Search className="w-5 h-5 mr-2" />
-                          INITIATE SCAN
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                  {form.formState.errors.websiteUrl && (
-                    <p className="text-red-400 text-xs mt-1">{form.formState.errors.websiteUrl.message}</p>
-                  )}
+            </div>
+            
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <div>
+                <Label htmlFor="websiteUrl" className="text-sm text-gray-300 mb-2 block">
+                  WEBSITE URL *
+                </Label>
+                <div className="flex gap-4">
+                  <Input
+                    id="websiteUrl"
+                    type="url"
+                    {...form.register("websiteUrl")}
+                    placeholder="https://your-website.com"
+                    className="flex-1 bg-gray-800/50 border-gray-600/30 text-white placeholder-gray-400"
+                    disabled={isAnalyzing}
+                  />
+                  <Button
+                    type="submit"
+                    disabled={isAnalyzing || auditMutation.isPending}
+                    className="px-8 py-3 bg-cyan-300/10 border border-cyan-300/30 text-cyan-300 hover:bg-cyan-300/20 transition-all duration-300"
+                  >
+                    {isAnalyzing || auditMutation.isPending ? (
+                      "SCANNING..."
+                    ) : (
+                      <>
+                        <Search className="w-5 h-5 mr-2" />
+                        INITIATE SCAN
+                      </>
+                    )}
+                  </Button>
                 </div>
-              </form>
+                {form.formState.errors.websiteUrl && (
+                  <p className="text-red-400 text-xs mt-1">{form.formState.errors.websiteUrl.message}</p>
+                )}
+              </div>
+            </form>
 
-              {/* Scanning Animation */}
-              {isAnalyzing && (
-                <div className="mt-8 p-8 glass-card rounded-xl scan-line">
-                  <div className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-primary to-yellow-400 rounded-lg flex items-center justify-center animate-pulse">
-                      <Zap className="w-8 h-8 text-black" />
+            {/* Scanning Animation */}
+            {isAnalyzing && (
+              <div className="mt-8 p-8 backdrop-blur-sm bg-gray-800/50 border border-gray-600/30 rounded-lg">
+                <div className="text-center">
+                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-cyan-300 to-yellow-300 rounded-lg flex items-center justify-center animate-pulse">
+                    <Zap className="w-8 h-8 text-black" />
+                  </div>
+                  <h3 className="text-xl text-cyan-300 mb-4">NEURAL ANALYSIS IN PROGRESS</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-300 text-sm">Fetching website data...</span>
+                      <span className="text-cyan-300 text-sm">█████████████████████</span>
                     </div>
-                    <h3 className="text-xl font-cyber text-primary mb-4">NEURAL ANALYSIS IN PROGRESS</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center">
-                        <span className="white-highlight text-sm">Fetching website data...</span>
-                        <span className="text-primary text-sm">█████████████████████</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="white-highlight text-sm">Analyzing performance metrics...</span>
-                        <span className="text-yellow-400 text-sm">█████████████████</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="white-highlight text-sm">Scanning security protocols...</span>
-                        <span className="text-purple-400 text-sm">███████████</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="white-highlight text-sm">Processing optimization opportunities...</span>
-                        <span className="text-primary text-sm">███████</span>
-                      </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-300 text-sm">Analyzing performance metrics...</span>
+                      <span className="text-yellow-300 text-sm">█████████████████</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-300 text-sm">Scanning security protocols...</span>
+                      <span className="text-purple-300 text-sm">███████████</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-300 text-sm">Processing optimization opportunities...</span>
+                      <span className="text-cyan-300 text-sm">███████</span>
                     </div>
                   </div>
                 </div>
-              )}
-            </CardContent>
-          </Card>
+              </div>
+            )}
+          </div>
 
           {/* Audit Results */}
           {auditResult && (
             <div className="space-y-8">
-              {/* Overall Scores */}
-              <Card className="glass-card border-primary/30">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-cyber text-primary text-center">
-                    QUANTUM ANALYSIS RESULTS
-                  </CardTitle>
-                  <p className="text-center white-highlight">
-                    Website: <span className="text-primary">{auditResult.websiteUrl}</span>
+              <div className="backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8">
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl text-cyan-300 font-bold mb-4">
+                    NEURAL ANALYSIS RESULTS
+                  </h2>
+                  <p className="text-gray-300">
+                    Website: <span className="text-cyan-300">{auditResult.websiteUrl}</span>
                   </p>
-                </CardHeader>
-                <CardContent className="p-8">
-                  {auditResult.recommendations.error ? (
-                    <div className="text-center">
-                      <AlertTriangle className="w-16 h-16 text-red-400 mx-auto mb-4" />
-                      <h3 className="text-xl font-cyber text-red-400 mb-4">SCAN ERROR</h3>
-                      <p className="white-highlight mb-4">{auditResult.recommendations.error}</p>
-                      {auditResult.recommendations.suggestions && (
-                        <div className="glass-card p-4 rounded-lg">
-                          <h4 className="text-lg font-cyber text-yellow-400 mb-2">SUGGESTIONS</h4>
-                          <ul className="white-highlight text-sm">
-                            {auditResult.recommendations.suggestions.map((suggestion, index) => (
-                              <li key={index}>• {suggestion}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+                </div>
+                
+                {auditResult.recommendations.error ? (
+                  <div className="text-center">
+                    <AlertTriangle className="w-16 h-16 text-red-400 mx-auto mb-4" />
+                    <h3 className="text-xl text-red-400 mb-4">SCAN ERROR</h3>
+                    <p className="text-gray-300 mb-4">{auditResult.recommendations.error}</p>
+                    {auditResult.recommendations.suggestions && (
+                      <div className="bg-gray-800/50 border border-gray-600/30 rounded-lg p-4">
+                        <h4 className="text-lg text-yellow-300 mb-2">SUGGESTIONS</h4>
+                        <ul className="text-gray-300 text-sm text-left">
+                          {auditResult.recommendations.suggestions.map((suggestion, index) => (
+                            <li key={index} className="mb-1">• {suggestion}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <>
+                    {/* Score Grid */}
+                    <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 mb-8">
                       {[
-                        { label: "PERFORMANCE", score: auditResult.performanceScore, icon: <Zap className="w-6 h-6" /> },
-                        { label: "SEO", score: auditResult.seoScore, icon: <Search className="w-6 h-6" /> },
-                        { label: "SECURITY", score: auditResult.securityScore, icon: <Shield className="w-6 h-6" /> },
-                        { label: "MOBILE", score: auditResult.mobileScore, icon: <Smartphone className="w-6 h-6" /> },
-                        { label: "ACCESSIBILITY", score: auditResult.accessibilityScore, icon: <Eye className="w-6 h-6" /> },
+                        { label: "PERFORMANCE", score: auditResult.performanceScore, icon: <Zap className="w-6 h-6" />, color: "cyan-300" },
+                        { label: "SEO", score: auditResult.seoScore, icon: <Search className="w-6 h-6" />, color: "purple-300" },
+                        { label: "SECURITY", score: auditResult.securityScore, icon: <Shield className="w-6 h-6" />, color: "yellow-300" },
+                        { label: "MOBILE", score: auditResult.mobileScore, icon: <Smartphone className="w-6 h-6" />, color: "cyan-300" },
+                        { label: "ACCESSIBILITY", score: auditResult.accessibilityScore, icon: <Eye className="w-6 h-6" />, color: "purple-300" },
                       ].map((metric, index) => (
-                        <div key={index} className="text-center glass-card p-6 rounded-xl">
-                          <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-primary to-purple-400 rounded-lg flex items-center justify-center">
-                            {metric.icon}
+                        <div key={index} className="text-center bg-gray-800/50 border border-gray-600/30 rounded-lg p-6">
+                          <div className={`w-12 h-12 mx-auto mb-4 bg-${metric.color}/20 border border-${metric.color}/30 rounded-lg flex items-center justify-center`}>
+                            <div className={`text-${metric.color}`}>
+                              {metric.icon}
+                            </div>
                           </div>
-                          <h3 className="text-lg font-cyber text-primary mb-2">{metric.label}</h3>
-                          <div className={`text-3xl font-cyber mb-2 ${getScoreColor(metric.score)}`}>
+                          <h3 className={`text-lg text-${metric.color} mb-2`}>{metric.label}</h3>
+                          <div className={`text-3xl font-bold mb-2 ${getScoreColor(metric.score)}`}>
                             {metric.score}%
                           </div>
-                          <Badge className={`${
-                            metric.score >= 80 ? "bg-primary/20 text-primary border-primary/30" :
+                          <Badge className={`mb-3 ${
+                            metric.score >= 80 ? "bg-green-500/20 text-green-400 border-green-500/30" :
                             metric.score >= 60 ? "bg-yellow-400/20 text-yellow-400 border-yellow-400/30" :
                             "bg-red-500/20 text-red-400 border-red-500/30"
                           }`}>
                             {getScoreBadge(metric.score)}
                           </Badge>
-                          <div className="mt-3">
-                            <Progress 
-                              value={metric.score} 
-                              className="h-2 bg-gray-800"
-                            />
-                          </div>
+                          <Progress 
+                            value={metric.score} 
+                            className="h-2 bg-gray-700"
+                          />
                         </div>
                       ))}
                     </div>
-                  )}
-                </CardContent>
-              </Card>
 
-              {/* Detailed Recommendations */}
-              {!auditResult.recommendations.error && (
-                <div className="grid md:grid-cols-2 gap-8">
-                  {/* Priority Issues */}
-                  {auditResult.recommendations.priority && auditResult.recommendations.priority.length > 0 && (
-                    <Card className="glass-card border-red-500/30">
-                      <CardHeader>
-                        <CardTitle className="text-xl font-cyber text-red-400 flex items-center">
-                          <AlertTriangle className="w-5 h-5 mr-2" />
-                          PRIORITY ISSUES
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
-                          {auditResult.recommendations.priority.map((issue, index) => (
-                            <li key={index} className="white-highlight text-sm flex items-start">
-                              <span className="text-red-400 mr-2">•</span>
-                              {issue}
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  )}
+                    {/* Recommendations */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                      {auditResult?.recommendations?.priority && auditResult.recommendations.priority.length > 0 && (
+                        <div className="bg-gray-800/50 border border-red-400/30 rounded-lg p-6">
+                          <div className="flex items-center mb-4">
+                            <AlertTriangle className="w-5 h-5 text-red-400 mr-2" />
+                            <h3 className="text-xl text-red-400 font-bold">PRIORITY ISSUES</h3>
+                          </div>
+                          <ul className="space-y-2">
+                            {auditResult.recommendations.priority.map((issue, index) => (
+                              <li key={index} className="text-gray-300 text-sm flex items-start">
+                                <span className="text-red-400 mr-2">•</span>
+                                {issue}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
 
-                  {/* Performance Recommendations */}
-                  {auditResult.recommendations.performance && auditResult.recommendations.performance.length > 0 && (
-                    <Card className="glass-card border-primary/30">
-                      <CardHeader>
-                        <CardTitle className="text-xl font-cyber text-primary flex items-center">
-                          <Zap className="w-5 h-5 mr-2" />
-                          PERFORMANCE
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
-                          {auditResult.recommendations.performance.map((rec, index) => (
-                            <li key={index} className="white-highlight text-sm flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              {rec}
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  )}
+                      {auditResult.recommendations.performance && auditResult.recommendations.performance.length > 0 && (
+                        <div className="bg-gray-800/50 border border-cyan-300/30 rounded-lg p-6">
+                          <div className="flex items-center mb-4">
+                            <Zap className="w-5 h-5 text-cyan-300 mr-2" />
+                            <h3 className="text-xl text-cyan-300 font-bold">PERFORMANCE</h3>
+                          </div>
+                          <ul className="space-y-2">
+                            {auditResult.recommendations.performance.map((rec, index) => (
+                              <li key={index} className="text-gray-300 text-sm flex items-start">
+                                <span className="text-cyan-300 mr-2">•</span>
+                                {rec}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
 
-                  {/* SEO Recommendations */}
-                  {auditResult.recommendations.seo && auditResult.recommendations.seo.length > 0 && (
-                    <Card className="glass-card border-yellow-400/30">
-                      <CardHeader>
-                        <CardTitle className="text-xl font-cyber text-yellow-400 flex items-center">
-                          <Search className="w-5 h-5 mr-2" />
-                          SEO OPTIMIZATION
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
-                          {auditResult.recommendations.seo.map((rec, index) => (
-                            <li key={index} className="white-highlight text-sm flex items-start">
-                              <span className="text-yellow-400 mr-2">•</span>
-                              {rec}
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  )}
+                      {auditResult.recommendations.seo && auditResult.recommendations.seo.length > 0 && (
+                        <div className="bg-gray-800/50 border border-purple-300/30 rounded-lg p-6">
+                          <div className="flex items-center mb-4">
+                            <Search className="w-5 h-5 text-purple-300 mr-2" />
+                            <h3 className="text-xl text-purple-300 font-bold">SEO</h3>
+                          </div>
+                          <ul className="space-y-2">
+                            {auditResult.recommendations.seo.map((rec, index) => (
+                              <li key={index} className="text-gray-300 text-sm flex items-start">
+                                <span className="text-purple-300 mr-2">•</span>
+                                {rec}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
 
-                  {/* Security Recommendations */}
-                  {auditResult.recommendations.security && auditResult.recommendations.security.length > 0 && (
-                    <Card className="glass-card border-purple-400/30">
-                      <CardHeader>
-                        <CardTitle className="text-xl font-cyber text-purple-400 flex items-center">
-                          <Shield className="w-5 h-5 mr-2" />
-                          SECURITY
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
-                          {auditResult.recommendations.security.map((rec, index) => (
-                            <li key={index} className="white-highlight text-sm flex items-start">
-                              <span className="text-purple-400 mr-2">•</span>
-                              {rec}
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  )}
-
-                  {/* Mobile Recommendations */}
-                  {auditResult.recommendations.mobile && auditResult.recommendations.mobile.length > 0 && (
-                    <Card className="glass-card border-primary/30">
-                      <CardHeader>
-                        <CardTitle className="text-xl font-cyber text-primary flex items-center">
-                          <Smartphone className="w-5 h-5 mr-2" />
-                          MOBILE OPTIMIZATION
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
-                          {auditResult.recommendations.mobile.map((rec, index) => (
-                            <li key={index} className="white-highlight text-sm flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              {rec}
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  )}
-
-                  {/* Accessibility Recommendations */}
-                  {auditResult.recommendations.accessibility && auditResult.recommendations.accessibility.length > 0 && (
-                    <Card className="glass-card border-yellow-400/30">
-                      <CardHeader>
-                        <CardTitle className="text-xl font-cyber text-yellow-400 flex items-center">
-                          <Eye className="w-5 h-5 mr-2" />
-                          ACCESSIBILITY
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
-                          {auditResult.recommendations.accessibility.map((rec, index) => (
-                            <li key={index} className="white-highlight text-sm flex items-start">
-                              <span className="text-yellow-400 mr-2">•</span>
-                              {rec}
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  )}
-                </div>
-              )}
-
-              {/* CTA Section */}
-              <Card className="glass-card border-2 border-primary/50 scan-line">
-                <CardContent className="p-8 text-center">
-                  <h3 className="text-2xl font-cyber font-bold mb-4 white-highlight">
-                    READY TO <span className="text-primary animate-glow-pulse">OPTIMIZE</span>?
-                  </h3>
-                  <p className="white-highlight mb-8 max-w-2xl mx-auto">
-                    Get professional implementation of these recommendations. 
-                    Our quantum-enhanced development team can resolve all identified issues.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-primary text-white hover:bg-primary/10">
-                      <CheckCircle className="w-5 h-5 mr-2" />
-                      GET OPTIMIZATION QUOTE
-                    </Button>
-                    <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-yellow-400 text-white hover:bg-yellow-400/10">
-                      <ArrowRight className="w-5 h-5 mr-2" />
-                      BOOK CONSULTATION
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                      {auditResult.recommendations.security && auditResult.recommendations.security.length > 0 && (
+                        <div className="bg-gray-800/50 border border-yellow-300/30 rounded-lg p-6">
+                          <div className="flex items-center mb-4">
+                            <Shield className="w-5 h-5 text-yellow-300 mr-2" />
+                            <h3 className="text-xl text-yellow-300 font-bold">SECURITY</h3>
+                          </div>
+                          <ul className="space-y-2">
+                            {auditResult.recommendations.security.map((rec, index) => (
+                              <li key={index} className="text-gray-300 text-sm flex items-start">
+                                <span className="text-yellow-300 mr-2">•</span>
+                                {rec}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           )}
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
-              AUDIT.<span className="text-primary animate-glow-pulse">FEATURES</span>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-300">
+              AUDIT <span className="text-cyan-300">FEATURES</span>
             </h2>
-            <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">
-              Advanced website analysis using authentic data extraction and quantum-enhanced algorithms.
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Advanced website analysis using authentic data extraction and neural-enhanced algorithms.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="glass-card border-primary/30 hover:animate-neural-pulse">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-primary to-purple-400 rounded-lg flex items-center justify-center">
-                  <Zap className="w-8 h-8 text-black" />
-                </div>
-                <h3 className="text-xl font-cyber text-primary mb-4">REAL-TIME ANALYSIS</h3>
-                <p className="white-highlight text-sm">
-                  Live website scanning using Cheerio HTML parsing for authentic performance, 
-                  SEO, and security assessments.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-8 text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-cyan-300/20 border border-cyan-300/30 rounded-lg flex items-center justify-center">
+                <Zap className="w-8 h-8 text-cyan-300" />
+              </div>
+              <h3 className="text-xl text-cyan-300 mb-4">REAL-TIME ANALYSIS</h3>
+              <p className="text-gray-300 text-sm">
+                Live website scanning using Cheerio HTML parsing for authentic performance, 
+                SEO, and security assessments.
+              </p>
+            </div>
 
-            <Card className="glass-card border-yellow-400/30 hover:animate-neural-pulse">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-primary rounded-lg flex items-center justify-center">
-                  <Shield className="w-8 h-8 text-black" />
-                </div>
-                <h3 className="text-xl font-cyber text-yellow-400 mb-4">COMPREHENSIVE SCAN</h3>
-                <p className="white-highlight text-sm">
-                  Multi-layer analysis covering performance, SEO, security, mobile responsiveness, 
-                  and accessibility standards.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-yellow-300/20 rounded-lg p-8 text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-yellow-300/20 border border-yellow-300/30 rounded-lg flex items-center justify-center">
+                <Shield className="w-8 h-8 text-yellow-300" />
+              </div>
+              <h3 className="text-xl text-yellow-300 mb-4">COMPREHENSIVE SCAN</h3>
+              <p className="text-gray-300 text-sm">
+                Multi-layer analysis covering performance, SEO, security, mobile responsiveness, 
+                and accessibility standards.
+              </p>
+            </div>
 
-            <Card className="glass-card border-purple-400/30 hover:animate-neural-pulse">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg flex items-center justify-center">
-                  <Eye className="w-8 h-8 text-black" />
-                </div>
-                <h3 className="text-xl font-cyber text-purple-400 mb-4">ACTIONABLE INSIGHTS</h3>
-                <p className="white-highlight text-sm">
-                  Detailed recommendations with priority levels and specific implementation 
-                  guidance for immediate improvements.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-purple-300/20 rounded-lg p-8 text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-purple-300/20 border border-purple-300/30 rounded-lg flex items-center justify-center">
+                <Eye className="w-8 h-8 text-purple-300" />
+              </div>
+              <h3 className="text-xl text-purple-300 mb-4">ACTIONABLE INSIGHTS</h3>
+              <p className="text-gray-300 text-sm">
+                Detailed recommendations with priority levels and specific implementation 
+                guidance for immediate improvements.
+              </p>
+            </div>
           </div>
         </div>
       </section>
