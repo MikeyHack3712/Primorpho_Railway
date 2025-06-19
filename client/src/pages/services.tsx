@@ -2,29 +2,36 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, Star, Zap, Shield, Rocket, Code, Globe, Cpu, Database } from "lucide-react";
 
 export default function Services() {
   const packages = [
     {
-      name: "LaunchPad",
+      name: "LAUNCHPAD",
       price: "$2,500",
-      duration: "1-2 weeks",
+      duration: "1-2 WEEKS",
+      color: "yellow-400",
+      icon: <Rocket className="w-8 h-8" />,
       description: "Perfect for getting your business online quickly with a professional presence.",
       features: [
         "3-5 Page Website",
         "Mobile Responsive Design",
-        "Basic SEO Setup",
+        "Basic SEO Optimization",
         "Contact Form Integration",
         "SSL Security Certificate",
-        "1 Month Support"
+        "1 Month Support",
+        "Performance Optimization",
+        "Social Media Integration"
       ],
-      cta: "Get Started"
+      glow: "glow-accent"
     },
     {
-      name: "Pro Presence",
+      name: "PRO PRESENCE",
       price: "$5,500",
-      duration: "2-3 weeks",
+      duration: "2-3 WEEKS",
+      color: "purple-400",
+      icon: <Zap className="w-8 h-8" />,
+      popular: true,
       description: "Comprehensive solution for businesses ready to make a serious impact online.",
       features: [
         "5-10 Page Website",
@@ -33,41 +40,48 @@ export default function Services() {
         "Content Management System",
         "Performance Optimization",
         "Email Marketing Setup",
+        "E-commerce Ready",
         "3 Months Support & Updates"
       ],
-      popular: true,
-      cta: "Most Popular"
+      glow: "glow-secondary"
     },
     {
-      name: "Smart Business",
+      name: "SMART BUSINESS",
       price: "$12,000",
-      monthly: "$800/month",
-      duration: "3-4 weeks + ongoing",
+      duration: "3-4 WEEKS + MAINTENANCE",
+      color: "cyan-400",
+      icon: <Shield className="w-8 h-8" />,
+      monthly: "+ $800/MONTH",
       description: "Complete digital transformation with ongoing optimization and growth support.",
       features: [
         "Full Business Website",
-        "E-commerce Integration",
+        "E-commerce Capabilities",
         "Advanced Analytics Dashboard",
         "Marketing Automation",
         "A/B Testing & Optimization",
-        "Priority Support",
+        "Priority Support & Maintenance",
         "Monthly Strategy Reviews",
-        "Ongoing Updates & Maintenance"
+        "Ongoing Updates & Enhancements"
       ],
-      cta: "Contact Sales"
+      glow: "glow-primary"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background neural-bg">
       {/* Header Section */}
-      <section className="pt-24 pb-16 px-4">
+      <section className="pt-24 pb-16 px-4 relative grid-bg">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Custom Websites Built for Impact
+          <div className="mb-6">
+            <span className="font-cyber text-sm text-cyan-400 tracking-wider">NEURAL WEB SOLUTIONS</span>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 font-cyber">
+            <span className="text-glow-primary">CUSTOM WEBSITES</span>
+            <br />
+            <span className="text-glow-accent">BUILT FOR IMPACT</span>
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            No templates. No fluff. Just sleek, powerful websites coded to grow your business.
+          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            No templates. No fluff. Just sleek, powerful websites coded to <span className="text-cyan-400">grow your business</span>.
           </p>
         </div>
       </section>
@@ -79,47 +93,51 @@ export default function Services() {
             {packages.map((pkg, index) => (
               <Card 
                 key={pkg.name} 
-                className={`relative p-6 ${pkg.popular ? 'ring-2 ring-primary' : ''}`}
+                className={`glass-card p-6 ${pkg.glow} ${pkg.popular ? 'ring-2 ring-purple-500 pulse-glow' : ''} hover:scale-105 transition-all duration-300`}
               >
                 {pkg.popular && (
-                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground">
-                    Most Popular
+                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-500 text-white font-cyber pulse-glow">
+                    MOST POPULAR
                   </Badge>
                 )}
                 
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-2xl font-bold">{pkg.name}</CardTitle>
-                  <div className="space-y-2">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-bold">{pkg.price}</span>
-                      {pkg.monthly && (
-                        <span className="text-sm text-muted-foreground">+ {pkg.monthly}</span>
-                      )}
+                <CardHeader className="pb-4 text-center">
+                  <div className="flex justify-center mb-4">
+                    <div className={`text-${pkg.color}`}>
+                      {pkg.icon}
                     </div>
-                    <p className="text-sm text-muted-foreground">{pkg.duration}</p>
+                  </div>
+                  <CardTitle className={`text-2xl font-bold font-cyber text-${pkg.color}`}>{pkg.name}</CardTitle>
+                  <div className="space-y-2">
+                    <div className="flex items-baseline justify-center gap-2">
+                      <span className={`text-4xl font-bold font-cyber text-${pkg.color}`}>{pkg.price}</span>
+                    </div>
+                    {pkg.monthly && (
+                      <div className="text-sm text-gray-400 font-cyber">{pkg.monthly}</div>
+                    )}
+                    <p className="text-xs text-gray-500 font-cyber">{pkg.duration}</p>
                   </div>
                 </CardHeader>
 
                 <CardContent className="space-y-6">
-                  <p className="text-muted-foreground">{pkg.description}</p>
+                  <p className="text-gray-300 text-center">{pkg.description}</p>
                   
                   <ul className="space-y-3">
                     {pkg.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-sm">{feature}</span>
+                        <Check className={`w-5 h-5 text-${pkg.color} flex-shrink-0 mt-0.5`} />
+                        <span className="text-sm text-gray-300">{feature}</span>
                       </li>
                     ))}
                   </ul>
 
                   <Button 
-                    className="w-full group" 
-                    variant={pkg.popular ? "default" : "outline"}
+                    className={`w-full cyber-button font-cyber ${pkg.popular ? 'glow-secondary bg-purple-500/20 border-purple-500 text-purple-400' : `${pkg.glow} bg-${pkg.color}/20 border-${pkg.color} text-${pkg.color}`}`}
                     asChild
                   >
                     <Link href="/contact">
-                      {pkg.cta}
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      GET STARTED
+                      <ArrowRight className="w-4 h-4 ml-2" />
                     </Link>
                   </Button>
                 </CardContent>
@@ -130,12 +148,14 @@ export default function Services() {
       </section>
 
       {/* Process Section */}
-      <section className="py-16 px-4 bg-muted/50">
+      <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Our Process</h2>
-            <p className="text-muted-foreground">
-              From concept to launch, we handle everything so you can focus on your business.
+            <h2 className="text-4xl font-bold mb-4 font-cyber">
+              <span className="text-glow-secondary">OUR PROCESS</span>
+            </h2>
+            <p className="text-gray-300">
+              From concept to launch, we handle everything so you can focus on your <span className="text-cyan-400">business</span>.
             </p>
           </div>
 
@@ -143,31 +163,72 @@ export default function Services() {
             {[
               {
                 step: "01",
-                title: "Discovery",
-                description: "We learn about your business, goals, and target audience."
+                title: "DISCOVERY",
+                description: "We learn about your business, goals, and target audience.",
+                icon: <Database className="w-6 h-6 text-cyan-400" />,
+                color: "cyan-400"
               },
               {
                 step: "02",
-                title: "Design",
-                description: "Custom designs that reflect your brand and convert visitors."
+                title: "DESIGN",
+                description: "Custom designs that reflect your brand and convert visitors.",
+                icon: <Code className="w-6 h-6 text-purple-400" />,
+                color: "purple-400"
               },
               {
                 step: "03",
-                title: "Development",
-                description: "Clean, efficient code that's fast, secure, and scalable."
+                title: "DEVELOPMENT",
+                description: "Clean, efficient code that's fast, secure, and scalable.",
+                icon: <Cpu className="w-6 h-6 text-yellow-400" />,
+                color: "yellow-400"
               },
               {
                 step: "04",
-                title: "Launch",
-                description: "Go live with ongoing support and optimization."
+                title: "LAUNCH",
+                description: "Go live with ongoing support and optimization.",
+                icon: <Globe className="w-6 h-6 text-cyan-400" />,
+                color: "cyan-400"
               }
             ].map((process, index) => (
-              <div key={index} className="text-center">
-                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg mb-4 mx-auto">
+              <div key={index} className="text-center glass-card p-6 hover:scale-105 transition-transform">
+                <div className={`w-12 h-12 rounded-full bg-${process.color}/20 border border-${process.color} flex items-center justify-center font-bold text-lg mb-4 mx-auto font-cyber text-${process.color}`}>
                   {process.step}
                 </div>
-                <h3 className="font-semibold mb-2">{process.title}</h3>
-                <p className="text-sm text-muted-foreground">{process.description}</p>
+                <div className="flex justify-center mb-3">
+                  {process.icon}
+                </div>
+                <h3 className={`font-semibold mb-2 font-cyber text-${process.color}`}>{process.title}</h3>
+                <p className="text-sm text-gray-300">{process.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 font-cyber">
+              <span className="text-glow-primary">ADVANCED FEATURES</span>
+            </h2>
+            <p className="text-gray-300">
+              Cutting-edge technology for <span className="text-cyan-400">maximum impact</span>.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: "LIGHTNING FAST", description: "Optimized for speed and performance", color: "cyan-400" },
+              { title: "MOBILE FIRST", description: "Perfect on every device", color: "purple-400" },
+              { title: "SEO OPTIMIZED", description: "Built to rank higher", color: "yellow-400" },
+              { title: "SECURE BY DEFAULT", description: "Enterprise-grade security", color: "cyan-400" },
+              { title: "SCALABLE ARCHITECTURE", description: "Grows with your business", color: "purple-400" },
+              { title: "24/7 MONITORING", description: "Always online, always fast", color: "yellow-400" }
+            ].map((feature, index) => (
+              <div key={index} className="glass-card p-4 text-center hover:scale-105 transition-transform">
+                <h3 className={`font-cyber text-${feature.color} mb-2`}>{feature.title}</h3>
+                <p className="text-gray-300 text-sm">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -175,18 +236,21 @@ export default function Services() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-          <p className="text-muted-foreground mb-8">
-            Let's discuss your project and find the perfect solution for your business.
+      <section className="py-16 px-4 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-yellow-500/10"></div>
+        <div className="max-w-2xl mx-auto text-center relative z-10">
+          <h2 className="text-4xl font-bold mb-4 font-cyber">
+            <span className="text-glow-primary">READY TO GET STARTED?</span>
+          </h2>
+          <p className="text-gray-300 mb-8">
+            Let's discuss your project and find the perfect <span className="text-cyan-400">solution</span> for your business.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
-              <Link href="/contact">Start Your Project</Link>
+            <Button size="lg" className="cyber-button glow-primary bg-cyan-400/20 border-cyan-400 text-cyan-400 font-cyber" asChild>
+              <Link href="/contact">START YOUR PROJECT</Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/portfolio">View Our Work</Link>
+            <Button size="lg" className="cyber-button glow-secondary bg-purple-500/20 border-purple-500 text-purple-400 font-cyber" asChild>
+              <Link href="/portfolio">VIEW OUR WORK</Link>
             </Button>
           </div>
         </div>
