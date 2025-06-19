@@ -1,64 +1,53 @@
 import { Link } from "wouter";
-import { Github, Linkedin, Twitter } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="py-12 border-t border-primary/30 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-4 gap-8">
-          <div className="glass-card p-6 rounded-xl">
-            <div className="text-2xl font-cyber font-bold white-highlight mb-4">
-              <span className="cyber-text">PRIMORPHO</span>
-              <span className="text-yellow-400">.EXE</span>
-            </div>
-            <p className="white-highlight text-sm">
-              Neural-enhanced websites built for quantum impact. 7 years of crafting digital excellence.
+    <footer className="bg-muted/50 border-t py-12 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Company Info */}
+          <div className="col-span-1">
+            <div className="text-2xl font-bold mb-4">Primorpho</div>
+            <p className="text-muted-foreground mb-4">
+              Custom websites built for impact. No templates, just results.
             </p>
           </div>
-          
-          <div className="glass-card p-6 rounded-xl">
-            <h3 className="text-lg font-cyber text-yellow-400 mb-4">SERVICES</h3>
-            <ul className="space-y-2">
-              <li><Link href="/services" className="white-highlight hover:text-primary text-sm">LaunchPad Package</Link></li>
-              <li><Link href="/services" className="white-highlight hover:text-primary text-sm">Pro Presence</Link></li>
-              <li><Link href="/services" className="white-highlight hover:text-primary text-sm">Smart Business</Link></li>
-              <li><Link href="/contact" className="white-highlight hover:text-primary text-sm">Custom Quote</Link></li>
+
+          {/* Services */}
+          <div>
+            <h3 className="font-semibold mb-4">Services</h3>
+            <ul className="space-y-2 text-muted-foreground">
+              <li><Link href="/services">LaunchPad</Link></li>
+              <li><Link href="/services">Pro Presence</Link></li>
+              <li><Link href="/services">Smart Business</Link></li>
+              <li><Link href="/tools">Website Audit</Link></li>
             </ul>
           </div>
-          
-          <div className="glass-card p-6 rounded-xl">
-            <h3 className="text-lg font-cyber text-purple-400 mb-4">RESOURCES</h3>
-            <ul className="space-y-2">
-              <li><Link href="/portfolio" className="white-highlight hover:text-primary text-sm">Portfolio</Link></li>
-              <li><Link href="/about" className="white-highlight hover:text-primary text-sm">About</Link></li>
-              <li><Link href="/blog" className="white-highlight hover:text-primary text-sm">Blog</Link></li>
-              <li><Link href="/tools" className="white-highlight hover:text-primary text-sm">Tools</Link></li>
+
+          {/* Company */}
+          <div>
+            <h3 className="font-semibold mb-4">Company</h3>
+            <ul className="space-y-2 text-muted-foreground">
+              <li><Link href="/about">About</Link></li>
+              <li><Link href="/portfolio">Portfolio</Link></li>
+              <li><Link href="/blog">Blog</Link></li>
+              <li><Link href="/contact">Contact</Link></li>
             </ul>
           </div>
-          
-          <div className="glass-card p-6 rounded-xl">
-            <h3 className="text-lg font-cyber text-primary mb-4">CONNECT</h3>
-            <div className="flex space-x-4 mb-4">
-              <a href="#" className="text-primary hover:text-yellow-400 transition-colors">
-                <Twitter className="w-6 h-6" />
-              </a>
-              <a href="#" className="text-primary hover:text-yellow-400 transition-colors">
-                <Linkedin className="w-6 h-6" />
-              </a>
-              <a href="#" className="text-primary hover:text-yellow-400 transition-colors">
-                <Github className="w-6 h-6" />
-              </a>
-            </div>
-            <p className="white-highlight text-sm">
-              Response within 24 hours guaranteed
-            </p>
+
+          {/* Contact */}
+          <div>
+            <h3 className="font-semibold mb-4">Get Started</h3>
+            <ul className="space-y-2 text-muted-foreground">
+              <li><Link href="/contact">Free Consultation</Link></li>
+              <li><Link href="/reserve-slot">Reserve Slot</Link></li>
+              <li><Link href="/tools">Free Audit</Link></li>
+            </ul>
           </div>
         </div>
-        
-        <div className="border-t border-primary/30 mt-8 pt-8 text-center">
-          <p className="white-highlight text-sm">
-            © 2024 Primorpho. All rights reserved. Quantum-enhanced digital solutions.
-          </p>
+
+        <div className="border-t mt-8 pt-8 text-center text-muted-foreground">
+          <p>&copy; 2024 Primorpho. All rights reserved.</p>
         </div>
       </div>
     </footer>

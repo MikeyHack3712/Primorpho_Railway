@@ -1,149 +1,149 @@
-import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Rocket, Search, Zap, Shield, Smartphone } from "lucide-react";
+import { Link } from "wouter";
+import { ArrowRight, CheckCircle, Zap, Shield, Rocket } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center relative grid-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            <div className="holographic glass-card p-12 rounded-3xl mb-8 scan-line">
-              <h1 className="text-5xl md:text-7xl font-cyber font-bold mb-6 white-highlight">
-                NEURAL.<span className="cyber-text animate-glow-pulse">ENHANCED</span>
-              </h1>
-              <h2 className="text-2xl md:text-4xl font-cyber mb-8 text-yellow-400">
-                WEBSITES BUILT FOR IMPACT
-              </h2>
-              <p className="text-xl md:text-2xl mb-12 white-highlight max-w-4xl mx-auto font-futura">
-                No templates. No fluff. Just sleek, powerful websites coded to grow your business.
-                <span className="text-purple-400"> 7 years experience. Intel partnership background.</span>
-              </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <Link href="/reserve-slot">
-                  <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-primary text-white hover:bg-primary/10">
-                    <Rocket className="w-5 h-5 mr-2" />
-                    RESERVE SLOT
-                  </Button>
-                </Link>
-                <Link href="/tools">
-                  <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-yellow-400 text-white hover:bg-yellow-400/10">
-                    <Search className="w-5 h-5 mr-2" />
-                    FREE AUDIT
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            
-            {/* Status Panel */}
-            <div className="glass-card p-6 rounded-xl">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-cyber text-primary mb-2">
-                    <span className="animate-glow-pulse">02</span>
-                  </div>
-                  <div className="white-highlight">SLOTS REMAINING</div>
-                  <div className="text-sm text-yellow-400">THIS MONTH</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-cyber text-purple-400 mb-2">
-                    <span className="animate-glow-pulse">7</span>
-                  </div>
-                  <div className="white-highlight">YEARS EXPERIENCE</div>
-                  <div className="text-sm text-yellow-400">INTEL BACKGROUND</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-cyber text-yellow-400 mb-2">
-                    <span className="animate-glow-pulse">24H</span>
-                  </div>
-                  <div className="white-highlight">RESPONSE TIME</div>
-                  <div className="text-sm text-primary">GUARANTEED</div>
-                </div>
-              </div>
-            </div>
+      <section className="pt-32 pb-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            Custom Websites Built for Impact
+          </h1>
+          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            No templates. No fluff. Just sleek, powerful websites coded to grow your business.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" asChild>
+              <Link href="/services">
+                View Packages
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link href="/portfolio">See Our Work</Link>
+            </Button>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 bg-muted/50">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
-              QUANTUM.<span className="text-primary animate-glow-pulse">CAPABILITIES</span>
-            </h2>
-            <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">
-              Advanced web technologies engineered for maximum performance and business growth.
+            <h2 className="text-3xl font-bold mb-4">Why Choose Primorpho?</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              We build websites that don't just look good—they deliver results for your business.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="glass-card border-primary/30 hover:animate-neural-pulse transition-all duration-300">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-primary to-purple-400 rounded-lg flex items-center justify-center">
-                  <Zap className="w-8 h-8 text-black" />
-                </div>
-                <h3 className="text-xl font-cyber text-primary mb-4">NEURAL OPTIMIZATION</h3>
-                <p className="white-highlight text-sm">
-                  AI-enhanced performance optimization with quantum-level speed improvements.
-                  Loading times under 2 seconds guaranteed.
-                </p>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Rocket className="w-8 h-8 text-primary" />,
+                title: "Fast & Reliable",
+                description: "Lightning-fast websites built with modern technology and optimized for performance."
+              },
+              {
+                icon: <Shield className="w-8 h-8 text-primary" />,
+                title: "Secure & Scalable",
+                description: "Enterprise-grade security and infrastructure that grows with your business."
+              },
+              {
+                icon: <Zap className="w-8 h-8 text-primary" />,
+                title: "Results-Driven",
+                description: "Every element is designed to convert visitors into customers and drive growth."
+              }
+            ].map((feature, index) => (
+              <Card key={index} className="p-6 text-center">
+                <CardContent className="pt-6">
+                  <div className="flex justify-center mb-4">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <Card className="glass-card border-purple-400/30 hover:animate-neural-pulse transition-all duration-300">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg flex items-center justify-center">
-                  <Shield className="w-8 h-8 text-black" />
-                </div>
-                <h3 className="text-xl font-cyber text-purple-400 mb-4">QUANTUM SECURITY</h3>
-                <p className="white-highlight text-sm">
-                  Military-grade security protocols with advanced threat detection and 
-                  real-time monitoring systems.
-                </p>
-              </CardContent>
-            </Card>
+      {/* Services Preview */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Our Service Packages</h2>
+            <p className="text-muted-foreground">
+              Choose the perfect package for your business needs.
+            </p>
+          </div>
 
-            <Card className="glass-card border-yellow-400/30 hover:animate-neural-pulse transition-all duration-300">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-primary rounded-lg flex items-center justify-center">
-                  <Smartphone className="w-8 h-8 text-black" />
-                </div>
-                <h3 className="text-xl font-cyber text-yellow-400 mb-4">ADAPTIVE INTERFACE</h3>
-                <p className="white-highlight text-sm">
-                  Responsive design that adapts to any device with pixel-perfect precision
-                  and intuitive user experience.
-                </p>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "LaunchPad",
+                price: "$2,500",
+                description: "Perfect for getting your business online quickly.",
+                features: ["3-5 Page Website", "Mobile Responsive", "Basic SEO"]
+              },
+              {
+                name: "Pro Presence",
+                price: "$5,500",
+                description: "Comprehensive solution for serious businesses.",
+                features: ["5-10 Page Website", "Custom Design", "Advanced SEO"],
+                popular: true
+              },
+              {
+                name: "Smart Business",
+                price: "$12,000",
+                description: "Complete digital transformation solution.",
+                features: ["Full Website", "E-commerce", "Marketing Automation"]
+              }
+            ].map((service, index) => (
+              <Card key={index} className={`p-6 ${service.popular ? 'ring-2 ring-primary' : ''}`}>
+                <CardContent className="pt-6">
+                  <h3 className="text-2xl font-bold mb-2">{service.name}</h3>
+                  <div className="text-3xl font-bold text-primary mb-4">{service.price}</div>
+                  <p className="text-muted-foreground mb-6">{service.description}</p>
+                  <ul className="space-y-2 mb-6">
+                    {service.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-primary" />
+                        <span className="text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button 
+                    className="w-full" 
+                    variant={service.popular ? "default" : "outline"}
+                    asChild
+                  >
+                    <Link href="/services">Learn More</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="glass-card p-12 rounded-xl scan-line">
-            <h2 className="text-3xl md:text-5xl font-cyber font-bold mb-6 white-highlight">
-              READY TO <span className="text-primary animate-glow-pulse">EVOLVE</span>?
-            </h2>
-            <p className="text-xl white-highlight mb-8 max-w-2xl mx-auto">
-              Join the digital evolution. Get a quantum-enhanced website that drives real business results.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact">
-                <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-primary text-white hover:bg-primary/10">
-                  START PROJECT
-                </Button>
-              </Link>
-              <Link href="/portfolio">
-                <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-purple-400 text-white hover:bg-purple-400/10">
-                  VIEW PORTFOLIO
-                </Button>
-              </Link>
-            </div>
+      <section className="py-20 px-4 bg-primary text-primary-foreground">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Business?</h2>
+          <p className="text-xl mb-8 opacity-90">
+            Let's build something amazing together. Get started with a free consultation.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" variant="secondary" asChild>
+              <Link href="/contact">Get Free Consultation</Link>
+            </Button>
+            <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
+              <Link href="/tools">Free Website Audit</Link>
+            </Button>
           </div>
         </div>
       </section>
