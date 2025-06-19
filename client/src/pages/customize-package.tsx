@@ -130,27 +130,23 @@ export default function CustomizePackage() {
   const packageId = urlParams.get('package');
   const selectedPackage = packages.find(p => p.id === packageId);
   
-  console.log('CustomizePackage loaded');
-  console.log('URL search:', window.location.search);
-  console.log('Package ID:', packageId);
-  console.log('Selected package:', selectedPackage);
 
-  // Redirect if no valid package
-  useEffect(() => {
-    if (!packageId) {
-      console.log('No package ID found, redirecting to services');
-      window.location.href = '/services';
-    } else if (!selectedPackage) {
-      console.log('Invalid package ID:', packageId, 'redirecting to services');
-      window.location.href = '/services';
-    }
-  }, [packageId, selectedPackage]);
 
+  // Show loading state if package not found
   if (!packageId || !selectedPackage) {
     return <div className="min-h-screen bg-background neural-bg flex items-center justify-center">
       <div className="text-center">
-        <div className="text-cyan-400 font-cyber text-xl mb-4">LOADING PACKAGE...</div>
-        <div className="text-gray-400">Redirecting to services if package not found</div>
+        <div className="text-cyan-400 font-cyber text-xl mb-4">PACKAGE NOT FOUND</div>
+        <div className="text-gray-400 mb-4">The selected package could not be loaded</div>
+        <Button 
+          className="cyber-button bg-purple-400/20 border-purple-400 text-purple-400 hover:bg-purple-400/30 font-cyber px-6 py-3"
+          asChild
+        >
+          <Link href="/services">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            BACK TO SERVICES
+          </Link>
+        </Button>
       </div>
     </div>;
   }
