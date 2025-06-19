@@ -155,6 +155,13 @@ Changelog:
   * Updated system status dashboard with more subtle styling
   * Refined button designs with lighter backgrounds and borders
   * Maintained futuristic feel while achieving professional, clean appearance
+- June 19, 2025. Applied clean aesthetic to About and Portfolio pages
+  * Removed floating particles and harsh glow effects from About page
+  * Updated About page headers and cards with subtle backdrop blur and lighter colors
+  * Fixed Portfolio page by removing FloatingParticles component and harsh effects
+  * Updated Portfolio project cards with clean glass morphism design
+  * Consistent use of cyan-300, purple-300, yellow-300 colors with opacity for softer look
+  * All pages now have unified clean, professional futuristic aesthetic
 ```
 
 ## User Preferences

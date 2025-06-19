@@ -86,14 +86,14 @@ export default function Portfolio() {
             {projects.map((project, index) => (
               <Card 
                 key={project.title} 
-                className={`glass-card border border-${project.color}/30 bg-${project.color}/5 hover:scale-105 transition-all duration-300 group`}
+                className="backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg hover:bg-gray-900/40 transition-all duration-300 group"
               >
                 <CardContent className="p-6 space-y-6">
                   <div className="space-y-2">
-                    <div className={`text-xs font-cyber text-${project.color} tracking-wider`}>
+                    <div className={`text-xs text-${project.color} opacity-80 tracking-wider`}>
                       {project.category}
                     </div>
-                    <h3 className={`text-xl font-bold font-cyber text-${project.color} tracking-wider`}>
+                    <h3 className={`text-xl font-bold text-${project.color} tracking-wide`}>
                       {project.title}
                     </h3>
                     <p className="text-gray-300 text-sm">
@@ -104,8 +104,8 @@ export default function Portfolio() {
                   {/* Metrics */}
                   <div className="grid grid-cols-3 gap-3">
                     {Object.entries(project.metrics).map(([key, value], metricIndex) => (
-                      <div key={key} className={`glass-card bg-${project.color}/10 border border-${project.color}/20 p-3 text-center`}>
-                        <div className={`text-lg font-bold font-cyber text-${project.color}`}>
+                      <div key={key} className="bg-gray-800/50 border border-gray-600/30 rounded p-3 text-center">
+                        <div className={`text-lg font-bold text-${project.color} opacity-90`}>
                           {value}
                         </div>
                         <div className="text-xs text-gray-400 uppercase tracking-wider">
@@ -117,12 +117,12 @@ export default function Portfolio() {
 
                   {/* Tech Stack */}
                   <div className="space-y-2">
-                    <div className="text-xs text-gray-400 font-cyber tracking-wider">TECH STACK</div>
+                    <div className="text-xs text-gray-400 tracking-wider">TECH STACK</div>
                     <div className="flex flex-wrap gap-2">
                       {project.tech.map((tech, techIndex) => (
                         <span 
                           key={tech} 
-                          className={`text-xs px-2 py-1 bg-${project.color}/20 border border-${project.color}/30 text-${project.color} font-cyber tracking-wider rounded`}
+                          className={`text-xs px-2 py-1 bg-${project.color}/10 border border-${project.color}/20 text-${project.color} opacity-80 tracking-wider rounded`}
                         >
                           {tech}
                         </span>
