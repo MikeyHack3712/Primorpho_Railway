@@ -2,61 +2,27 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, User, Award, Globe } from "lucide-react";
-import { useEffect, useState } from "react";
-
-// Floating Particles Component
-function FloatingParticles() {
-  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, delay: number}>>([]);
-
-  useEffect(() => {
-    const newParticles = Array.from({length: 20}, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      delay: Math.random() * 6
-    }));
-    setParticles(newParticles);
-  }, []);
-
-  return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      {particles.map((particle) => (
-        <div
-          key={particle.id}
-          className="absolute w-1 h-1 bg-cyan-400 floating-particle"
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            animationDelay: `${particle.delay}s`
-          }}
-        />
-      ))}
-    </div>
-  );
-}
 
 export default function About() {
   return (
     <div className="min-h-screen bg-background neural-bg">
-      <FloatingParticles />
-      
       {/* Header Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <div className="mb-8">
-            <span className="font-cyber text-sm text-cyan-400 tracking-wider border border-cyan-400/30 px-4 py-2 rounded">
+            <span className="text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-6 py-2 rounded-md bg-cyan-300/5">
               NEURAL WEB SOLUTIONS
             </span>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight">
-            <span className="text-glow-primary block">ABOUT</span>
-            <span className="text-glow-accent block">PRIMORPHO</span>
+          <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
+            <span className="text-cyan-300 block">ABOUT</span>
+            <span className="text-yellow-300 block">PRIMORPHO</span>
           </h1>
           
-          <div className="max-w-3xl mx-auto glass-card p-8 mb-16 border border-cyan-400/30">
+          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 mb-16">
             <p className="text-xl text-gray-300 leading-relaxed">
-              Creating the future of digital <span className="text-cyan-400 font-cyber">experiences</span>.
+              Creating the future of digital <span className="text-cyan-300">experiences</span>.
             </p>
           </div>
         </div>
@@ -66,8 +32,8 @@ export default function About() {
       <section className="pb-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-            <div className="glass-card border border-cyan-400/30 p-8">
-              <h2 className="font-cyber text-cyan-400 text-2xl tracking-wider mb-6">OUR MISSION</h2>
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-8">
+              <h2 className="text-cyan-300 text-2xl tracking-wide mb-6">OUR MISSION</h2>
               <p className="text-gray-300 leading-relaxed mb-4">
                 Founded with a vision to bridge the gap between cutting-edge technology and business success, 
                 Primorpho crafts custom web solutions that deliver measurable results.
@@ -78,8 +44,8 @@ export default function About() {
               </p>
             </div>
 
-            <div className="glass-card border border-purple-400/30 p-8 bg-purple-400/5">
-              <h2 className="font-cyber text-purple-400 text-2xl tracking-wider mb-6">OUR EXPERTISE</h2>
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-purple-300/20 rounded-lg p-8">
+              <h2 className="text-purple-300 text-2xl tracking-wide mb-6">OUR EXPERTISE</h2>
               <p className="text-gray-300 leading-relaxed mb-4">
                 Our team combines years of development expertise with deep understanding of digital marketing 
                 to create websites that work as hard as you do.
@@ -95,21 +61,21 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {[
               {
-                icon: <User className="w-8 h-8 text-cyan-400" />,
+                icon: <User className="w-8 h-8 text-cyan-300 opacity-80" />,
                 number: "100+",
                 label: "PROJECTS DELIVERED",
                 description: "Custom solutions built",
-                color: "cyan-400"
+                color: "cyan-300"
               },
               {
-                icon: <Award className="w-8 h-8 text-yellow-400" />,
+                icon: <Award className="w-8 h-8 text-yellow-300 opacity-80" />,
                 number: "99%",
                 label: "CLIENT SATISFACTION",
                 description: "Happy customers guaranteed",
-                color: "yellow-400"
+                color: "yellow-300"
               },
               {
-                icon: <Globe className="w-8 h-8 text-purple-400" />,
+                icon: <Globe className="w-8 h-8 text-purple-300 opacity-80" />,
                 number: "7+",
                 label: "YEARS EXPERIENCE",
                 description: "Industry expertise",

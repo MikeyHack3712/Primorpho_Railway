@@ -2,38 +2,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, ExternalLink, Code, TrendingUp, Zap } from "lucide-react";
-import { useEffect, useState } from "react";
-
-// Floating Particles Component
-function FloatingParticles() {
-  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, delay: number}>>([]);
-
-  useEffect(() => {
-    const newParticles = Array.from({length: 20}, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      delay: Math.random() * 6
-    }));
-    setParticles(newParticles);
-  }, []);
-
-  return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      {particles.map((particle) => (
-        <div
-          key={particle.id}
-          className="absolute w-1 h-1 bg-cyan-400 floating-particle"
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            animationDelay: `${particle.delay}s`
-          }}
-        />
-      ))}
-    </div>
-  );
-}
 
 export default function Portfolio() {
   const projects = [
@@ -43,7 +11,7 @@ export default function Portfolio() {
       description: "Complete digital transformation with 300% conversion increase",
       metrics: { visitors: "+150%", sales: "+300%", speed: "0.8s" },
       tech: ["React", "Node.js", "PostgreSQL"],
-      color: "cyan-400"
+      color: "cyan-300"
     },
     {
       title: "NEXUS FINANCE",
@@ -51,7 +19,7 @@ export default function Portfolio() {
       description: "Secure financial platform with real-time analytics",
       metrics: { users: "+250%", uptime: "99.9%", speed: "0.6s" },
       tech: ["Vue.js", "Express", "MongoDB"],
-      color: "purple-400"
+      color: "purple-300"
     },
     {
       title: "QUANTUM LOGISTICS",
@@ -59,7 +27,7 @@ export default function Portfolio() {
       description: "AI-powered supply chain management system",
       metrics: { efficiency: "+180%", costs: "-40%", speed: "0.9s" },
       tech: ["Angular", "Python", "Redis"],
-      color: "yellow-400"
+      color: "yellow-300"
     },
     {
       title: "BIOTECH INNOVATIONS",
@@ -67,7 +35,7 @@ export default function Portfolio() {
       description: "Medical research portal with advanced data visualization",
       metrics: { research: "+200%", access: "+120%", speed: "0.7s" },
       tech: ["React", "GraphQL", "AWS"],
-      color: "cyan-400"
+      color: "cyan-300"
     },
     {
       title: "NEURAL NETWORKS",
@@ -75,7 +43,7 @@ export default function Portfolio() {
       description: "Machine learning platform for predictive analytics",
       metrics: { accuracy: "+95%", speed: "+300%", load: "0.5s" },
       tech: ["Python", "TensorFlow", "Docker"],
-      color: "purple-400"
+      color: "purple-300"
     },
     {
       title: "CRYPTO EXCHANGE",
@@ -89,25 +57,23 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-background neural-bg">
-      <FloatingParticles />
-      
       {/* Header Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <div className="mb-8">
-            <span className="font-cyber text-sm text-cyan-400 tracking-wider border border-cyan-400/30 px-4 py-2 rounded">
+            <span className="text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-6 py-2 rounded-md bg-cyan-300/5">
               NEURAL WEB SOLUTIONS
             </span>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight">
-            <span className="text-glow-primary block">PROJECT</span>
-            <span className="text-glow-accent block">PORTFOLIO</span>
+          <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
+            <span className="text-cyan-300 block">PROJECT</span>
+            <span className="text-yellow-300 block">PORTFOLIO</span>
           </h1>
           
-          <div className="max-w-3xl mx-auto glass-card p-8 mb-16 border border-cyan-400/30">
+          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 mb-16">
             <p className="text-xl text-gray-300 leading-relaxed">
-              Showcasing our latest <span className="text-cyan-400 font-cyber">digital transformations</span>.
+              Showcasing our latest <span className="text-cyan-300">digital transformations</span>.
             </p>
           </div>
         </div>
