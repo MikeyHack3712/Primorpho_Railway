@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "wouter";
 import { ArrowRight, Check, Rocket, Zap, Shield, Clock, Star, Globe, Search, Code, Database, Palette, Users, ShoppingCart, Mail, Phone, BarChart3 } from "lucide-react";
 import { useState } from "react";
+import { useLocation } from "wouter";
 
 interface AddOn {
   id: string;
@@ -122,49 +123,13 @@ const packages: Package[] = [
 ];
 
 export default function Services() {
-  const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
-  const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
+  const [, setLocation] = useLocation();
 
   const handlePackageSelect = (packageId: string) => {
-    setSelectedPackage(packageId);
-    setSelectedAddOns([]);
+    setLocation(`/customize-package?package=${packageId}`);
   };
 
-  const handleAddOnToggle = (addOnId: string) => {
-    setSelectedAddOns(prev => 
-      prev.includes(addOnId) 
-        ? prev.filter(id => id !== addOnId)
-        : [...prev, addOnId]
-    );
-  };
 
-  const calculateTotal = () => {
-    const pkg = packages.find(p => p.id === selectedPackage);
-    if (!pkg) return 0;
-    
-    const addOnTotal = selectedAddOns.reduce((total, addOnId) => {
-      const addOn = allAddOns.find(a => a.id === addOnId);
-      return total + (addOn?.price || 0);
-    }, 0);
-    
-    return pkg.basePrice + addOnTotal;
-  };
-
-  const getAvailableAddOns = () => {
-    const pkg = packages.find(p => p.id === selectedPackage);
-    if (!pkg) return [];
-    
-    return allAddOns.filter(addOn => pkg.availableAddOns.includes(addOn.id));
-  };
-
-  const groupedAddOns = getAvailableAddOns().reduce((groups, addOn) => {
-    const category = addOn.category;
-    if (!groups[category]) {
-      groups[category] = [];
-    }
-    groups[category].push(addOn);
-    return groups;
-  }, {} as Record<string, AddOn[]>);
 
   return (
     <div className="min-h-screen bg-background neural-bg">
@@ -217,9 +182,7 @@ export default function Services() {
             {packages.map((pkg) => (
               <Card 
                 key={pkg.id}
-                className={`glass-card cursor-pointer transition-all duration-300 ${
-                  selectedPackage === pkg.id ? 'ring-2 ring-' + pkg.color : ''
-                } ${pkg.popular ? 'ring-2 ring-purple-400' : ''}`}
+                className={`glass-card cursor-pointer transition-all duration-300 hover:ring-2 hover:ring-${pkg.color} ${pkg.popular ? 'ring-2 ring-purple-400' : ''}`}
                 onClick={() => handlePackageSelect(pkg.id)}
               >
                 {pkg.popular && (

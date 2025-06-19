@@ -10,6 +10,7 @@ import Footer from "@/components/layout/footer";
 import Home from "@/pages/home";
 import About from "@/pages/about";
 import Services from "@/pages/services";
+import CustomizePackage from "@/pages/customize-package";
 import Portfolio from "@/pages/portfolio";
 import Blog from "@/pages/blog";
 import Contact from "@/pages/contact";
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/services" component={Services} />
+      <Route path="/customize-package" component={CustomizePackage} />
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/blog" component={Blog} />
       <Route path="/contact" component={Contact} />
