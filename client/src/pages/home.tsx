@@ -30,22 +30,24 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row gap-6 justify-center mb-20">
             <Button 
               size="lg" 
-              className="bg-cyan-300/10 border border-cyan-300/20 text-cyan-300 hover:bg-cyan-300/15 hover:border-cyan-300/30 px-8 py-4 tracking-wide transition-all duration-300"
+              className="relative bg-cyan-300/10 border border-cyan-300/20 text-cyan-300 hover:bg-cyan-300/20 hover:border-cyan-300/40 hover:shadow-[0_0_20px_rgba(103,232,249,0.3)] hover:text-cyan-200 px-8 py-4 tracking-wide transition-all duration-300 group overflow-hidden"
               asChild
             >
               <Link href="/contact">
-                <ArrowRight className="w-5 h-5 mr-2" />
-                INITIATE PROJECT
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-300/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <ArrowRight className="w-5 h-5 mr-2 relative z-10" />
+                <span className="relative z-10">INITIATE PROJECT</span>
               </Link>
             </Button>
             <Button 
               size="lg" 
-              className="bg-purple-300/10 border border-purple-300/20 text-purple-300 hover:bg-purple-300/15 hover:border-purple-300/30 px-8 py-4 tracking-wide transition-all duration-300"
+              className="relative bg-purple-300/10 border border-purple-300/20 text-purple-300 hover:bg-purple-300/20 hover:border-purple-300/40 hover:shadow-[0_0_20px_rgba(196,181,253,0.3)] hover:text-purple-200 px-8 py-4 tracking-wide transition-all duration-300 group overflow-hidden"
               asChild
             >
               <Link href="/portfolio">
-                <Zap className="w-5 h-5 mr-2" />
-                VIEW PORTFOLIO
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-300/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <Zap className="w-5 h-5 mr-2 relative z-10" />
+                <span className="relative z-10">VIEW PORTFOLIO</span>
               </Link>
             </Button>
           </div>
