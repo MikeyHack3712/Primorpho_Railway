@@ -325,98 +325,193 @@ export async function registerRoutes(app: Express): Promise<Server> {
 // Helper functions for website audit
 function calculatePerformanceScore($: cheerio.CheerioAPI, html: string): number {
   let score = 100;
+  const recommendations: string[] = [];
   
-  // Check for large HTML size
-  if (html.length > 500000) score -= 20;
+  // Check HTML size and complexity
+  if (html.length > 500000) {
+    score -= 20;
+    recommendations.push("HTML size is large (>500KB). Consider minification and code splitting.");
+  }
   
   // Check for excessive inline styles
   const inlineStyles = $('[style]').length;
-  if (inlineStyles > 10) score -= 15;
+  if (inlineStyles > 10) {
+    score -= 15;
+    recommendations.push(`${inlineStyles} inline styles found. Move to external CSS files for better caching.`);
+  }
   
-  // Check for missing compression indicators
-  if (!html.includes('gzip') && !html.includes('br')) score -= 10;
+  // Check for unoptimized images
+  const images = $('img').length;
+  const imagesWithoutAlt = $('img:not([alt])').length;
+  const largeImages = $('img[src*=".jpg"], img[src*=".png"]').length;
+  if (largeImages > 5) {
+    score -= 10;
+    recommendations.push("Consider using WebP format and image compression for better loading times.");
+  }
   
-  // Check for excessive JavaScript files
+  // Check JavaScript optimization
   const scriptTags = $('script[src]').length;
-  if (scriptTags > 10) score -= 15;
+  const inlineScripts = $('script:not([src])').length;
+  if (scriptTags > 8) {
+    score -= 15;
+    recommendations.push(`${scriptTags} external scripts detected. Consider bundling and minification.`);
+  }
+  if (inlineScripts > 3) {
+    score -= 10;
+    recommendations.push("Multiple inline scripts found. Move to external files for better performance.");
+  }
   
-  // Check for excessive CSS files
+  // Check CSS optimization
   const linkTags = $('link[rel="stylesheet"]').length;
-  if (linkTags > 5) score -= 10;
+  if (linkTags > 5) {
+    score -= 10;
+    recommendations.push(`${linkTags} CSS files detected. Consider combining stylesheets.`);
+  }
   
-  return Math.max(0, score);
+  // Check for performance-critical elements
+  const hasPreload = $('link[rel="preload"]').length > 0;
+  if (!hasPreload) {
+    score -= 5;
+    recommendations.push("Add preload directives for critical resources.");
+  }
+  
+  return { score: Math.max(0, score), recommendations };
 }
 
-function calculateSEOScore($: cheerio.CheerioAPI): number {
+function calculateSEOScore($: cheerio.CheerioAPI): { score: number; recommendations: string[] } {
   let score = 100;
+  const recommendations: string[] = [];
   
   // Check for title tag
   const title = $('title').text();
-  if (!title) score -= 20;
-  else if (title.length < 30 || title.length > 60) score -= 10;
+  if (!title) {
+    score -= 20;
+    recommendations.push("Missing title tag. Add a descriptive page title.");
+  } else if (title.length < 30 || title.length > 60) {
+    score -= 10;
+    recommendations.push(`Title length is ${title.length} characters. Optimal range is 30-60 characters.`);
+  }
   
   // Check for meta description
   const metaDesc = $('meta[name="description"]').attr('content');
-  if (!metaDesc) score -= 20;
-  else if (metaDesc.length < 120 || metaDesc.length > 160) score -= 10;
+  if (!metaDesc) {
+    score -= 20;
+    recommendations.push("Missing meta description. Add a compelling page description.");
+  } else if (metaDesc.length < 120 || metaDesc.length > 160) {
+    score -= 10;
+    recommendations.push(`Meta description is ${metaDesc.length} characters. Optimal range is 120-160 characters.`);
+  }
   
   // Check for h1 tags
   const h1Tags = $('h1').length;
-  if (h1Tags === 0) score -= 15;
-  else if (h1Tags > 1) score -= 5;
+  if (h1Tags === 0) {
+    score -= 15;
+    recommendations.push("Missing H1 tag. Add a primary heading for better structure.");
+  } else if (h1Tags > 1) {
+    score -= 5;
+    recommendations.push(`${h1Tags} H1 tags found. Use only one H1 per page.`);
+  }
   
   // Check for alt attributes on images
   const imagesWithoutAlt = $('img:not([alt])').length;
-  if (imagesWithoutAlt > 0) score -= Math.min(20, imagesWithoutAlt * 5);
+  if (imagesWithoutAlt > 0) {
+    score -= Math.min(20, imagesWithoutAlt * 5);
+    recommendations.push(`${imagesWithoutAlt} images missing alt attributes. Add descriptive alt text for accessibility.`);
+  }
   
   // Check for proper heading structure
   const headings = $('h1, h2, h3, h4, h5, h6');
-  if (headings.length === 0) score -= 10;
+  if (headings.length === 0) {
+    score -= 10;
+    recommendations.push("No heading tags found. Use proper heading hierarchy (H1-H6).");
+  }
   
-  return Math.max(0, score);
+  // Check for Open Graph tags
+  const ogTags = $('meta[property^="og:"]').length;
+  if (ogTags === 0) {
+    score -= 10;
+    recommendations.push("Missing Open Graph tags. Add for better social media sharing.");
+  }
+  
+  return { score: Math.max(0, score), recommendations };
 }
 
-function calculateSecurityScore($: cheerio.CheerioAPI, response: Response): number {
+function calculateSecurityScore($: cheerio.CheerioAPI, response: Response): { score: number; recommendations: string[] } {
   let score = 100;
+  const recommendations: string[] = [];
   
   // Check for HTTPS
   const isHttps = response.url.startsWith('https://');
-  if (!isHttps) score -= 30;
+  if (!isHttps) {
+    score -= 30;
+    recommendations.push("Website not using HTTPS. Implement SSL certificate for secure connections.");
+  }
   
   // Check for mixed content
   const httpResources = $('script[src^="http:"], link[href^="http:"], img[src^="http:"]').length;
-  if (httpResources > 0) score -= 20;
+  if (httpResources > 0) {
+    score -= 20;
+    recommendations.push(`${httpResources} insecure HTTP resources found. Update to HTTPS URLs.`);
+  }
   
   // Check for inline scripts (potential XSS risk)
   const inlineScripts = $('script:not([src])').length;
-  if (inlineScripts > 3) score -= 15;
+  if (inlineScripts > 3) {
+    score -= 15;
+    recommendations.push(`${inlineScripts} inline scripts detected. Move to external files to reduce XSS risk.`);
+  }
   
   // Check for form security
   const formsWithoutMethod = $('form:not([method])').length;
-  if (formsWithoutMethod > 0) score -= 10;
+  if (formsWithoutMethod > 0) {
+    score -= 10;
+    recommendations.push(`${formsWithoutMethod} forms missing method attribute. Specify POST/GET explicitly.`);
+  }
   
-  return Math.max(0, score);
+  // Check for Content Security Policy
+  const hasCSP = $('meta[http-equiv="Content-Security-Policy"]').length > 0;
+  if (!hasCSP) {
+    score -= 10;
+    recommendations.push("Missing Content Security Policy. Add CSP headers for enhanced security.");
+  }
+  
+  return { score: Math.max(0, score), recommendations };
 }
 
-function calculateMobileScore($: cheerio.CheerioAPI): number {
+function calculateMobileScore($: cheerio.CheerioAPI): { score: number; recommendations: string[] } {
   let score = 100;
+  const recommendations: string[] = [];
   
   // Check for viewport meta tag
   const viewport = $('meta[name="viewport"]').attr('content');
-  if (!viewport) score -= 30;
-  else if (!viewport.includes('width=device-width')) score -= 15;
+  if (!viewport) {
+    score -= 30;
+    recommendations.push("Missing viewport meta tag. Add <meta name='viewport' content='width=device-width, initial-scale=1'>");
+  } else if (!viewport.includes('width=device-width')) {
+    score -= 15;
+    recommendations.push("Viewport meta tag should include 'width=device-width' for proper mobile scaling.");
+  }
   
   // Check for responsive design indicators
   const responsiveClasses = $('[class*="responsive"], [class*="mobile"], [class*="tablet"]').length;
-  if (responsiveClasses === 0) score -= 20;
+  if (responsiveClasses === 0) {
+    score -= 20;
+    recommendations.push("No responsive design classes detected. Implement mobile-responsive CSS.");
+  }
   
   // Check for mobile-unfriendly elements
   const smallText = $('[style*="font-size"][style*="px"]').filter((_, el) => {
-    const fontSize = $(el).css('font-size');
-    const size = parseInt(fontSize);
-    return size < 14;
+    const fontSize = $(el).attr('style')?.match(/font-size:\s*(\d+)px/);
+    if (fontSize) {
+      const size = parseInt(fontSize[1]);
+      return size < 14;
+    }
+    return false;
   }).length;
-  if (smallText > 0) score -= 15;
+  if (smallText > 0) {
+    score -= 15;
+    recommendations.push(`${smallText} elements with small text detected. Use minimum 14px font size for mobile readability.`);
+  }
   
   return Math.max(0, score);
 }
