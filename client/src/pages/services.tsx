@@ -96,7 +96,7 @@ export default function Services() {
             <span className="text-cyan-400">SERVICE</span>{" "}
             <span className="text-purple-400">PACKAGES</span>
           </h1>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-readable mb-8 max-w-3xl mx-auto">
             Choose the perfect package for your digital transformation. Each solution is designed to deliver measurable results and accelerate your business growth.
           </p>
         </div>
@@ -106,10 +106,10 @@ export default function Services() {
       <section className="pb-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-cyber text-purple-400 mb-4">
+            <h2 className="text-3xl font-bold font-cyber text-purple-400 mb-4 text-subheading">
               CHOOSE YOUR TRANSFORMATION
             </h2>
-            <p className="text-gray-300">Click on any package to customize it with powerful add-ons</p>
+            <p className="text-readable">Click on any package to customize it with powerful add-ons</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {packages.map((pkg) => (
@@ -144,13 +144,13 @@ export default function Services() {
                       {pkg.duration}
                     </div>
                   </div>
-                  <p className="text-gray-300 mb-8">{pkg.description}</p>
+                  <p className="text-readable mb-8">{pkg.description}</p>
                   
                   <div className="space-y-3 mb-8">
                     {pkg.features.map((feature, index) => (
                       <div key={index} className="flex items-center justify-center">
                         <Check className="w-4 h-4 text-green-400 mr-3 flex-shrink-0" />
-                        <span className="text-gray-300 text-sm">{feature}</span>
+                        <span className="text-readable text-sm">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -173,10 +173,10 @@ export default function Services() {
         <div className="max-w-4xl mx-auto">
           <Card className="glass-card">
             <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold font-cyber text-cyan-400 mb-4">
+              <h3 className="text-2xl font-bold font-cyber text-cyan-400 mb-4 text-subheading">
                 NEED SOMETHING CUSTOM?
               </h3>
-              <p className="text-gray-300 mb-6">
+              <p className="text-readable mb-6">
                 Every business is unique. If none of our packages fit your exact needs, 
                 let's discuss a custom solution tailored specifically for you.
               </p>

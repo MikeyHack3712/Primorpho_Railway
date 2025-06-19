@@ -33,20 +33,20 @@ export default function About() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
             <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-8">
-              <h2 className="text-cyan-300 text-2xl tracking-wide mb-6">OUR MISSION</h2>
-              <p className="text-gray-300 leading-relaxed mb-4">
+              <h2 className="text-cyan-300 text-2xl tracking-wide mb-6 text-subheading">OUR MISSION</h2>
+              <p className="text-readable leading-relaxed mb-4">
                 Founded with a vision to bridge the gap between cutting-edge technology and business success, 
                 Primorpho crafts custom web solutions that deliver measurable results.
               </p>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="text-readable leading-relaxed">
                 We believe every business deserves a website that not only looks stunning but also converts 
                 visitors into customers. Performance, user experience, and growth-driven design are our core focus.
               </p>
             </div>
 
             <div className="backdrop-blur-sm bg-gray-900/30 border border-purple-300/20 rounded-lg p-8">
-              <h2 className="text-purple-300 text-2xl tracking-wide mb-6">OUR EXPERTISE</h2>
-              <p className="text-gray-300 leading-relaxed mb-4">
+              <h2 className="text-purple-300 text-2xl tracking-wide mb-6 text-subheading">OUR EXPERTISE</h2>
+              <p className="text-readable leading-relaxed mb-4">
                 Our team combines years of development expertise with deep understanding of digital marketing 
                 to create websites that work as hard as you do.
               </p>
