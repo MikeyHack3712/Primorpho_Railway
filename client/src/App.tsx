@@ -8,6 +8,7 @@ import Footer from "@/components/layout/footer";
 
 // Pages
 import Home from "@/pages/home";
+import HomeConservative from "@/pages/home-conservative";
 import About from "@/pages/about";
 import Services from "@/pages/services";
 import CustomizePackage from "@/pages/customize-package";
@@ -21,9 +22,13 @@ import Admin from "@/pages/admin";
 import NotFound from "@/pages/not-found";
 
 function Router() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const style = urlParams.get('style');
+  
   return (
     <Switch>
-      <Route path="/" component={Home} />
+      <Route path="/" component={style === 'conservative' ? HomeConservative : Home} />
+      <Route path="/conservative" component={HomeConservative} />
       <Route path="/about" component={About} />
       <Route path="/services" component={Services} />
       <Route path="/customize-package" component={CustomizePackage} />
