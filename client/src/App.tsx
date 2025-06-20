@@ -10,34 +10,40 @@ import Footer from "@/components/layout/footer";
 import Home from "@/pages/home";
 import HomeConservative from "@/pages/home-conservative";
 import About from "@/pages/about";
+import AboutConservative from "@/pages/about-conservative";
 import Services from "@/pages/services";
-import CustomizePackage from "@/pages/customize-package";
+import ServicesConservative from "@/pages/services-conservative";
 import Portfolio from "@/pages/portfolio";
-import Blog from "@/pages/blog";
+import PortfolioConservative from "@/pages/portfolio-conservative";
+import Tools from "@/pages/tools";
+import ToolsConservative from "@/pages/tools-conservative";
 import Contact from "@/pages/contact";
+import ContactConservative from "@/pages/contact-conservative";
+import CustomizePackage from "@/pages/customize-package";
+import Blog from "@/pages/blog";
 import ReserveSlot from "@/pages/reserve-slot";
 import BookConsultation from "@/pages/book-consultation";
-import Tools from "@/pages/tools";
 import Admin from "@/pages/admin";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   const urlParams = new URLSearchParams(window.location.search);
   const style = urlParams.get('style');
+  const isConservative = style === 'conservative';
   
   return (
     <Switch>
-      <Route path="/" component={style === 'conservative' ? HomeConservative : Home} />
+      <Route path="/" component={isConservative ? HomeConservative : Home} />
       <Route path="/conservative" component={HomeConservative} />
-      <Route path="/about" component={About} />
-      <Route path="/services" component={Services} />
+      <Route path="/about" component={isConservative ? AboutConservative : About} />
+      <Route path="/services" component={isConservative ? ServicesConservative : Services} />
+      <Route path="/portfolio" component={isConservative ? PortfolioConservative : Portfolio} />
+      <Route path="/tools" component={isConservative ? ToolsConservative : Tools} />
+      <Route path="/contact" component={isConservative ? ContactConservative : Contact} />
       <Route path="/customize-package" component={CustomizePackage} />
-      <Route path="/portfolio" component={Portfolio} />
       <Route path="/blog" component={Blog} />
-      <Route path="/contact" component={Contact} />
       <Route path="/reserve-slot" component={ReserveSlot} />
       <Route path="/book-consultation" component={BookConsultation} />
-      <Route path="/tools" component={Tools} />
       <Route path="/admin" component={Admin} />
       <Route component={NotFound} />
     </Switch>
