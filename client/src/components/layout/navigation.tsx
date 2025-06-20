@@ -37,7 +37,7 @@ export default function Navigation() {
             <div className={`text-2xl font-bold tracking-wider transition-colors duration-300 ${
               isConservative 
                 ? 'text-blue-600 hover:text-blue-500' 
-                : 'font-cyber text-cyan-300 hover:text-cyan-200'
+                : 'font-cyber-subtle hover:text-cyan-200'
             }`}>
               PRIMORPHO
             </div>

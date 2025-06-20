@@ -193,6 +193,16 @@
     0 0 8px #00ffff;
 }
 
+.font-cyber-subtle {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #67e8f9;
+  text-shadow: 
+    0 0 1px #00ffff,
+    0 0 3px rgba(0, 255, 255, 0.3);
+}
+
 .text-glow-secondary {
   color: #a855f7;
   text-shadow: 
