@@ -11,50 +11,6 @@ export default function TechBackground() {
             <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.7" />
             <stop offset="100%" stopColor="#fbbf24" stopOpacity="0.6" />
           </linearGradient>
-          
-          {/* Electricity Flow Gradients */}
-          <linearGradient id="electricFlow1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="transparent" stopOpacity="0" />
-            <stop offset="30%" stopColor="#00ffff" stopOpacity="0.8" />
-            <stop offset="70%" stopColor="#ff00ff" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="transparent" stopOpacity="0" />
-            <animateTransform
-              attributeName="gradientTransform"
-              type="translate"
-              values="-100 0;400 0;-100 0"
-              dur="3s"
-              repeatCount="indefinite"
-            />
-          </linearGradient>
-          
-          <linearGradient id="electricFlow2" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="transparent" stopOpacity="0" />
-            <stop offset="40%" stopColor="#ffff00" stopOpacity="0.7" />
-            <stop offset="60%" stopColor="#00ffff" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="transparent" stopOpacity="0" />
-            <animateTransform
-              attributeName="gradientTransform"
-              type="translate"
-              values="400 0;-100 0;400 0"
-              dur="4s"
-              repeatCount="indefinite"
-            />
-          </linearGradient>
-          
-          <linearGradient id="electricFlow3" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="transparent" stopOpacity="0" />
-            <stop offset="35%" stopColor="#ff00ff" stopOpacity="0.8" />
-            <stop offset="65%" stopColor="#00ffff" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="transparent" stopOpacity="0" />
-            <animateTransform
-              attributeName="gradientTransform"
-              type="translate"
-              values="0 -100;0 400;0 -100"
-              dur="5s"
-              repeatCount="indefinite"
-            />
-          </linearGradient>
-          
           <filter id="glow">
             <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
             <feMerge> 
@@ -62,89 +18,45 @@ export default function TechBackground() {
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
-          
-          <filter id="electricGlow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge> 
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
         </defs>
         
-        {/* Base Circuit Lines */}
-        <g stroke="url(#circuitGradient)" strokeWidth="1" fill="none" filter="url(#glow)" opacity="0.6">
-          <path d="M0,100 L200,100 L220,120 L400,120 L420,100 L600,100" />
-          <path d="M100,200 L500,200 L520,180 L700,180 L720,200 L900,200" />
-          <path d="M0,300 L250,300 L270,280 L450,280 L470,300 L700,300" />
-          <path d="M200,450 L600,450 L620,470 L900,470 L920,450 L1200,450" />
-          <path d="M50,550 L350,550 L370,530 L550,530 L570,550 L800,550" />
+        {/* Horizontal Circuit Lines */}
+        <g stroke="url(#circuitGradient)" strokeWidth="2" fill="none" filter="url(#glow)">
+          <path d="M0,100 L200,100 L220,120 L400,120 L420,100 L600,100" className="animate-pulse" style={{ animationDelay: '0s', animationDuration: '4s' }} />
+          <path d="M100,200 L500,200 L520,180 L700,180 L720,200 L900,200" className="animate-pulse" style={{ animationDelay: '1s', animationDuration: '5s' }} />
+          <path d="M0,300 L250,300 L270,280 L450,280 L470,300 L700,300" className="animate-pulse" style={{ animationDelay: '2s', animationDuration: '3s' }} />
+          <path d="M200,450 L600,450 L620,470 L900,470 L920,450 L1200,450" className="animate-pulse" style={{ animationDelay: '0.5s', animationDuration: '6s' }} />
+          <path d="M50,550 L350,550 L370,530 L550,530 L570,550 L800,550" className="animate-pulse" style={{ animationDelay: '3s', animationDuration: '4s' }} />
         </g>
         
-        {/* Animated Electricity Lines */}
-        <g strokeWidth="3" fill="none" filter="url(#electricGlow)">
-          <path d="M0,100 L200,100 L220,120 L400,120 L420,100 L600,100" stroke="url(#electricFlow1)" />
-          <path d="M100,200 L500,200 L520,180 L700,180 L720,200 L900,200" stroke="url(#electricFlow2)" />
-          <path d="M0,300 L250,300 L270,280 L450,280 L470,300 L700,300" stroke="url(#electricFlow1)" style={{ animationDelay: '1.5s' }} />
-          <path d="M200,450 L600,450 L620,470 L900,470 L920,450 L1200,450" stroke="url(#electricFlow2)" style={{ animationDelay: '2s' }} />
-          <path d="M50,550 L350,550 L370,530 L550,530 L570,550 L800,550" stroke="url(#electricFlow1)" style={{ animationDelay: '0.5s' }} />
+        {/* Vertical Circuit Lines */}
+        <g stroke="url(#circuitGradient)" strokeWidth="2" fill="none" filter="url(#glow)">
+          <path d="M150,0 L150,200 L170,220 L170,400 L150,420 L150,600" className="animate-pulse" style={{ animationDelay: '1.5s', animationDuration: '4s' }} />
+          <path d="M400,50 L400,350 L380,370 L380,550 L400,570 L400,700" className="animate-pulse" style={{ animationDelay: '2.5s', animationDuration: '5s' }} />
+          <path d="M600,0 L600,250 L620,270 L620,500 L600,520 L600,700" className="animate-pulse" style={{ animationDelay: '3s', animationDuration: '3.5s' }} />
+          <path d="M800,100 L800,300 L780,320 L780,450 L800,470 L800,600" className="animate-pulse" style={{ animationDelay: '1s', animationDuration: '4.5s' }} />
         </g>
         
-        {/* Base Vertical Circuit Lines */}
-        <g stroke="url(#circuitGradient)" strokeWidth="1" fill="none" filter="url(#glow)" opacity="0.6">
-          <path d="M150,0 L150,200 L170,220 L170,400 L150,420 L150,600" />
-          <path d="M400,50 L400,350 L380,370 L380,550 L400,570 L400,700" />
-          <path d="M600,0 L600,250 L620,270 L620,500 L600,520 L600,700" />
-          <path d="M800,100 L800,300 L780,320 L780,450 L800,470 L800,600" />
+        {/* Circuit Nodes */}
+        <g fill="url(#circuitGradient)">
+          <circle cx="200" cy="100" r="5" className="animate-ping" style={{ animationDelay: '0s', animationDuration: '2s' }} />
+          <circle cx="400" cy="200" r="5" className="animate-ping" style={{ animationDelay: '1s', animationDuration: '2.5s' }} />
+          <circle cx="150" cy="300" r="5" className="animate-ping" style={{ animationDelay: '2s', animationDuration: '3s' }} />
+          <circle cx="600" cy="450" r="5" className="animate-ping" style={{ animationDelay: '1.5s', animationDuration: '2s' }} />
+          <circle cx="170" cy="220" r="4" className="animate-pulse" style={{ animationDelay: '0.5s', animationDuration: '4s' }} />
+          <circle cx="380" cy="370" r="4" className="animate-pulse" style={{ animationDelay: '2.5s', animationDuration: '3s' }} />
+          <circle cx="220" cy="120" r="4" className="animate-ping" style={{ animationDelay: '1.5s', animationDuration: '3s' }} />
+          <circle cx="520" cy="180" r="4" className="animate-ping" style={{ animationDelay: '2.5s', animationDuration: '2s' }} />
+          <circle cx="270" cy="280" r="4" className="animate-pulse" style={{ animationDelay: '3s', animationDuration: '4s' }} />
+          <circle cx="620" cy="470" r="4" className="animate-ping" style={{ animationDelay: '0.5s', animationDuration: '2.5s' }} />
         </g>
         
-        {/* Animated Vertical Electricity Lines */}
-        <g strokeWidth="3" fill="none" filter="url(#electricGlow)">
-          <path d="M150,0 L150,200 L170,220 L170,400 L150,420 L150,600" stroke="url(#electricFlow3)" />
-          <path d="M400,50 L400,350 L380,370 L380,550 L400,570 L400,700" stroke="url(#electricFlow3)" style={{ animationDelay: '1s' }} />
-          <path d="M600,0 L600,250 L620,270 L620,500 L600,520 L600,700" stroke="url(#electricFlow3)" style={{ animationDelay: '2s' }} />
-          <path d="M800,100 L800,300 L780,320 L780,450 L800,470 L800,600" stroke="url(#electricFlow3)" style={{ animationDelay: '3s' }} />
-        </g>
-        
-        {/* Circuit Nodes with Electric Sparks */}
-        <g>
-          {/* Main Connection Nodes */}
-          <circle cx="200" cy="100" r="5" fill="#00ffff" className="animate-ping" style={{ animationDelay: '0s', animationDuration: '2s' }} filter="url(#electricGlow)" />
-          <circle cx="400" cy="200" r="5" fill="#ff00ff" className="animate-ping" style={{ animationDelay: '1s', animationDuration: '2.5s' }} filter="url(#electricGlow)" />
-          <circle cx="150" cy="300" r="5" fill="#ffff00" className="animate-ping" style={{ animationDelay: '2s', animationDuration: '3s' }} filter="url(#electricGlow)" />
-          <circle cx="600" cy="450" r="5" fill="#00ffff" className="animate-ping" style={{ animationDelay: '1.5s', animationDuration: '2s' }} filter="url(#electricGlow)" />
-          
-          {/* Secondary Nodes */}
-          <circle cx="170" cy="220" r="4" fill="#ff00ff" className="animate-pulse" style={{ animationDelay: '0.5s', animationDuration: '4s' }} filter="url(#electricGlow)" />
-          <circle cx="380" cy="370" r="4" fill="#00ffff" className="animate-pulse" style={{ animationDelay: '2.5s', animationDuration: '3s' }} filter="url(#electricGlow)" />
-          <circle cx="220" cy="120" r="4" fill="#ffff00" className="animate-ping" style={{ animationDelay: '1.5s', animationDuration: '3s' }} filter="url(#electricGlow)" />
-          <circle cx="520" cy="180" r="4" fill="#ff00ff" className="animate-ping" style={{ animationDelay: '2.5s', animationDuration: '2s' }} filter="url(#electricGlow)" />
-          <circle cx="270" cy="280" r="4" fill="#00ffff" className="animate-pulse" style={{ animationDelay: '3s', animationDuration: '4s' }} filter="url(#electricGlow)" />
-          <circle cx="620" cy="470" r="4" fill="#ffff00" className="animate-ping" style={{ animationDelay: '0.5s', animationDuration: '2.5s' }} filter="url(#electricGlow)" />
-          
-          {/* Electric Sparks */}
-          <g opacity="0.8">
-            <circle cx="200" cy="100" r="8" fill="none" stroke="#00ffff" strokeWidth="1" className="animate-ping" style={{ animationDelay: '0s', animationDuration: '1s' }} />
-            <circle cx="400" cy="200" r="10" fill="none" stroke="#ff00ff" strokeWidth="1" className="animate-ping" style={{ animationDelay: '0.5s', animationDuration: '1.5s' }} />
-            <circle cx="150" cy="300" r="6" fill="none" stroke="#ffff00" strokeWidth="1" className="animate-ping" style={{ animationDelay: '1s', animationDuration: '1s' }} />
-            <circle cx="600" cy="450" r="9" fill="none" stroke="#00ffff" strokeWidth="1" className="animate-ping" style={{ animationDelay: '1.5s', animationDuration: '1.2s' }} />
-          </g>
-        </g>
-        
-        {/* Electric Bolt Connections */}
-        <g strokeWidth="2" fill="none" filter="url(#electricGlow)">
-          <path d="M200,100 Q300,150 400,200" stroke="url(#electricFlow1)" opacity="0.7" />
-          <path d="M400,200 Q275,250 150,300" stroke="url(#electricFlow2)" opacity="0.7" style={{ animationDelay: '1s' }} />
-          <path d="M150,300 Q375,375 600,450" stroke="url(#electricFlow1)" opacity="0.7" style={{ animationDelay: '2s' }} />
-          <path d="M170,220 Q290,295 380,370" stroke="url(#electricFlow3)" opacity="0.7" style={{ animationDelay: '0.5s' }} />
-        </g>
-        
-        {/* Lightning Bolt Effects */}
-        <g strokeWidth="1" fill="none" opacity="0.6">
-          <path d="M220,120 L225,125 L218,130 L230,135 L215,140" stroke="#00ffff" className="animate-pulse" style={{ animationDelay: '0s', animationDuration: '0.5s' }} filter="url(#electricGlow)" />
-          <path d="M520,180 L515,185 L525,190 L510,195 L520,200" stroke="#ff00ff" className="animate-pulse" style={{ animationDelay: '1s', animationDuration: '0.3s' }} filter="url(#electricGlow)" />
-          <path d="M270,280 L275,275 L265,285 L280,290 L270,295" stroke="#ffff00" className="animate-pulse" style={{ animationDelay: '2s', animationDuration: '0.4s' }} filter="url(#electricGlow)" />
-          <path d="M620,470 L615,465 L625,475 L610,480 L620,485" stroke="#00ffff" className="animate-pulse" style={{ animationDelay: '1.5s', animationDuration: '0.6s' }} filter="url(#electricGlow)" />
+        {/* Neural Connection Lines */}
+        <g stroke="url(#circuitGradient)" strokeWidth="0.5" fill="none" opacity="0.4">
+          <path d="M200,100 Q300,150 400,200" className="animate-pulse" style={{ animationDelay: '0s', animationDuration: '6s' }} />
+          <path d="M400,200 Q275,250 150,300" className="animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }} />
+          <path d="M150,300 Q375,375 600,450" className="animate-pulse" style={{ animationDelay: '4s', animationDuration: '7s' }} />
+          <path d="M170,220 Q290,295 380,370" className="animate-pulse" style={{ animationDelay: '1s', animationDuration: '4s' }} />
         </g>
       </svg>
       
