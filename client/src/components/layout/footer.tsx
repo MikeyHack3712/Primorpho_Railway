@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1">
-            <div className="text-2xl font-bold mb-4 font-cyber text-glow-primary">PRIMORPHO</div>
+            <div className="text-2xl font-bold mb-4 font-cyber-clean">PRIMORPHO</div>
             <p className="text-gray-300 mb-4">
               Custom websites built for <span className="text-cyan-400">impact</span>. No templates, just results.
             </p>

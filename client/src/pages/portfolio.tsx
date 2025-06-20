@@ -160,7 +160,7 @@ export default function Portfolio() {
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 font-cyber text-glow-primary">
+            <h2 className="text-4xl font-bold mb-4 font-cyber-clean">
               MEASURABLE RESULTS
             </h2>
             <p className="text-gray-300">
@@ -216,7 +216,7 @@ export default function Portfolio() {
       {/* CTA Section */}
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto text-center glass-card border border-cyan-400/30 p-12">
-          <h2 className="text-4xl font-bold mb-6 font-cyber text-glow-primary">
+          <h2 className="text-4xl font-bold mb-6 font-cyber-clean">
             READY FOR YOUR PROJECT?
           </h2>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">

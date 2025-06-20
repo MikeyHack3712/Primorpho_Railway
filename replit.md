@@ -228,6 +228,9 @@ Changelog:
   * Created font-cyber-clean class maintaining Orbitron typography without visual effects
   * Logo now displays clean cyan color while preserving futuristic font characteristics
   * Enhanced professional appearance suitable for business client presentations
+  * Removed text-glow-primary class from all major headings in about and portfolio pages
+  * Updated footer PRIMORPHO logo to use clean styling without glow effects
+  * All main text elements now display with clean, professional appearance across the platform
 ```
 
 ## User Preferences

@@ -135,7 +135,7 @@ export default function About() {
 
           {/* CTA Section */}
           <div className="text-center glass-card border border-cyan-400/30 p-12">
-            <h2 className="text-4xl font-bold mb-6 font-cyber text-glow-primary">
+            <h2 className="text-4xl font-bold mb-6 font-cyber-clean">
               READY TO COLLABORATE?
             </h2>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
