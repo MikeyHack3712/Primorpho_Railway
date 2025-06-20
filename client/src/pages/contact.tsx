@@ -14,6 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { contactFormSchema } from "@shared/schema";
 import { z } from "zod";
 import { Mail, Phone, Clock, Shield, Zap, ArrowRight } from "lucide-react";
+import TechBackground from "@/components/ui/tech-background";
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
@@ -63,47 +64,56 @@ export default function Contact() {
   };
 
   return (
-    <div className="pt-16">
-      {/* Hero Section */}
-      <section className="py-20 relative grid-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
-              INITIATE.<span className="text-primary animate-glow-pulse">CONTACT</span>
-            </h1>
-            <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">
-              Ready to quantum-enhance your digital presence? Let's build something extraordinary.
+    <div className="min-h-screen bg-background neural-bg relative">
+      <TechBackground />
+      {/* Header Section */}
+      <section className="pt-32 pb-16 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="mb-8">
+            <span className="text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-6 py-2 rounded-md bg-cyan-300/5">
+              NEURAL WEB SOLUTIONS
+            </span>
+          </div>
+          
+          <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
+            <span className="text-cyan-300 block">INITIATE</span>
+            <span className="text-yellow-300 block">CONTACT</span>
+          </h1>
+          
+          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 mb-16">
+            <p className="text-xl text-readable leading-relaxed">
+              Ready to transform your digital <span className="text-cyan-300 font-semibold">presence</span>? Let's build something extraordinary.
             </p>
           </div>
         </div>
       </section>
 
       {/* Urgency Section */}
-      <section className="py-12 relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-card p-8 rounded-xl border-2 border-yellow-400/50 scan-line">
+      <section className="pb-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="backdrop-blur-sm bg-gray-900/30 border border-yellow-300/20 rounded-lg p-8 mb-16">
             <div className="text-center">
-              <Badge className="mb-4 bg-yellow-400/20 text-yellow-400 border-yellow-400/50 text-lg px-4 py-2">
-                ⚡ LIMITED AVAILABILITY ⚡
+              <Badge className="mb-4 bg-yellow-300/20 text-yellow-300 border-yellow-300/50 text-lg px-4 py-2">
+                LIMITED AVAILABILITY
               </Badge>
-              <h2 className="text-2xl md:text-3xl font-cyber font-bold mb-4 white-highlight">
-                ONLY <span className="text-yellow-400 animate-glow-pulse">2 SLOTS</span> REMAINING THIS MONTH
+              <h2 className="text-cyan-300 text-2xl tracking-wide mb-6 text-subheading">
+                ONLY <span className="text-yellow-300">2 SLOTS</span> REMAINING THIS MONTH
               </h2>
-              <p className="white-highlight mb-6">
-                High demand for quantum-enhanced development. Secure your project slot before they're gone.
+              <p className="text-readable mb-6">
+                High demand for neural-enhanced development. Secure your project slot before they're gone.
               </p>
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-cyber text-primary mb-1">24H</div>
-                  <div className="text-sm white-highlight">Response Time</div>
+                  <div className="text-2xl font-bold text-cyan-300 mb-1">24H</div>
+                  <div className="text-sm text-readable">Response Time</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-cyber text-yellow-400 mb-1">7</div>
-                  <div className="text-sm white-highlight">Years Experience</div>
+                  <div className="text-2xl font-bold text-yellow-300 mb-1">7</div>
+                  <div className="text-sm text-readable">Years Experience</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-cyber text-purple-400 mb-1">100%</div>
-                  <div className="text-sm white-highlight">Success Rate</div>
+                  <div className="text-2xl font-bold text-purple-300 mb-1">100%</div>
+                  <div className="text-sm text-readable">Success Rate</div>
                 </div>
               </div>
             </div>
@@ -112,38 +122,38 @@ export default function Contact() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-20 relative">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pb-24 px-4">
+        <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className="glass-card p-8 rounded-xl">
-              <CardHeader className="p-0 mb-6">
-                <CardTitle className="text-2xl font-cyber text-yellow-400">
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-8">
+              <div className="mb-6">
+                <h2 className="text-cyan-300 text-2xl tracking-wide mb-4 text-subheading">
                   PROJECT BRIEFING
-                </CardTitle>
-                <p className="white-highlight text-sm">
-                  Provide your project details for accurate quantum analysis and pricing.
+                </h2>
+                <p className="text-readable text-sm">
+                  Provide your project details for accurate neural analysis and pricing.
                 </p>
-              </CardHeader>
+              </div>
 
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="name" className="text-sm font-cyber white-highlight mb-2 block">
+                    <Label htmlFor="name" className="text-sm text-readable mb-2 block">
                       NAME *
                     </Label>
                     <Input
                       id="name"
                       {...form.register("name")}
                       placeholder="Your Name"
-                      className="bg-transparent border-primary/30 text-white"
+                      className="bg-gray-900/50 border-gray-600/50 text-white focus:border-cyan-300/50"
                     />
                     {form.formState.errors.name && (
                       <p className="text-red-400 text-xs mt-1">{form.formState.errors.name.message}</p>
                     )}
                   </div>
                   <div>
-                    <Label htmlFor="email" className="text-sm font-cyber white-highlight mb-2 block">
+                    <Label htmlFor="email" className="text-sm text-readable mb-2 block">
                       EMAIL *
                     </Label>
                     <Input
@@ -151,7 +161,7 @@ export default function Contact() {
                       type="email"
                       {...form.register("email")}
                       placeholder="your@email.com"
-                      className="bg-transparent border-primary/30 text-white"
+                      className="bg-gray-900/50 border-gray-600/50 text-white focus:border-cyan-300/50"
                     />
                     {form.formState.errors.email && (
                       <p className="text-red-400 text-xs mt-1">{form.formState.errors.email.message}</p>
@@ -161,18 +171,18 @@ export default function Contact() {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="business" className="text-sm font-cyber white-highlight mb-2 block">
+                    <Label htmlFor="business" className="text-sm text-readable mb-2 block">
                       BUSINESS NAME
                     </Label>
                     <Input
                       id="business"
                       {...form.register("business")}
                       placeholder="Your Business"
-                      className="bg-transparent border-primary/30 text-white"
+                      className="bg-gray-900/50 border-gray-600/50 text-white focus:border-cyan-300/50"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone" className="text-sm font-cyber white-highlight mb-2 block">
+                    <Label htmlFor="phone" className="text-sm text-readable mb-2 block">
                       PHONE
                     </Label>
                     <Input
@@ -180,20 +190,20 @@ export default function Contact() {
                       type="tel"
                       {...form.register("phone")}
                       placeholder="+1 (555) 123-4567"
-                      className="bg-transparent border-primary/30 text-white"
+                      className="bg-gray-900/50 border-gray-600/50 text-white focus:border-cyan-300/50"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="package" className="text-sm font-cyber white-highlight mb-2 block">
+                  <Label htmlFor="package" className="text-sm text-readable mb-2 block">
                     PROJECT TYPE
                   </Label>
                   <Select onValueChange={(value) => form.setValue("package", value)}>
-                    <SelectTrigger className="bg-transparent border-primary/30 text-white">
+                    <SelectTrigger className="bg-gray-900/50 border-gray-600/50 text-white focus:border-cyan-300/50">
                       <SelectValue placeholder="Select Package" />
                     </SelectTrigger>
-                    <SelectContent className="glass-card border-primary/30">
+                    <SelectContent className="bg-gray-900/90 border-gray-600/50">
                       <SelectItem value="launchpad">LaunchPad - $2,500</SelectItem>
                       <SelectItem value="pro-presence">Pro Presence - $5,500</SelectItem>
                       <SelectItem value="smart-business">Smart Business - $12,000</SelectItem>
@@ -205,7 +215,7 @@ export default function Contact() {
 
                 {(form.watch("package") === "audit" || isAuditRequest) && (
                   <div>
-                    <Label htmlFor="websiteUrl" className="text-sm font-cyber white-highlight mb-2 block">
+                    <Label htmlFor="websiteUrl" className="text-sm text-readable mb-2 block">
                       WEBSITE URL *
                     </Label>
                     <Input
@@ -213,7 +223,7 @@ export default function Contact() {
                       type="url"
                       {...form.register("websiteUrl")}
                       placeholder="https://your-website.com"
-                      className="bg-transparent border-primary/30 text-white"
+                      className="bg-gray-900/50 border-gray-600/50 text-white focus:border-cyan-300/50"
                       onChange={() => setIsAuditRequest(true)}
                     />
                     {form.formState.errors.websiteUrl && (
@@ -223,7 +233,7 @@ export default function Contact() {
                 )}
 
                 <div>
-                  <Label htmlFor="details" className="text-sm font-cyber white-highlight mb-2 block">
+                  <Label htmlFor="details" className="text-sm text-readable mb-2 block">
                     PROJECT DETAILS
                   </Label>
                   <Textarea
@@ -231,14 +241,14 @@ export default function Contact() {
                     {...form.register("details")}
                     rows={4}
                     placeholder="Describe your project requirements, goals, and any specific features you need..."
-                    className="bg-transparent border-primary/30 text-white"
+                    className="bg-gray-900/50 border-gray-600/50 text-white focus:border-cyan-300/50"
                   />
                 </div>
 
                 <Button
                   type="submit"
                   disabled={contactMutation.isPending}
-                  className="cyber-button-hover w-full py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-primary text-white hover:bg-primary/10"
+                  className="w-full py-4 rounded-lg font-semibold text-lg bg-cyan-400/20 border border-cyan-400 text-cyan-400 hover:bg-cyan-400/30 transition-all duration-300"
                 >
                   {contactMutation.isPending ? (
                     "TRANSMITTING..."
