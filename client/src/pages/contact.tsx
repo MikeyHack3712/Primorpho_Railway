@@ -269,88 +269,80 @@ export default function Contact() {
 
             {/* Contact Info */}
             <div className="space-y-6">
-              <Card className="glass-card border-primary/30">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-cyber text-purple-400 mb-4">DIRECT CHANNEL</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-center">
-                      <Mail className="w-5 h-5 text-primary mr-4" />
-                      <span className="white-highlight">hello@primorpho.com</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Phone className="w-5 h-5 text-yellow-400 mr-4" />
-                      <a href="tel:+15551234567" className="white-highlight hover:text-primary">
-                        +1 (555) 123-4567
-                      </a>
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="w-5 h-5 text-purple-400 mr-4" />
-                      <span className="white-highlight">24H Response Guaranteed</span>
-                    </div>
+              <div className="backdrop-blur-sm bg-gray-900/30 border border-purple-300/20 rounded-lg p-8">
+                <h3 className="text-purple-300 text-2xl tracking-wide mb-6 text-subheading">DIRECT CHANNEL</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center">
+                    <Mail className="w-5 h-5 text-cyan-300 mr-4" />
+                    <span className="text-readable">hello@primorpho.com</span>
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="flex items-center">
+                    <Phone className="w-5 h-5 text-yellow-300 mr-4" />
+                    <a href="tel:+15551234567" className="text-readable hover:text-cyan-300 transition-colors">
+                      +1 (555) 123-4567
+                    </a>
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="w-5 h-5 text-purple-300 mr-4" />
+                    <span className="text-readable">24H Response Guaranteed</span>
+                  </div>
+                </div>
+              </div>
 
-              <Card className="glass-card border-yellow-400/30">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-cyber text-yellow-400 mb-4">QUANTUM STATUS</h3>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="white-highlight">Available Slots</span>
-                      <span className="text-primary font-cyber">02</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="white-highlight">Response Time</span>
-                      <span className="text-yellow-400 font-cyber">&lt; 24H</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="white-highlight">Next Available</span>
-                      <span className="text-purple-400 font-cyber">IMMEDIATE</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="white-highlight">Success Rate</span>
-                      <span className="text-primary font-cyber">100%</span>
-                    </div>
+              <div className="backdrop-blur-sm bg-gray-900/30 border border-yellow-300/20 rounded-lg p-8">
+                <h3 className="text-yellow-300 text-2xl tracking-wide mb-6 text-subheading">NEURAL STATUS</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-readable">Available Slots</span>
+                    <span className="text-cyan-300 font-semibold">02</span>
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="flex justify-between">
+                    <span className="text-readable">Response Time</span>
+                    <span className="text-yellow-300 font-semibold">&lt; 24H</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-readable">Next Available</span>
+                    <span className="text-purple-300 font-semibold">IMMEDIATE</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-readable">Success Rate</span>
+                    <span className="text-cyan-300 font-semibold">100%</span>
+                  </div>
+                </div>
+              </div>
 
-              <Card className="glass-card border-primary/30">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-cyber text-primary mb-4">SECURITY NOTICE</h3>
-                  <div className="flex items-start">
-                    <Shield className="w-5 h-5 text-primary mr-3 flex-shrink-0 mt-0.5" />
-                    <p className="white-highlight text-sm">
-                      All communications encrypted with military-grade protocols. 
-                      Project data stored in secure quantum vaults with 256-bit encryption.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-8">
+                <h3 className="text-cyan-300 text-2xl tracking-wide mb-6 text-subheading">SECURITY NOTICE</h3>
+                <div className="flex items-start">
+                  <Shield className="w-5 h-5 text-cyan-300 mr-3 flex-shrink-0 mt-0.5" />
+                  <p className="text-readable text-sm">
+                    All communications encrypted with military-grade protocols. 
+                    Project data stored in secure neural vaults with 256-bit encryption.
+                  </p>
+                </div>
+              </div>
 
-              <Card className="glass-card border-purple-400/30">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-cyber text-purple-400 mb-4">NEXT STEPS</h3>
-                  <div className="space-y-3 text-sm white-highlight">
-                    <div className="flex items-center">
-                      <div className="w-6 h-6 rounded-full bg-primary/20 border border-primary flex items-center justify-center mr-3 text-xs text-primary font-cyber">1</div>
-                      <span>Submit your project briefing</span>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="w-6 h-6 rounded-full bg-yellow-400/20 border border-yellow-400 flex items-center justify-center mr-3 text-xs text-yellow-400 font-cyber">2</div>
-                      <span>Receive detailed project analysis within 24 hours</span>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="w-6 h-6 rounded-full bg-purple-400/20 border border-purple-400 flex items-center justify-center mr-3 text-xs text-purple-400 font-cyber">3</div>
-                      <span>Schedule consultation call to discuss requirements</span>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="w-6 h-6 rounded-full bg-primary/20 border border-primary flex items-center justify-center mr-3 text-xs text-primary font-cyber">4</div>
-                      <span>Begin quantum-enhanced development</span>
-                    </div>
+              <div className="backdrop-blur-sm bg-gray-900/30 border border-purple-300/20 rounded-lg p-8">
+                <h3 className="text-purple-300 text-2xl tracking-wide mb-6 text-subheading">NEXT STEPS</h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 rounded-full bg-cyan-300/20 border border-cyan-300 flex items-center justify-center mr-3 text-xs text-cyan-300 font-semibold">1</div>
+                    <span className="text-readable">Submit your project briefing</span>
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 rounded-full bg-yellow-300/20 border border-yellow-300 flex items-center justify-center mr-3 text-xs text-yellow-300 font-semibold">2</div>
+                    <span className="text-readable">Receive detailed project analysis within 24 hours</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 rounded-full bg-purple-300/20 border border-purple-300 flex items-center justify-center mr-3 text-xs text-purple-300 font-semibold">3</div>
+                    <span className="text-readable">Schedule consultation call to discuss requirements</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 rounded-full bg-cyan-300/20 border border-cyan-300 flex items-center justify-center mr-3 text-xs text-cyan-300 font-semibold">4</div>
+                    <span className="text-readable">Begin neural-enhanced development</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
