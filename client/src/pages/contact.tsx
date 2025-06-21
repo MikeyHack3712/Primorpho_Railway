@@ -38,8 +38,10 @@ export default function Contact() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
-      const response = await apiRequest("POST", "/api/contact", data);
-      return response.json();
+      return apiRequest("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
     },
     onSuccess: (data) => {
       toast({
@@ -76,7 +78,7 @@ export default function Contact() {
             </span>
           </div>
           
-          <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
+          <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight page-title">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">INITIATE</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">CONTACT</span>
           </h1>

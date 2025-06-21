@@ -158,7 +158,7 @@ export default function Tools() {
           <div className="inline-block px-4 py-2 bg-cyan-300/10 border border-cyan-300/30 rounded-full text-cyan-300 text-sm font-semibold mb-8">
             NEURAL WEB SOLUTIONS
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-8">
+          <h1 className="text-5xl md:text-6xl font-bold mb-8 page-title">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WEBSITE</span>{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">NEURAL</span>{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">AUDIT</span>
