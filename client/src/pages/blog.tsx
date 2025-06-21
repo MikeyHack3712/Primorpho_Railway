@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import { Calendar, User, ArrowRight, Zap, Shield, Cpu } from "lucide-react";
-import Neural3D from "@/components/ui/neural-3d";
+
 
 export default function Blog() {
   const articles = [
