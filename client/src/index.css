@@ -58,6 +58,82 @@
   line-height: 1.7;
 }
 
+/* Cover Page Animations */
+@keyframes scan-down {
+  0% { top: -2px; opacity: 0; }
+  50% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes scan-right {
+  0% { left: -2px; opacity: 0; }
+  50% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes orbit-1 {
+  0% { transform: translate(-50%, -50%) rotate(0deg) translateX(120px) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+@keyframes orbit-2 {
+  0% { transform: translate(-50%, -50%) rotate(120deg) translateX(100px) rotate(-120deg); }
+  100% { transform: translate(-50%, -50%) rotate(480deg) translateX(100px) rotate(-480deg); }
+}
+
+@keyframes orbit-3 {
+  0% { transform: translate(-50%, -50%) rotate(240deg) translateX(80px) rotate(-240deg); }
+  100% { transform: translate(-50%, -50%) rotate(600deg) translateX(80px) rotate(-600deg); }
+}
+
+.animate-scan-down {
+  animation: scan-down 4s linear infinite;
+}
+
+.animate-scan-right {
+  animation: scan-right 3s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 15s linear infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+
+.animate-orbit-1 {
+  animation: orbit-1 8s linear infinite;
+}
+
+.animate-orbit-2 {
+  animation: orbit-2 12s linear infinite;
+}
+
+.animate-orbit-3 {
+  animation: orbit-3 6s linear infinite;
+}
+
 .text-readable-light {
   color: #e2e8f0;
   font-weight: 400;

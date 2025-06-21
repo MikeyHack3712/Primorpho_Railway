@@ -7,6 +7,7 @@ import Navigation from "@/components/layout/navigation";
 import Footer from "@/components/layout/footer";
 
 // Pages
+import Cover from "@/pages/cover";
 import Home from "@/pages/home";
 import HomeConservative from "@/pages/home-conservative";
 import About from "@/pages/about";
@@ -33,7 +34,8 @@ function Router() {
   
   return (
     <Switch>
-      <Route path="/" component={isConservative ? HomeConservative : Home} />
+      <Route path="/" component={Cover} />
+      <Route path="/home" component={isConservative ? HomeConservative : Home} />
       <Route path="/conservative" component={HomeConservative} />
       <Route path="/about" component={isConservative ? AboutConservative : About} />
       <Route path="/services" component={isConservative ? ServicesConservative : Services} />
@@ -51,15 +53,17 @@ function Router() {
 }
 
 function App() {
+  const isCoverPage = window.location.pathname === '/';
+  
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <div className="min-h-screen flex flex-col">
-          <Navigation />
-          <main className="flex-1">
+          {!isCoverPage && <Navigation />}
+          <main className={isCoverPage ? "" : "flex-1"}>
             <Router />
           </main>
-          <Footer />
+          {!isCoverPage && <Footer />}
         </div>
         <Toaster />
       </TooltipProvider>
