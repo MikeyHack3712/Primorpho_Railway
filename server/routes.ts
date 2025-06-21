@@ -264,7 +264,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           ].filter(r => r && r.length > 0).slice(0, 8) // Top 8 priority issues
         };
         
-        auditResults = {
+        // Prepare audit results for database storage
+        const auditForDatabase = {
           websiteUrl,
           loadTime,
           overallScore,
@@ -284,6 +285,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             stylesheets: $('link[rel="stylesheet"]').length
           }
         };
+        
+        auditResults = auditForDatabase;
         
       } catch (error) {
         console.error("Website audit error:", error);
@@ -949,6 +952,130 @@ function calculateAccessibilityScore($: cheerio.CheerioAPI): { score: number; re
   if (skipLinks === 0 && $('nav').length > 0) {
     score -= 8;
     recommendations.push("No skip links found. Add 'skip to main content' link for keyboard users.");
+  }
+  
+  return { score: Math.max(0, score), recommendations };
+}
+
+function calculateTechnicalScore($: cheerio.CheerioAPI, html: string, response: Response): { score: number; recommendations: string[] } {
+  let score = 100;
+  const recommendations: string[] = [];
+  
+  // Framework and technology detection
+  const hasModuleScripts = $('script[type="module"]').length > 0;
+  const hasES6Features = html.includes('const ') || html.includes('let ') || html.includes('=>');
+  
+  if (!hasModuleScripts && !hasES6Features) {
+    score -= 15;
+    recommendations.push("Consider using modern JavaScript (ES6+) and module bundling for better performance.");
+  }
+  
+  // CDN usage analysis
+  const cdnDomains = ['cdn.', 'cloudfront', 'cloudflare', 'jsdelivr', 'unpkg'];
+  let cdnUsage = 0;
+  $('script[src], link[href]').each((_, el) => {
+    const src = $(el).attr('src') || $(el).attr('href');
+    if (src && cdnDomains.some(domain => src.includes(domain))) {
+      cdnUsage++;
+    }
+  });
+  
+  if (cdnUsage === 0) {
+    score -= 10;
+    recommendations.push("Consider using CDN for faster global content delivery.");
+  }
+  
+  // Build optimization detection
+  const minifiedAssets = $('script[src*=".min."], link[href*=".min."]').length;
+  const totalAssets = $('script[src], link[href]').length;
+  
+  if (totalAssets > 0 && minifiedAssets / totalAssets < 0.5) {
+    score -= 12;
+    recommendations.push("Minify JavaScript and CSS files to reduce load times.");
+  }
+  
+  // Image optimization
+  const modernImageFormats = $('img[src*=".webp"], img[src*=".avif"], picture').length;
+  const totalImages = $('img').length;
+  
+  if (totalImages > 3 && modernImageFormats === 0) {
+    score -= 15;
+    recommendations.push("Use modern image formats (WebP, AVIF) for 25-50% smaller file sizes.");
+  }
+  
+  // Progressive Web App features
+  const hasManifest = $('link[rel="manifest"]').length > 0;
+  const hasServiceWorker = html.includes('serviceWorker') || html.includes('sw.js');
+  
+  if (!hasManifest && !hasServiceWorker) {
+    score -= 8;
+    recommendations.push("Consider implementing PWA features for better user experience.");
+  }
+  
+  return { score: Math.max(0, score), recommendations };
+}
+
+function calculateContentScore($: cheerio.CheerioAPI, html: string): { score: number; recommendations: string[] } {
+  let score = 100;
+  const recommendations: string[] = [];
+  
+  // Content length and quality analysis
+  const bodyText = $('body').text().trim();
+  const wordCount = bodyText.split(/\s+/).filter(word => word.length > 0).length;
+  
+  if (wordCount < 300) {
+    score -= 20;
+    recommendations.push(`Content is too short (${wordCount} words). Add more valuable content for better SEO.`);
+  } else if (wordCount > 3000) {
+    score -= 5;
+    recommendations.push("Very long content. Consider breaking into multiple pages or sections.");
+  }
+  
+  // Heading structure for content hierarchy
+  const headings = $('h1, h2, h3, h4, h5, h6');
+  const contentSections = headings.length;
+  
+  if (wordCount > 500 && contentSections < 3) {
+    score -= 10;
+    recommendations.push("Add more headings to structure long content for better readability.");
+  }
+  
+  // Call-to-action analysis
+  const ctaKeywords = ['buy', 'purchase', 'contact', 'sign up', 'subscribe', 'download', 'get started', 'learn more'];
+  let ctaElements = 0;
+  $('button, a').each((_, el) => {
+    const text = $(el).text().toLowerCase();
+    if (ctaKeywords.some(keyword => text.includes(keyword))) {
+      ctaElements++;
+    }
+  });
+  
+  if (ctaElements === 0) {
+    score -= 15;
+    recommendations.push("Add clear call-to-action buttons to guide user engagement.");
+  }
+  
+  // Contact information analysis
+  const hasContactInfo = bodyText.includes('@') || bodyText.includes('phone') || bodyText.includes('contact');
+  if (!hasContactInfo) {
+    score -= 10;
+    recommendations.push("Include contact information to build trust and accessibility.");
+  }
+  
+  // Social media presence
+  const socialLinks = $('a[href*="facebook"], a[href*="twitter"], a[href*="linkedin"], a[href*="instagram"]').length;
+  if (socialLinks === 0) {
+    score -= 8;
+    recommendations.push("Add social media links to increase brand visibility and engagement.");
+  }
+  
+  // Multimedia content
+  const hasVideo = $('video, iframe[src*="youtube"], iframe[src*="vimeo"]').length > 0;
+  const hasImages = $('img').length > 0;
+  
+  if (!hasImages && !hasVideo && wordCount > 800) {
+    score -= 10;
+    recommendations.push("Add images or videos to break up text and improve engagement.");
   }
   
   return { score: Math.max(0, score), recommendations };

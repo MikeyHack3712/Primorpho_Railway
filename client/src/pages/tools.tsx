@@ -19,20 +19,33 @@ type AuditFormData = z.infer<typeof auditFormSchema>;
 
 interface AuditResult {
   websiteUrl: string;
+  loadTime?: number;
+  overallScore?: number;
   performanceScore: number;
   seoScore: number;
   securityScore: number;
   mobileScore: number;
   accessibilityScore: number;
+  technicalScore?: number;
+  contentScore?: number;
   recommendations: {
     performance?: string[];
     seo?: string[];
     security?: string[];
     mobile?: string[];
     accessibility?: string[];
+    technical?: string[];
+    content?: string[];
     priority?: string[];
     error?: string;
     suggestions?: string[];
+  };
+  metrics?: {
+    htmlSize?: number;
+    totalElements?: number;
+    images?: number;
+    scripts?: number;
+    stylesheets?: number;
   };
 }
 
@@ -239,68 +252,281 @@ export default function Tools() {
                     )}
                   </div>
                 ) : (
-                  <>
-                    {/* Score Grid */}
-                    <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 mb-8">
-                      {[
-                        { label: "PERFORMANCE", score: auditResult.performanceScore, icon: <Zap className="w-6 h-6" />, color: "cyan-300" },
-                        { label: "SEO", score: auditResult.seoScore, icon: <Search className="w-6 h-6" />, color: "purple-300" },
-                        { label: "SECURITY", score: auditResult.securityScore, icon: <Shield className="w-6 h-6" />, color: "yellow-300" },
-                        { label: "MOBILE", score: auditResult.mobileScore, icon: <Smartphone className="w-6 h-6" />, color: "cyan-300" },
-                        { label: "ACCESSIBILITY", score: auditResult.accessibilityScore, icon: <Eye className="w-6 h-6" />, color: "purple-300" },
-                      ].map((metric, index) => (
-                        <div key={index} className="text-center bg-gray-800/50 border border-gray-600/30 rounded-lg p-6">
-                          <div className={`w-12 h-12 mx-auto mb-4 bg-${metric.color}/20 border border-${metric.color}/30 rounded-lg flex items-center justify-center`}>
-                            <div className={`text-${metric.color}`}>
-                              {metric.icon}
+                  <div>
+                    {/* Overall Score Display */}
+                    {auditResult.overallScore && (
+                      <div className="text-center mb-12">
+                        <div className="relative inline-block">
+                          <div className="w-32 h-32 rounded-full border-4 border-gray-600 mx-auto mb-4 flex items-center justify-center bg-gradient-to-br from-cyan-500/20 to-purple-500/20">
+                            <div className="text-center">
+                              <div className={`text-4xl font-bold ${getScoreColor(auditResult.overallScore)}`}>
+                                {auditResult.overallScore}
+                              </div>
+                              <div className="text-xs text-gray-300">OVERALL</div>
                             </div>
                           </div>
-                          <h3 className={`text-lg text-${metric.color} mb-2`}>{metric.label}</h3>
-                          <div className={`text-3xl font-bold mb-2 ${getScoreColor(metric.score)}`}>
-                            {metric.score}%
-                          </div>
-                          <Badge className={`mb-3 ${
-                            metric.score >= 80 ? "bg-green-500/20 text-green-400 border-green-500/30" :
-                            metric.score >= 60 ? "bg-yellow-400/20 text-yellow-400 border-yellow-400/30" :
-                            "bg-red-500/20 text-red-400 border-red-500/30"
-                          }`}>
-                            {getScoreBadge(metric.score)}
+                          <Badge className={`${getScoreColor(auditResult.overallScore)} bg-transparent border`}>
+                            {getScoreBadge(auditResult.overallScore)}
                           </Badge>
-                          <Progress 
-                            value={metric.score} 
-                            className="h-2 bg-gray-700"
-                          />
                         </div>
-                      ))}
+                        {auditResult.loadTime && (
+                          <p className="text-sm text-gray-300 mt-4">
+                            Load Time: <span className={`font-bold ${auditResult.loadTime > 3000 ? 'text-red-400' : auditResult.loadTime > 2000 ? 'text-yellow-400' : 'text-green-400'}`}>
+                              {(auditResult.loadTime / 1000).toFixed(1)}s
+                            </span>
+                          </p>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Enhanced Metrics Display */}
+                    {auditResult.metrics && (
+                      <div className="mb-8">
+                        <h3 className="text-lg text-cyan-300 mb-4">TECHNICAL METRICS</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                          <div className="bg-gray-800/30 border border-gray-600/30 rounded-lg p-4 text-center">
+                            <div className="text-2xl text-yellow-300 font-bold">{auditResult.metrics.htmlSize ? Math.round(auditResult.metrics.htmlSize / 1024) : 0}KB</div>
+                            <div className="text-xs text-gray-300">HTML Size</div>
+                          </div>
+                          <div className="bg-gray-800/30 border border-gray-600/30 rounded-lg p-4 text-center">
+                            <div className="text-2xl text-purple-300 font-bold">{auditResult.metrics.images || 0}</div>
+                            <div className="text-xs text-gray-300">Images</div>
+                          </div>
+                          <div className="bg-gray-800/30 border border-gray-600/30 rounded-lg p-4 text-center">
+                            <div className="text-2xl text-cyan-300 font-bold">{auditResult.metrics.scripts || 0}</div>
+                            <div className="text-xs text-gray-300">Scripts</div>
+                          </div>
+                          <div className="bg-gray-800/30 border border-gray-600/30 rounded-lg p-4 text-center">
+                            <div className="text-2xl text-green-300 font-bold">{auditResult.metrics.stylesheets || 0}</div>
+                            <div className="text-xs text-gray-300">Stylesheets</div>
+                          </div>
+                          <div className="bg-gray-800/30 border border-gray-600/30 rounded-lg p-4 text-center">
+                            <div className="text-2xl text-orange-300 font-bold">{auditResult.metrics.totalElements || 0}</div>
+                            <div className="text-xs text-gray-300">Elements</div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Enhanced Score Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                      <Card className="bg-gray-800/30 border-gray-600/30">
+                        <CardHeader className="text-center pb-4">
+                          <Zap className="w-8 h-8 text-yellow-300 mx-auto mb-2" />
+                          <CardTitle className="text-yellow-300">PERFORMANCE</CardTitle>
+                        </CardHeader>
+                        <CardContent className="text-center">
+                          <div className={`text-3xl font-bold mb-2 ${getScoreColor(auditResult.performanceScore)}`}>
+                            {auditResult.performanceScore}
+                          </div>
+                          <Progress value={auditResult.performanceScore} className="mb-2" />
+                          <Badge className={`${getScoreColor(auditResult.performanceScore)} bg-transparent border`}>
+                            {getScoreBadge(auditResult.performanceScore)}
+                          </Badge>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="bg-gray-800/30 border-gray-600/30">
+                        <CardHeader className="text-center pb-4">
+                          <Search className="w-8 h-8 text-purple-300 mx-auto mb-2" />
+                          <CardTitle className="text-purple-300">SEO</CardTitle>
+                        </CardHeader>
+                        <CardContent className="text-center">
+                          <div className={`text-3xl font-bold mb-2 ${getScoreColor(auditResult.seoScore)}`}>
+                            {auditResult.seoScore}
+                          </div>
+                          <Progress value={auditResult.seoScore} className="mb-2" />
+                          <Badge className={`${getScoreColor(auditResult.seoScore)} bg-transparent border`}>
+                            {getScoreBadge(auditResult.seoScore)}
+                          </Badge>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="bg-gray-800/30 border-gray-600/30">
+                        <CardHeader className="text-center pb-4">
+                          <Shield className="w-8 h-8 text-cyan-300 mx-auto mb-2" />
+                          <CardTitle className="text-cyan-300">SECURITY</CardTitle>
+                        </CardHeader>
+                        <CardContent className="text-center">
+                          <div className={`text-3xl font-bold mb-2 ${getScoreColor(auditResult.securityScore)}`}>
+                            {auditResult.securityScore}
+                          </div>
+                          <Progress value={auditResult.securityScore} className="mb-2" />
+                          <Badge className={`${getScoreColor(auditResult.securityScore)} bg-transparent border`}>
+                            {getScoreBadge(auditResult.securityScore)}
+                          </Badge>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="bg-gray-800/30 border-gray-600/30">
+                        <CardHeader className="text-center pb-4">
+                          <Smartphone className="w-8 h-8 text-green-300 mx-auto mb-2" />
+                          <CardTitle className="text-green-300">MOBILE</CardTitle>
+                        </CardHeader>
+                        <CardContent className="text-center">
+                          <div className={`text-3xl font-bold mb-2 ${getScoreColor(auditResult.mobileScore)}`}>
+                            {auditResult.mobileScore}
+                          </div>
+                          <Progress value={auditResult.mobileScore} className="mb-2" />
+                          <Badge className={`${getScoreColor(auditResult.mobileScore)} bg-transparent border`}>
+                            {getScoreBadge(auditResult.mobileScore)}
+                          </Badge>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="bg-gray-800/30 border-gray-600/30">
+                        <CardHeader className="text-center pb-4">
+                          <Eye className="w-8 h-8 text-orange-300 mx-auto mb-2" />
+                          <CardTitle className="text-orange-300">ACCESSIBILITY</CardTitle>
+                        </CardHeader>
+                        <CardContent className="text-center">
+                          <div className={`text-3xl font-bold mb-2 ${getScoreColor(auditResult.accessibilityScore)}`}>
+                            {auditResult.accessibilityScore}
+                          </div>
+                          <Progress value={auditResult.accessibilityScore} className="mb-2" />
+                          <Badge className={`${getScoreColor(auditResult.accessibilityScore)} bg-transparent border`}>
+                            {getScoreBadge(auditResult.accessibilityScore)}
+                          </Badge>
+                        </CardContent>
+                      </Card>
+
+                      {auditResult.technicalScore && (
+                        <Card className="bg-gray-800/30 border-gray-600/30">
+                          <CardHeader className="text-center pb-4">
+                            <div className="w-8 h-8 text-pink-300 mx-auto mb-2 flex items-center justify-center">⚡</div>
+                            <CardTitle className="text-pink-300">TECHNICAL</CardTitle>
+                          </CardHeader>
+                          <CardContent className="text-center">
+                            <div className={`text-3xl font-bold mb-2 ${getScoreColor(auditResult.technicalScore)}`}>
+                              {auditResult.technicalScore}
+                            </div>
+                            <Progress value={auditResult.technicalScore} className="mb-2" />
+                            <Badge className={`${getScoreColor(auditResult.technicalScore)} bg-transparent border`}>
+                              {getScoreBadge(auditResult.technicalScore)}
+                            </Badge>
+                          </CardContent>
+                        </Card>
+                      )}
                     </div>
 
-                    {/* Recommendations */}
-                    <div className="grid md:grid-cols-2 gap-6">
-                      {auditResult?.recommendations?.priority && auditResult.recommendations.priority.length > 0 && (
-                        <div className="bg-gray-800/50 border border-red-400/30 rounded-lg p-6">
-                          <div className="flex items-center mb-4">
-                            <AlertTriangle className="w-5 h-5 text-red-400 mr-2" />
-                            <h3 className="text-xl text-red-400 font-bold">PRIORITY ISSUES</h3>
-                          </div>
+                    {/* Priority Recommendations */}
+                    {auditResult.recommendations.priority && auditResult.recommendations.priority.length > 0 && (
+                      <div className="mb-8">
+                        <h3 className="text-lg text-red-400 mb-4">🚨 PRIORITY FIXES</h3>
+                        <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-6">
                           <ul className="space-y-2">
-                            {auditResult.recommendations.priority.map((issue, index) => (
-                              <li key={index} className="text-gray-300 text-sm flex items-start">
-                                <span className="text-red-400 mr-2">•</span>
-                                {issue}
+                            {auditResult.recommendations.priority.map((rec, index) => (
+                              <li key={index} className="flex items-start space-x-3">
+                                <AlertTriangle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
+                                <span className="text-gray-300">{rec}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
-                      )}
+                      </div>
+                    )}
 
-                      {auditResult.recommendations.performance && auditResult.recommendations.performance.length > 0 && (
-                        <div className="bg-gray-800/50 border border-cyan-300/30 rounded-lg p-6">
-                          <div className="flex items-center mb-4">
-                            <Zap className="w-5 h-5 text-cyan-300 mr-2" />
-                            <h3 className="text-xl text-cyan-300 font-bold">PERFORMANCE</h3>
+                    {/* Detailed Recommendations */}
+                    <div className="grid md:grid-cols-2 gap-8">
+                      {[
+                        { key: 'performance', title: 'PERFORMANCE', icon: <Zap className="w-5 h-5" />, color: 'yellow-300' },
+                        { key: 'seo', title: 'SEO', icon: <Search className="w-5 h-5" />, color: 'purple-300' },
+                        { key: 'security', title: 'SECURITY', icon: <Shield className="w-5 h-5" />, color: 'cyan-300' },
+                        { key: 'mobile', title: 'MOBILE', icon: <Smartphone className="w-5 h-5" />, color: 'green-300' },
+                        { key: 'accessibility', title: 'ACCESSIBILITY', icon: <Eye className="w-5 h-5" />, color: 'orange-300' },
+                        { key: 'technical', title: 'TECHNICAL', icon: <div className="w-5 h-5 flex items-center justify-center text-pink-300">⚡</div>, color: 'pink-300' },
+                        { key: 'content', title: 'CONTENT', icon: <div className="w-5 h-5 flex items-center justify-center text-blue-300">📝</div>, color: 'blue-300' }
+                      ].filter(category => auditResult.recommendations[category.key] && auditResult.recommendations[category.key].length > 0).map((category) => (
+                        <div key={category.key} className="bg-gray-800/30 border border-gray-600/30 rounded-lg p-6">
+                          <div className="flex items-center space-x-2 mb-4">
+                            {category.icon}
+                            <h4 className={`text-lg font-semibold text-${category.color}`}>{category.title}</h4>
                           </div>
                           <ul className="space-y-2">
-                            {auditResult.recommendations.performance.map((rec, index) => (
+                            {auditResult.recommendations[category.key].map((rec, index) => (
+                              <li key={index} className="flex items-start space-x-2">
+                                <ArrowRight className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                                <span className="text-gray-300 text-sm">{rec}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Call to Action */}
+                    <div className="mt-12 text-center">
+                      <div className="backdrop-blur-sm bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-300/30 rounded-lg p-8">
+                        <h3 className="text-2xl text-cyan-300 font-bold mb-4">NEED PROFESSIONAL OPTIMIZATION?</h3>
+                        <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+                          Our neural-enhanced development team can implement these recommendations and boost your website's performance by 300%.
+                        </p>
+                        <div className="flex justify-center space-x-4">
+                          <Button className="bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white px-8 py-3">
+                            GET CONSULTATION
+                          </Button>
+                          <Button variant="outline" className="border-cyan-300 text-cyan-300 hover:bg-cyan-300/10 px-8 py-3">
+                            VIEW PACKAGES
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-white mb-8">
+              NEURAL <span className="text-cyan-300">ANALYSIS</span> CAPABILITIES
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Our advanced audit system analyzes multiple dimensions of your website for comprehensive optimization insights.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-cyan-300/20 border border-cyan-300/30 rounded-lg flex items-center justify-center">
+                <Zap className="w-8 h-8 text-cyan-300" />
+              </div>
+              <h3 className="text-xl text-cyan-300 font-bold mb-4">PERFORMANCE ANALYSIS</h3>
+              <p className="text-gray-300">
+                Real load time measurement, compression analysis, and resource optimization recommendations.
+              </p>
+            </div>
+
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-purple-300/20 border border-purple-300/30 rounded-lg flex items-center justify-center">
+                <Shield className="w-8 h-8 text-purple-300" />
+              </div>
+              <h3 className="text-xl text-purple-300 font-bold mb-4">SECURITY SCANNING</h3>
+              <p className="text-gray-300">
+                Vulnerability detection, security headers analysis, and HTTPS implementation verification.
+              </p>
+            </div>
+
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-yellow-300/20 border border-yellow-300/30 rounded-lg flex items-center justify-center">
+                <Search className="w-8 h-8 text-yellow-300" />
+              </div>
+              <h3 className="text-xl text-yellow-300 font-bold mb-4">SEO OPTIMIZATION</h3>
+              <p className="text-gray-300">
+                Meta tag analysis, content structure evaluation, and search engine visibility improvements.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
                               <li key={index} className="text-gray-300 text-sm flex items-start">
                                 <span className="text-cyan-300 mr-2">•</span>
                                 {rec}

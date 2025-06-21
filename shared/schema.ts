@@ -70,12 +70,17 @@ export const slotReservations = pgTable("slot_reservations", {
 export const auditResults = pgTable("audit_results", {
   id: serial("id").primaryKey(),
   websiteUrl: text("website_url").notNull(),
+  loadTime: integer("load_time"),
+  overallScore: integer("overall_score"),
   performanceScore: integer("performance_score"),
   seoScore: integer("seo_score"),
   securityScore: integer("security_score"),
   mobileScore: integer("mobile_score"),
   accessibilityScore: integer("accessibility_score"),
+  technicalScore: integer("technical_score"),
+  contentScore: integer("content_score"),
   recommendations: jsonb("recommendations"),
+  metrics: jsonb("metrics"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
