@@ -7,6 +7,7 @@ import {
   contactFormSchema,
   slotReservationFormSchema,
   auditFormSchema,
+  moodBoardFormSchema,
 } from "@shared/schema";
 import { z } from "zod";
 import * as cheerio from "cheerio";

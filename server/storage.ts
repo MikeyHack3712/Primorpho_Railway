@@ -3,6 +3,7 @@ import {
   contactSubmissions,
   slotReservations,
   auditResults,
+  moodBoards,
   type User,
   type UpsertUser,
   type ContactSubmission,
@@ -11,6 +12,8 @@ import {
   type InsertSlotReservation,
   type AuditResult,
   type InsertAuditResult,
+  type MoodBoard,
+  type InsertMoodBoard,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
@@ -34,6 +37,12 @@ export interface IStorage {
   createAuditResult(audit: InsertAuditResult): Promise<AuditResult>;
   getAuditResults(): Promise<AuditResult[]>;
   getAuditResultByUrl(url: string): Promise<AuditResult | undefined>;
+  
+  // Mood boards
+  createMoodBoard(moodBoard: InsertMoodBoard): Promise<MoodBoard>;
+  getMoodBoards(): Promise<MoodBoard[]>;
+  getMoodBoardById(id: number): Promise<MoodBoard | undefined>;
+  updateMoodBoard(id: number, updates: Partial<InsertMoodBoard>): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -128,6 +137,37 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(auditResults.createdAt))
       .limit(1);
     return result;
+  }
+
+  // Mood boards
+  async createMoodBoard(moodBoard: InsertMoodBoard): Promise<MoodBoard> {
+    const [result] = await db
+      .insert(moodBoards)
+      .values(moodBoard)
+      .returning();
+    return result;
+  }
+
+  async getMoodBoards(): Promise<MoodBoard[]> {
+    return await db
+      .select()
+      .from(moodBoards)
+      .orderBy(desc(moodBoards.createdAt));
+  }
+
+  async getMoodBoardById(id: number): Promise<MoodBoard | undefined> {
+    const [result] = await db
+      .select()
+      .from(moodBoards)
+      .where(eq(moodBoards.id, id));
+    return result;
+  }
+
+  async updateMoodBoard(id: number, updates: Partial<InsertMoodBoard>): Promise<void> {
+    await db
+      .update(moodBoards)
+      .set(updates)
+      .where(eq(moodBoards.id, id));
   }
 }
 

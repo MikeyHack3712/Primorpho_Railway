@@ -150,3 +150,14 @@ export const slotReservationFormSchema = insertSlotReservationSchema.pick({
 export const auditFormSchema = z.object({
   websiteUrl: z.string().min(1, "Please enter a website URL").trim(),
 });
+
+export const moodBoardFormSchema = insertMoodBoardSchema.pick({
+  projectName: true,
+  projectType: true,
+  targetAudience: true,
+  businessGoals: true,
+  brandPersonality: true,
+  colorPreferences: true,
+  stylePreferences: true,
+  inspirationDescription: true,
+});
