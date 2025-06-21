@@ -76,7 +76,7 @@ export default function Cover() {
               
               {/* Content */}
               <div className="relative z-10 flex items-center gap-3">
-                <span>ENTER THE MATRIX</span>
+                <span>INITIATE TRANSFORMATION</span>
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
             </Link>

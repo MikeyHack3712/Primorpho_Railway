@@ -268,11 +268,12 @@ Changelog:
   * Designed captivating cover page with animated cyberpunk aesthetics and gradient text effects
   * Implemented floating orbs, scanning lines, and grid patterns for futuristic atmosphere
   * Added central logo with orbital rings, rotating animations, and glowing effects
-  * Created prominent "ENTER THE MATRIX" button with hover animations and particle orbits
+  * Created prominent "INITIATE TRANSFORMATION" button with hover animations and particle orbits
   * Added system status indicators showing "SYSTEMS ONLINE", "NEURAL LINK ACTIVE", "READY FOR TRANSFORMATION"
   * Restructured routing: cover page at root (/), main website accessible via /home
   * Cover page displays without navigation/footer for immersive full-screen experience
   * Updated navigation links and logo to work with new /home route structure
+  * Fixed navigation visibility issue using React location hook for proper route detection
 ```
 
 ## User Preferences
