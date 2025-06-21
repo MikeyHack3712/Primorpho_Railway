@@ -243,6 +243,173 @@
   }
 }
 
+/* 3D Neural Network Animations */
+.neural-sphere {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(15deg) rotateY(0deg);
+  animation: neuralRotate 20s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.neural-node {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #00ffff 0%, transparent 70%);
+  border-radius: 50%;
+  animation: neuralFloat 8s ease-in-out infinite alternate;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.neural-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+}
+
+.core-inner {
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #a855f7 0%, transparent 70%);
+  border-radius: 50%;
+  animation: corepulse 3s ease-in-out infinite;
+  box-shadow: 0 0 20px #a855f7;
+}
+
+.core-rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ring {
+  position: absolute;
+  border: 1px solid;
+  border-radius: 50%;
+  animation: ringRotate 8s linear infinite;
+  opacity: 0.6;
+}
+
+.ring-1 {
+  width: 40px;
+  height: 40px;
+  border-color: #00ffff;
+  animation-duration: 6s;
+  transform: translate(-50%, -50%) rotateX(0deg);
+}
+
+.ring-2 {
+  width: 60px;
+  height: 60px;
+  border-color: #a855f7;
+  animation-duration: 8s;
+  animation-direction: reverse;
+  transform: translate(-50%, -50%) rotateY(90deg);
+}
+
+.ring-3 {
+  width: 80px;
+  height: 80px;
+  border-color: #fbbf24;
+  animation-duration: 10s;
+  transform: translate(-50%, -50%) rotateX(45deg) rotateZ(45deg);
+}
+
+.data-streams {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.data-stream {
+  position: absolute;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #00ffff 50%,
+    transparent 100%
+  );
+  transform-origin: bottom center;
+  animation: streamPulse 2s ease-in-out infinite;
+}
+
+.tech-icons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tech-icon {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0.8;
+  animation: iconFloat 6s ease-in-out infinite;
+}
+
+.icon-1 {
+  color: #00ffff;
+  transform: translate(-80px, -60px);
+  animation-delay: 0s;
+}
+
+.icon-2 {
+  color: #a855f7;
+  transform: translate(60px, -40px);
+  animation-delay: 1s;
+}
+
+.icon-3 {
+  color: #fbbf24;
+  transform: translate(-40px, 70px);
+  animation-delay: 2s;
+}
+
+.icon-4 {
+  color: #00ffff;
+  transform: translate(80px, 50px);
+  animation-delay: 3s;
+}
+
+@keyframes neuralRotate {
+  0% { transform: translate(-50%, -50%) rotateX(15deg) rotateY(0deg); }
+  100% { transform: translate(-50%, -50%) rotateX(15deg) rotateY(360deg); }
+}
+
+@keyframes neuralFloat {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@keyframes corepulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 20px #a855f7; }
+  50% { transform: scale(1.2); box-shadow: 0 0 40px #a855f7; }
+}
+
+@keyframes ringRotate {
+  0% { transform: translate(-50%, -50%) rotateZ(0deg); }
+  100% { transform: translate(-50%, -50%) rotateZ(360deg); }
+}
+
+@keyframes streamPulse {
+  0%, 100% { opacity: 0.3; transform: rotate(var(--angle)) translateY(-50px) scale(1); }
+  50% { opacity: 1; transform: rotate(var(--angle)) translateY(-50px) scale(1.1); }
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-10px) scale(1.1); opacity: 1; }
+}
+
 .glow-primary {
   box-shadow: 0 0 60px rgba(0, 255, 255, 0.5);
   animation: glowPulse 3s ease-in-out infinite;

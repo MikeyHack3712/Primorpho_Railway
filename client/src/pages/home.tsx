@@ -2,12 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
 import { ArrowRight, Clock, CheckCircle, Zap } from "lucide-react";
-import TechBackground from "@/components/ui/tech-background";
+import Neural3D from "@/components/ui/neural-3d";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background neural-bg relative">
-      <TechBackground />
+      <Neural3D />
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4">
         <div className="max-w-7xl mx-auto text-center relative">
