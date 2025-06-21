@@ -54,10 +54,12 @@ export default function Cover() {
         </div>
 
         {/* Description */}
-        <p className="text-xl text-slate-200/80 mb-12 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-xl text-slate-200/80 mb-12 max-w-3xl mx-auto leading-relaxed">
           Step into the future of web development. Where cutting-edge technology meets 
           <span className="text-cyan-300 font-semibold"> limitless creativity</span> to forge 
-          digital experiences that transcend boundaries.
+          digital experiences that transcend boundaries and give you the freedom to design your website in ways that 
+          <span className="text-purple-300 font-semibold"> truly tell your story</span>, crafted uniquely for you and 
+          <span className="text-yellow-300 font-semibold"> built to convert</span>.
         </p>
 
         {/* Enter Button */}
