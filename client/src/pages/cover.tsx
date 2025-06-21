@@ -96,14 +96,10 @@ export default function Cover() {
         <div className="mb-8 max-w-4xl mx-auto">
           <div className="backdrop-blur-sm bg-gray-900/20 border border-cyan-300/20 rounded-lg p-6">
             <div className="text-center space-y-3">
-              <div className="text-cyan-300 text-sm font-semibold tracking-wider">
-                PURE CODE • NO TEMPLATES • ZERO FLUFF
-              </div>
               <p className="text-slate-300 text-lg leading-relaxed">
-                Every line of code is <span className="text-cyan-300 font-semibold">hand-crafted from scratch</span>, 
-                tailored to your unique vision. No Wix, no drag-and-drop builders, 
-                no generic templates—just <span className="text-purple-300 font-semibold">pure development artistry</span> 
-                designed exclusively for your needs.
+                No templates. No drag-and-drop. Just <span className="text-cyan-300 font-semibold">handcrafted code</span>, 
+                shaped around your vision — designed to <span className="text-purple-300 font-semibold">stand out</span> and 
+                <span className="text-yellow-300 font-semibold">perform</span>.
               </p>
             </div>
           </div>
