@@ -53,10 +53,20 @@ export default function MoodBoard() {
 
   const generateMutation = useMutation({
     mutationFn: async (data: MoodBoardData) => {
-      const response = await apiRequest('/api/mood-board', {
+      const response = await fetch('/api/mood-board', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(data),
+        credentials: 'include',
       });
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to generate mood board: ${errorText}`);
+      }
+      
       return response.json();
     },
     onSuccess: (data) => {
