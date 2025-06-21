@@ -450,7 +450,7 @@ export default function MoodBoard() {
 
                 <TabsContent value="colors" className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {generatedBoard.colorPalettes.map((palette: ColorPalette, index: number) => (
+                    {generatedBoard.generatedBoard.colorPalettes.map((palette: ColorPalette, index: number) => (
                       <Card key={index} className="glass-card">
                         <CardHeader>
                           <CardTitle className="text-cyan-300">{palette.name}</CardTitle>
@@ -488,22 +488,22 @@ export default function MoodBoard() {
                       <div className="space-y-6">
                         <div>
                           <p className="text-sm text-gray-400 mb-2">Primary Font</p>
-                          <p className="text-2xl text-readable" style={{ fontFamily: generatedBoard.typography.primary }}>
-                            {generatedBoard.typography.primary}
+                          <p className="text-2xl text-readable" style={{ fontFamily: generatedBoard.generatedBoard.typography.primary }}>
+                            {generatedBoard.generatedBoard.typography.primary}
                           </p>
                           <p className="text-sm text-gray-500">Headlines and important text</p>
                         </div>
                         <div>
                           <p className="text-sm text-gray-400 mb-2">Secondary Font</p>
-                          <p className="text-xl text-readable" style={{ fontFamily: generatedBoard.typography.secondary }}>
-                            {generatedBoard.typography.secondary}
+                          <p className="text-xl text-readable" style={{ fontFamily: generatedBoard.generatedBoard.typography.secondary }}>
+                            {generatedBoard.generatedBoard.typography.secondary}
                           </p>
                           <p className="text-sm text-gray-500">Body text and paragraphs</p>
                         </div>
                         <div>
                           <p className="text-sm text-gray-400 mb-2">Accent Font</p>
-                          <p className="text-lg text-readable" style={{ fontFamily: generatedBoard.typography.accent }}>
-                            {generatedBoard.typography.accent}
+                          <p className="text-lg text-readable" style={{ fontFamily: generatedBoard.generatedBoard.typography.accent }}>
+                            {generatedBoard.generatedBoard.typography.accent}
                           </p>
                           <p className="text-sm text-gray-500">Special elements and highlights</p>
                         </div>
@@ -523,22 +523,26 @@ export default function MoodBoard() {
                     <CardContent>
                       <div className="space-y-4">
                         <div>
-                          <p className="text-sm text-gray-400 mb-2">Overall Structure</p>
-                          <p className="text-readable">{generatedBoard.layoutStyle.structure}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-400 mb-2">Style Elements</p>
-                          <div className="flex flex-wrap gap-2">
-                            {generatedBoard.layoutStyle.elements.map((element: string) => (
-                              <Badge key={element} variant="outline" className="text-green-300 border-green-300/30">
-                                {element}
-                              </Badge>
+                          <p className="text-sm text-gray-400 mb-2">Layout Concepts</p>
+                          <div className="space-y-3">
+                            {generatedBoard.generatedBoard.layoutConcepts.map((concept: any, index: number) => (
+                              <div key={index} className="border border-green-300/20 rounded-lg p-3">
+                                <h4 className="text-green-300 font-medium mb-2">{concept.name}</h4>
+                                <p className="text-readable text-sm">{concept.description}</p>
+                                <div className="flex flex-wrap gap-1 mt-2">
+                                  {concept.features.map((feature: string, fIndex: number) => (
+                                    <Badge key={fIndex} variant="outline" className="text-green-300 border-green-300/30 text-xs">
+                                      {feature}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
                             ))}
                           </div>
                         </div>
                         <div>
                           <p className="text-sm text-gray-400 mb-2">Inspiration Notes</p>
-                          <p className="text-readable">{generatedBoard.inspiration}</p>
+                          <p className="text-readable">{generatedBoard.generatedBoard.inspiration}</p>
                         </div>
                       </div>
                     </CardContent>
