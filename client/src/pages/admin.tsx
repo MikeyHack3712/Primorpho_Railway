@@ -120,6 +120,12 @@ export default function Admin() {
     retry: false,
   });
 
+  // Fetch mood boards
+  const { data: moodBoards = [], isLoading: moodBoardsLoading, error: moodBoardsError } = useQuery({
+    queryKey: ["/api/mood-boards"],
+    retry: false,
+  });
+
   // Handle unauthorized errors
   useEffect(() => {
     const errors = [submissionsError, reservationsError, auditsError].filter(Boolean);
@@ -301,7 +307,7 @@ export default function Admin() {
       <section className="py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Tabs defaultValue="submissions" className="space-y-8">
-            <TabsList className="grid w-full grid-cols-3 glass-card border-primary/30">
+            <TabsList className="grid w-full grid-cols-4 glass-card border-primary/30">
               <TabsTrigger value="submissions" className="cyber-button-hover font-cyber">
                 SUBMISSIONS
               </TabsTrigger>
@@ -310,6 +316,9 @@ export default function Admin() {
               </TabsTrigger>
               <TabsTrigger value="audits" className="cyber-button-hover font-cyber">
                 AUDITS
+              </TabsTrigger>
+              <TabsTrigger value="moodboards" className="cyber-button-hover font-cyber">
+                MOOD BOARDS
               </TabsTrigger>
             </TabsList>
 
@@ -636,6 +645,99 @@ export default function Admin() {
                               >
                                 <Mail className="w-4 h-4 mr-1" />
                                 SEND REPORT
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Mood Boards Tab */}
+            <TabsContent value="moodboards" className="space-y-6">
+              <Card className="glass-card border-purple-400/30">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3 text-purple-400">
+                    <Palette className="w-6 h-6" />
+                    MOOD BOARDS MANAGEMENT
+                    <Badge className="bg-purple-400/20 text-purple-400 border-purple-400/30">
+                      {Array.isArray(moodBoards) ? moodBoards.length : 0} BOARDS
+                    </Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {moodBoardsLoading ? (
+                    <div className="text-center py-8">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-400 mx-auto"></div>
+                      <p className="white-highlight mt-4">Loading mood boards...</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {Array.isArray(moodBoards) && moodBoards.map((board: MoodBoard) => (
+                        <Card key={board.id} className="glass-card border-purple-400/30">
+                          <CardContent className="p-6">
+                            <div className="flex items-start justify-between mb-4">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-4 mb-4">
+                                  <h3 className="text-lg font-cyber white-highlight">{board.projectName}</h3>
+                                  <Badge className="bg-purple-400/20 text-purple-400 border-purple-400/30">
+                                    {board.status.toUpperCase()}
+                                  </Badge>
+                                  <Badge variant="outline" className="border-cyan-400/30 text-cyan-400">
+                                    {board.projectType}
+                                  </Badge>
+                                </div>
+                                
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                  <div className="glass-card p-4 rounded-lg">
+                                    <div className="text-sm text-gray-400 mb-1">Target Audience</div>
+                                    <div className="white-highlight">{board.targetAudience}</div>
+                                  </div>
+                                  <div className="glass-card p-4 rounded-lg">
+                                    <div className="text-sm text-gray-400 mb-1">Brand Personality</div>
+                                    <div className="white-highlight">{board.brandPersonality.join(', ')}</div>
+                                  </div>
+                                  <div className="glass-card p-4 rounded-lg">
+                                    <div className="text-sm text-gray-400 mb-1">Style Preferences</div>
+                                    <div className="white-highlight">{board.stylePreferences.join(', ')}</div>
+                                  </div>
+                                </div>
+
+                                <div className="mb-4">
+                                  <div className="text-sm text-gray-400 mb-2">Business Goals</div>
+                                  <p className="white-highlight text-sm">{board.businessGoals}</p>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                  <Clock className="w-4 h-4 text-purple-400" />
+                                  <span className="white-highlight text-sm">{formatDate(board.createdAt)}</span>
+                                  {board.clientEmail && (
+                                    <>
+                                      <Mail className="w-4 h-4 text-cyan-400 ml-4" />
+                                      <span className="white-highlight text-sm">{board.clientEmail}</span>
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                className="cyber-button-hover bg-transparent border border-purple-400 text-white hover:bg-purple-400/10"
+                              >
+                                <Eye className="w-4 h-4 mr-1" />
+                                VIEW BOARD
+                              </Button>
+                              <Button
+                                size="sm"
+                                className="cyber-button-hover bg-transparent border border-cyan-400 text-white hover:bg-cyan-400/10"
+                              >
+                                <Mail className="w-4 h-4 mr-1" />
+                                SHARE WITH CLIENT
                               </Button>
                             </div>
                           </CardContent>
