@@ -20,6 +20,7 @@ import Tools from "@/pages/tools";
 import ToolsConservative from "@/pages/tools-conservative";
 import Contact from "@/pages/contact";
 import ContactConservative from "@/pages/contact-conservative";
+import MoodBoard from "@/pages/mood-board";
 import CustomizePackage from "@/pages/customize-package";
 import Blog from "@/pages/blog";
 import ReserveSlot from "@/pages/reserve-slot";
@@ -42,6 +43,7 @@ function Router() {
       <Route path="/portfolio" component={isConservative ? PortfolioConservative : Portfolio} />
       <Route path="/tools" component={isConservative ? ToolsConservative : Tools} />
       <Route path="/contact" component={isConservative ? ContactConservative : Contact} />
+      <Route path="/mood-board" component={MoodBoard} />
       <Route path="/customize-package" component={CustomizePackage} />
       <Route path="/blog" component={Blog} />
       <Route path="/reserve-slot" component={ReserveSlot} />

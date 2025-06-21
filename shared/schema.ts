@@ -85,6 +85,23 @@ export const auditResults = pgTable("audit_results", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Mood boards table
+export const moodBoards = pgTable("mood_boards", {
+  id: serial("id").primaryKey(),
+  projectName: text("project_name").notNull(),
+  projectType: text("project_type").notNull(),
+  targetAudience: text("target_audience").notNull(),
+  businessGoals: text("business_goals").notNull(),
+  brandPersonality: text("brand_personality").array().notNull(),
+  colorPreferences: text("color_preferences").array().notNull(),
+  stylePreferences: text("style_preferences").array().notNull(),
+  inspirationDescription: text("inspiration_description"),
+  generatedBoard: jsonb("generated_board"),
+  clientEmail: text("client_email"),
+  status: text("status").default("draft"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 // Schema types
 export type UpsertUser = typeof users.$inferInsert;
 export type User = typeof users.$inferSelect;
@@ -98,10 +115,14 @@ export type SlotReservation = typeof slotReservations.$inferSelect;
 export type InsertAuditResult = typeof auditResults.$inferInsert;
 export type AuditResult = typeof auditResults.$inferSelect;
 
+export type InsertMoodBoard = typeof moodBoards.$inferInsert;
+export type MoodBoard = typeof moodBoards.$inferSelect;
+
 // Validation schemas
 export const insertContactSubmissionSchema = createInsertSchema(contactSubmissions);
 export const insertSlotReservationSchema = createInsertSchema(slotReservations);
 export const insertAuditResultSchema = createInsertSchema(auditResults);
+export const insertMoodBoardSchema = createInsertSchema(moodBoards);
 
 // Form schemas with validation
 export const contactFormSchema = insertContactSubmissionSchema.pick({
