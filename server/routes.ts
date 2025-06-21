@@ -437,6 +437,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Mood board generation
+  app.post('/api/mood-board', async (req, res) => {
+    try {
+      const validatedData = moodBoardFormSchema.parse(req.body);
+      
+      // Generate mood board based on client input
+      const generatedBoard = generateMoodBoard(validatedData);
+      
+      const moodBoard = await storage.createMoodBoard({
+        ...validatedData,
+        generatedBoard,
+        status: 'draft',
+      });
+
+      res.json({ 
+        success: true, 
+        message: "Mood board generated successfully!",
+        moodBoard: {
+          ...moodBoard,
+          generatedBoard
+        }
+      });
+    } catch (error) {
+      console.error("Mood board generation error:", error);
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Validation error", errors: error.errors });
+      } else {
+        res.status(500).json({ message: "Failed to generate mood board" });
+      }
+    }
+  });
+
+  // Get mood boards (admin)
+  app.get('/api/mood-boards', isAuthenticated, async (req, res) => {
+    try {
+      const moodBoards = await storage.getMoodBoards();
+      res.json(moodBoards);
+    } catch (error) {
+      console.error("Error fetching mood boards:", error);
+      res.status(500).json({ message: "Failed to fetch mood boards" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
@@ -1119,4 +1162,172 @@ function calculateContentScore($: cheerio.CheerioAPI, html: string): { score: nu
   }
   
   return { score: Math.max(0, score), recommendations };
+}
+
+// Generate mood board based on client preferences
+function generateMoodBoard(data: any) {
+  const colorPalettes = generateColorPalettes(data.colorPreferences, data.brandPersonality);
+  const styleElements = generateStyleElements(data.projectType, data.stylePreferences);
+  const typography = generateTypography(data.brandPersonality, data.projectType);
+  const layoutConcepts = generateLayoutConcepts(data.projectType, data.targetAudience);
+  
+  return {
+    colorPalettes,
+    styleElements,
+    typography,
+    layoutConcepts,
+    inspiration: data.inspirationDescription || '',
+    generatedAt: new Date().toISOString()
+  };
+}
+
+function generateColorPalettes(colorPrefs: string[], brandPersonality: string[]) {
+  const palettes = [];
+  
+  if (colorPrefs.includes('blue') || brandPersonality.includes('trustworthy')) {
+    palettes.push({
+      name: 'Trust & Reliability',
+      colors: ['#003366', '#0066CC', '#4DA6FF', '#B3D9FF', '#E6F3FF'],
+      description: 'Deep blues conveying trust, stability, and professionalism'
+    });
+  }
+  
+  if (colorPrefs.includes('green') || brandPersonality.includes('sustainable')) {
+    palettes.push({
+      name: 'Growth & Nature',
+      colors: ['#1B5E20', '#388E3C', '#66BB6A', '#A5D6A7', '#E8F5E8'],
+      description: 'Natural greens representing growth, sustainability, and harmony'
+    });
+  }
+  
+  if (colorPrefs.includes('purple') || brandPersonality.includes('creative')) {
+    palettes.push({
+      name: 'Innovation & Creativity',
+      colors: ['#4A148C', '#7B1FA2', '#9C27B0', '#BA68C8', '#E1BEE7'],
+      description: 'Rich purples inspiring creativity and innovation'
+    });
+  }
+  
+  if (colorPrefs.includes('orange') || brandPersonality.includes('energetic')) {
+    palettes.push({
+      name: 'Energy & Enthusiasm',
+      colors: ['#E65100', '#FF9800', '#FFB74D', '#FFCC02', '#FFF3C4'],
+      description: 'Vibrant oranges and yellows radiating energy and optimism'
+    });
+  }
+  
+  palettes.push({
+    name: 'Professional Neutrals',
+    colors: ['#212121', '#424242', '#757575', '#BDBDBD', '#F5F5F5'],
+    description: 'Sophisticated grays for balance and professionalism'
+  });
+  
+  return palettes.slice(0, 3);
+}
+
+function generateStyleElements(projectType: string, stylePrefs: string[]) {
+  const elements = [];
+  
+  if (stylePrefs.includes('modern') || projectType === 'tech-startup') {
+    elements.push({
+      name: 'Clean Minimalism',
+      description: 'Generous white space, subtle shadows, and geometric shapes',
+      tags: ['minimal', 'clean', 'modern']
+    });
+  }
+  
+  if (stylePrefs.includes('bold') || projectType === 'creative-agency') {
+    elements.push({
+      name: 'Dynamic Contrasts',
+      description: 'High contrast elements, bold typography, and striking visuals',
+      tags: ['bold', 'high-contrast', 'impactful']
+    });
+  }
+  
+  if (stylePrefs.includes('elegant') || projectType === 'luxury-brand') {
+    elements.push({
+      name: 'Sophisticated Elegance',
+      description: 'Refined details, premium materials, and subtle animations',
+      tags: ['elegant', 'premium', 'refined']
+    });
+  }
+  
+  if (stylePrefs.includes('playful') || projectType === 'startup') {
+    elements.push({
+      name: 'Approachable Personality',
+      description: 'Rounded corners, friendly interactions, and warm colors',
+      tags: ['friendly', 'approachable', 'warm']
+    });
+  }
+  
+  return elements;
+}
+
+function generateTypography(brandPersonality: string[], projectType: string) {
+  const typography = {
+    primary: '',
+    secondary: '',
+    accent: '',
+    description: ''
+  };
+  
+  if (brandPersonality.includes('professional') || projectType === 'corporate') {
+    typography.primary = 'Inter';
+    typography.secondary = 'Source Sans Pro';
+    typography.accent = 'Playfair Display';
+    typography.description = 'Clean, professional fonts that convey trust and reliability';
+  } else if (brandPersonality.includes('creative') || projectType === 'creative-agency') {
+    typography.primary = 'Poppins';
+    typography.secondary = 'Open Sans';
+    typography.accent = 'Montserrat';
+    typography.description = 'Modern, creative fonts with personality and flair';
+  } else if (brandPersonality.includes('technical') || projectType === 'tech-startup') {
+    typography.primary = 'Roboto';
+    typography.secondary = 'Source Code Pro';
+    typography.accent = 'Space Grotesk';
+    typography.description = 'Technical, precise fonts that communicate innovation';
+  } else {
+    typography.primary = 'System UI';
+    typography.secondary = 'Arial';
+    typography.accent = 'Georgia';
+    typography.description = 'Versatile, readable fonts suitable for any audience';
+  }
+  
+  return typography;
+}
+
+function generateLayoutConcepts(projectType: string, targetAudience: string) {
+  const concepts = [];
+  
+  if (projectType === 'e-commerce' || targetAudience.includes('consumer')) {
+    concepts.push({
+      name: 'Product-Focused Grid',
+      description: 'Grid-based layout emphasizing products with clear CTAs',
+      features: ['Product showcase', 'Easy navigation', 'Trust signals']
+    });
+  }
+  
+  if (projectType === 'portfolio' || projectType === 'creative-agency') {
+    concepts.push({
+      name: 'Visual Storytelling',
+      description: 'Image-heavy layout that tells your story through visuals',
+      features: ['Large hero images', 'Project galleries', 'About section']
+    });
+  }
+  
+  if (projectType === 'corporate' || targetAudience.includes('business')) {
+    concepts.push({
+      name: 'Authority & Trust',
+      description: 'Structured layout building credibility and expertise',
+      features: ['Testimonials', 'Case studies', 'Team showcase']
+    });
+  }
+  
+  concepts.push({
+    name: 'Mobile-First Experience',
+    description: 'Responsive design optimized for all devices',
+    features: ['Touch-friendly', 'Fast loading', 'Thumb navigation']
+  });
+  
+  return concepts;
 }
