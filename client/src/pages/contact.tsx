@@ -14,7 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { contactFormSchema } from "@shared/schema";
 import { z } from "zod";
 import { Mail, Phone, Clock, Shield, Zap, ArrowRight } from "lucide-react";
-import Neural3D from "@/components/ui/neural-3d";
+
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
@@ -65,7 +65,6 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-background neural-bg relative">
-      <Neural3D />
       {/* Header Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
