@@ -19,9 +19,15 @@ export default function Home() {
           </div>
           
           <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
-            <span className="block text-cyan-300">TRANSFORM</span>
-            <span className="block text-white">YOUR DIGITAL</span>
-            <span className="block text-yellow-300">PRESENCE</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">
+              TRANSFORM
+            </span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">
+              YOUR DIGITAL
+            </span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">
+              PRESENCE
+            </span>
           </h1>
           
           <div className="max-w-3xl mx-auto mb-12">
