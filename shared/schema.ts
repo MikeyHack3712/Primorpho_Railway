@@ -81,6 +81,7 @@ export const auditResults = pgTable("audit_results", {
   contentScore: integer("content_score"),
   recommendations: jsonb("recommendations"),
   metrics: jsonb("metrics"),
+  metadata: jsonb("metadata"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
