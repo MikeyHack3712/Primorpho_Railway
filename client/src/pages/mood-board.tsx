@@ -174,7 +174,7 @@ export default function MoodBoard() {
             </span>
           </div>
           
-          <h1 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">
+          <h1 className="text-5xl md:text-6xl font-bold mb-8 leading-tight page-title">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">VISION</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">MOOD BOARD</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">GENERATOR</span>

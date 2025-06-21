@@ -75,7 +75,7 @@ export default function Blog() {
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
+            <h1 className="text-4xl md:text-6xl page-title font-bold mb-6 white-highlight">
               NEURAL.<span className="text-primary animate-glow-pulse">INSIGHTS</span>
             </h1>
             <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">

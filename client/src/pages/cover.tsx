@@ -35,7 +35,7 @@ export default function Cover() {
         </div>
 
         {/* Main Heading */}
-        <h1 className="text-7xl md:text-8xl font-bold mb-6 font-cyber tracking-wider">
+        <h1 className="text-7xl md:text-8xl font-bold mb-6 page-title tracking-wider">
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">
             PRIMORPHO
           </span>
