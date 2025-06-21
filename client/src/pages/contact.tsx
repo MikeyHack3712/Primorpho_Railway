@@ -14,7 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { contactFormSchema } from "@shared/schema";
 import { z } from "zod";
 import { Mail, Phone, Clock, Shield, Zap, ArrowRight } from "lucide-react";
-import TechBackground from "@/components/ui/tech-background";
+import Neural3D from "@/components/ui/neural-3d";
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
