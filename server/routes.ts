@@ -193,15 +193,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Perform actual website audit using Cheerio
+      // Perform comprehensive website audit
       let auditResults;
       
       try {
+        const startTime = Date.now();
         const response = await fetch(websiteUrl, {
           headers: {
             'User-Agent': 'Mozilla/5.0 (compatible; PrimorphoBot/1.0; +https://primorpho.com/bot)'
           }
         });
+        const loadTime = Date.now() - startTime;
         
         if (!response.ok) {
           if (response.status === 404) {
@@ -218,43 +220,69 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const html = await response.text();
         const $ = cheerio.load(html);
         
-        // Performance analysis
-        const performanceData = calculatePerformanceScore($, html);
+        // Comprehensive performance analysis with real metrics
+        const performanceData = calculatePerformanceScore($, html, loadTime, response);
         
-        // SEO analysis
+        // Advanced SEO analysis
         const seoData = calculateSEOScore($);
         
-        // Security analysis
+        // Professional security analysis
         const securityData = calculateSecurityScore($, response);
         
-        // Mobile analysis
+        // Mobile analysis with real device considerations
         const mobileData = calculateMobileScore($);
         
-        // Accessibility analysis
+        // Accessibility analysis with WCAG compliance
         const accessibilityData = calculateAccessibilityScore($);
         
-        // Combine all recommendations
+        // Technical architecture analysis
+        const techData = calculateTechnicalScore($, html, response);
+        
+        // Content quality analysis
+        const contentData = calculateContentScore($, html);
+        
+        // Calculate overall score and priority recommendations
+        const overallScore = Math.round(
+          (performanceData.score + seoData.score + securityData.score + 
+           mobileData.score + accessibilityData.score + techData.score + contentData.score) / 7
+        );
+        
+        // Combine all recommendations with priority ranking
         const allRecommendations = {
           performance: performanceData.recommendations,
           seo: seoData.recommendations,
           security: securityData.recommendations,
           mobile: mobileData.recommendations,
           accessibility: accessibilityData.recommendations,
+          technical: techData.recommendations,
+          content: contentData.recommendations,
           priority: [
-            ...performanceData.recommendations.filter((r: string) => r.includes('large') || r.includes('slow')),
+            ...securityData.recommendations.filter((r: string) => r.includes('Critical')),
+            ...performanceData.recommendations.filter((r: string) => r.includes('large') || r.includes('slow') || loadTime > 3000 ? 'Page load time exceeds 3 seconds - critical for user experience' : ''),
             ...seoData.recommendations.filter((r: string) => r.includes('Missing') || r.includes('title')),
-            ...securityData.recommendations.filter((r: string) => r.includes('HTTPS') || r.includes('security'))
-          ].slice(0, 5) // Top 5 priority issues
+            ...accessibilityData.recommendations.filter((r: string) => r.includes('missing'))
+          ].filter(r => r && r.length > 0).slice(0, 8) // Top 8 priority issues
         };
         
         auditResults = {
           websiteUrl,
+          loadTime,
+          overallScore,
           performanceScore: performanceData.score,
           seoScore: seoData.score,
           securityScore: securityData.score,
           mobileScore: mobileData.score,
           accessibilityScore: accessibilityData.score,
-          recommendations: allRecommendations
+          technicalScore: techData.score,
+          contentScore: contentData.score,
+          recommendations: allRecommendations,
+          metrics: {
+            htmlSize: html.length,
+            totalElements: $('*').length,
+            images: $('img').length,
+            scripts: $('script').length,
+            stylesheets: $('link[rel="stylesheet"]').length
+          }
         };
         
       } catch (error) {
@@ -371,9 +399,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
 }
 
 // Helper functions for website audit
-function calculatePerformanceScore($: cheerio.CheerioAPI, html: string): { score: number; recommendations: string[] } {
+function calculatePerformanceScore($: cheerio.CheerioAPI, html: string, loadTime?: number, response?: Response): { score: number; recommendations: string[] } {
   let score = 100;
   const recommendations: string[] = [];
+  
+  // Real load time analysis
+  if (loadTime) {
+    if (loadTime > 5000) {
+      score -= 35;
+      recommendations.push(`Critical: Page load time is ${(loadTime/1000).toFixed(1)}s. Target under 3 seconds for good user experience.`);
+    } else if (loadTime > 3000) {
+      score -= 20;
+      recommendations.push(`Page load time is ${(loadTime/1000).toFixed(1)}s. Optimize to under 3 seconds for better performance.`);
+    } else if (loadTime > 2000) {
+      score -= 10;
+      recommendations.push(`Page load time is ${(loadTime/1000).toFixed(1)}s. Consider optimizations for faster loading.`);
+    }
+  }
+  
+  // Server response analysis
+  if (response) {
+    const serverHeader = response.headers.get('server');
+    const cacheControl = response.headers.get('cache-control');
+    const contentEncoding = response.headers.get('content-encoding');
+    
+    if (!contentEncoding || !contentEncoding.includes('gzip')) {
+      score -= 15;
+      recommendations.push("Enable gzip/brotli compression on server to reduce transfer size by 60-80%.");
+    }
+    
+    if (!cacheControl || !cacheControl.includes('max-age')) {
+      score -= 10;
+      recommendations.push("Set proper cache headers to improve repeat visit performance.");
+    }
+  }
   
   // Check HTML size and complexity
   if (html.length > 500000) {
