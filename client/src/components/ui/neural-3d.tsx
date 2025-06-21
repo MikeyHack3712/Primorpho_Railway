@@ -51,19 +51,7 @@ export default function Neural3D() {
           </div>
         </div>
 
-        {/* Energy Connections */}
-        <div className="energy-connections">
-          {Array.from({ length: 24 }, (_, i) => (
-            <div
-              key={i}
-              className="energy-beam"
-              style={{
-                transform: `rotateZ(${i * 15}deg) rotateX(${(i % 4) * 30}deg)`,
-                animationDelay: `${(i * 0.2) % 3}s`,
-              }}
-            />
-          ))}
-        </div>
+
 
         {/* Orbiting Data Clusters */}
         <div className="data-clusters">
