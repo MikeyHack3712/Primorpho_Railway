@@ -55,11 +55,9 @@ export default function Cover() {
 
         {/* Description */}
         <p className="text-xl text-slate-200/80 mb-12 max-w-3xl mx-auto leading-relaxed">
-          Step into the future of web development. Where cutting-edge technology meets 
-          <span className="text-cyan-300 font-semibold"> limitless creativity</span> to forge 
-          digital experiences that transcend boundaries and give you the freedom to design your website in ways that 
-          <span className="text-purple-300 font-semibold"> truly tell your story</span>, crafted uniquely for you and 
-          <span className="text-yellow-300 font-semibold"> built to convert</span>.
+          Build a website that works as hard as you do. <span className="text-cyan-300 font-semibold">Custom-designed</span> to 
+          tell your story, powered by <span className="text-purple-300 font-semibold">smart tech</span> that drives results — 
+          fast, stunning, and <span className="text-yellow-300 font-semibold">built to convert</span>.
         </p>
 
         {/* Enter Button */}
@@ -97,9 +95,9 @@ export default function Cover() {
           <div className="backdrop-blur-sm bg-gray-900/20 border border-cyan-300/20 rounded-lg p-6">
             <div className="text-center space-y-3">
               <p className="text-slate-300 text-lg leading-relaxed">
-                Build a website that works as hard as you do. <span className="text-cyan-300 font-semibold">Custom-designed</span> to 
-                tell your story, powered by <span className="text-purple-300 font-semibold">smart tech</span> that drives results — 
-                fast, stunning, and <span className="text-yellow-300 font-semibold">built to convert</span>.
+                No templates. No drag-and-drop. Just <span className="text-cyan-300 font-semibold">handcrafted code</span>, 
+                shaped around your vision — designed to <span className="text-purple-300 font-semibold">stand out</span> and{" "}
+                <span className="text-yellow-300 font-semibold">perform</span>.
               </p>
             </div>
           </div>
