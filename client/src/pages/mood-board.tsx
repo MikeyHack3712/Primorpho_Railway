@@ -227,9 +227,15 @@ export default function MoodBoard() {
                                   <SelectValue placeholder="Select project type" />
                                 </SelectTrigger>
                               </FormControl>
-                              <SelectContent className="z-50 max-h-60 overflow-y-auto">
+                              <SelectContent className="z-50 max-h-60 overflow-y-auto bg-black/90 border-gray-700">
                                 {projectTypes.map((type) => (
-                                  <SelectItem key={type} value={type}>{type}</SelectItem>
+                                  <SelectItem 
+                                    key={type} 
+                                    value={type}
+                                    className="select-item-fluorescent"
+                                  >
+                                    {type}
+                                  </SelectItem>
                                 ))}
                               </SelectContent>
                             </Select>
