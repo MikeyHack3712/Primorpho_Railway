@@ -11,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { apiRequest } from "@/lib/queryClient";
 import { auditFormSchema } from "@shared/schema";
 import { z } from "zod";
+import Neural3D from "@/components/ui/neural-3d";
 import { 
   Zap, 
   Search, 
@@ -149,6 +150,7 @@ export default function Tools() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
+      <Neural3D />
       
       {/* Header */}
       <section className="relative z-10 pt-24 pb-16 px-4">
