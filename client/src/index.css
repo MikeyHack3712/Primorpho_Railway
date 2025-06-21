@@ -401,8 +401,8 @@
 }
 
 @keyframes streamPulse {
-  0%, 100% { opacity: 0.3; transform: rotate(var(--angle)) translateY(-50px) scale(1); }
-  50% { opacity: 1; transform: rotate(var(--angle)) translateY(-50px) scale(1.1); }
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
 }
 
 @keyframes iconFloat {
