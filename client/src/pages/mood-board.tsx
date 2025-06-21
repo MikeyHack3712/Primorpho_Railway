@@ -10,6 +10,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
+import { moodBoardFormSchema } from "@shared/schema";
 import { z } from "zod";
 import { 
   Palette, 
@@ -24,22 +28,12 @@ import {
   Grid3X3,
   Image as ImageIcon,
   Type,
-  Layout
+  Layout,
+  Loader2
 } from "lucide-react";
 import Neural3D from "@/components/ui/neural-3d";
 
-const moodBoardSchema = z.object({
-  projectName: z.string().min(1, "Project name is required"),
-  projectType: z.string().min(1, "Project type is required"),
-  targetAudience: z.string().min(1, "Target audience is required"),
-  businessGoals: z.string().min(1, "Business goals are required"),
-  brandPersonality: z.array(z.string()).min(1, "Select at least one brand personality"),
-  colorPreferences: z.array(z.string()).min(1, "Select at least one color preference"),
-  stylePreferences: z.array(z.string()).min(1, "Select at least one style preference"),
-  inspirationDescription: z.string().optional(),
-});
-
-type MoodBoardData = z.infer<typeof moodBoardSchema>;
+type MoodBoardData = z.infer<typeof moodBoardFormSchema>;
 
 interface ColorPalette {
   name: string;
@@ -55,10 +49,35 @@ interface StyleElement {
 
 export default function MoodBoard() {
   const [generatedBoard, setGeneratedBoard] = useState<any>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast();
+
+  const generateMutation = useMutation({
+    mutationFn: async (data: MoodBoardData) => {
+      const response = await apiRequest('/api/mood-board', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+      return response.json();
+    },
+    onSuccess: (data) => {
+      setGeneratedBoard(data.moodBoard.generatedBoard);
+      toast({
+        title: "Mood Board Generated!",
+        description: "Your custom mood board has been created successfully.",
+      });
+    },
+    onError: (error) => {
+      console.error("Error generating mood board:", error);
+      toast({
+        title: "Generation Failed",
+        description: "Failed to generate mood board. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
 
   const form = useForm<MoodBoardData>({
-    resolver: zodResolver(moodBoardSchema),
+    resolver: zodResolver(moodBoardFormSchema),
     defaultValues: {
       projectName: "",
       projectType: "",
@@ -120,49 +139,8 @@ export default function MoodBoard() {
     "Luxury", "Playful", "Bold", "Subtle", "Dark Theme", "Light Theme"
   ];
 
-  const generateMoodBoard = (data: MoodBoardData) => {
-    setIsGenerating(true);
-    
-    // Simulate generation process
-    setTimeout(() => {
-      const selectedPalettes = colorPalettes.filter(palette => 
-        data.colorPreferences.some(pref => 
-          palette.name.toLowerCase().includes(pref.toLowerCase()) ||
-          palette.description.toLowerCase().includes(pref.toLowerCase())
-        )
-      );
-
-      const moodBoard = {
-        projectInfo: {
-          name: data.projectName,
-          type: data.projectType,
-          audience: data.targetAudience,
-          goals: data.businessGoals
-        },
-        brandPersonality: data.brandPersonality,
-        colorPalettes: selectedPalettes.length > 0 ? selectedPalettes : [colorPalettes[0]],
-        typography: {
-          primary: data.stylePreferences.includes("Modern") ? "Inter" : 
-                   data.stylePreferences.includes("Classic") ? "Playfair Display" :
-                   data.stylePreferences.includes("Futuristic") ? "Orbitron" : "Roboto",
-          secondary: "Open Sans",
-          accent: data.stylePreferences.includes("Playful") ? "Nunito" : "Lato"
-        },
-        layoutStyle: {
-          structure: data.stylePreferences.includes("Minimalist") ? "Clean & Spacious" :
-                    data.stylePreferences.includes("Bold") ? "Dynamic & Engaging" : "Balanced & Professional",
-          elements: data.stylePreferences
-        },
-        inspiration: data.inspirationDescription || "Custom tailored design approach"
-      };
-
-      setGeneratedBoard(moodBoard);
-      setIsGenerating(false);
-    }, 2000);
-  };
-
   const onSubmit = (data: MoodBoardData) => {
-    generateMoodBoard(data);
+    generateMutation.mutate(data);
   };
 
   const handleArrayFieldChange = (fieldName: keyof MoodBoardData, value: string, currentArray: string[]) => {
