@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navigation from "@/components/layout/navigation";
@@ -53,7 +53,8 @@ function Router() {
 }
 
 function App() {
-  const isCoverPage = window.location.pathname === '/';
+  const [location] = useLocation();
+  const isCoverPage = location === '/';
   
   return (
     <QueryClientProvider client={queryClient}>
