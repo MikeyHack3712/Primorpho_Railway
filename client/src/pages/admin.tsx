@@ -20,7 +20,8 @@ import {
   Clock,
   AlertTriangle,
   CheckCircle,
-  Search
+  Search,
+  Palette
 } from "lucide-react";
 
 interface ContactSubmission {
@@ -61,6 +62,22 @@ interface AuditResult {
   securityScore: number;
   mobileScore: number;
   accessibilityScore: number;
+  createdAt: string;
+}
+
+interface MoodBoard {
+  id: number;
+  projectName: string;
+  projectType: string;
+  targetAudience: string;
+  businessGoals: string;
+  brandPersonality: string[];
+  colorPreferences: string[];
+  stylePreferences: string[];
+  inspirationDescription?: string;
+  generatedBoard?: any;
+  clientEmail?: string;
+  status: string;
   createdAt: string;
 }
 

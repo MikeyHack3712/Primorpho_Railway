@@ -344,7 +344,11 @@ export default function MoodBoard() {
                             <FormControl>
                               <Textarea 
                                 placeholder="Describe any specific inspiration, websites you like, or unique requirements" 
-                                {...field} 
+                                onChange={field.onChange}
+                                onBlur={field.onBlur}
+                                value={field.value || ""}
+                                name={field.name}
+                                ref={field.ref}
                               />
                             </FormControl>
                             <FormMessage />
@@ -359,12 +363,12 @@ export default function MoodBoard() {
                   <Button
                     type="submit"
                     size="lg"
-                    disabled={isGenerating}
+                    disabled={generateMutation.isPending}
                     className="bg-gradient-to-r from-cyan-600/20 via-purple-600/20 to-yellow-600/20 border border-cyan-300/40 text-cyan-200 hover:border-cyan-300/80 hover:text-white px-12 py-4 text-lg font-semibold tracking-wide"
                   >
-                    {isGenerating ? (
+                    {generateMutation.isPending ? (
                       <>
-                        <Sparkles className="w-5 h-5 mr-2 animate-spin" />
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
                         Generating Vision Board...
                       </>
                     ) : (
