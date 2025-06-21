@@ -44,6 +44,35 @@
   }
 }
 
+/* Select Dropdown Fixes */
+[data-radix-select-content] {
+  z-index: 100 !important;
+  position: fixed !important;
+  background: hsl(222.2, 84%, 4.9%) !important;
+  border: 1px solid hsl(217.2, 32.6%, 17.5%) !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+[data-radix-popper-content-wrapper] {
+  z-index: 100 !important;
+}
+
+/* Select Item Styling */
+[data-radix-select-item] {
+  background: transparent !important;
+  color: hsl(210, 40%, 98%) !important;
+  padding: 0.5rem 0.75rem !important;
+  cursor: pointer !important;
+}
+
+[data-radix-select-item]:hover,
+[data-radix-select-item][data-highlighted] {
+  background: hsl(200, 98%, 39%, 0.1) !important;
+  color: hsl(200, 98%, 39%) !important;
+}
+
 /* Clean Cyberpunk Theme */
 .font-cyber {
   font-family: 'Orbitron', 'JetBrains Mono', monospace;
