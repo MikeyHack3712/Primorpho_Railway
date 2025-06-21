@@ -34,7 +34,7 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/home">
+          <Link href="/">
             <div className={`text-2xl font-bold tracking-wider transition-colors duration-300 ${
               isConservative 
                 ? 'text-blue-600 hover:text-blue-500' 
