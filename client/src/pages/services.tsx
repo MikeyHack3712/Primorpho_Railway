@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import { ArrowRight, Check, Rocket, Zap, Shield } from "lucide-react";
 import { useLocation } from "wouter";
+import Neural3D from "@/components/ui/neural-3d";
 
 
 interface Package {
@@ -90,6 +91,7 @@ export default function Services() {
 
   return (
     <div className="min-h-screen bg-background neural-bg relative">
+      <Neural3D />
       {/* Header */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto text-center">
