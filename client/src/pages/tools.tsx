@@ -158,8 +158,10 @@ export default function Tools() {
           <div className="inline-block px-4 py-2 bg-cyan-300/10 border border-cyan-300/30 rounded-full text-cyan-300 text-sm font-semibold mb-8">
             NEURAL WEB SOLUTIONS
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-8">
-            WEBSITE <span className="text-cyan-300">NEURAL</span> AUDIT
+          <h1 className="text-5xl md:text-6xl font-bold mb-8">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WEBSITE</span>{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">NEURAL</span>{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">AUDIT</span>
           </h1>
           <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
             Get comprehensive insights into your website's performance, SEO, security, and user experience with our advanced neural analysis system.
