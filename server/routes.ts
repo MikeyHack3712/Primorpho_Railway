@@ -371,7 +371,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 }
 
 // Helper functions for website audit
-function calculatePerformanceScore($: cheerio.CheerioAPI, html: string): number {
+function calculatePerformanceScore($: cheerio.CheerioAPI, html: string): { score: number; recommendations: string[] } {
   let score = 100;
   const recommendations: string[] = [];
   
@@ -379,48 +379,113 @@ function calculatePerformanceScore($: cheerio.CheerioAPI, html: string): number 
   if (html.length > 500000) {
     score -= 20;
     recommendations.push("HTML size is large (>500KB). Consider minification and code splitting.");
+  } else if (html.length > 300000) {
+    score -= 10;
+    recommendations.push("HTML size is moderate (>300KB). Consider optimizing content and structure.");
   }
   
   // Check for excessive inline styles
   const inlineStyles = $('[style]').length;
-  if (inlineStyles > 10) {
-    score -= 15;
-    recommendations.push(`${inlineStyles} inline styles found. Move to external CSS files for better caching.`);
-  }
-  
-  // Check for unoptimized images
-  const images = $('img').length;
-  const imagesWithoutAlt = $('img:not([alt])').length;
-  const largeImages = $('img[src*=".jpg"], img[src*=".png"]').length;
-  if (largeImages > 5) {
+  if (inlineStyles > 20) {
+    score -= 20;
+    recommendations.push(`${inlineStyles} inline styles found. Move to external CSS files for better caching and performance.`);
+  } else if (inlineStyles > 10) {
     score -= 10;
-    recommendations.push("Consider using WebP format and image compression for better loading times.");
+    recommendations.push(`${inlineStyles} inline styles found. Consider moving some to external CSS.`);
   }
   
-  // Check JavaScript optimization
+  // Enhanced image optimization checks
+  const images = $('img').length;
+  const imagesWithoutSizes = $('img:not([width]):not([height])').length;
+  const largeImages = $('img[src*=".jpg"], img[src*=".png"], img[src*=".jpeg"]').length;
+  const webpImages = $('img[src*=".webp"], img[src*=".avif"]').length;
+  
+  if (images > 0) {
+    if (webpImages === 0 && largeImages > 3) {
+      score -= 15;
+      recommendations.push("No modern image formats detected. Use WebP or AVIF for better compression.");
+    }
+    if (imagesWithoutSizes > images * 0.5) {
+      score -= 10;
+      recommendations.push("Many images lack width/height attributes. Add dimensions to prevent layout shift.");
+    }
+    if (!$('img[loading="lazy"]').length && images > 5) {
+      score -= 10;
+      recommendations.push("No lazy loading detected. Implement lazy loading for below-fold images.");
+    }
+  }
+  
+  // Enhanced JavaScript optimization
   const scriptTags = $('script[src]').length;
   const inlineScripts = $('script:not([src])').length;
-  if (scriptTags > 8) {
+  const deferredScripts = $('script[defer]').length;
+  const asyncScripts = $('script[async]').length;
+  
+  if (scriptTags > 15) {
+    score -= 25;
+    recommendations.push(`${scriptTags} external scripts detected. Implement script bundling and code splitting.`);
+  } else if (scriptTags > 8) {
     score -= 15;
     recommendations.push(`${scriptTags} external scripts detected. Consider bundling and minification.`);
   }
-  if (inlineScripts > 3) {
-    score -= 10;
-    recommendations.push("Multiple inline scripts found. Move to external files for better performance.");
+  
+  if (scriptTags > 0 && (deferredScripts + asyncScripts) === 0) {
+    score -= 15;
+    recommendations.push("No async/defer attributes on scripts. Add defer/async to non-critical scripts.");
   }
   
-  // Check CSS optimization
+  if (inlineScripts > 5) {
+    score -= 15;
+    recommendations.push("Multiple large inline scripts found. Move to external files for better caching.");
+  }
+  
+  // Enhanced CSS optimization
   const linkTags = $('link[rel="stylesheet"]').length;
-  if (linkTags > 5) {
-    score -= 10;
-    recommendations.push(`${linkTags} CSS files detected. Consider combining stylesheets.`);
+  const inlineStyleBlocks = $('style').length;
+  
+  if (linkTags > 8) {
+    score -= 15;
+    recommendations.push(`${linkTags} CSS files detected. Combine stylesheets to reduce HTTP requests.`);
   }
   
-  // Check for performance-critical elements
+  if (inlineStyleBlocks > 3) {
+    score -= 10;
+    recommendations.push("Multiple inline style blocks found. Consider consolidating CSS.");
+  }
+  
+  // Performance optimization features
   const hasPreload = $('link[rel="preload"]').length > 0;
-  if (!hasPreload) {
+  const hasPrefetch = $('link[rel="prefetch"]').length > 0;
+  const hasServiceWorker = html.includes('serviceWorker') || html.includes('sw.js');
+  
+  if (!hasPreload && scriptTags > 3) {
+    score -= 8;
+    recommendations.push("Add preload directives for critical resources (fonts, CSS, key scripts).");
+  }
+  
+  if (!hasPrefetch && linkTags > 3) {
     score -= 5;
-    recommendations.push("Add preload directives for critical resources.");
+    recommendations.push("Consider prefetch directives for next-page resources.");
+  }
+  
+  if (!hasServiceWorker && scriptTags > 5) {
+    score -= 10;
+    recommendations.push("Implement service worker for caching and offline functionality.");
+  }
+  
+  // Check for critical rendering path optimization
+  const criticalCSS = $('style').text().length;
+  if (criticalCSS === 0 && linkTags > 2) {
+    score -= 8;
+    recommendations.push("Consider inlining critical CSS for faster first paint.");
+  }
+  
+  // Font optimization
+  const fontLinks = $('link[href*="fonts"]').length;
+  const fontPreloads = $('link[rel="preload"][as="font"]').length;
+  if (fontLinks > 0 && fontPreloads === 0) {
+    score -= 10;
+    recommendations.push("Preload web fonts to prevent text layout shift.");
   }
   
   return { score: Math.max(0, score), recommendations };
@@ -430,37 +495,103 @@ function calculateSEOScore($: cheerio.CheerioAPI): { score: number; recommendati
   let score = 100;
   const recommendations: string[] = [];
   
-  // Check for title tag
+  // Enhanced title tag analysis
   const title = $('title').text();
   if (!title) {
-    score -= 20;
-    recommendations.push("Missing title tag. Add a descriptive page title.");
-  } else if (title.length < 30 || title.length > 60) {
-    score -= 10;
-    recommendations.push(`Title length is ${title.length} characters. Optimal range is 30-60 characters.`);
+    score -= 25;
+    recommendations.push("Missing title tag. Add a descriptive, keyword-rich page title.");
+  } else {
+    if (title.length < 30) {
+      score -= 12;
+      recommendations.push(`Title too short (${title.length} chars). Expand to 30-60 characters for better SEO.`);
+    } else if (title.length > 60) {
+      score -= 8;
+      recommendations.push(`Title too long (${title.length} chars). Shorten to 30-60 characters to avoid truncation.`);
+    }
+    
+    // Check for brand in title
+    if (!title.includes('|') && !title.includes('-')) {
+      score -= 5;
+      recommendations.push("Consider adding brand name to title for better recognition.");
+    }
   }
   
-  // Check for meta description
+  // Enhanced meta description analysis
   const metaDesc = $('meta[name="description"]').attr('content');
   if (!metaDesc) {
-    score -= 20;
-    recommendations.push("Missing meta description. Add a compelling page description.");
-  } else if (metaDesc.length < 120 || metaDesc.length > 160) {
-    score -= 10;
-    recommendations.push(`Meta description is ${metaDesc.length} characters. Optimal range is 120-160 characters.`);
+    score -= 25;
+    recommendations.push("Missing meta description. Add compelling 120-160 character description with target keywords.");
+  } else {
+    if (metaDesc.length < 120) {
+      score -= 10;
+      recommendations.push(`Meta description too short (${metaDesc.length} chars). Expand to 120-160 characters.`);
+    } else if (metaDesc.length > 160) {
+      score -= 8;
+      recommendations.push(`Meta description too long (${metaDesc.length} chars). Shorten to prevent truncation.`);
+    }
   }
   
-  // Check for h1 tags
+  // Enhanced heading structure analysis
   const h1Tags = $('h1').length;
+  const h2Tags = $('h2').length;
+  const h3Tags = $('h3').length;
+  
   if (h1Tags === 0) {
-    score -= 15;
-    recommendations.push("Missing H1 tag. Add a primary heading for better structure.");
+    score -= 20;
+    recommendations.push("Missing H1 tag. Add a primary heading that matches your target keyword.");
   } else if (h1Tags > 1) {
-    score -= 5;
-    recommendations.push(`${h1Tags} H1 tags found. Use only one H1 per page.`);
+    score -= 10;
+    recommendations.push(`${h1Tags} H1 tags found. Use only one H1 per page for proper hierarchy.`);
   }
   
-  // Check for alt attributes on images
+  if (h2Tags === 0 && $('body').text().length > 1000) {
+    score -= 8;
+    recommendations.push("No H2 tags found. Use H2-H6 tags to structure longer content.");
+  }
+  
+  // Open Graph and social media tags
+  const ogTitle = $('meta[property="og:title"]').attr('content');
+  const ogDesc = $('meta[property="og:description"]').attr('content');
+  const ogImage = $('meta[property="og:image"]').attr('content');
+  
+  if (!ogTitle) {
+    score -= 8;
+    recommendations.push("Missing Open Graph title. Add for better social media sharing.");
+  }
+  if (!ogDesc) {
+    score -= 6;
+    recommendations.push("Missing Open Graph description. Add for improved social previews.");
+  }
+  if (!ogImage) {
+    score -= 6;
+    recommendations.push("Missing Open Graph image. Add for attractive social media cards.");
+  }
+  
+  // Structured data/Schema markup
+  const jsonLd = $('script[type="application/ld+json"]').length;
+  const microdata = $('[itemtype]').length;
+  
+  if (jsonLd === 0 && microdata === 0) {
+    score -= 12;
+    recommendations.push("No structured data found. Add Schema.org markup for rich snippets.");
+  }
+  
+  // Canonical URL
+  const canonical = $('link[rel="canonical"]').attr('href');
+  if (!canonical) {
+    score -= 8;
+    recommendations.push("Missing canonical URL. Add to prevent duplicate content issues.");
+  }
+  
+  // Meta robots and indexing
+  const metaRobots = $('meta[name="robots"]').attr('content');
+  const noindex = metaRobots && metaRobots.includes('noindex');
+  if (noindex) {
+    score -= 15;
+    recommendations.push("Page set to noindex. Review if this page should be searchable.");
+  }
+  
+  // Enhanced image SEO analysis
   const imagesWithoutAlt = $('img:not([alt])').length;
   if (imagesWithoutAlt > 0) {
     score -= Math.min(20, imagesWithoutAlt * 5);
@@ -488,39 +619,115 @@ function calculateSecurityScore($: cheerio.CheerioAPI, response: Response): { sc
   let score = 100;
   const recommendations: string[] = [];
   
-  // Check for HTTPS
+  // Enhanced HTTPS and SSL analysis
   const isHttps = response.url.startsWith('https://');
   if (!isHttps) {
-    score -= 30;
-    recommendations.push("Website not using HTTPS. Implement SSL certificate for secure connections.");
+    score -= 35;
+    recommendations.push("Critical: Website not using HTTPS. Implement SSL certificate immediately for secure connections.");
   }
   
-  // Check for mixed content
-  const httpResources = $('script[src^="http:"], link[href^="http:"], img[src^="http:"]').length;
+  // Security headers analysis
+  const headers = response.headers;
+  const securityHeaders = {
+    'content-security-policy': 'Content Security Policy missing. Add CSP headers to prevent XSS attacks.',
+    'x-frame-options': 'X-Frame-Options missing. Add to prevent clickjacking attacks.',
+    'x-content-type-options': 'X-Content-Type-Options missing. Add "nosniff" to prevent MIME type confusion.',
+    'strict-transport-security': 'HSTS header missing. Add to enforce HTTPS connections.',
+    'x-xss-protection': 'X-XSS-Protection header missing. Add basic XSS protection.'
+  };
+  
+  Object.entries(securityHeaders).forEach(([header, message]) => {
+    if (!headers.get(header)) {
+      score -= 8;
+      recommendations.push(message);
+    }
+  });
+  
+  // Enhanced mixed content analysis
+  const httpResources = $('script[src^="http:"], link[href^="http:"], img[src^="http:"], iframe[src^="http:"]').length;
   if (httpResources > 0) {
-    score -= 20;
-    recommendations.push(`${httpResources} insecure HTTP resources found. Update to HTTPS URLs.`);
+    score -= 25;
+    recommendations.push(`Critical: ${httpResources} insecure HTTP resources found. Update all URLs to HTTPS.`);
   }
   
-  // Check for inline scripts (potential XSS risk)
+  // Advanced XSS vulnerability checks
   const inlineScripts = $('script:not([src])').length;
-  if (inlineScripts > 3) {
-    score -= 15;
-    recommendations.push(`${inlineScripts} inline scripts detected. Move to external files to reduce XSS risk.`);
+  const inlineEvents = $('[onclick], [onload], [onerror], [onmouseover]').length;
+  
+  if (inlineScripts > 5) {
+    score -= 20;
+    recommendations.push(`High risk: ${inlineScripts} inline scripts detected. Move to external files with CSP.`);
+  } else if (inlineScripts > 0) {
+    score -= 10;
+    recommendations.push(`${inlineScripts} inline scripts found. Consider moving to external files for better security.`);
   }
   
-  // Check for form security
+  if (inlineEvents > 0) {
+    score -= 15;
+    recommendations.push(`${inlineEvents} inline event handlers found. Use addEventListener() instead to prevent XSS.`);
+  }
+  
+  // Enhanced form security analysis
+  const forms = $('form');
   const formsWithoutMethod = $('form:not([method])').length;
+  const formsWithoutAction = $('form:not([action])').length;
+  const passwordInputs = $('input[type="password"]').length;
+  const formsOverHttp = $('form[action^="http:"]').length;
+  
   if (formsWithoutMethod > 0) {
-    score -= 10;
+    score -= 12;
     recommendations.push(`${formsWithoutMethod} forms missing method attribute. Specify POST/GET explicitly.`);
   }
   
-  // Check for Content Security Policy
-  const hasCSP = $('meta[http-equiv="Content-Security-Policy"]').length > 0;
-  if (!hasCSP) {
+  if (formsWithoutAction > 0) {
+    score -= 8;
+    recommendations.push(`${formsWithoutAction} forms missing action attribute. Define form submission endpoints.`);
+  }
+  
+  if (passwordInputs > 0 && !isHttps) {
+    score -= 30;
+    recommendations.push("Critical: Password forms over HTTP. Implement HTTPS immediately.");
+  }
+  
+  if (formsOverHttp > 0) {
+    score -= 20;
+    recommendations.push(`${formsOverHttp} forms submitting over HTTP. Use HTTPS endpoints only.`);
+  }
+  
+  // CSRF protection analysis
+  const csrfTokens = $('input[name*="csrf"], input[name*="token"], meta[name="csrf-token"]').length;
+  if (forms.length > 0 && csrfTokens === 0) {
+    score -= 15;
+    recommendations.push("No CSRF tokens detected. Implement CSRF protection for form submissions.");
+  }
+  
+  // External resource security
+  let externalScripts = 0;
+  $('script[src]').each((_, el) => {
+    const src = $(el).attr('src');
+    if (src && !src.startsWith('/') && !src.includes(new URL(response.url).hostname)) {
+      externalScripts++;
+    }
+  });
+  
+  if (externalScripts > 3) {
+    score -= 12;
+    recommendations.push(`${externalScripts} external scripts loaded. Review third-party dependencies for security.`);
+  }
+  
+  // Cookie security (basic check)
+  const cookieScripts = $('script').text().match(/document\.cookie/g);
+  if (cookieScripts && cookieScripts.length > 0) {
     score -= 10;
-    recommendations.push("Missing Content Security Policy. Add CSP headers for enhanced security.");
+    recommendations.push("JavaScript cookie access detected. Use secure, HttpOnly cookies when possible.");
+  }
+  
+  // Iframe security
+  const iframes = $('iframe').length;
+  const sandboxedIframes = $('iframe[sandbox]').length;
+  if (iframes > 0 && sandboxedIframes === 0) {
+    score -= 10;
+    recommendations.push(`${iframes} iframes without sandbox attribute. Add sandbox for better security.`);
   }
   
   return { score: Math.max(0, score), recommendations };
