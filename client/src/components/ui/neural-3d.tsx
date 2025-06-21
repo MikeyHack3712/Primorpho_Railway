@@ -93,10 +93,7 @@ export default function Neural3D() {
 
         {/* Floating Holographic Elements */}
         <div className="holo-elements">
-          <div className="holo-grid holo-1" />
-          <div className="holo-grid holo-2" />
           <div className="holo-hexagon" />
-          <div className="holo-circuit" />
         </div>
       </div>
     </div>
