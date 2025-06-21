@@ -23,6 +23,7 @@ import {
   Zap, 
   Download,
   Share2,
+  Calendar,
   Save,
   Sparkles,
   Grid3X3,
@@ -457,17 +458,38 @@ export default function MoodBoard() {
                         </CardHeader>
                         <CardContent>
                           <div className="space-y-4">
-                            <div className="flex gap-2">
+                            {/* Large color swatches */}
+                            <div className="grid grid-cols-2 gap-3">
                               {palette.colors.map((color, colorIndex) => (
-                                <div key={colorIndex} className="flex-1">
+                                <div key={colorIndex} className="space-y-2">
                                   <div
-                                    className="w-full h-16 rounded-lg mb-2"
+                                    className="w-full h-20 rounded-xl shadow-lg border border-white/10 relative overflow-hidden"
                                     style={{ backgroundColor: color }}
-                                  />
-                                  <p className="text-xs text-center text-gray-400">{color}</p>
+                                  >
+                                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
+                                  </div>
+                                  <div className="text-center">
+                                    <p className="text-xs font-mono text-gray-300">{color}</p>
+                                  </div>
                                 </div>
                               ))}
                             </div>
+                            
+                            {/* Color combination preview */}
+                            <div className="border border-gray-600/30 rounded-lg p-4 space-y-3">
+                              <h4 className="text-sm font-semibold text-gray-300">Visual Preview</h4>
+                              <div 
+                                className="rounded-lg p-4 text-center"
+                                style={{ 
+                                  backgroundColor: palette.colors[0],
+                                  color: palette.colors[palette.colors.length - 1]
+                                }}
+                              >
+                                <div className="text-lg font-bold mb-1">Your Brand</div>
+                                <div className="text-sm opacity-80">How your colors work together</div>
+                              </div>
+                            </div>
+                            
                             <p className="text-sm text-readable">{palette.description}</p>
                           </div>
                         </CardContent>
@@ -486,26 +508,49 @@ export default function MoodBoard() {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-6">
-                        <div>
-                          <p className="text-sm text-gray-400 mb-2">Primary Font</p>
-                          <p className="text-2xl text-readable" style={{ fontFamily: generatedBoard.generatedBoard.typography.primary }}>
-                            {generatedBoard.generatedBoard.typography.primary}
-                          </p>
-                          <p className="text-sm text-gray-500">Headlines and important text</p>
+                        {/* Typography examples */}
+                        <div className="border border-yellow-300/20 rounded-lg p-6 space-y-4 bg-gradient-to-br from-yellow-300/5 to-transparent">
+                          <div>
+                            <p className="text-sm text-gray-400 mb-2">Primary Font - Headlines</p>
+                            <h1 className="text-4xl font-bold text-yellow-300 mb-2" style={{ fontFamily: generatedBoard.generatedBoard.typography.primary }}>
+                              {generatedBoard.projectName}
+                            </h1>
+                            <p className="text-sm text-gray-500">{generatedBoard.generatedBoard.typography.primary}</p>
+                          </div>
+                          
+                          <div>
+                            <p className="text-sm text-gray-400 mb-2">Secondary Font - Body Text</p>
+                            <p className="text-lg text-readable mb-2" style={{ fontFamily: generatedBoard.generatedBoard.typography.secondary }}>
+                              Bringing your vision to life with custom design that reflects your brand's unique personality and connects with your target audience.
+                            </p>
+                            <p className="text-sm text-gray-500">{generatedBoard.generatedBoard.typography.secondary}</p>
+                          </div>
+                          
+                          <div>
+                            <p className="text-sm text-gray-400 mb-2">Accent Font - Special Elements</p>
+                            <p className="text-xl font-semibold text-purple-300 mb-2" style={{ fontFamily: generatedBoard.generatedBoard.typography.accent }}>
+                              Get Started Today
+                            </p>
+                            <p className="text-sm text-gray-500">{generatedBoard.generatedBoard.typography.accent}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-sm text-gray-400 mb-2">Secondary Font</p>
-                          <p className="text-xl text-readable" style={{ fontFamily: generatedBoard.generatedBoard.typography.secondary }}>
-                            {generatedBoard.generatedBoard.typography.secondary}
-                          </p>
-                          <p className="text-sm text-gray-500">Body text and paragraphs</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-400 mb-2">Accent Font</p>
-                          <p className="text-lg text-readable" style={{ fontFamily: generatedBoard.generatedBoard.typography.accent }}>
-                            {generatedBoard.generatedBoard.typography.accent}
-                          </p>
-                          <p className="text-sm text-gray-500">Special elements and highlights</p>
+                        
+                        {/* Typography harmony example */}
+                        <div className="border border-gray-600/30 rounded-lg p-4">
+                          <h4 className="text-sm font-semibold text-gray-300 mb-3">Typography in Action</h4>
+                          <div className="space-y-3">
+                            <h2 className="text-2xl font-bold text-white" style={{ fontFamily: generatedBoard.generatedBoard.typography.primary }}>
+                              Modern Design Solutions
+                            </h2>
+                            <p className="text-readable" style={{ fontFamily: generatedBoard.generatedBoard.typography.secondary }}>
+                              Transform your digital presence with carefully crafted typography that enhances readability and brand recognition.
+                            </p>
+                            <div className="inline-block px-4 py-2 bg-cyan-600/20 border border-cyan-300/40 rounded-lg">
+                              <span className="text-cyan-300 font-medium" style={{ fontFamily: generatedBoard.generatedBoard.typography.accent }}>
+                                Learn More
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -550,14 +595,77 @@ export default function MoodBoard() {
                 </TabsContent>
               </Tabs>
 
+              {/* Next Steps Section */}
+              <Card className="glass-card border-2 border-yellow-300/30">
+                <CardHeader className="text-center">
+                  <CardTitle className="text-2xl font-bold bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 bg-clip-text text-transparent">
+                    Ready to Bring Your Vision to Life?
+                  </CardTitle>
+                  <p className="text-readable">Your custom mood board is just the beginning. Let's transform this vision into a powerful digital experience.</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <Card className="glass-card border border-cyan-300/20">
+                      <CardContent className="p-4 text-center">
+                        <div className="w-12 h-12 bg-cyan-300/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <span className="text-2xl">🎯</span>
+                        </div>
+                        <h3 className="font-semibold text-cyan-300 mb-2">Strategy Session</h3>
+                        <p className="text-sm text-readable">Discuss your vision and define project scope</p>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="glass-card border border-purple-300/20">
+                      <CardContent className="p-4 text-center">
+                        <div className="w-12 h-12 bg-purple-300/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <span className="text-2xl">⚡</span>
+                        </div>
+                        <h3 className="font-semibold text-purple-300 mb-2">Custom Development</h3>
+                        <p className="text-sm text-readable">Handcrafted code tailored to your brand</p>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="glass-card border border-yellow-300/20">
+                      <CardContent className="p-4 text-center">
+                        <div className="w-12 h-12 bg-yellow-300/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <span className="text-2xl">🚀</span>
+                        </div>
+                        <h3 className="font-semibold text-yellow-300 mb-2">Launch & Scale</h3>
+                        <p className="text-sm text-readable">Deploy and optimize for growth</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  <div className="flex flex-col sm:flex-row justify-center gap-4">
+                    <Button 
+                      onClick={() => window.location.href = '/book-consultation'}
+                      className="bg-gradient-to-r from-cyan-600/60 to-purple-600/60 border border-cyan-300/40 text-white hover:from-cyan-500/70 hover:to-purple-500/70 flex-1 sm:flex-none"
+                    >
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Book Strategy Session
+                    </Button>
+                    
+                    <Button 
+                      onClick={() => window.location.href = '/reserve-slot'}
+                      className="bg-gradient-to-r from-purple-600/60 to-yellow-600/60 border border-purple-300/40 text-white hover:from-purple-500/70 hover:to-yellow-500/70 flex-1 sm:flex-none"
+                    >
+                      <Zap className="w-4 h-4 mr-2" />
+                      Reserve Project Slot
+                    </Button>
+                    
+                    <Button
+                      onClick={() => setGeneratedBoard(null)}
+                      variant="outline"
+                      className="border-gray-600 text-gray-300 hover:bg-gray-800/50 flex-1 sm:flex-none"
+                    >
+                      Create New Board
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Action Buttons */}
               <div className="flex justify-center gap-4">
-                <Button
-                  onClick={() => setGeneratedBoard(null)}
-                  variant="outline"
-                  className="border-gray-600 text-gray-300 hover:bg-gray-800"
-                >
-                  Create New Board
-                </Button>
                 <Button className="bg-cyan-600/20 border border-cyan-300/40 text-cyan-200 hover:border-cyan-300/80">
                   <Save className="w-4 h-4 mr-2" />
                   Save Vision Board
