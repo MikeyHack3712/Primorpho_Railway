@@ -11,7 +11,7 @@ export default function Navigation() {
   const isConservative = currentStyle === 'conservative';
 
   const navItems = [
-    { href: "/", label: "Home" },
+    { href: "/home", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
     { href: "/portfolio", label: "Portfolio" },
@@ -20,7 +20,7 @@ export default function Navigation() {
   ];
 
   const isActive = (href: string) => {
-    if (href === "/") return location === "/";
+    if (href === "/home") return location === "/home";
     return location.startsWith(href);
   };
 
@@ -33,7 +33,7 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/">
+          <Link href="/home">
             <div className={`text-2xl font-bold tracking-wider transition-colors duration-300 ${
               isConservative 
                 ? 'text-blue-600 hover:text-blue-500' 
