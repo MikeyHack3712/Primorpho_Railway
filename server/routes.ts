@@ -755,14 +755,14 @@ function calculateMobileScore($: cheerio.CheerioAPI): { score: number; recommend
   }
   
   // Check for mobile-unfriendly elements
-  const smallText = $('[style*="font-size"][style*="px"]').filter((_, el) => {
+  let smallText = 0;
+  $('[style*="font-size"][style*="px"]').each((_, el) => {
     const fontSize = $(el).attr('style')?.match(/font-size:\s*(\d+)px/);
     if (fontSize) {
       const size = parseInt(fontSize[1]);
-      return size < 14;
+      if (size < 14) smallText++;
     }
-    return false;
-  }).length;
+  });
   if (smallText > 0) {
     score -= 15;
     recommendations.push(`${smallText} elements with small text detected. Use minimum 14px font size for mobile readability.`);
@@ -775,40 +775,121 @@ function calculateAccessibilityScore($: cheerio.CheerioAPI): { score: number; re
   let score = 100;
   const recommendations: string[] = [];
   
-  // Check for alt attributes on images
+  // Enhanced image accessibility analysis
+  const images = $('img');
   const imagesWithoutAlt = $('img:not([alt])').length;
+  const imagesWithEmptyAlt = $('img[alt=""]').length;
+  const decorativeImages = imagesWithEmptyAlt; // Assuming empty alt means decorative
+  
   if (imagesWithoutAlt > 0) {
     score -= Math.min(25, imagesWithoutAlt * 5);
     recommendations.push(`${imagesWithoutAlt} images missing alt attributes. Add descriptive alt text for screen readers.`);
   }
   
-  // Check for form labels
-  const inputsWithoutLabels = $('input:not([aria-label]):not([id])').length;
+  if (images.length > 0 && decorativeImages === 0 && imagesWithoutAlt === 0) {
+    // Check if all images have meaningful alt text (not just single words)
+    let poorAltText = 0;
+    images.each((_, img) => {
+      const alt = $(img).attr('alt');
+      if (alt && alt.length < 10 && !alt.includes(' ')) {
+        poorAltText++;
+      }
+    });
+    if (poorAltText > 0) {
+      score -= 8;
+      recommendations.push(`${poorAltText} images have very short alt text. Use descriptive phrases instead of single words.`);
+    }
+  }
+  
+  // Enhanced form accessibility analysis
+  const inputs = $('input, select, textarea');
+  let inputsWithoutLabels = 0;
+  $('input:not([aria-label]):not([aria-labelledby])').each((_, input) => {
+    const id = $(input).attr('id');
+    if (!id || $(`label[for="${id}"]`).length === 0) {
+      inputsWithoutLabels++;
+    }
+  });
+  
   if (inputsWithoutLabels > 0) {
-    score -= Math.min(20, inputsWithoutLabels * 5);
-    recommendations.push(`${inputsWithoutLabels} form inputs missing labels. Add proper label associations.`);
+    score -= Math.min(25, inputsWithoutLabels * 6);
+    recommendations.push(`${inputsWithoutLabels} form inputs missing proper labels. Add label elements or aria-label attributes.`);
   }
   
-  // Check for proper heading hierarchy
+  // Check for required field indicators
+  const requiredInputs = $('input[required], select[required], textarea[required]').length;
+  const requiredIndicators = $('input[required][aria-required], select[required][aria-required], textarea[required][aria-required]').length;
+  if (requiredInputs > 0 && requiredIndicators < requiredInputs) {
+    score -= 10;
+    recommendations.push("Required form fields missing aria-required attributes. Mark required fields for screen readers.");
+  }
+  
+  // Enhanced heading hierarchy analysis
   const h1Count = $('h1').length;
-  if (h1Count !== 1) {
-    score -= 10;
-    recommendations.push(`Found ${h1Count} H1 tags. Use exactly one H1 per page for proper structure.`);
+  const h2Count = $('h2').length;
+  const h3Count = $('h3').length;
+  const h4Count = $('h4').length;
+  
+  if (h1Count === 0) {
+    score -= 20;
+    recommendations.push("Missing H1 heading. Add a main page heading for proper document structure.");
+  } else if (h1Count > 1) {
+    score -= 12;
+    recommendations.push(`${h1Count} H1 headings found. Use only one H1 per page for proper hierarchy.`);
   }
   
-  // Check for ARIA attributes
-  const ariaElements = $('[aria-label], [aria-describedby], [role]').length;
-  if (ariaElements === 0) {
-    score -= 15;
-    recommendations.push("No ARIA attributes found. Add ARIA labels and roles for better accessibility.");
+  // Check for skipped heading levels
+  if (h1Count > 0 && h3Count > 0 && h2Count === 0) {
+    score -= 10;
+    recommendations.push("Heading hierarchy skips levels (H1 to H3). Use H2 before H3 for proper structure.");
   }
   
-  // Check for keyboard navigation
-  const focusableElements = $('a, button, input, select, textarea').length;
-  const elementsWithTabIndex = $('[tabindex]').length;
-  if (focusableElements > 0 && elementsWithTabIndex === 0) {
+  // Enhanced ARIA and semantic analysis
+  const ariaElements = $('[aria-label], [aria-describedby], [aria-labelledby], [role]').length;
+  const semanticElements = $('main, nav, header, footer, section, article, aside').length;
+  
+  if (ariaElements === 0 && semanticElements === 0) {
+    score -= 20;
+    recommendations.push("No ARIA attributes or semantic HTML5 elements found. Use landmarks and ARIA for screen reader navigation.");
+  } else if (semanticElements === 0) {
+    score -= 12;
+    recommendations.push("No semantic HTML5 elements found. Use main, nav, header, footer for better structure.");
+  }
+  
+  // Check for keyboard navigation support
+  const focusableElements = $('a, button, input, select, textarea, [tabindex]').length;
+  const elementsWithNegativeTabIndex = $('[tabindex="-1"]').length;
+  const customFocusable = $('[tabindex]:not([tabindex="-1"]):not([tabindex="0"])').length;
+  
+  if (customFocusable > 0) {
+    score -= 8;
+    recommendations.push("Custom tab order detected. Use tabindex='0' or natural tab order for better accessibility.");
+  }
+  
+  // Color contrast analysis (basic)
+  const elementsWithInlineColors = $('[style*="color"]').length;
+  if (elementsWithInlineColors > 5) {
     score -= 10;
-    recommendations.push("Consider adding tabindex attributes for better keyboard navigation.");
+    recommendations.push("Many inline color styles detected. Ensure sufficient color contrast ratios (4.5:1 minimum).");
+  }
+  
+  // Check for focus indicators
+  const linksAndButtons = $('a, button').length;
+  const hasCustomFocus = $('style, link[rel="stylesheet"]').text().includes(':focus');
+  if (linksAndButtons > 0 && !hasCustomFocus) {
+    score -= 8;
+    recommendations.push("No custom focus styles detected. Add visible focus indicators for keyboard navigation.");
+  }
+  
+  // Check for skip links
+  const skipLinks = $('a[href^="#"]').filter((_, link) => {
+    const text = $(link).text().toLowerCase();
+    return text.includes('skip') && (text.includes('content') || text.includes('main'));
+  }).length;
+  
+  if (skipLinks === 0 && $('nav').length > 0) {
+    score -= 8;
+    recommendations.push("No skip links found. Add 'skip to main content' link for keyboard users.");
   }
   
   return { score: Math.max(0, score), recommendations };
