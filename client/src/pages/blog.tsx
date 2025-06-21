@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import { Calendar, User, ArrowRight, Zap, Shield, Cpu } from "lucide-react";
+import Neural3D from "@/components/ui/neural-3d";
 
 export default function Blog() {
   const articles = [
@@ -69,9 +70,10 @@ export default function Blog() {
   ];
 
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-background neural-bg relative">
+      <Neural3D />
       {/* Hero Section */}
-      <section className="py-20 relative grid-background">
+      <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">

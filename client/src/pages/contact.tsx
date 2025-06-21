@@ -65,7 +65,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-background neural-bg relative">
-      <TechBackground />
+      <Neural3D />
       {/* Header Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
