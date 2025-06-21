@@ -80,7 +80,7 @@ export default function Tools() {
       return response;
     },
     onSuccess: (data) => {
-      setAuditResult(data);
+      setAuditResult(data.audit || data);
       toast({
         title: "Analysis Complete",
         description: "Your website audit has been completed successfully.",
