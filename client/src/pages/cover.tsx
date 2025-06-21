@@ -98,7 +98,7 @@ export default function Cover() {
             <div className="text-center space-y-3">
               <p className="text-slate-300 text-lg leading-relaxed">
                 No templates. No drag-and-drop. Just <span className="text-cyan-300 font-semibold">handcrafted code</span>, 
-                shaped around your vision — designed to <span className="text-purple-300 font-semibold">stand out</span> and 
+                shaped around your vision — designed to <span className="text-purple-300 font-semibold">stand out</span> and{" "}
                 <span className="text-yellow-300 font-semibold">perform</span>.
               </p>
             </div>
