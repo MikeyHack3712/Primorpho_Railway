@@ -70,7 +70,7 @@ export default function MoodBoard() {
       return response.json();
     },
     onSuccess: (data) => {
-      setGeneratedBoard(data.moodBoard.generatedBoard);
+      setGeneratedBoard(data.moodBoard);
       toast({
         title: "Mood Board Generated!",
         description: "Your custom mood board has been created successfully.",
@@ -396,7 +396,7 @@ export default function MoodBoard() {
               {/* Generated Mood Board */}
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-cyan-300 mb-4">Your Vision Board</h2>
-                <p className="text-readable">Project: {generatedBoard.projectInfo.name}</p>
+                <p className="text-readable">Project: {generatedBoard.projectName}</p>
               </div>
 
               <Tabs defaultValue="overview" className="w-full">
@@ -417,15 +417,15 @@ export default function MoodBoard() {
                         <div className="space-y-3">
                           <div>
                             <p className="text-sm text-gray-400">Type</p>
-                            <p className="text-readable">{generatedBoard.projectInfo.type}</p>
+                            <p className="text-readable">{generatedBoard.projectType}</p>
                           </div>
                           <div>
                             <p className="text-sm text-gray-400">Target Audience</p>
-                            <p className="text-readable">{generatedBoard.projectInfo.audience}</p>
+                            <p className="text-readable">{generatedBoard.targetAudience}</p>
                           </div>
                           <div>
                             <p className="text-sm text-gray-400">Goals</p>
-                            <p className="text-readable">{generatedBoard.projectInfo.goals}</p>
+                            <p className="text-readable">{generatedBoard.businessGoals}</p>
                           </div>
                         </div>
                       </CardContent>
