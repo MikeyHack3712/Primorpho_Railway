@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -36,7 +37,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Orbitron', 'JetBrains Mono', monospace;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     overflow-x: hidden;
     background: #000000;
     color: #f8fafc;
@@ -88,7 +89,7 @@
 
 /* Clean Cyberpunk Theme */
 .font-cyber {
-  font-family: 'Orbitron', 'JetBrains Mono', monospace;
+  font-family: 'Rajdhani', 'Inter', sans-serif;
   font-weight: 600;
   letter-spacing: 0.1em;
 }
@@ -96,8 +97,23 @@
 /* Enhanced Readability */
 .text-readable {
   color: #f1f5f9;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.7;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+/* Improved heading typography */
+h1, h2, h3, h4, h5, h6, .heading {
+  font-family: 'Rajdhani', 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+
+/* Better paragraph spacing and readability */
+p {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  line-height: 1.7;
+  font-weight: 400;
 }
 
 /* Cover Page Animations */
@@ -312,9 +328,9 @@
 }
 
 .font-cyber-clean {
-  font-family: 'Orbitron', monospace;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-family: 'Rajdhani', 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   color: #67e8f9;
 }
 
