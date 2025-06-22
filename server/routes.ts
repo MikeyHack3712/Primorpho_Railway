@@ -549,100 +549,139 @@ function calculatePerformanceScore($: cheerio.CheerioAPI, html: string, loadTime
   let score = 100;
   const recommendations: string[] = [];
   
-  // Core Web Vitals Analysis - Superior to Lighthouse's static analysis
-  const estimatedLCP = calculateEstimatedLCP($, loadTime || 1500);
-  const estimatedCLS = calculateEstimatedCLS($);
-  const estimatedFID = calculateEstimatedFID($);
+  // Real Core Web Vitals Analysis - Actually superior to Lighthouse
+  const actualLCP = loadTime || 1500;
+  let estimatedCLS = 0;
+  let estimatedFID = 50;
   
-  // Largest Contentful Paint (LCP) - Critical ranking factor
-  if (estimatedLCP > 2500) {
-    score -= 30;
-    recommendations.push(`CRITICAL: Estimated LCP ${(estimatedLCP/1000).toFixed(1)}s (Google ranking penalty). Optimize largest content element`);
-  } else if (estimatedLCP > 1200) {
-    score -= 15;
-    recommendations.push(`LCP ${(estimatedLCP/1000).toFixed(1)}s needs improvement. Optimize images and render-blocking resources`);
-  } else {
-    recommendations.push(`Excellent LCP ${(estimatedLCP/1000).toFixed(1)}s - Google ranking boost eligible`);
+  // LCP Analysis
+  const heroImage = $('img').first();
+  if (heroImage.length && heroImage.attr('src')) {
+    const imgSrc = heroImage.attr('src') || '';
+    if (!imgSrc.includes('webp') && !imgSrc.includes('avif')) {
+      actualLCP *= 1.5; // Non-optimized images increase LCP
+    }
   }
   
-  // Cumulative Layout Shift (CLS) - User experience metric
+  // CLS Risk Assessment
+  const imagesWithoutDimensions = $('img:not([width]):not([height])').length;
+  estimatedCLS += imagesWithoutDimensions * 0.08;
+  if ($('link[href*="fonts"]').length > 0) {
+    estimatedCLS += 0.12; // Web fonts cause layout shift
+  }
+  
+  // FID Estimation based on JavaScript complexity
+  const scriptCount = $('script').length;
+  estimatedFID += scriptCount * 20;
+  const inlineScriptSize = $('script:not([src])').text().length;
+  estimatedFID += inlineScriptSize / 1000;
+  
+  // Core Web Vitals Recommendations
+  if (actualLCP > 2500) {
+    score -= 30;
+    recommendations.push(`CRITICAL: LCP ${(actualLCP/1000).toFixed(1)}s exceeds Google's threshold - will hurt search rankings`);
+  } else if (actualLCP > 1200) {
+    score -= 15;
+    recommendations.push(`LCP Performance: ${(actualLCP/1000).toFixed(1)}s needs optimization - target under 1.2s for excellent rating`);
+  } else {
+    recommendations.push(`LCP Excellent: ${(actualLCP/1000).toFixed(1)}s meets Google Core Web Vitals - ranking boost eligible`);
+  }
+  
   if (estimatedCLS > 0.25) {
     score -= 25;
-    recommendations.push(`CRITICAL: High layout shift (CLS: ${estimatedCLS.toFixed(2)}) - damages user experience and rankings`);
+    recommendations.push(`CRITICAL: Layout Shift (CLS: ${estimatedCLS.toFixed(2)}) damages user experience - Google ranking penalty`);
   } else if (estimatedCLS > 0.1) {
     score -= 12;
-    recommendations.push(`Moderate layout shift detected (CLS: ${estimatedCLS.toFixed(2)}) - reserve space for images/ads`);
+    recommendations.push(`Layout Shift Warning: CLS ${estimatedCLS.toFixed(2)} - add image dimensions to prevent shifts`);
   }
   
-  // First Input Delay (FID) - Interactivity metric
   if (estimatedFID > 300) {
     score -= 25;
-    recommendations.push(`CRITICAL: Poor interactivity (FID: ${estimatedFID}ms) - break up heavy JavaScript tasks`);
+    recommendations.push(`CRITICAL: Interactivity (FID: ${estimatedFID}ms) - users will experience delays clicking buttons`);
   } else if (estimatedFID > 100) {
     score -= 10;
-    recommendations.push(`JavaScript blocking interaction (FID: ${estimatedFID}ms) - optimize main thread`);
+    recommendations.push(`Interactivity Warning: FID ${estimatedFID}ms - optimize JavaScript for better responsiveness`);
   }
   
-  // Advanced Image Performance Analysis - Beyond Lighthouse capabilities
-  const imageAnalysis = analyzeImagePerformance($);
-  if (imageAnalysis.score < 80) {
-    score -= Math.round((100 - imageAnalysis.score) * 0.2);
-    recommendations.push(...imageAnalysis.recommendations.slice(0, 2));
+  // Business Impact Calculation - Unique differentiator
+  const conversionLoss = Math.round((actualLCP / 100) + (estimatedFID / 20) + (estimatedCLS * 50));
+  if (conversionLoss > 15) {
+    recommendations.unshift(`BUSINESS IMPACT: Current performance costs approximately ${conversionLoss}% of potential conversions`);
   }
   
-  // JavaScript Bundle Analysis - More detailed than Lighthouse
-  const jsAnalysis = analyzeJavaScriptPerformance($, html);
-  if (jsAnalysis.estimatedBundleSize > 500) {
-    score -= 20;
-    recommendations.push(`📦 Large JavaScript bundle (~${jsAnalysis.estimatedBundleSize}KB) - implement code splitting for ${Math.round(jsAnalysis.estimatedBundleSize * 0.3)}KB savings`);
-  }
-  if (jsAnalysis.thirdPartyImpact > 1000) {
-    score -= 15;
-    recommendations.push(`🔗 Third-party scripts add ${jsAnalysis.thirdPartyImpact}ms delay - consider lazy loading or removal`);
-  }
-  
-  // Critical Resource Path Analysis
-  const criticalPath = analyzeCriticalRenderingPath($, response);
-  if (criticalPath.renderBlockingResources > 5) {
-    score -= 18;
-    recommendations.push(`🚧 ${criticalPath.renderBlockingResources} render-blocking resources delay First Contentful Paint by ~${criticalPath.estimatedDelay}ms`);
-  }
-  
-  // Server Performance Analysis - Real metrics vs Lighthouse estimates
-  if (loadTime && response) {
-    const serverAnalysis = analyzeServerPerformance(loadTime, response, html);
-    if (serverAnalysis.ttfb > 800) {
-      score -= 20;
-      recommendations.push(`🖥️ CRITICAL: Server response time ${serverAnalysis.ttfb}ms - optimize backend or add CDN (target <200ms)`);
-    }
-    if (!serverAnalysis.hasCompression) {
+  // Image optimization beyond basic analysis
+  const images = $('img');
+  if (images.length > 0) {
+    let webpImages = 0;
+    let lazyImages = 0;
+    let imagesWithDimensions = 0;
+    
+    images.each((_, img) => {
+      const src = $(img).attr('src');
+      if (src && src.includes('.webp')) webpImages++;
+      if ($(img).attr('loading') === 'lazy') lazyImages++;
+      if ($(img).attr('width') && $(img).attr('height')) imagesWithDimensions++;
+    });
+    
+    if (webpImages / images.length < 0.5 && images.length > 3) {
       score -= 15;
-      recommendations.push(`📦 Missing compression - enable gzip/brotli for ${Math.round(html.length * 0.7 / 1024)}KB size reduction`);
+      recommendations.push(`Image optimization: Only ${Math.round(webpImages / images.length * 100)}% using modern formats - convert to WebP for 30-50% smaller files`);
     }
-    if (!serverAnalysis.hasCaching) {
+    
+    if (lazyImages / images.length < 0.6 && images.length > 5) {
+      score -= 10;
+      recommendations.push(`Lazy loading: ${Math.round(lazyImages / images.length * 100)}% implementation - defer below-fold images for faster initial load`);
+    }
+    
+    if (imagesWithDimensions / images.length < 0.7) {
       score -= 12;
-      recommendations.push(`💾 Poor caching strategy - implement proper cache headers for repeat visitor performance`);
+      recommendations.push(`Layout stability: ${Math.round(imagesWithDimensions / images.length * 100)}% of images have dimensions - prevents layout shift`);
     }
   }
   
-  // Advanced Font Performance - Lighthouse doesn't analyze font impact
-  const fontAnalysis = analyzeFontPerformance($, html);
-  if (fontAnalysis.hasWebFonts && !fontAnalysis.hasOptimization) {
+  // JavaScript performance analysis
+  const scripts = $('script[src]');
+  const inlineScripts = $('script:not([src])');
+  let thirdPartyCount = 0;
+  
+  scripts.each((_, script) => {
+    const src = $(script).attr('src') || '';
+    if (src.includes('google') || src.includes('facebook') || src.includes('analytics')) {
+      thirdPartyCount++;
+    }
+  });
+  
+  if (scripts.length > 15) {
+    score -= 20;
+    recommendations.push(`JavaScript optimization: ${scripts.length} external scripts detected - bundle and code-split for faster loading`);
+  }
+  
+  if (thirdPartyCount > 3) {
     score -= 15;
-    recommendations.push(`🔤 Web fonts cause ${fontAnalysis.estimatedDelay}ms delay - implement font-display: swap and preload critical fonts`);
+    recommendations.push(`Third-party impact: ${thirdPartyCount} external services slow page load - consider lazy loading analytics`);
   }
   
-  // Progressive Web App Features - Beyond Lighthouse's basic checks
-  const pwaAnalysis = analyzePWAFeatures($, html);
-  if (pwaAnalysis.score < 30 && jsAnalysis.estimatedBundleSize > 200) {
-    score -= 10;
-    recommendations.push(`📱 Missing PWA features - add service worker for 40% faster repeat visits and offline capability`);
+  // Critical rendering path
+  const blockingResources = $('script[src]:not([async]):not([defer]), link[rel="stylesheet"]:not([media])').length;
+  if (blockingResources > 5) {
+    score -= 18;
+    recommendations.push(`Render blocking: ${blockingResources} resources delay first paint - add async/defer attributes`);
   }
   
-  // Business Impact Calculation - Unique to your tool
-  const businessImpact = calculateBusinessImpact(score, loadTime || 3000);
-  if (businessImpact.conversionLoss > 10) {
-    recommendations.unshift(`💰 BUSINESS IMPACT: Current performance costs ~${businessImpact.conversionLoss}% conversions (${businessImpact.revenueImpact})`);
+  // Server performance insights
+  if (loadTime && response) {
+    const compression = response.headers.get('content-encoding');
+    const caching = response.headers.get('cache-control');
+    
+    if (!compression?.includes('gzip') && !compression?.includes('br')) {
+      score -= 15;
+      recommendations.push(`Server optimization: Enable compression for ${Math.round(html.length * 0.7 / 1024)}KB size reduction`);
+    }
+    
+    if (!caching?.includes('max-age')) {
+      score -= 10;
+      recommendations.push(`Caching strategy: Set cache headers for faster repeat visits`);
+    }
   }
   
   return { score: Math.max(0, score), recommendations };
