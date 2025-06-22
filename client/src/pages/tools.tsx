@@ -1,5 +1,16 @@
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { apiRequest } from "@/lib/queryClient";
+import { auditFormSchema } from "@shared/schema";
+import { z } from "zod";
 import Neural3D from "@/components/ui/neural-3d";
 import { 
   Zap, 
@@ -8,11 +19,91 @@ import {
   Smartphone, 
   Eye, 
   AlertTriangle, 
+  ArrowRight,
+  Clock,
   Target,
   TrendingUp
 } from "lucide-react";
 
+import { useToast } from "@/hooks/use-toast";
+
+type AuditFormData = z.infer<typeof auditFormSchema>;
+
+interface AuditResult {
+  websiteUrl: string;
+  loadTime?: number;
+  overallScore?: number;
+  performanceScore: number;
+  seoScore: number;
+  securityScore: number;
+  mobileScore: number;
+  accessibilityScore: number;
+  technicalScore?: number;
+  contentScore?: number;
+  recommendations: {
+    performance?: string[];
+    seo?: string[];
+    security?: string[];
+    mobile?: string[];
+    accessibility?: string[];
+    technical?: string[];
+    content?: string[];
+    priority?: string[];
+    error?: string;
+    suggestions?: string[];
+  };
+}
+
 export default function Tools() {
+  const [auditResult, setAuditResult] = useState<AuditResult | null>(null);
+  const { toast } = useToast();
+  
+  const form = useForm<AuditFormData>({
+    resolver: zodResolver(auditFormSchema),
+    defaultValues: {
+      websiteUrl: "",
+    },
+  });
+
+  const auditMutation = useMutation({
+    mutationFn: async (data: AuditFormData) => {
+      const response = await apiRequest("/api/audit", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      return response;
+    },
+    onSuccess: (data) => {
+      setAuditResult(data.audit || data);
+      toast({
+        title: "Analysis Complete",
+        description: "Google Lighthouse analysis completed successfully.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Analysis Failed",
+        description: error.message || "Failed to analyze website. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const onSubmit = (data: AuditFormData) => {
+    auditMutation.mutate(data);
+  };
+
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return "text-green-400";
+    if (score >= 60) return "text-yellow-400";
+    return "text-red-400";
+  };
+
+  const getScoreBadge = (score: number) => {
+    if (score >= 80) return "EXCELLENT";
+    if (score >= 60) return "GOOD";
+    return "NEEDS WORK";
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
       <Neural3D />
