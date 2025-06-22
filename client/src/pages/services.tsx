@@ -93,7 +93,7 @@ export default function Services() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D intensity="subtle" />
       {/* Header */}
-      <section className="pt-12 md:pt-24 pb-6 md:pb-12 px-4">
+      <section className="pt-20 md:pt-24 pb-6 md:pb-12 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 page-title">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WEBSITE</span>{" "}

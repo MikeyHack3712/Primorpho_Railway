@@ -61,7 +61,7 @@ export default function Portfolio() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D />
       {/* Header Section */}
-      <section className="pt-12 md:pt-24 pb-6 md:pb-12 px-4">
+      <section className="pt-20 md:pt-24 pb-6 md:pb-12 px-4">
         <div className="max-w-6xl mx-auto text-center">
 
           

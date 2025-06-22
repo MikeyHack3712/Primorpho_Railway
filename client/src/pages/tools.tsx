@@ -113,7 +113,7 @@ export default function Tools() {
       <Neural3D intensity="subtle" />
       
       {/* Header */}
-      <section className="relative z-10 pt-12 md:pt-20 pb-6 md:pb-12 px-4">
+      <section className="relative z-10 pt-20 md:pt-20 pb-6 md:pb-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 page-title leading-tight">

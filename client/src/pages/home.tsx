@@ -10,7 +10,7 @@ export default function Home() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D />
       {/* Hero Section */}
-      <section className="relative pt-12 md:pt-24 pb-8 md:pb-16 px-4">
+      <section className="relative pt-20 md:pt-24 pb-8 md:pb-16 px-4">
         <div className="max-w-7xl mx-auto text-center relative">
 
           
