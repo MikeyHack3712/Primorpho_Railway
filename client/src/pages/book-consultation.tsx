@@ -3,11 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Video, Phone, CheckCircle, Zap } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import Neural3D from "@/components/ui/neural-3d";
 
 export default function BookConsultation() {
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [consultationType, setConsultationType] = useState<string>("");
+  const [isBooking, setIsBooking] = useState(false);
+  const { toast } = useToast();
 
   const timeSlots = [
     { id: "9am", label: "9:00 AM EST", available: true },
@@ -44,6 +47,46 @@ export default function BookConsultation() {
       icon: <CheckCircle className="w-5 h-5" />,
     },
   ];
+
+  const handleBooking = async () => {
+    if (!consultationType || !selectedTime) {
+      toast({
+        title: "Missing Information",
+        description: "Please select both a consultation type and time slot.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsBooking(true);
+    
+    try {
+      const selectedConsultation = consultationTypes.find(t => t.id === consultationType);
+      const selectedSlot = timeSlots.find(t => t.id === selectedTime);
+      
+      // Here you would typically make an API call to book the consultation
+      // For now, we'll simulate a successful booking
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      toast({
+        title: "Booking Confirmed!",
+        description: `Your ${selectedConsultation?.name} for ${selectedSlot?.label} has been booked. You'll receive a confirmation email shortly.`,
+      });
+      
+      // Reset the form
+      setConsultationType("");
+      setSelectedTime("");
+      
+    } catch (error) {
+      toast({
+        title: "Booking Failed",
+        description: "There was an error booking your consultation. Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsBooking(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background neural-bg relative pt-16">
@@ -167,7 +210,7 @@ export default function BookConsultation() {
                 <CardHeader>
                   <CardTitle className="text-xl text-cyan-400 flex items-center">
                     <Calendar className="w-5 h-5 mr-2" />
-                    TODAY - DECEMBER 20, 2024
+                    TODAY - JUNE 22, 2025
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -253,9 +296,13 @@ export default function BookConsultation() {
                   </div>
 
                   <div className="text-center">
-                    <Button className="px-12 py-4 rounded-lg font-semibold text-lg bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-black transition-all duration-300">
+                    <Button 
+                      onClick={handleBooking}
+                      disabled={isBooking}
+                      className="px-12 py-4 rounded-lg font-semibold text-lg bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-black transition-all duration-300 disabled:opacity-50"
+                    >
                       <Calendar className="w-5 h-5 mr-2" />
-                      CONFIRM BOOKING
+                      {isBooking ? "BOOKING..." : "CONFIRM BOOKING"}
                     </Button>
                     <p className="text-gray-400 text-sm mt-4">
                       Confirmation details will be sent to your email immediately
