@@ -10,7 +10,7 @@ export default function About() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D intensity="subtle" />
       {/* Header Section */}
-      <section className="pt-24 md:pt-32 pb-12 md:pb-16 px-4">
+      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4">
         <div className="max-w-6xl mx-auto text-center">
 
           
@@ -28,9 +28,9 @@ export default function About() {
       </section>
 
       {/* Main Content */}
-      <section className="pb-16 md:pb-24 px-4">
+      <section className="pb-12 md:pb-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-12 md:mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-12">
             <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-6 md:p-8">
               <h2 className="text-cyan-300 text-xl md:text-2xl tracking-wide mb-4 md:mb-6 text-subheading">WHAT WE DO</h2>
               <p className="text-readable leading-relaxed text-sm md:text-base">
@@ -49,7 +49,7 @@ export default function About() {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {[
               {
                 icon: <User className="w-8 h-8 text-cyan-300 opacity-80" />,
