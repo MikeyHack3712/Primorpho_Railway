@@ -168,11 +168,7 @@ export default function MoodBoard() {
       {/* Header */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="mb-8">
-            <span className="text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-6 py-2 rounded-md bg-cyan-300/5">
-              NEURAL WEB SOLUTIONS
-            </span>
-          </div>
+
           
           <h1 className="text-5xl md:text-6xl font-bold mb-8 leading-tight page-title">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">VISION</span>
@@ -181,7 +177,7 @@ export default function MoodBoard() {
           </h1>
           
           <p className="text-xl text-readable mb-12 max-w-3xl mx-auto leading-relaxed">
-            Transform your ideas into a visual blueprint. Create a comprehensive mood board that captures your vision and guides the development process.
+            Transform ideas into visual blueprints.
           </p>
         </div>
       </section>

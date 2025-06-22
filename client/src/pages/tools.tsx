@@ -115,15 +115,13 @@ export default function Tools() {
       {/* Header */}
       <section className="relative z-10 pt-20 md:pt-24 pb-12 md:pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-block px-3 md:px-4 py-2 bg-cyan-300/10 border border-cyan-300/30 rounded-full text-cyan-300 text-xs md:text-sm font-semibold mb-6 md:mb-8">
-            NEURAL WEB SOLUTIONS
-          </div>
+
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 page-title leading-tight">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WEBSITE</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">NEURAL AUDIT</span>
           </h1>
           <p className="text-base md:text-xl text-gray-300 mb-8 md:mb-12 max-w-3xl mx-auto px-4">
-            Get immediate website analysis with performance scores, SEO insights, security checks, and actionable recommendations.
+            Instant website analysis with actionable recommendations.
           </p>
         </div>
       </section>
@@ -144,12 +142,8 @@ export default function Tools() {
                     <Zap className="w-6 md:w-8 h-6 md:h-8 text-green-400 mr-2 md:mr-3" />
                     <h3 className="text-lg md:text-xl text-green-400 font-semibold">INSTANT ANALYSIS</h3>
                   </div>
-                  <p className="text-gray-300 mb-3 md:mb-4 text-sm md:text-base">
-                    Get immediate website analysis with real performance metrics, SEO evaluation, 
-                    security assessment, and mobile optimization insights.
-                  </p>
                   <p className="text-gray-300 text-sm md:text-base">
-                    Comprehensive scores and actionable recommendations delivered in seconds.
+                    Real performance metrics, SEO evaluation, security assessment, and mobile optimization insights.
                   </p>
                 </div>
 
