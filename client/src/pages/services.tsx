@@ -91,7 +91,7 @@ export default function Services() {
 
   return (
     <div className="min-h-screen bg-background neural-bg relative">
-      <Neural3D />
+      <Neural3D intensity="subtle" />
       {/* Header */}
       <section className="pt-24 md:pt-32 pb-12 md:pb-16 px-4">
         <div className="max-w-7xl mx-auto text-center">

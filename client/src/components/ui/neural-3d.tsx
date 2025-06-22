@@ -1,8 +1,18 @@
 import React from 'react';
 
-export default function Neural3D() {
+interface Neural3DProps {
+  intensity?: 'subtle' | 'normal' | 'enhanced';
+}
+
+export default function Neural3D({ intensity = 'normal' }: Neural3DProps) {
+  const intensityClasses = {
+    subtle: 'opacity-20 scale-75',
+    normal: 'opacity-40 scale-90', 
+    enhanced: 'opacity-60 scale-100'
+  };
+
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden">
+    <div className={`fixed inset-0 pointer-events-none overflow-hidden ${intensityClasses[intensity]}`}>
       {/* Enhanced 3D Neural Network */}
       <div className="absolute inset-0 perspective-[2000px] transform-gpu">
         

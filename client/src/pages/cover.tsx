@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, Zap, Globe, Code } from "lucide-react";
+import Neural3D from "@/components/ui/neural-3d";
 
 export default function Cover() {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center">
+      <Neural3D intensity="enhanced" />
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-800">
         {/* Floating Orbs */}

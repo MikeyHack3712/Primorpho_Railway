@@ -110,7 +110,7 @@ export default function Tools() {
   };
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
-      <Neural3D />
+      <Neural3D intensity="subtle" />
       
       {/* Header */}
       <section className="relative z-10 pt-20 md:pt-24 pb-12 md:pb-16 px-4">
