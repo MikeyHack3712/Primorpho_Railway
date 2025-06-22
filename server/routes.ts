@@ -484,73 +484,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   return httpServer;
 }
 
-// Core Web Vitals calculation functions
-function calculateEstimatedLCP($: cheerio.CheerioAPI, loadTime: number): number {
-  let estimatedLCP = loadTime;
-  
-  // Check for hero images
-  const heroImage = $('img').first();
-  if (heroImage.length && heroImage.attr('src')) {
-    const imgSrc = heroImage.attr('src') || '';
-    if (!imgSrc.includes('webp') && !imgSrc.includes('avif')) {
-      estimatedLCP += 800;
-    }
-    if (!heroImage.attr('width') || !heroImage.attr('height')) {
-      estimatedLCP += 300;
-    }
-  }
-  
-  // Check for render-blocking resources
-  const blockingResources = $('script[src]:not([async]):not([defer]), link[rel="stylesheet"]:not([media])').length;
-  estimatedLCP += blockingResources * 200;
-  
-  return Math.min(estimatedLCP, 8000);
-}
-
-function calculateEstimatedCLS($: cheerio.CheerioAPI): number {
-  let estimatedCLS = 0;
-  
-  // Images without dimensions
-  const imagesWithoutDimensions = $('img:not([width]):not([height])').length;
-  estimatedCLS += imagesWithoutDimensions * 0.08;
-  
-  // Ads and dynamic content
-  const dynamicContent = $('[class*="ad"], [id*="ad"], iframe:not([width])').length;
-  estimatedCLS += dynamicContent * 0.15;
-  
-  // Web fonts without optimization
-  if ($('link[href*="fonts"]').length && !$('link[rel="preload"][as="font"]').length) {
-    estimatedCLS += 0.12;
-  }
-  
-  return Math.min(estimatedCLS, 0.8);
-}
-
-function calculateEstimatedFID($: cheerio.CheerioAPI): number {
-  let estimatedFID = 50;
-  
-  // JavaScript complexity
-  const scriptCount = $('script').length;
-  estimatedFID += scriptCount * 25;
-  
-  // Inline scripts
-  const inlineScriptLength = $('script:not([src])').text().length;
-  estimatedFID += inlineScriptLength / 1000;
-  
-  // Third-party scripts
-  const thirdPartyScripts = $('script[src*="analytics"], script[src*="facebook"], script[src*="google"]').length;
-  estimatedFID += thirdPartyScripts * 60;
-  
-  return Math.min(estimatedFID, 2000);
-}
-
 // Helper functions for website audit
 function calculatePerformanceScore($: cheerio.CheerioAPI, html: string, loadTime?: number, response?: Response): { score: number; recommendations: string[] } {
   let score = 100;
   const recommendations: string[] = [];
   
   // Real Core Web Vitals Analysis - Actually superior to Lighthouse
-  const actualLCP = loadTime || 1500;
+  let actualLCP = loadTime || 1500;
   let estimatedCLS = 0;
   let estimatedFID = 50;
   
@@ -559,7 +499,7 @@ function calculatePerformanceScore($: cheerio.CheerioAPI, html: string, loadTime
   if (heroImage.length && heroImage.attr('src')) {
     const imgSrc = heroImage.attr('src') || '';
     if (!imgSrc.includes('webp') && !imgSrc.includes('avif')) {
-      actualLCP *= 1.5; // Non-optimized images increase LCP
+      actualLCP = Math.round(actualLCP * 1.5); // Non-optimized images increase LCP
     }
   }
   
@@ -688,66 +628,7 @@ function calculatePerformanceScore($: cheerio.CheerioAPI, html: string, loadTime
 }
 
 // Core Web Vitals calculation functions
-function calculateEstimatedLCP($: cheerio.CheerioAPI, loadTime: number): number {
-  let estimatedLCP = loadTime;
-  
-  // Check for hero images
-  const heroImage = $('img').first();
-  if (heroImage.length && heroImage.attr('src')) {
-    const imgSrc = heroImage.attr('src') || '';
-    if (!imgSrc.includes('webp') && !imgSrc.includes('avif')) {
-      estimatedLCP += 800;
-    }
-    if (!heroImage.attr('width') || !heroImage.attr('height')) {
-      estimatedLCP += 300;
-    }
-  }
-  
-  // Check for render-blocking resources
-  const blockingResources = $('script[src]:not([async]):not([defer]), link[rel="stylesheet"]:not([media])').length;
-  estimatedLCP += blockingResources * 200;
-  
-  return Math.min(estimatedLCP, 8000);
-}
 
-function calculateEstimatedCLS($: cheerio.CheerioAPI): number {
-  let estimatedCLS = 0;
-  
-  // Images without dimensions
-  const imagesWithoutDimensions = $('img:not([width]):not([height])').length;
-  estimatedCLS += imagesWithoutDimensions * 0.08;
-  
-  // Ads and dynamic content
-  const dynamicContent = $('[class*="ad"], [id*="ad"], iframe:not([width])').length;
-  estimatedCLS += dynamicContent * 0.15;
-  
-  // Web fonts without optimization
-  if ($('link[href*="fonts"]').length && !$('link[rel="preload"][as="font"]').length) {
-    estimatedCLS += 0.12;
-  }
-  
-  return Math.min(estimatedCLS, 0.8);
-}
-
-function calculateEstimatedFID($: cheerio.CheerioAPI): number {
-  let estimatedFID = 50;
-  
-  // JavaScript complexity
-  const scriptCount = $('script').length;
-  estimatedFID += scriptCount * 25;
-  
-  // Inline scripts
-  const inlineScriptLength = $('script:not([src])').text().length;
-  estimatedFID += inlineScriptLength / 1000;
-  
-  // Third-party scripts
-  const thirdPartyScripts = $('script[src*="analytics"], script[src*="facebook"], script[src*="google"]').length;
-  estimatedFID += thirdPartyScripts * 60;
-  
-  return Math.min(estimatedFID, 2000);
-}
-
-// Advanced image analysis beyond Lighthouse
 function analyzeImagePerformance($: cheerio.CheerioAPI) {
   const images = $('img');
   let score = 100;
@@ -755,14 +636,26 @@ function analyzeImagePerformance($: cheerio.CheerioAPI) {
   
   if (images.length === 0) return { score, recommendations };
   
-  const modernFormats = images.filter((_, img) => {
-    const src = $(img).attr('src');
-    return src && (src.includes('.webp') || src.includes('.avif'));
-  }).length;
+  let modernFormats = 0;
+  let lazyLoaded = 0;
+  let withDimensions = 0;
+  let responsive = 0;
   
-  const lazyLoaded = images.filter((_, img) => $(img).attr('loading') === 'lazy').length;
-  const withDimensions = images.filter((_, img) => $(img).attr('width') && $(img).attr('height')).length;
-  const responsive = images.filter((_, img) => $(img).attr('srcset') || $(img).attr('sizes')).length;
+  images.each((_, img) => {
+    const src = $(img).attr('src');
+    if (src && (src.includes('.webp') || src.includes('.avif'))) {
+      modernFormats++;
+    }
+    if ($(img).attr('loading') === 'lazy') {
+      lazyLoaded++;
+    }
+    if ($(img).attr('width') && $(img).attr('height')) {
+      withDimensions++;
+    }
+    if ($(img).attr('srcset') || $(img).attr('sizes')) {
+      responsive++;
+    }
+  });
   
   const modernFormatRatio = modernFormats / images.length;
   const lazyRatio = lazyLoaded / images.length;
