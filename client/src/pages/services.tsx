@@ -93,9 +93,9 @@ export default function Services() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D intensity="subtle" />
       {/* Header */}
-      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4">
+      <section className="pt-12 md:pt-24 pb-6 md:pb-12 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 page-title">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 page-title">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WEBSITE</span>{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PACKAGES</span>
           </h1>
@@ -106,15 +106,15 @@ export default function Services() {
       </section>
 
       {/* Package Selection */}
-      <section className="pb-8 md:pb-12 px-4">
+      <section className="pb-6 md:pb-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-6 md:mb-8">
+          <div className="text-center mb-4 md:mb-8">
             <h2 className="text-2xl md:text-3xl font-bold font-cyber text-purple-400 mb-3 md:mb-4 text-subheading">
               PICK YOUR PACKAGE
             </h2>
             <p className="text-readable text-sm md:text-base">Click to add extras to any package</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-6 md:mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-4 md:mb-8">
             {packages.map((pkg) => (
               <Card 
                 key={pkg.id}
