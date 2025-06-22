@@ -82,7 +82,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         </div>
       `;
 
-      await sendEmail(process.env.SENDGRID_API_KEY || '', {
+      await sendEmail({
         to: 'primorpho.solutions@gmail.com',
         from: 'primorpho.solutions@gmail.com',
         subject: emailSubject,

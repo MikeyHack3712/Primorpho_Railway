@@ -1,31 +1,31 @@
 import { MailService } from '@sendgrid/mail';
 
-if (!process.env.SENDGRID_API_KEY) {
+const apiKey = process.env.SENDGRID_API_KEY;
+if (!apiKey) {
   throw new Error("SENDGRID_API_KEY environment variable must be set");
 }
 
 const mailService = new MailService();
-mailService.setApiKey(process.env.SENDGRID_API_KEY);
+mailService.setApiKey(apiKey);
 
 interface EmailParams {
   to: string;
-  from: string;
+  from?: string;
   subject: string;
   text?: string;
   html?: string;
 }
 
-export async function sendEmail(
-  apiKey: string,
-  params: EmailParams
-): Promise<boolean> {
+const FROM_EMAIL = 'primorpho.solutions@gmail.com';
+
+export async function sendEmail(params: EmailParams): Promise<boolean> {
   try {
     await mailService.send({
       to: params.to,
-      from: params.from,
+      from: params.from || FROM_EMAIL,
       subject: params.subject,
-      text: params.text,
-      html: params.html,
+      text: params.text || '',
+      html: params.html || '',
     });
     return true;
   } catch (error) {
