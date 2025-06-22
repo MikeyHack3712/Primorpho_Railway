@@ -543,7 +543,7 @@ export default function MoodBoard() {
                             <h2 className="text-2xl font-bold text-white" style={{ fontFamily: generatedBoard.generatedBoard.typography.primary }}>
                               Modern Design Solutions
                             </h2>
-                            <p className="text-readable" style={{ fontFamily: generatedBoard.generatedBoard.typography.secondary }}>
+                            <p className="text-gray-300" style={{ fontFamily: generatedBoard.generatedBoard.typography.secondary }}>
                               Transform your digital presence with carefully crafted typography that enhances readability and brand recognition.
                             </p>
                             <div className="inline-block px-4 py-2 bg-cyan-600/20 border border-cyan-300/40 rounded-lg">
@@ -559,9 +559,9 @@ export default function MoodBoard() {
                 </TabsContent>
 
                 <TabsContent value="layout" className="space-y-6">
-                  <Card className="glass-card">
+                  <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
                     <CardHeader>
-                      <CardTitle className="text-green-300 flex items-center gap-2">
+                      <CardTitle className="text-green-400 flex items-center gap-2">
                         <Layout className="w-5 h-5" />
                         Layout & Structure
                       </CardTitle>
@@ -572,12 +572,12 @@ export default function MoodBoard() {
                           <p className="text-sm text-gray-400 mb-2">Layout Concepts</p>
                           <div className="space-y-3">
                             {generatedBoard.generatedBoard.layoutConcepts.map((concept: any, index: number) => (
-                              <div key={index} className="border border-green-300/20 rounded-lg p-3">
-                                <h4 className="text-green-300 font-medium mb-2">{concept.name}</h4>
-                                <p className="text-readable text-sm">{concept.description}</p>
+                              <div key={index} className="border border-gray-600/50 rounded-lg p-3">
+                                <h4 className="text-green-400 font-medium mb-2">{concept.name}</h4>
+                                <p className="text-gray-300 text-sm">{concept.description}</p>
                                 <div className="flex flex-wrap gap-1 mt-2">
                                   {concept.features.map((feature: string, fIndex: number) => (
-                                    <Badge key={fIndex} variant="outline" className="text-green-300 border-green-300/30 text-xs">
+                                    <Badge key={fIndex} variant="outline" className="text-green-400 border-green-400/30 text-xs">
                                       {feature}
                                     </Badge>
                                   ))}
@@ -588,7 +588,7 @@ export default function MoodBoard() {
                         </div>
                         <div>
                           <p className="text-sm text-gray-400 mb-2">Inspiration Notes</p>
-                          <p className="text-readable">{generatedBoard.generatedBoard.inspiration}</p>
+                          <p className="text-gray-300">{generatedBoard.generatedBoard.inspiration}</p>
                         </div>
                       </div>
                     </CardContent>
@@ -597,7 +597,7 @@ export default function MoodBoard() {
               </Tabs>
 
               {/* Next Steps Section */}
-              <Card className="glass-card border-2 border-yellow-300/30">
+              <Card className="backdrop-blur-sm bg-gray-900/50 border-2 border-yellow-400/50 rounded-lg">
                 <CardHeader className="text-center">
                   <CardTitle className="text-2xl font-bold bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 bg-clip-text text-transparent">
                     Ready to Bring Your Vision to Life?
