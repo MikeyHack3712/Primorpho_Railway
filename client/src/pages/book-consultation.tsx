@@ -198,22 +198,22 @@ export default function BookConsultation() {
               </Card>
 
               {/* Alternative Contact Methods */}
-              <Card className="glass-card border-yellow-400/30">
+              <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
                 <CardContent className="p-6">
-                  <h3 className="text-lg font-cyber text-yellow-400 mb-4">ALTERNATIVE CONTACT</h3>
+                  <h3 className="text-lg text-yellow-400 mb-4">ALTERNATIVE CONTACT</h3>
                   <div className="space-y-3">
                     <div className="flex items-center">
-                      <Phone className="w-5 h-5 text-primary mr-3" />
+                      <Phone className="w-5 h-5 text-cyan-400 mr-3" />
                       <div>
-                        <div className="white-highlight font-semibold">Direct Call</div>
-                        <div className="text-sm white-highlight">+1 (555) 123-4567</div>
+                        <div className="text-gray-300 font-semibold">Direct Call</div>
+                        <div className="text-sm text-gray-400">+1 (555) 123-4567</div>
                       </div>
                     </div>
                     <div className="flex items-center">
                       <Video className="w-5 h-5 text-purple-400 mr-3" />
                       <div>
-                        <div className="white-highlight font-semibold">Emergency Session</div>
-                        <div className="text-sm white-highlight">Same-day availability for urgent projects</div>
+                        <div className="text-gray-300 font-semibold">Emergency Session</div>
+                        <div className="text-sm text-gray-400">Same-day availability for urgent projects</div>
                       </div>
                     </div>
                   </div>
@@ -225,39 +225,39 @@ export default function BookConsultation() {
           {/* Booking Confirmation */}
           {consultationType && selectedTime && (
             <div className="mt-12">
-              <Card className="glass-card border-2 border-primary/50 scan-line">
+              <Card className="backdrop-blur-sm bg-gray-900/50 border-2 border-cyan-400/50 rounded-lg">
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-cyber font-bold mb-6 text-center white-highlight">
-                    CONFIRM <span className="text-primary animate-glow-pulse">CONSULTATION</span>
+                  <h3 className="text-2xl font-bold mb-6 text-center text-gray-300">
+                    CONFIRM <span className="text-cyan-400">CONSULTATION</span>
                   </h3>
                   
                   <div className="grid md:grid-cols-3 gap-6 mb-8">
                     <div className="text-center">
-                      <h4 className="text-lg font-cyber text-primary mb-2">TYPE</h4>
-                      <p className="white-highlight">
+                      <h4 className="text-lg text-cyan-400 mb-2">TYPE</h4>
+                      <p className="text-gray-300">
                         {consultationTypes.find(t => t.id === consultationType)?.name}
                       </p>
                     </div>
                     <div className="text-center">
-                      <h4 className="text-lg font-cyber text-yellow-400 mb-2">TIME</h4>
-                      <p className="white-highlight">
+                      <h4 className="text-lg text-yellow-400 mb-2">TIME</h4>
+                      <p className="text-gray-300">
                         {timeSlots.find(t => t.id === selectedTime)?.label}
                       </p>
                     </div>
                     <div className="text-center">
-                      <h4 className="text-lg font-cyber text-purple-400 mb-2">DURATION</h4>
-                      <p className="white-highlight">
+                      <h4 className="text-lg text-purple-400 mb-2">DURATION</h4>
+                      <p className="text-gray-300">
                         {consultationTypes.find(t => t.id === consultationType)?.duration}
                       </p>
                     </div>
                   </div>
 
                   <div className="text-center">
-                    <Button className="cyber-button-hover px-12 py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-primary text-white hover:bg-primary/10">
+                    <Button className="px-12 py-4 rounded-lg font-semibold text-lg bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-black transition-all duration-300">
                       <Calendar className="w-5 h-5 mr-2" />
                       CONFIRM BOOKING
                     </Button>
-                    <p className="white-highlight text-sm mt-4">
+                    <p className="text-gray-400 text-sm mt-4">
                       Confirmation details will be sent to your email immediately
                     </p>
                   </div>
@@ -269,19 +269,19 @@ export default function BookConsultation() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 relative">
+      <section className="py-20 relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-cyber font-bold mb-6 white-highlight">
-              WHAT TO <span className="text-primary animate-glow-pulse">EXPECT</span>
+            <h2 className="text-4xl font-bold mb-6 text-gray-300">
+              WHAT TO <span className="text-cyan-400">EXPECT</span>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="glass-card border-primary/30">
+            <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
               <CardContent className="p-8">
-                <h3 className="text-xl font-cyber text-primary mb-4">BEFORE THE CALL</h3>
-                <ul className="space-y-2 white-highlight text-sm">
+                <h3 className="text-xl text-cyan-400 mb-4">BEFORE THE CALL</h3>
+                <ul className="space-y-2 text-gray-300 text-sm">
                   <li>• Receive detailed preparation checklist</li>
                   <li>• Get secure video conferencing link</li>
                   <li>• Optional: Submit project brief for analysis</li>
@@ -290,10 +290,10 @@ export default function BookConsultation() {
               </CardContent>
             </Card>
 
-            <Card className="glass-card border-yellow-400/30">
+            <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
               <CardContent className="p-8">
-                <h3 className="text-xl font-cyber text-yellow-400 mb-4">DURING THE SESSION</h3>
-                <ul className="space-y-2 white-highlight text-sm">
+                <h3 className="text-xl text-yellow-400 mb-4">DURING THE SESSION</h3>
+                <ul className="space-y-2 text-gray-300 text-sm">
                   <li>• Live project requirements analysis</li>
                   <li>• Custom technology stack recommendations</li>
                   <li>• Real-time cost and timeline estimates</li>
@@ -302,10 +302,10 @@ export default function BookConsultation() {
               </CardContent>
             </Card>
 
-            <Card className="glass-card border-purple-400/30">
+            <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
               <CardContent className="p-8">
-                <h3 className="text-xl font-cyber text-purple-400 mb-4">AFTER THE CALL</h3>
-                <ul className="space-y-2 white-highlight text-sm">
+                <h3 className="text-xl text-purple-400 mb-4">AFTER THE CALL</h3>
+                <ul className="space-y-2 text-gray-300 text-sm">
                   <li>• Detailed project proposal within 24 hours</li>
                   <li>• Custom roadmap and milestone breakdown</li>
                   <li>• Pricing options and package recommendations</li>
@@ -314,10 +314,10 @@ export default function BookConsultation() {
               </CardContent>
             </Card>
 
-            <Card className="glass-card border-primary/30">
+            <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
               <CardContent className="p-8">
-                <h3 className="text-xl font-cyber text-primary mb-4">NO OBLIGATIONS</h3>
-                <ul className="space-y-2 white-highlight text-sm">
+                <h3 className="text-xl text-cyan-400 mb-4">NO OBLIGATIONS</h3>
+                <ul className="space-y-2 text-gray-300 text-sm">
                   <li>• Completely free consultation</li>
                   <li>• No pressure sales tactics</li>
                   <li>• Take time to consider options</li>

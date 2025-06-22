@@ -188,9 +188,9 @@ export default function MoodBoard() {
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 md:space-y-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   {/* Project Information */}
-                  <Card className="glass-card">
+                  <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
                     <CardHeader>
-                      <CardTitle className="text-cyan-300 flex items-center gap-2">
+                      <CardTitle className="text-cyan-400 flex items-center gap-2">
                         <Target className="w-5 h-5" />
                         Project Foundation
                       </CardTitle>
@@ -276,9 +276,9 @@ export default function MoodBoard() {
                   </Card>
 
                   {/* Visual Preferences */}
-                  <Card className="glass-card">
+                  <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
                     <CardHeader>
-                      <CardTitle className="text-purple-300 flex items-center gap-2">
+                      <CardTitle className="text-purple-400 flex items-center gap-2">
                         <Palette className="w-5 h-5" />
                         Visual Identity
                       </CardTitle>
@@ -376,7 +376,7 @@ export default function MoodBoard() {
                     type="submit"
                     size="lg"
                     disabled={generateMutation.isPending}
-                    className="bg-gradient-to-r from-cyan-600/20 via-purple-600/20 to-yellow-600/20 border border-cyan-300/40 text-cyan-200 hover:border-cyan-300/80 hover:text-white px-12 py-4 text-lg font-semibold tracking-wide"
+                    className="bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-black px-12 py-4 text-lg font-semibold tracking-wide transition-all duration-300"
                   >
                     {generateMutation.isPending ? (
                       <>
