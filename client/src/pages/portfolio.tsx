@@ -87,7 +87,7 @@ export default function Portfolio() {
                 key={project.title} 
                 className="backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg hover:bg-gray-900/40 transition-all duration-300 group"
               >
-                <CardContent className="p-4 md:p-6 space-y-4 md:space-y-6">
+                <CardContent className="p-4 md:p-5 space-y-3 md:space-y-4">
                   <div className="space-y-2">
                     <div className={`text-xs text-${project.color} opacity-80 tracking-wider`}>
                       {project.category}
@@ -103,7 +103,7 @@ export default function Portfolio() {
                   {/* Metrics */}
                   <div className="grid grid-cols-3 gap-3">
                     {Object.entries(project.metrics).map(([key, value], metricIndex) => (
-                      <div key={key} className="bg-gray-800/50 border border-gray-600/30 rounded p-3 text-center">
+                      <div key={key} className="bg-gray-800/50 border border-gray-600/30 rounded p-2 text-center">
                         <div className={`text-lg font-bold text-${project.color} opacity-90`}>
                           {value}
                         </div>

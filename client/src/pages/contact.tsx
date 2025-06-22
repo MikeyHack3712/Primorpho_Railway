@@ -90,7 +90,7 @@ export default function Contact() {
       {/* Urgency Section */}
       <section className="pb-8 md:pb-12 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="backdrop-blur-sm bg-gray-900/30 border border-yellow-300/20 rounded-lg p-6 md:p-8 mb-12 md:mb-16">
+          <div className="backdrop-blur-sm bg-gray-900/30 border border-yellow-300/20 rounded-lg p-4 md:p-6 mb-8 md:mb-12">
             <div className="text-center">
               <Badge className="mb-3 md:mb-4 bg-yellow-300/20 text-yellow-300 border-yellow-300/50 text-sm md:text-lg px-3 md:px-4 py-1 md:py-2">
                 LIMITED AVAILABILITY

@@ -19,7 +19,7 @@ export default function About() {
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PRIMORPHO</span>
           </h1>
           
-          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-6 md:p-8 mb-12 md:mb-16">
+          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-4 md:p-6 mb-8 md:mb-12">
             <p className="text-lg md:text-xl text-readable leading-relaxed">
               We build websites that help your business <span className="text-cyan-300 font-semibold">grow</span>.
             </p>
@@ -93,7 +93,7 @@ export default function About() {
           </div>
 
           {/* Skills Section */}
-          <div className="glass-card border border-cyan-400/30 p-8 mb-16">
+          <div className="glass-card border border-cyan-400/30 p-6 mb-12">
             <h2 className="font-cyber text-cyan-400 text-2xl tracking-wider mb-8 text-center">CORE CAPABILITIES</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[

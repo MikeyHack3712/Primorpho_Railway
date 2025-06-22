@@ -108,13 +108,13 @@ export default function Services() {
       {/* Package Selection */}
       <section className="pb-8 md:pb-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8 md:mb-12">
+          <div className="text-center mb-6 md:mb-8">
             <h2 className="text-2xl md:text-3xl font-bold font-cyber text-purple-400 mb-3 md:mb-4 text-subheading">
               PICK YOUR PACKAGE
             </h2>
             <p className="text-readable text-sm md:text-base">Click to add extras to any package</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-6 md:mb-8">
             {packages.map((pkg) => (
               <Card 
                 key={pkg.id}
