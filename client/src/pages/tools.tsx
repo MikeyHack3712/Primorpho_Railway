@@ -119,12 +119,12 @@ export default function Tools() {
             NEURAL WEB SOLUTIONS
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-8 page-title">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PROFESSIONAL</span>{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">INSTANT</span>{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WEBSITE</span>{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">ANALYSIS</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">AUDIT</span>
           </h1>
           <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-            Request professional website analysis using Google Lighthouse, GTmetrix, and expert evaluation methods. Detailed reports delivered within 24 hours.
+            Get immediate website analysis with performance scores, SEO insights, security checks, and actionable recommendations.
           </p>
         </div>
       </section>
@@ -140,17 +140,17 @@ export default function Tools() {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                <div className="bg-cyan-900/20 border border-cyan-500/30 rounded-lg p-6">
+                <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-6">
                   <div className="flex items-center justify-center mb-4">
-                    <Shield className="w-8 h-8 text-cyan-400 mr-3" />
-                    <h3 className="text-xl text-cyan-400 font-semibold">PROFESSIONAL ANALYSIS REQUEST</h3>
+                    <Zap className="w-8 h-8 text-green-400 mr-3" />
+                    <h3 className="text-xl text-green-400 font-semibold">INSTANT ANALYSIS RESULTS</h3>
                   </div>
                   <p className="text-gray-300 mb-4">
-                    Submit your website for expert analysis using industry-standard tools including Google Lighthouse, 
-                    GTmetrix, and custom evaluation methods.
+                    Get immediate website analysis with real performance metrics, SEO evaluation, 
+                    security assessment, and mobile optimization insights.
                   </p>
                   <p className="text-gray-300">
-                    Receive a comprehensive report within 24 hours with actionable insights and recommendations.
+                    Comprehensive scores and actionable recommendations delivered in seconds.
                   </p>
                 </div>
 
@@ -178,7 +178,7 @@ export default function Tools() {
                       disabled={auditMutation.isPending}
                       className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white py-3 text-lg font-semibold"
                     >
-                      {auditMutation.isPending ? "SUBMITTING REQUEST..." : "REQUEST PROFESSIONAL ANALYSIS"}
+                      {auditMutation.isPending ? "ANALYZING WEBSITE..." : "START INSTANT AUDIT"}
                     </Button>
                   </form>
                 </Form>
