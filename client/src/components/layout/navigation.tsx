@@ -35,7 +35,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/">
-            <div className={`text-2xl font-bold tracking-wider transition-colors duration-300 ${
+            <div className={`text-lg md:text-2xl font-bold tracking-wider transition-colors duration-300 ${
               isConservative 
                 ? 'text-blue-600 hover:text-blue-500' 
                 : 'font-cyber-clean hover:text-cyan-200'
@@ -110,11 +110,11 @@ export default function Navigation() {
               ? 'backdrop-blur-sm bg-white/95 border-t border-gray-200'
               : 'backdrop-blur-xl bg-black/95 border-t border-gray-800/30'
           }`}>
-            <div className="px-4 pt-2 pb-4 space-y-1">
+            <div className="px-2 pt-2 pb-4 space-y-2">
               {navItems.map((item) => (
                 <Link key={item.href} href={item.href}>
                   <div
-                    className={`block px-4 py-3 rounded-md text-base font-medium tracking-wide transition-all duration-300 ${
+                    className={`block px-4 py-4 rounded-md text-base font-medium tracking-wide transition-all duration-300 ${
                       isConservative
                         ? isActive(item.href)
                           ? "text-blue-600 bg-blue-50 border border-blue-200"

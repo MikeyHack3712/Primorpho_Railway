@@ -113,43 +113,42 @@ export default function Tools() {
       <Neural3D />
       
       {/* Header */}
-      <section className="relative z-10 pt-24 pb-16 px-4">
+      <section className="relative z-10 pt-20 md:pt-24 pb-12 md:pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-block px-4 py-2 bg-cyan-300/10 border border-cyan-300/30 rounded-full text-cyan-300 text-sm font-semibold mb-8">
+          <div className="inline-block px-3 md:px-4 py-2 bg-cyan-300/10 border border-cyan-300/30 rounded-full text-cyan-300 text-xs md:text-sm font-semibold mb-6 md:mb-8">
             NEURAL WEB SOLUTIONS
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-8 page-title">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">INSTANT</span>{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WEBSITE</span>{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">AUDIT</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 page-title leading-tight">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WEBSITE</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">NEURAL AUDIT</span>
           </h1>
-          <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+          <p className="text-base md:text-xl text-gray-300 mb-8 md:mb-12 max-w-3xl mx-auto px-4">
             Get immediate website analysis with performance scores, SEO insights, security checks, and actionable recommendations.
           </p>
         </div>
       </section>
 
       {/* Audit Form */}
-      <section className="relative z-10 py-16 px-4">
+      <section className="relative z-10 py-12 md:py-16 px-4">
         <div className="max-w-2xl mx-auto">
           <Card className="backdrop-blur-sm bg-gray-900/50 border-gray-700/50">
-            <CardHeader>
-              <CardTitle className="text-2xl text-center text-cyan-300">
+            <CardHeader className="pb-4 md:pb-6">
+              <CardTitle className="text-lg md:text-2xl text-center text-cyan-300">
                 RUN LIGHTHOUSE ANALYSIS
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
-                <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-6">
-                  <div className="flex items-center justify-center mb-4">
-                    <Zap className="w-8 h-8 text-green-400 mr-3" />
-                    <h3 className="text-xl text-green-400 font-semibold">INSTANT ANALYSIS RESULTS</h3>
+              <div className="space-y-4 md:space-y-6">
+                <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4 md:p-6">
+                  <div className="flex items-center justify-center mb-3 md:mb-4">
+                    <Zap className="w-6 md:w-8 h-6 md:h-8 text-green-400 mr-2 md:mr-3" />
+                    <h3 className="text-lg md:text-xl text-green-400 font-semibold">INSTANT ANALYSIS</h3>
                   </div>
-                  <p className="text-gray-300 mb-4">
+                  <p className="text-gray-300 mb-3 md:mb-4 text-sm md:text-base">
                     Get immediate website analysis with real performance metrics, SEO evaluation, 
                     security assessment, and mobile optimization insights.
                   </p>
-                  <p className="text-gray-300">
+                  <p className="text-gray-300 text-sm md:text-base">
                     Comprehensive scores and actionable recommendations delivered in seconds.
                   </p>
                 </div>
@@ -303,32 +302,32 @@ export default function Tools() {
 
                 {/* Core Web Vitals */}
                 {(auditResult as any).lighthouseData && (
-                  <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-8">
-                    <h3 className="text-xl text-gray-300 mb-6 text-center">CORE WEB VITALS</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-4 md:p-8">
+                    <h3 className="text-lg md:text-xl text-gray-300 mb-4 md:mb-6 text-center">CORE WEB VITALS</h3>
+                    <div className="grid grid-cols-2 gap-4 md:gap-6">
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-cyan-300 mb-2">
+                        <div className="text-xl md:text-2xl font-bold text-cyan-300 mb-2">
                           {(auditResult as any).lighthouseData.fcp ? `${((auditResult as any).lighthouseData.fcp / 1000).toFixed(1)}s` : 'N/A'}
                         </div>
-                        <div className="text-sm text-gray-400">First Contentful Paint</div>
+                        <div className="text-xs md:text-sm text-gray-400">First Contentful Paint</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-purple-300 mb-2">
+                        <div className="text-xl md:text-2xl font-bold text-purple-300 mb-2">
                           {(auditResult as any).lighthouseData.lcp ? `${((auditResult as any).lighthouseData.lcp / 1000).toFixed(1)}s` : 'N/A'}
                         </div>
-                        <div className="text-sm text-gray-400">Largest Contentful Paint</div>
+                        <div className="text-xs md:text-sm text-gray-400">Largest Contentful Paint</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-yellow-300 mb-2">
+                        <div className="text-xl md:text-2xl font-bold text-yellow-300 mb-2">
                           {(auditResult as any).lighthouseData.cls ? (auditResult as any).lighthouseData.cls.toFixed(3) : 'N/A'}
                         </div>
-                        <div className="text-sm text-gray-400">Cumulative Layout Shift</div>
+                        <div className="text-xs md:text-sm text-gray-400">Cumulative Layout Shift</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-green-300 mb-2">
+                        <div className="text-xl md:text-2xl font-bold text-green-300 mb-2">
                           {(auditResult as any).lighthouseData.tbt ? `${(auditResult as any).lighthouseData.tbt}ms` : 'N/A'}
                         </div>
-                        <div className="text-sm text-gray-400">Total Blocking Time</div>
+                        <div className="text-xs md:text-sm text-gray-400">Total Blocking Time</div>
                       </div>
                     </div>
                   </div>
@@ -337,8 +336,8 @@ export default function Tools() {
                 {/* Overall Score */}
                 {auditResult.overallScore && (
                   <div className="text-center">
-                    <div className="inline-block backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-8">
-                      <h3 className="text-xl text-gray-300 mb-4">OVERALL PERFORMANCE SCORE</h3>
+                    <div className="inline-block backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-6 md:p-8 w-full sm:w-auto">
+                      <h3 className="text-lg md:text-xl text-gray-300 mb-3 md:mb-4">OVERALL PERFORMANCE SCORE</h3>
                       <div className={`text-6xl font-bold mb-4 ${getScoreColor(auditResult.overallScore)}`}>
                         {auditResult.overallScore}
                       </div>
@@ -350,28 +349,28 @@ export default function Tools() {
                 )}
 
                 {/* Performance Metrics */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                   {[
-                    { label: "PERFORMANCE", score: auditResult.performanceScore, icon: <Zap className="w-6 h-6" />, color: "cyan-300" },
-                    { label: "SEO", score: auditResult.seoScore, icon: <Search className="w-6 h-6" />, color: "purple-300" },
-                    { label: "BEST PRACTICES", score: auditResult.securityScore, icon: <Shield className="w-6 h-6" />, color: "yellow-300" },
-                    { label: "MOBILE", score: auditResult.mobileScore, icon: <Smartphone className="w-6 h-6" />, color: "cyan-300" },
-                    { label: "ACCESSIBILITY", score: auditResult.accessibilityScore, icon: <Eye className="w-6 h-6" />, color: "purple-300" },
-                    ...(auditResult.technicalScore ? [{ label: "TECHNICAL", score: auditResult.technicalScore, icon: <Target className="w-6 h-6" />, color: "pink-300" }] : [])
+                    { label: "PERFORMANCE", score: auditResult.performanceScore, icon: <Zap className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
+                    { label: "SEO", score: auditResult.seoScore, icon: <Search className="w-5 md:w-6 h-5 md:h-6" />, color: "purple-300" },
+                    { label: "BEST PRACTICES", score: auditResult.securityScore, icon: <Shield className="w-5 md:w-6 h-5 md:h-6" />, color: "yellow-300" },
+                    { label: "MOBILE", score: auditResult.mobileScore, icon: <Smartphone className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
+                    { label: "ACCESSIBILITY", score: auditResult.accessibilityScore, icon: <Eye className="w-5 md:w-6 h-5 md:h-6" />, color: "purple-300" },
+                    ...(auditResult.technicalScore ? [{ label: "TECHNICAL", score: auditResult.technicalScore, icon: <Target className="w-5 md:w-6 h-5 md:h-6" />, color: "pink-300" }] : [])
                   ].map((metric, index) => (
                     <Card key={index} className="backdrop-blur-sm bg-gray-900/50 border-gray-700/50">
-                      <CardContent className="p-6 text-center">
-                        <div className={`w-12 h-12 mx-auto mb-4 bg-${metric.color}/20 border border-${metric.color}/30 rounded-lg flex items-center justify-center`}>
+                      <CardContent className="p-4 md:p-6 text-center">
+                        <div className={`w-10 md:w-12 h-10 md:h-12 mx-auto mb-3 md:mb-4 bg-${metric.color}/20 border border-${metric.color}/30 rounded-lg flex items-center justify-center`}>
                           <div className={`text-${metric.color}`}>
                             {metric.icon}
                           </div>
                         </div>
-                        <h3 className={`text-lg text-${metric.color} mb-2`}>{metric.label}</h3>
-                        <div className={`text-3xl font-bold mb-2 ${getScoreColor(metric.score)}`}>
+                        <h3 className={`text-sm md:text-lg text-${metric.color} mb-2 font-semibold`}>{metric.label}</h3>
+                        <div className={`text-2xl md:text-3xl font-bold mb-2 ${getScoreColor(metric.score)}`}>
                           {metric.score}
                         </div>
-                        <Progress value={metric.score} className="mb-2" />
-                        <Badge className={`${getScoreColor(metric.score)} bg-transparent border`}>
+                        <Progress value={metric.score} className="mb-2 h-2" />
+                        <Badge className={`${getScoreColor(metric.score)} bg-transparent border text-xs`}>
                           {getScoreBadge(metric.score)}
                         </Badge>
                       </CardContent>
