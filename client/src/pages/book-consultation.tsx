@@ -46,7 +46,7 @@ export default function BookConsultation() {
   ];
 
   return (
-    <div className="pt-16 relative">
+    <div className="min-h-screen bg-background neural-bg relative pt-16">
       <Neural3D intensity="subtle" />
       
       {/* Hero Section */}
