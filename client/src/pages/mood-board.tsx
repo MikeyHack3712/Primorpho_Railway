@@ -397,7 +397,7 @@ export default function MoodBoard() {
             <div className="space-y-8">
               {/* Generated Mood Board */}
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-cyan-300 mb-4">Your Vision Board</h2>
+                <h2 className="text-3xl font-bold text-cyan-400 mb-4">Your Vision Board</h2>
                 <p className="text-readable">Project: {generatedBoard.projectName}</p>
               </div>
 
@@ -411,31 +411,31 @@ export default function MoodBoard() {
 
                 <TabsContent value="overview" className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card className="glass-card">
+                    <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
                       <CardHeader>
-                        <CardTitle className="text-cyan-300">Project Info</CardTitle>
+                        <CardTitle className="text-cyan-400">Project Info</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-3">
                           <div>
                             <p className="text-sm text-gray-400">Type</p>
-                            <p className="text-readable">{generatedBoard.projectType}</p>
+                            <p className="text-gray-300">{generatedBoard.projectType}</p>
                           </div>
                           <div>
                             <p className="text-sm text-gray-400">Target Audience</p>
-                            <p className="text-readable">{generatedBoard.targetAudience}</p>
+                            <p className="text-gray-300">{generatedBoard.targetAudience}</p>
                           </div>
                           <div>
                             <p className="text-sm text-gray-400">Goals</p>
-                            <p className="text-readable">{generatedBoard.businessGoals}</p>
+                            <p className="text-gray-300">{generatedBoard.businessGoals}</p>
                           </div>
                         </div>
                       </CardContent>
                     </Card>
 
-                    <Card className="glass-card">
+                    <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
                       <CardHeader>
-                        <CardTitle className="text-purple-300">Brand Personality</CardTitle>
+                        <CardTitle className="text-purple-400">Brand Personality</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="flex flex-wrap gap-2">
@@ -453,9 +453,9 @@ export default function MoodBoard() {
                 <TabsContent value="colors" className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {generatedBoard.generatedBoard.colorPalettes.map((palette: ColorPalette, index: number) => (
-                      <Card key={index} className="glass-card">
+                      <Card key={index} className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
                         <CardHeader>
-                          <CardTitle className="text-cyan-300">{palette.name}</CardTitle>
+                          <CardTitle className="text-cyan-400">{palette.name}</CardTitle>
                         </CardHeader>
                         <CardContent>
                           <div className="space-y-4">
@@ -491,7 +491,7 @@ export default function MoodBoard() {
                               </div>
                             </div>
                             
-                            <p className="text-sm text-readable">{palette.description}</p>
+                            <p className="text-sm text-gray-300">{palette.description}</p>
                           </div>
                         </CardContent>
                       </Card>
@@ -500,9 +500,9 @@ export default function MoodBoard() {
                 </TabsContent>
 
                 <TabsContent value="typography" className="space-y-6">
-                  <Card className="glass-card">
+                  <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg">
                     <CardHeader>
-                      <CardTitle className="text-yellow-300 flex items-center gap-2">
+                      <CardTitle className="text-yellow-400 flex items-center gap-2">
                         <Type className="w-5 h-5" />
                         Typography System
                       </CardTitle>
@@ -640,7 +640,7 @@ export default function MoodBoard() {
                   <div className="flex flex-col sm:flex-row justify-center gap-4">
                     <Button 
                       onClick={() => window.location.href = '/book-consultation'}
-                      className="bg-gradient-to-r from-cyan-600/60 to-purple-600/60 border border-cyan-300/40 text-white hover:from-cyan-500/70 hover:to-purple-500/70 flex-1 sm:flex-none"
+                      className="bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-black flex-1 sm:flex-none transition-all duration-300"
                     >
                       <Calendar className="w-4 h-4 mr-2" />
                       Book Strategy Session
@@ -648,7 +648,7 @@ export default function MoodBoard() {
                     
                     <Button 
                       onClick={() => window.location.href = '/reserve-slot'}
-                      className="bg-gradient-to-r from-purple-600/60 to-yellow-600/60 border border-purple-300/40 text-white hover:from-purple-500/70 hover:to-yellow-500/70 flex-1 sm:flex-none"
+                      className="bg-gradient-to-r from-purple-400 to-yellow-400 hover:from-purple-300 hover:to-yellow-300 text-black flex-1 sm:flex-none transition-all duration-300"
                     >
                       <Zap className="w-4 h-4 mr-2" />
                       Reserve Project Slot
@@ -667,11 +667,11 @@ export default function MoodBoard() {
 
               {/* Action Buttons */}
               <div className="flex justify-center gap-4">
-                <Button className="bg-cyan-600/20 border border-cyan-300/40 text-cyan-200 hover:border-cyan-300/80">
+                <Button className="bg-transparent border border-gray-600/50 text-gray-300 hover:bg-cyan-400/10 hover:border-cyan-400/50 transition-all duration-300">
                   <Save className="w-4 h-4 mr-2" />
                   Save Vision Board
                 </Button>
-                <Button className="bg-purple-600/20 border border-purple-300/40 text-purple-200 hover:border-purple-300/80">
+                <Button className="bg-transparent border border-gray-600/50 text-gray-300 hover:bg-purple-400/10 hover:border-purple-400/50 transition-all duration-300">
                   <Share2 className="w-4 h-4 mr-2" />
                   Share with Team
                 </Button>
