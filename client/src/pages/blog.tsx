@@ -3,13 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import { Calendar, User, ArrowRight, Zap, Shield, Cpu } from "lucide-react";
+import Neural3D from "@/components/ui/neural-3d";
 
 
 export default function Blog() {
   const articles = [
     {
-      title: "Neural Website Optimization: The Quantum Advantage",
-      excerpt: "Discover how quantum-enhanced optimization techniques can boost your website performance by 300% while maintaining security protocols.",
+      title: "Website Performance Optimization: Advanced Techniques",
+      excerpt: "Discover how modern optimization techniques can boost your website performance by 300% while maintaining security protocols.",
       author: "Primorpho Dev Team",
       date: "December 15, 2024",
       readTime: "5 min read",
@@ -38,8 +39,8 @@ export default function Blog() {
       icon: <Cpu className="w-5 h-5" />,
     },
     {
-      title: "Mobile-First Design in the Quantum Era",
-      excerpt: "Adaptive interfaces that respond to user behavior in real-time. Learn the secrets of neural-enhanced mobile optimization.",
+      title: "Mobile-First Design: Modern Approaches",
+      excerpt: "Adaptive interfaces that respond to user behavior in real-time. Learn advanced mobile optimization techniques.",
       author: "Primorpho Dev Team",
       date: "November 28, 2024",
       readTime: "7 min read", 
@@ -70,17 +71,19 @@ export default function Blog() {
   ];
 
   return (
-    <div className="min-h-screen bg-background neural-bg relative">
+    <div className="min-h-screen bg-background relative">
+      <Neural3D intensity="subtle" />
+      
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl page-title font-bold mb-6 white-highlight">
-              NEURAL.<span className="text-primary animate-glow-pulse">INSIGHTS</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 bg-clip-text text-transparent">
+              DEVELOPMENT INSIGHTS
             </h1>
-            <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">
-              Quantum-enhanced development insights, industry analysis, and technological breakthroughs 
-              from the digital frontier.
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Modern development insights, industry analysis, and technological breakthroughs 
+              from web development experts.
             </p>
           </div>
         </div>
@@ -89,30 +92,30 @@ export default function Blog() {
       {/* Featured Article */}
       <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-card p-12 rounded-xl scan-line mb-20">
+          <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-12 mb-20">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <Badge className="mb-4 bg-primary/20 text-primary border-primary/30">
+                <Badge className="mb-4 bg-cyan-400/20 text-cyan-400 border-cyan-400/30">
                   FEATURED ARTICLE
                 </Badge>
-                <h2 className="text-3xl md:text-4xl font-cyber font-bold mb-6 white-highlight">
-                  The Rise of <span className="text-primary animate-glow-pulse">Quantum Computing</span> in Web Development
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-300">
+                  The Rise of <span className="text-cyan-400">Modern Web Development</span> Technologies
                 </h2>
-                <p className="text-lg white-highlight mb-8 font-futura">
-                  Explore how quantum computing principles are being applied to modern web development,
+                <p className="text-lg text-gray-300 mb-8">
+                  Explore how cutting-edge development principles are being applied to modern web development,
                   creating unprecedented performance gains and opening new possibilities for interactive experiences.
                 </p>
                 <div className="flex items-center gap-6 mb-8">
                   <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-primary" />
-                    <span className="white-highlight text-sm">Primorpho Dev Team</span>
+                    <User className="w-4 h-4 text-cyan-400" />
+                    <span className="text-gray-300 text-sm">Primorpho Dev Team</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-yellow-400" />
-                    <span className="white-highlight text-sm">December 20, 2024</span>
+                    <span className="text-gray-300 text-sm">December 20, 2024</span>
                   </div>
                 </div>
-                <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold bg-transparent border border-primary text-white hover:bg-primary/10">
+                <Button className="px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white transition-colors">
                   READ FULL ARTICLE
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>

@@ -103,34 +103,38 @@ export default function ReserveSlot() {
 
   if (currentStep === 4) {
     return (
-      <div className="pt-16 min-h-screen flex items-center">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="glass-card p-12 rounded-xl scan-line">
-            <div className="w-24 h-24 mx-auto mb-8 bg-gradient-to-br from-primary to-yellow-400 rounded-full flex items-center justify-center">
-              <CheckCircle className="w-12 h-12 text-black" />
+      <div className="pt-16 min-h-screen flex items-center relative">
+        <Neural3D intensity="subtle" />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-12">
+            <div className="w-24 h-24 mx-auto mb-8 bg-gradient-to-br from-cyan-400 to-purple-400 rounded-full flex items-center justify-center">
+              <CheckCircle className="w-12 h-12 text-white" />
             </div>
-            <h1 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
-              SLOT <span className="text-primary animate-glow-pulse">RESERVED</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 bg-clip-text text-transparent">
+              SLOT BOOKED
             </h1>
-            <p className="text-xl white-highlight mb-8 max-w-2xl mx-auto">
-              Your development slot has been successfully reserved. We'll contact you within 24 hours 
-              to confirm details and begin the quantum-enhanced development process.
+            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Your project slot has been successfully reserved. We'll contact you within 24 hours 
+              to confirm details and begin your website development.
             </p>
             <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <div className="glass-card p-6 rounded-xl">
-                <h3 className="text-lg font-cyber text-primary mb-2">CONFIRMATION</h3>
-                <p className="white-highlight text-sm">Check your email for detailed confirmation and next steps.</p>
+              <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-6">
+                <h3 className="text-lg text-cyan-400 mb-2">CONFIRMATION</h3>
+                <p className="text-gray-300 text-sm">Check your email for detailed confirmation and next steps.</p>
               </div>
-              <div className="glass-card p-6 rounded-xl">
-                <h3 className="text-lg font-cyber text-yellow-400 mb-2">TIMELINE</h3>
-                <p className="white-highlight text-sm">Project kickoff within 48 hours of slot confirmation.</p>
+              <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-6">
+                <h3 className="text-lg text-yellow-400 mb-2">TIMELINE</h3>
+                <p className="text-gray-300 text-sm">Project kickoff within 48 hours of slot confirmation.</p>
               </div>
-              <div className="glass-card p-6 rounded-xl">
-                <h3 className="text-lg font-cyber text-purple-400 mb-2">CONTACT</h3>
-                <p className="white-highlight text-sm">Direct line: +1 (555) 123-4567 for urgent matters.</p>
+              <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-6">
+                <h3 className="text-lg text-purple-400 mb-2">CONTACT</h3>
+                <p className="text-gray-300 text-sm">We'll call you using the number you provided.</p>
               </div>
             </div>
-            <Button className="cyber-button-hover px-8 py-4 rounded-lg font-cyber font-semibold text-lg bg-transparent border border-primary text-white hover:bg-primary/10">
+            <Button 
+              className="px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white transition-colors"
+              onClick={() => window.location.href = '/home'}
+            >
               RETURN TO HOME
             </Button>
           </div>
@@ -410,7 +414,7 @@ export default function ReserveSlot() {
                     <Button
                       type="button"
                       onClick={() => setCurrentStep(currentStep - 1)}
-                      className="cyber-button-hover px-8 py-3 rounded-lg font-cyber font-semibold bg-transparent border border-gray-600 text-white hover:bg-gray-600/10"
+                      className="px-8 py-3 rounded-lg bg-transparent border border-gray-600 text-gray-300 hover:bg-gray-600/10 hover:text-white transition-colors"
                     >
                       PREVIOUS
                     </Button>
@@ -422,7 +426,7 @@ export default function ReserveSlot() {
                     <Button
                       type="button"
                       onClick={nextStep}
-                      className="cyber-button-hover px-8 py-3 rounded-lg font-cyber font-semibold bg-transparent border border-primary text-white hover:bg-primary/10"
+                      className="px-8 py-3 rounded-lg bg-transparent border border-cyan-400 text-cyan-400 hover:bg-cyan-400/10 hover:text-white transition-colors"
                     >
                       NEXT STEP
                       <ArrowRight className="w-4 h-4 ml-2" />
@@ -431,14 +435,14 @@ export default function ReserveSlot() {
                     <Button
                       type="submit"
                       disabled={reservationMutation.isPending}
-                      className="cyber-button-hover px-8 py-3 rounded-lg font-cyber font-semibold bg-transparent border border-primary text-white hover:bg-primary/10"
+                      className="px-8 py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white transition-colors"
                     >
                       {reservationMutation.isPending ? (
-                        "RESERVING SLOT..."
+                        "BOOKING SLOT..."
                       ) : (
                         <>
                           <Zap className="w-4 h-4 mr-2" />
-                          RESERVE SLOT
+                          BOOK SLOT
                         </>
                       )}
                     </Button>
