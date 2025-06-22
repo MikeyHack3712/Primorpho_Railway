@@ -490,35 +490,37 @@ function calculatePerformanceScore($: cheerio.CheerioAPI, html: string, loadTime
   const recommendations: string[] = [];
   
   // Core Web Vitals Analysis - Superior to Lighthouse's static analysis
-  const coreWebVitals = calculateCoreWebVitals($, html, loadTime, response);
+  const estimatedLCP = calculateEstimatedLCP($, loadTime || 1500);
+  const estimatedCLS = calculateEstimatedCLS($);
+  const estimatedFID = calculateEstimatedFID($);
   
   // Largest Contentful Paint (LCP) - Critical ranking factor
-  if (coreWebVitals.estimatedLCP > 2500) {
+  if (estimatedLCP > 2500) {
     score -= 30;
-    recommendations.push(`🚨 CRITICAL: Estimated LCP ${(coreWebVitals.estimatedLCP/1000).toFixed(1)}s (Google ranking penalty). ${coreWebVitals.lcpOptimizations[0]}`);
-  } else if (coreWebVitals.estimatedLCP > 1200) {
+    recommendations.push(`CRITICAL: Estimated LCP ${(estimatedLCP/1000).toFixed(1)}s (Google ranking penalty). Optimize largest content element`);
+  } else if (estimatedLCP > 1200) {
     score -= 15;
-    recommendations.push(`⚠️ LCP ${(coreWebVitals.estimatedLCP/1000).toFixed(1)}s needs improvement. ${coreWebVitals.lcpOptimizations[0]}`);
+    recommendations.push(`LCP ${(estimatedLCP/1000).toFixed(1)}s needs improvement. Optimize images and render-blocking resources`);
   } else {
-    recommendations.push(`✅ Excellent LCP ${(coreWebVitals.estimatedLCP/1000).toFixed(1)}s - Google ranking boost eligible`);
+    recommendations.push(`Excellent LCP ${(estimatedLCP/1000).toFixed(1)}s - Google ranking boost eligible`);
   }
   
   // Cumulative Layout Shift (CLS) - User experience metric
-  if (coreWebVitals.estimatedCLS > 0.25) {
+  if (estimatedCLS > 0.25) {
     score -= 25;
-    recommendations.push(`🚨 CRITICAL: High layout shift (CLS: ${coreWebVitals.estimatedCLS.toFixed(2)}) - damages user experience and rankings`);
-  } else if (coreWebVitals.estimatedCLS > 0.1) {
+    recommendations.push(`CRITICAL: High layout shift (CLS: ${estimatedCLS.toFixed(2)}) - damages user experience and rankings`);
+  } else if (estimatedCLS > 0.1) {
     score -= 12;
-    recommendations.push(`⚠️ Moderate layout shift detected (CLS: ${coreWebVitals.estimatedCLS.toFixed(2)}) - reserve space for images/ads`);
+    recommendations.push(`Moderate layout shift detected (CLS: ${estimatedCLS.toFixed(2)}) - reserve space for images/ads`);
   }
   
   // First Input Delay (FID) - Interactivity metric
-  if (coreWebVitals.estimatedFID > 300) {
+  if (estimatedFID > 300) {
     score -= 25;
-    recommendations.push(`🚨 CRITICAL: Poor interactivity (FID: ${coreWebVitals.estimatedFID}ms) - break up heavy JavaScript tasks`);
-  } else if (coreWebVitals.estimatedFID > 100) {
+    recommendations.push(`CRITICAL: Poor interactivity (FID: ${estimatedFID}ms) - break up heavy JavaScript tasks`);
+  } else if (estimatedFID > 100) {
     score -= 10;
-    recommendations.push(`⚠️ JavaScript blocking interaction (FID: ${coreWebVitals.estimatedFID}ms) - optimize main thread`);
+    recommendations.push(`JavaScript blocking interaction (FID: ${estimatedFID}ms) - optimize main thread`);
   }
   
   // Advanced Image Performance Analysis - Beyond Lighthouse capabilities
@@ -586,47 +588,64 @@ function calculatePerformanceScore($: cheerio.CheerioAPI, html: string, loadTime
   return { score: Math.max(0, score), recommendations };
 }
 
-// Advanced Core Web Vitals calculation - More accurate than Lighthouse estimates
-function calculateCoreWebVitals($: cheerio.CheerioAPI, html: string, loadTime?: number, response?: Response) {
-  // LCP Analysis - Identify actual largest contentful element
-  let estimatedLCP = loadTime || 1500;
-  const lcpOptimizations: string[] = [];
+// Core Web Vitals calculation functions
+function calculateEstimatedLCP($: cheerio.CheerioAPI, loadTime: number): number {
+  let estimatedLCP = loadTime;
   
+  // Check for hero images
   const heroImage = $('img').first();
-  const largeTextBlocks = $('h1, h2, .hero, .banner, p').filter((_, el) => $(el).text().length > 100);
-  
   if (heroImage.length && heroImage.attr('src')) {
-    const imgSrc = heroImage.attr('src')!;
+    const imgSrc = heroImage.attr('src') || '';
     if (!imgSrc.includes('webp') && !imgSrc.includes('avif')) {
       estimatedLCP += 800;
-      lcpOptimizations.push('Convert hero image to WebP for 30-50% faster loading');
     }
     if (!heroImage.attr('width') || !heroImage.attr('height')) {
       estimatedLCP += 300;
-      lcpOptimizations.push('Add image dimensions to prevent layout shift');
     }
   }
   
-  // CLS Risk Assessment
+  // Check for render-blocking resources
+  const blockingResources = $('script[src]:not([async]):not([defer]), link[rel="stylesheet"]:not([media])').length;
+  estimatedLCP += blockingResources * 200;
+  
+  return Math.min(estimatedLCP, 8000);
+}
+
+function calculateEstimatedCLS($: cheerio.CheerioAPI): number {
   let estimatedCLS = 0;
-  $('img:not([width]):not([height])').each(() => estimatedCLS += 0.08);
-  $('[class*="ad"], [id*="ad"], iframe:not([width])').each(() => estimatedCLS += 0.15);
+  
+  // Images without dimensions
+  const imagesWithoutDimensions = $('img:not([width]):not([height])').length;
+  estimatedCLS += imagesWithoutDimensions * 0.08;
+  
+  // Ads and dynamic content
+  const dynamicContent = $('[class*="ad"], [id*="ad"], iframe:not([width])').length;
+  estimatedCLS += dynamicContent * 0.15;
+  
+  // Web fonts without optimization
   if ($('link[href*="fonts"]').length && !$('link[rel="preload"][as="font"]').length) {
     estimatedCLS += 0.12;
   }
   
-  // FID Estimation based on JavaScript complexity
+  return Math.min(estimatedCLS, 0.8);
+}
+
+function calculateEstimatedFID($: cheerio.CheerioAPI): number {
   let estimatedFID = 50;
-  const scriptComplexity = $('script').length * 25 + $('script:not([src])').text().length / 1000;
-  estimatedFID += scriptComplexity;
-  $('script[src*="analytics"], script[src*="facebook"], script[src*="google"]').each(() => estimatedFID += 60);
   
-  return {
-    estimatedLCP: Math.min(estimatedLCP, 8000),
-    estimatedCLS: Math.min(estimatedCLS, 0.8),
-    estimatedFID: Math.min(estimatedFID, 2000),
-    lcpOptimizations
-  };
+  // JavaScript complexity
+  const scriptCount = $('script').length;
+  estimatedFID += scriptCount * 25;
+  
+  // Inline scripts
+  const inlineScriptLength = $('script:not([src])').text().length;
+  estimatedFID += inlineScriptLength / 1000;
+  
+  // Third-party scripts
+  const thirdPartyScripts = $('script[src*="analytics"], script[src*="facebook"], script[src*="google"]').length;
+  estimatedFID += thirdPartyScripts * 60;
+  
+  return Math.min(estimatedFID, 2000);
 }
 
 // Advanced image analysis beyond Lighthouse
