@@ -66,13 +66,13 @@ export default function Portfolio() {
 
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight page-title">
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PROJECT</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PORTFOLIO</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">OUR</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WORK</span>
           </h1>
           
           <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-6 md:p-8 mb-12 md:mb-16">
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-              Latest <span className="text-cyan-300">digital transformations</span>.
+              See what we've built for <span className="text-cyan-300">other businesses</span>.
             </p>
           </div>
         </div>

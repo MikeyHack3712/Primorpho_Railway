@@ -46,7 +46,7 @@ export default function Cover() {
         {/* Subtitle */}
         <div className="mb-6 md:mb-8">
           <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-cyan-200/90 font-medium tracking-wide mb-3 md:mb-4">
-            Neural Web Solutions
+            Website Design & Development
           </p>
           <div className="flex items-center justify-center gap-2 md:gap-4 text-sm md:text-lg text-slate-300">
             <Globe className="w-4 md:w-5 h-4 md:h-5 text-purple-300" />
@@ -76,8 +76,8 @@ export default function Cover() {
               
               {/* Content */}
               <div className="relative z-10 flex items-center gap-2 md:gap-3">
-                <span className="hidden sm:inline">INITIATE TRANSFORMATION</span>
-                <span className="sm:hidden">START PROJECT</span>
+                <span className="hidden sm:inline">GET STARTED</span>
+                <span className="sm:hidden">START</span>
                 <ArrowRight className="w-5 md:w-6 h-5 md:h-6 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
             </Link>
@@ -110,11 +110,11 @@ export default function Cover() {
           </div>
           <div className="flex items-center justify-center gap-2">
             <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse delay-300"></div>
-            <span>NEURAL LINK ACTIVE</span>
+            <span>ONLINE & READY</span>
           </div>
           <div className="flex items-center justify-center gap-2">
             <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-700"></div>
-            <span className="hidden sm:inline">READY FOR TRANSFORMATION</span>
+            <span className="hidden sm:inline">READY TO START</span>
             <span className="sm:hidden">READY</span>
           </div>
         </div>

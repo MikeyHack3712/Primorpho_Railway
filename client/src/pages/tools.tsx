@@ -118,10 +118,10 @@ export default function Tools() {
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 page-title leading-tight">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WEBSITE</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">NEURAL AUDIT</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">CHECKER</span>
           </h1>
           <p className="text-base md:text-xl text-gray-300 mb-8 md:mb-12 max-w-3xl mx-auto px-4">
-            Instant website analysis with actionable recommendations.
+            Check how your website is performing and get tips to improve it.
           </p>
         </div>
       </section>
@@ -132,7 +132,7 @@ export default function Tools() {
           <Card className="backdrop-blur-sm bg-gray-900/50 border-gray-700/50">
             <CardHeader className="pb-4 md:pb-6">
               <CardTitle className="text-lg md:text-2xl text-center text-cyan-300">
-                RUN LIGHTHOUSE ANALYSIS
+                CHECK YOUR WEBSITE
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -140,10 +140,10 @@ export default function Tools() {
                 <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4 md:p-6">
                   <div className="flex items-center justify-center mb-3 md:mb-4">
                     <Zap className="w-6 md:w-8 h-6 md:h-8 text-green-400 mr-2 md:mr-3" />
-                    <h3 className="text-lg md:text-xl text-green-400 font-semibold">INSTANT ANALYSIS</h3>
+                    <h3 className="text-lg md:text-xl text-green-400 font-semibold">QUICK CHECK</h3>
                   </div>
                   <p className="text-gray-300 text-sm md:text-base">
-                    Real performance metrics, SEO evaluation, security assessment, and mobile optimization insights.
+                    See how fast your site loads, how well it shows up in Google, and if it works on phones.
                   </p>
                 </div>
 
