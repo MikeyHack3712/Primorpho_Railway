@@ -104,6 +104,70 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Test endpoint to demonstrate authentic Lighthouse data structure
+  app.post('/api/audit-demo', async (req, res) => {
+    const { websiteUrl: rawUrl } = auditFormSchema.parse(req.body);
+    
+    // Simulate authentic Google Lighthouse results for demonstration
+    const demoLighthouseData = {
+      performanceScore: 85,
+      seoScore: 92,
+      accessibilityScore: 78,
+      bestPracticesScore: 88,
+      mobilePerformanceScore: 72,
+      overallScore: 83,
+      loadTime: 2400,
+      lighthouseData: {
+        fcp: 1800,
+        lcp: 2400,
+        cls: 0.045,
+        tbt: 350,
+        speedIndex: 2200,
+        finalUrl: rawUrl
+      },
+      recommendations: {
+        performance: [
+          "Eliminate render-blocking resources",
+          "Reduce unused JavaScript",
+          "Serve images in next-gen formats"
+        ],
+        seo: [
+          "Document has a meta description",
+          "Links have descriptive text"
+        ],
+        accessibility: [
+          "Image elements have [alt] attributes",
+          "Form elements have associated labels"
+        ],
+        security: [
+          "Uses HTTPS",
+          "Links to cross-origin destinations are safe"
+        ]
+      }
+    };
+
+    const auditResult = await storage.createAuditResult({
+      websiteUrl: rawUrl,
+      loadTime: demoLighthouseData.loadTime,
+      overallScore: demoLighthouseData.overallScore,
+      performanceScore: demoLighthouseData.performanceScore,
+      seoScore: demoLighthouseData.seoScore,
+      securityScore: demoLighthouseData.bestPracticesScore,
+      mobileScore: demoLighthouseData.mobilePerformanceScore,
+      accessibilityScore: demoLighthouseData.accessibilityScore,
+      technicalScore: demoLighthouseData.bestPracticesScore,
+      contentScore: demoLighthouseData.seoScore,
+      recommendations: demoLighthouseData.recommendations,
+      lighthouseData: demoLighthouseData.lighthouseData
+    });
+
+    res.json({ 
+      success: true, 
+      audit: auditResult,
+      lighthouseData: demoLighthouseData.lighthouseData 
+    });
+  });
+
   // Google Lighthouse API website analysis
   app.post('/api/audit', async (req, res) => {
     const { websiteUrl: rawUrl } = auditFormSchema.parse(req.body);
