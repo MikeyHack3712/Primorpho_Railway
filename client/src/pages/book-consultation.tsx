@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Video, Phone, CheckCircle, Zap } from "lucide-react";
+import Neural3D from "@/components/ui/neural-3d";
 
 export default function BookConsultation() {
   const [selectedTime, setSelectedTime] = useState<string>("");
@@ -22,7 +23,7 @@ export default function BookConsultation() {
       id: "project-consultation",
       name: "PROJECT CONSULTATION",
       duration: "30 minutes",
-      description: "Discuss your project requirements and get detailed quantum analysis",
+      description: "Discuss your project requirements and get detailed technical analysis",
       color: "primary",
       icon: <Zap className="w-5 h-5" />,
     },
@@ -45,9 +46,11 @@ export default function BookConsultation() {
   ];
 
   return (
-    <div className="pt-16">
+    <div className="pt-16 relative">
+      <Neural3D intensity="subtle" />
+      
       {/* Hero Section */}
-      <section className="py-20 relative grid-background">
+      <section className="py-20 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
