@@ -94,9 +94,7 @@ export default function Cover() {
           <div className="backdrop-blur-sm bg-gray-900/20 border border-cyan-300/20 rounded-lg p-4 md:p-6">
             <div className="text-center space-y-2 md:space-y-3">
               <p className="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed">
-                No templates. No drag-and-drop. Just <span className="text-cyan-300 font-semibold">handcrafted code</span>, 
-                shaped around your vision — designed to <span className="text-purple-300 font-semibold">stand out</span> and{" "}
-                <span className="text-yellow-300 font-semibold">perform</span>.
+                No templates. No gimmicks. Just <span className="text-cyan-300 font-semibold">handcrafted code</span> tailored to you.
               </p>
             </div>
           </div>
