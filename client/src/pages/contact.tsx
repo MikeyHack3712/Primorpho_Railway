@@ -70,21 +70,21 @@ export default function Contact() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D />
       {/* Header Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-24 md:pt-32 pb-12 md:pb-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="mb-8">
-            <span className="text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-6 py-2 rounded-md bg-cyan-300/5">
+          <div className="mb-6 md:mb-8">
+            <span className="text-xs md:text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-4 md:px-6 py-2 rounded-md bg-cyan-300/5">
               NEURAL WEB SOLUTIONS
             </span>
           </div>
           
-          <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight page-title">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight page-title">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">INITIATE</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">CONTACT</span>
           </h1>
           
-          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 mb-16">
-            <p className="text-xl text-readable leading-relaxed">
+          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-6 md:p-8 mb-12 md:mb-16">
+            <p className="text-lg md:text-xl text-readable leading-relaxed">
               Ready to transform your digital <span className="text-cyan-300 font-semibold">presence</span>? Let's build something extraordinary.
             </p>
           </div>
@@ -92,31 +92,31 @@ export default function Contact() {
       </section>
 
       {/* Urgency Section */}
-      <section className="pb-16 px-4">
+      <section className="pb-12 md:pb-16 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="backdrop-blur-sm bg-gray-900/30 border border-yellow-300/20 rounded-lg p-8 mb-16">
+          <div className="backdrop-blur-sm bg-gray-900/30 border border-yellow-300/20 rounded-lg p-6 md:p-8 mb-12 md:mb-16">
             <div className="text-center">
-              <Badge className="mb-4 bg-yellow-300/20 text-yellow-300 border-yellow-300/50 text-lg px-4 py-2">
+              <Badge className="mb-3 md:mb-4 bg-yellow-300/20 text-yellow-300 border-yellow-300/50 text-sm md:text-lg px-3 md:px-4 py-1 md:py-2">
                 LIMITED AVAILABILITY
               </Badge>
-              <h2 className="text-cyan-300 text-2xl tracking-wide mb-6 text-subheading">
+              <h2 className="text-cyan-300 text-xl md:text-2xl tracking-wide mb-4 md:mb-6 text-subheading">
                 ONLY <span className="text-yellow-300">2 SLOTS</span> REMAINING THIS MONTH
               </h2>
-              <p className="text-readable mb-6">
+              <p className="text-readable mb-4 md:mb-6 text-sm md:text-base">
                 High demand for neural-enhanced development. Secure your project slot before they're gone.
               </p>
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-2 md:gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-cyan-300 mb-1">24H</div>
-                  <div className="text-sm text-readable">Response Time</div>
+                  <div className="text-xl md:text-2xl font-bold text-cyan-300 mb-1">24H</div>
+                  <div className="text-xs md:text-sm text-readable">Response Time</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-yellow-300 mb-1">7</div>
-                  <div className="text-sm text-readable">Years Experience</div>
+                  <div className="text-xl md:text-2xl font-bold text-yellow-300 mb-1">7</div>
+                  <div className="text-xs md:text-sm text-readable">Years Experience</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-300 mb-1">100%</div>
-                  <div className="text-sm text-readable">Success Rate</div>
+                  <div className="text-xl md:text-2xl font-bold text-purple-300 mb-1">100%</div>
+                  <div className="text-xs md:text-sm text-readable">Success Rate</div>
                 </div>
               </div>
             </div>

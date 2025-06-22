@@ -106,15 +106,15 @@ export default function Services() {
       </section>
 
       {/* Package Selection */}
-      <section className="pb-16 px-4">
+      <section className="pb-12 md:pb-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-cyber text-purple-400 mb-4 text-subheading">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold font-cyber text-purple-400 mb-3 md:mb-4 text-subheading">
               CHOOSE YOUR TRANSFORMATION
             </h2>
-            <p className="text-readable">Click on any package to customize it with powerful add-ons</p>
+            <p className="text-readable text-sm md:text-base">Click on any package to customize it with powerful add-ons</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
             {packages.map((pkg) => (
               <Card 
                 key={pkg.id}
