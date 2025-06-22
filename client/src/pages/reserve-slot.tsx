@@ -14,6 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { slotReservationFormSchema } from "@shared/schema";
 import { z } from "zod";
 import { Calendar, CheckCircle, Clock, Zap, ArrowRight, AlertTriangle } from "lucide-react";
+import Neural3D from "@/components/ui/neural-3d";
 
 type SlotReservationData = z.infer<typeof slotReservationFormSchema>;
 
@@ -38,8 +39,14 @@ export default function ReserveSlot() {
 
   const reservationMutation = useMutation({
     mutationFn: async (data: SlotReservationData) => {
-      const response = await apiRequest("POST", "/api/reserve-slot", data);
-      return response.json();
+      const response = await fetch("/api/reserve-slot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error("Failed to reserve slot");
+      return await response.json();
     },
     onSuccess: (data) => {
       toast({
@@ -133,33 +140,35 @@ export default function ReserveSlot() {
   }
 
   return (
-    <div className="pt-16">
+    <div className="pt-16 relative">
+      <Neural3D intensity="subtle" />
+      
       {/* Hero Section */}
-      <section className="py-20 relative grid-background">
+      <section className="py-20 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
-              RESERVE.<span className="text-primary animate-glow-pulse">SLOT</span>
+            <h1 className="text-4xl md:text-6xl font-cyber font-bold mb-6 bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 bg-clip-text text-transparent animate-pulse">
+              BOOK PROJECT SLOT
             </h1>
-            <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">
-              Secure your quantum-enhanced development slot. Limited availability - only 2 spots remaining this month.
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Reserve your website development slot. Limited availability - only 2 spots remaining this month.
             </p>
           </div>
         </div>
       </section>
 
       {/* Urgency Alert */}
-      <section className="py-8 relative">
+      <section className="py-8 relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-card p-6 rounded-xl border-2 border-yellow-400/50 scan-line">
+          <div className="backdrop-blur-sm bg-gray-900/50 border border-yellow-400/50 rounded-lg p-6">
             <div className="flex items-center justify-center gap-4">
               <AlertTriangle className="w-6 h-6 text-yellow-400" />
               <div className="text-center">
                 <Badge className="mb-2 bg-yellow-400/20 text-yellow-400 border-yellow-400/50">
-                  HIGH DEMAND ALERT
+                  HIGH DEMAND
                 </Badge>
-                <p className="white-highlight font-cyber">
-                  <span className="text-yellow-400 font-bold">2 SLOTS REMAINING</span> - Reserve now to secure January/February development window
+                <p className="text-gray-300">
+                  <span className="text-yellow-400 font-bold">2 SLOTS REMAINING</span> - Reserve now for January/February
                 </p>
               </div>
               <Clock className="w-6 h-6 text-yellow-400" />
@@ -169,7 +178,7 @@ export default function ReserveSlot() {
       </section>
 
       {/* Progress Steps */}
-      <section className="py-12 relative">
+      <section className="py-12 relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-12">
             {[1, 2, 3].map((step) => (
@@ -191,13 +200,13 @@ export default function ReserveSlot() {
           </div>
 
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-cyber white-highlight mb-2">
+            <h2 className="text-2xl font-cyber text-gray-300 mb-2">
               {currentStep === 1 && "CONTACT INFORMATION"}
               {currentStep === 2 && "PROJECT SELECTION"}  
               {currentStep === 3 && "PROJECT DETAILS"}
             </h2>
-            <p className="white-highlight text-sm">
-              Step {currentStep} of 3 - Quantum slot reservation protocol
+            <p className="text-gray-400 text-sm">
+              Step {currentStep} of 3 - Project booking process
             </p>
           </div>
         </div>
