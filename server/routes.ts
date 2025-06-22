@@ -584,7 +584,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       `;
 
       await sendEmailViaGmail({
-        to: 'primorpho.solutions@gmail.com',
+        to: process.env.GMAIL_USER || 'admin@primorpho.com',
         subject: emailSubject,
         html: emailContent
       });

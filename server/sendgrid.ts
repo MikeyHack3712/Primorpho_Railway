@@ -16,7 +16,7 @@ interface EmailParams {
   html?: string;
 }
 
-const FROM_EMAIL = 'primorpho.solutions@gmail.com';
+const FROM_EMAIL = process.env.GMAIL_USER || 'admin@primorpho.com';
 
 export async function sendEmail(params: EmailParams): Promise<boolean> {
   try {
