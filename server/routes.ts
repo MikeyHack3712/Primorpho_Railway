@@ -462,138 +462,268 @@ function calculateBasicPerformanceScore(loadTime: number, htmlSize: number): { s
   const recommendations: string[] = [];
   const priority: string[] = [];
   
-  let score = 100;
+  // Lighthouse Performance scoring methodology
+  // Based on Core Web Vitals and key metrics
   
-  // Load time scoring
+  // First Contentful Paint (FCP) - approximated from loadTime
+  // Good: < 1.8s, Needs Improvement: 1.8-3.0s, Poor: > 3.0s
+  let fcpScore = 100;
   if (loadTime > 3000) {
-    score -= 30;
-    recommendations.push("Reduce server response time (currently " + Math.round(loadTime/1000) + "s)");
-    priority.push("Slow server response time");
-  } else if (loadTime > 1500) {
-    score -= 15;
-    recommendations.push("Optimize server response time");
-  }
-  
-  // HTML size scoring
-  if (htmlSize > 500000) {
-    score -= 20;
-    recommendations.push("Reduce HTML payload size (currently " + Math.round(htmlSize/1024) + "KB)");
-    priority.push("Large HTML payload");
-  } else if (htmlSize > 200000) {
-    score -= 10;
-    recommendations.push("Consider reducing HTML size");
-  }
-  
-  if (score > 90) {
-    recommendations.push("Excellent performance baseline");
-  } else if (score > 70) {
-    recommendations.push("Good performance with room for optimization");
+    fcpScore = 25; // Poor
+    recommendations.push("First Contentful Paint: Reduce server response time");
+    priority.push("Slow First Contentful Paint");
+  } else if (loadTime > 1800) {
+    fcpScore = 50; // Needs Improvement
+    recommendations.push("First Contentful Paint: Optimize server response time");
   } else {
-    recommendations.push("Performance improvements needed");
+    fcpScore = 100; // Good
   }
   
-  return { score: Math.max(0, score), recommendations, priority };
+  // Largest Contentful Paint (LCP) - approximated as loadTime
+  // Good: < 2.5s, Needs Improvement: 2.5-4.0s, Poor: > 4.0s
+  let lcpScore = 100;
+  if (loadTime > 4000) {
+    lcpScore = 25; // Poor
+    recommendations.push("Largest Contentful Paint: Optimize loading performance");
+    priority.push("Slow Largest Contentful Paint");
+  } else if (loadTime > 2500) {
+    lcpScore = 50; // Needs Improvement
+    recommendations.push("Largest Contentful Paint: Improve loading speed");
+  } else {
+    lcpScore = 100; // Good
+  }
+  
+  // Speed Index - approximated from loadTime
+  let speedIndexScore = 100;
+  if (loadTime > 4300) {
+    speedIndexScore = 25;
+    recommendations.push("Speed Index: Optimize content loading");
+  } else if (loadTime > 3400) {
+    speedIndexScore = 50;
+    recommendations.push("Speed Index: Improve content loading speed");
+  } else {
+    speedIndexScore = 100;
+  }
+  
+  // Cumulative Layout Shift (CLS) - cannot measure without rendering
+  // Assume neutral score unless obvious issues
+  let clsScore = 100;
+  
+  // Total Blocking Time (TBT) - approximated from HTML size
+  let tbtScore = 100;
+  if (htmlSize > 1000000) {
+    tbtScore = 25;
+    recommendations.push("Total Blocking Time: Reduce JavaScript execution time");
+  } else if (htmlSize > 500000) {
+    tbtScore = 50;
+    recommendations.push("Total Blocking Time: Optimize JavaScript");
+  } else {
+    tbtScore = 100;
+  }
+  
+  // Lighthouse Performance score calculation (weighted average)
+  // FCP: 10%, LCP: 25%, CLS: 25%, TBT: 30%, Speed Index: 10%
+  const performanceScore = Math.round(
+    (fcpScore * 0.10) +
+    (lcpScore * 0.25) +
+    (clsScore * 0.25) +
+    (tbtScore * 0.30) +
+    (speedIndexScore * 0.10)
+  );
+  
+  // Additional recommendations based on metrics
+  if (performanceScore < 50) {
+    recommendations.push("Consider using a CDN and image optimization");
+    recommendations.push("Minimize render-blocking resources");
+  } else if (performanceScore < 90) {
+    recommendations.push("Optimize images and enable text compression");
+  }
+  
+  return { score: performanceScore, recommendations, priority };
 }
 
 function analyzeSEO($: cheerio.CheerioAPI, html: string): { score: number; recommendations: string[]; priority: string[] } {
   const recommendations: string[] = [];
   const priority: string[] = [];
   let score = 100;
+  let failedAudits = 0;
   
-  // Title tag analysis
+  // Document has a <title> element (7 points)
   const title = $('title').text();
   if (!title) {
-    score -= 20;
-    recommendations.push("Add a title tag");
+    score -= 7;
+    failedAudits++;
+    recommendations.push("Document does not have a <title> element");
     priority.push("Missing title tag");
-  } else if (title.length < 30 || title.length > 60) {
-    score -= 10;
-    recommendations.push("Optimize title length (30-60 characters)");
   }
   
-  // Meta description
+  // Document has a meta description (7 points)
   const metaDesc = $('meta[name="description"]').attr('content');
   if (!metaDesc) {
-    score -= 15;
-    recommendations.push("Add meta description");
+    score -= 7;
+    failedAudits++;
+    recommendations.push("Document does not have a meta description");
     priority.push("Missing meta description");
-  } else if (metaDesc.length < 120 || metaDesc.length > 160) {
-    score -= 5;
-    recommendations.push("Optimize meta description length (120-160 characters)");
   }
   
-  // Heading structure
-  const h1Count = $('h1').length;
-  if (h1Count === 0) {
-    score -= 15;
-    recommendations.push("Add H1 heading");
-  } else if (h1Count > 1) {
-    score -= 5;
-    recommendations.push("Use only one H1 heading per page");
+  // Page has successful HTTP status code (7 points)
+  // This is handled at the request level, assume success if we got here
+  
+  // Links have descriptive text (7 points)
+  const linksWithoutText = $('a').filter(function() {
+    const text = $(this).text().trim();
+    const ariaLabel = $(this).attr('aria-label');
+    return !text && !ariaLabel;
+  }).length;
+  if (linksWithoutText > 0) {
+    score -= 7;
+    failedAudits++;
+    recommendations.push(`${linksWithoutText} link(s) do not have descriptive text`);
   }
   
-  // Images without alt text
+  // Image elements have [alt] attributes (7 points)
   const imagesWithoutAlt = $('img:not([alt])').length;
   if (imagesWithoutAlt > 0) {
-    score -= Math.min(15, imagesWithoutAlt * 3);
-    recommendations.push(`Add alt text to ${imagesWithoutAlt} image(s)`);
+    score -= 7;
+    failedAudits++;
+    recommendations.push(`Image elements do not have [alt] attributes (${imagesWithoutAlt} images)`);
+    priority.push("Images missing alt text");
   }
   
-  // Open Graph tags
-  const ogTitle = $('meta[property="og:title"]').attr('content');
-  const ogDesc = $('meta[property="og:description"]').attr('content');
-  if (!ogTitle || !ogDesc) {
-    score -= 5;
-    recommendations.push("Add Open Graph tags for social sharing");
+  // Document has a valid hreflang (7 points) - check if international
+  const hreflangElements = $('link[hreflang]').length;
+  const hasHreflang = hreflangElements > 0;
+  
+  // Document uses legible font sizes (7 points)
+  // Basic check for common small font issues
+  if (html.includes('font-size:') && (html.includes('10px') || html.includes('11px'))) {
+    score -= 7;
+    failedAudits++;
+    recommendations.push("Document uses legible font sizes");
   }
   
-  return { score: Math.max(0, score), recommendations, priority };
+  // Links are crawlable (7 points)
+  const javascriptLinks = $('a[href^="javascript:"]').length;
+  if (javascriptLinks > 0) {
+    score -= 7;
+    failedAudits++;
+    recommendations.push("Links are not crawlable");
+  }
+  
+  // Page isn't blocked from indexing (7 points)
+  const noIndex = $('meta[name="robots"][content*="noindex"]').length;
+  if (noIndex > 0) {
+    score -= 7;
+    failedAudits++;
+    recommendations.push("Page is blocked from indexing");
+  }
+  
+  // Document has a valid lang attribute (7 points)
+  const htmlLang = $('html').attr('lang');
+  if (!htmlLang) {
+    score -= 7;
+    failedAudits++;
+    recommendations.push("Document does not have a valid lang attribute");
+  }
+  
+  // Lighthouse SEO scoring: Based on weighted average of audits
+  // Convert to 0-100 scale matching Lighthouse methodology
+  const lighthouseScore = Math.round(Math.max(0, score));
+  
+  if (failedAudits === 0) {
+    recommendations.push("All SEO audits passed");
+  }
+  
+  return { score: lighthouseScore, recommendations, priority };
 }
 
 function analyzeBasicSecurity($: cheerio.CheerioAPI, response: Response): { score: number; recommendations: string[]; priority: string[] } {
   const recommendations: string[] = [];
   const priority: string[] = [];
   let score = 100;
+  let failedAudits = 0;
   
-  // HTTPS check
+  // Uses HTTPS (Major impact - 25 points)
   const url = new URL(response.url);
   if (url.protocol !== 'https:') {
-    score -= 30;
-    recommendations.push("Enable HTTPS/SSL");
+    score -= 25;
+    failedAudits++;
+    recommendations.push("Does not use HTTPS");
     priority.push("Not using HTTPS");
   }
   
-  // Security headers
+  // Avoids requesting notification permission on page load (10 points)
+  if ($('script').text().includes('Notification.requestPermission')) {
+    score -= 10;
+    failedAudits++;
+    recommendations.push("Avoids requesting the notification permission on page load");
+  }
+  
+  // Avoids requesting geolocation permission on page load (10 points)
+  if ($('script').text().includes('navigator.geolocation')) {
+    score -= 10;
+    failedAudits++;
+    recommendations.push("Avoids requesting the geolocation permission on page load");
+  }
+  
+  // No browser errors logged to the console (10 points)
+  // Cannot detect console errors from server-side analysis
+  
+  // Links to external sites use rel="noopener" (10 points)
+  const externalLinksWithoutNoopener = $('a[href^="http"]:not([rel*="noopener"])').length;
+  if (externalLinksWithoutNoopener > 0) {
+    score -= 10;
+    failedAudits++;
+    recommendations.push(`Links to cross-origin destinations are unsafe (${externalLinksWithoutNoopener} links)`);
+  }
+  
+  // Avoids deprecated APIs (10 points)
+  const deprecatedAPIs = ['webkitURL', 'webkitRequestAnimationFrame'];
+  const hasDeprecatedAPI = deprecatedAPIs.some(api => 
+    $('script').text().includes(api) || 
+    $('*').attr('onclick')?.includes(api)
+  );
+  if (hasDeprecatedAPI) {
+    score -= 10;
+    failedAudits++;
+    recommendations.push("Avoids deprecated APIs");
+  }
+  
+  // Ensures Content Security Policy is effective (10 points)
   const headers = response.headers;
-  if (!headers.get('strict-transport-security')) {
+  const csp = headers.get('content-security-policy');
+  if (!csp || csp.includes("'unsafe-inline'") || csp.includes("'unsafe-eval'")) {
     score -= 10;
-    recommendations.push("Add Strict-Transport-Security header");
+    failedAudits++;
+    recommendations.push("Content Security Policy (CSP) is effective against XSS attacks");
   }
   
-  if (!headers.get('x-frame-options') && !headers.get('content-security-policy')) {
+  // Detected JavaScript libraries with known security vulnerabilities (10 points)
+  const vulnerableLibraries = ['jquery-1.', 'jquery-2.', 'angular-1.'];
+  let hasVulnerableLib = false;
+  $('script[src]').each(function() {
+    const src = $(this).attr('src');
+    if (src && vulnerableLibraries.some(lib => src.includes(lib))) {
+      hasVulnerableLib = true;
+    }
+  });
+  if (hasVulnerableLib) {
     score -= 10;
-    recommendations.push("Add X-Frame-Options or CSP frame-ancestors");
+    failedAudits++;
+    recommendations.push("Includes front-end JavaScript libraries with known security vulnerabilities");
   }
   
-  if (!headers.get('x-content-type-options')) {
-    score -= 5;
-    recommendations.push("Add X-Content-Type-Options header");
+  // Avoids front-end JavaScript libraries with known security vulnerabilities (5 points)
+  // Covered above
+  
+  // Lighthouse Best Practices scoring methodology
+  const lighthouseScore = Math.round(Math.max(0, score));
+  
+  if (failedAudits === 0) {
+    recommendations.push("All best practices audits passed");
   }
   
-  // Inline scripts (basic check)
-  const inlineScripts = $('script:not([src])').length;
-  if (inlineScripts > 0) {
-    score -= 5;
-    recommendations.push("Consider moving inline scripts to external files");
-  }
-  
-  if (score >= 90) {
-    recommendations.push("Strong security implementation");
-  } else if (score >= 70) {
-    recommendations.push("Good security with minor improvements needed");
-  }
-  
-  return { score: Math.max(0, score), recommendations, priority };
+  return { score: lighthouseScore, recommendations, priority };
 }
 
 function analyzeMobile($: cheerio.CheerioAPI): { score: number; recommendations: string[]; priority: string[] } {
@@ -631,45 +761,115 @@ function analyzeAccessibility($: cheerio.CheerioAPI): { score: number; recommend
   const recommendations: string[] = [];
   const priority: string[] = [];
   let score = 100;
+  let failedAudits = 0;
   
-  // Images without alt text
+  // Image elements have [alt] attributes (10 points)
   const imagesWithoutAlt = $('img:not([alt])').length;
   if (imagesWithoutAlt > 0) {
-    score -= Math.min(20, imagesWithoutAlt * 4);
-    recommendations.push(`Add alt text to ${imagesWithoutAlt} image(s)`);
+    score -= 10;
+    failedAudits++;
+    recommendations.push(`Image elements do not have [alt] attributes (${imagesWithoutAlt} images)`);
     priority.push("Images missing alt text");
   }
   
-  // Form labels
+  // Form elements have associated labels (10 points)
   const inputsWithoutLabels = $('input:not([type="hidden"]):not([aria-label]):not([aria-labelledby])').filter(function() {
     const id = $(this).attr('id');
     return !id || $(`label[for="${id}"]`).length === 0;
   }).length;
-  
   if (inputsWithoutLabels > 0) {
-    score -= Math.min(15, inputsWithoutLabels * 5);
-    recommendations.push(`Add labels to ${inputsWithoutLabels} form input(s)`);
+    score -= 10;
+    failedAudits++;
+    recommendations.push(`Form elements do not have associated labels (${inputsWithoutLabels} elements)`);
   }
   
-  // Page language
+  // Links have a discernible name (10 points)
+  const linksWithoutText = $('a').filter(function() {
+    const text = $(this).text().trim();
+    const ariaLabel = $(this).attr('aria-label');
+    const title = $(this).attr('title');
+    return !text && !ariaLabel && !title;
+  }).length;
+  if (linksWithoutText > 0) {
+    score -= 10;
+    failedAudits++;
+    recommendations.push(`Links do not have a discernible name (${linksWithoutText} links)`);
+  }
+  
+  // Background and foreground colors have a sufficient contrast ratio (10 points)
+  // Note: Cannot accurately detect contrast without rendering, so we check for common issues
+  const potentialContrastIssues = $('*').filter(function() {
+    const style = $(this).attr('style') || '';
+    return style.includes('color:#ccc') || style.includes('color:#ddd') || style.includes('color:gray');
+  }).length;
+  if (potentialContrastIssues > 0) {
+    score -= 10;
+    failedAudits++;
+    recommendations.push("Background and foreground colors do not have sufficient contrast ratio");
+  }
+  
+  // [lang] attribute has a valid value (10 points)
   const htmlLang = $('html').attr('lang');
   if (!htmlLang) {
     score -= 10;
-    recommendations.push("Add lang attribute to HTML element");
+    failedAudits++;
+    recommendations.push("[lang] attribute has a valid value");
   }
   
-  // Heading hierarchy
-  const headings = $('h1, h2, h3, h4, h5, h6');
-  if (headings.length === 0) {
-    score -= 15;
-    recommendations.push("Add proper heading structure");
+  // Document has a <title> element (10 points)
+  const title = $('title').text();
+  if (!title) {
+    score -= 10;
+    failedAudits++;
+    recommendations.push("Document does not have a <title> element");
   }
   
-  if (score >= 90) {
-    recommendations.push("Excellent accessibility implementation");
-  } else if (score >= 70) {
-    recommendations.push("Good accessibility with room for improvement");
+  // [aria-*] attributes have valid values (10 points)
+  const invalidAriaAttrs = $('*[aria-expanded=""]').length + $('*[aria-hidden=""]').length;
+  if (invalidAriaAttrs > 0) {
+    score -= 10;
+    failedAudits++;
+    recommendations.push("[aria-*] attributes do not have valid values");
   }
   
-  return { score: Math.max(0, score), recommendations, priority };
+  // Button elements have an accessible name (10 points)
+  const buttonsWithoutName = $('button').filter(function() {
+    const text = $(this).text().trim();
+    const ariaLabel = $(this).attr('aria-label');
+    const title = $(this).attr('title');
+    return !text && !ariaLabel && !title;
+  }).length;
+  if (buttonsWithoutName > 0) {
+    score -= 10;
+    failedAudits++;
+    recommendations.push(`Button elements do not have an accessible name (${buttonsWithoutName} buttons)`);
+  }
+  
+  // Document has a valid DOCTYPE (5 points)
+  const hasDoctype = $('html').length > 0; // Basic check
+  if (!hasDoctype) {
+    score -= 5;
+    failedAudits++;
+    recommendations.push("Document does not have a valid DOCTYPE");
+  }
+  
+  // No element has a [tabindex] value greater than 0 (5 points)
+  const highTabindex = $('*[tabindex]').filter(function() {
+    const tabindex = parseInt($(this).attr('tabindex') || '0');
+    return tabindex > 0;
+  }).length;
+  if (highTabindex > 0) {
+    score -= 5;
+    failedAudits++;
+    recommendations.push("No element has a [tabindex] value greater than 0");
+  }
+  
+  // Lighthouse Accessibility scoring methodology
+  const lighthouseScore = Math.round(Math.max(0, score));
+  
+  if (failedAudits === 0) {
+    recommendations.push("All accessibility audits passed");
+  }
+  
+  return { score: lighthouseScore, recommendations, priority };
 }
