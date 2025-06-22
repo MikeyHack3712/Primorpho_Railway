@@ -748,17 +748,17 @@ function generateLayoutConcepts(projectType: string, targetAudience: string) {
     {
       name: "Hero-Focused Landing",
       description: "Strong opening statement with clear value proposition",
-      elements: ["Hero section", "Key benefits", "Social proof", "Clear CTA"]
+      features: ["Hero section", "Key benefits", "Social proof", "Clear CTA"]
     },
     {
       name: "Content-Rich Pages",
       description: "Detailed information presented in digestible sections",
-      elements: ["Section headers", "Content blocks", "Visual breaks", "Progressive disclosure"]
+      features: ["Section headers", "Content blocks", "Visual breaks", "Progressive disclosure"]
     },
     {
       name: "Conversion-Optimized",
       description: "Strategic placement of calls-to-action and trust signals",
-      elements: ["Multiple CTAs", "Trust indicators", "Risk reduction", "Urgency elements"]
+      features: ["Multiple CTAs", "Trust indicators", "Risk reduction", "Urgency elements"]
     }
   ];
 }
