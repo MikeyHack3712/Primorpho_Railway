@@ -92,13 +92,13 @@ export default function Home() {
 
 
       {/* Call to Action */}
-      <section className="py-16 px-4 relative overflow-hidden">
+      <section className="py-12 md:py-16 px-4 relative overflow-hidden">
         <div className="max-w-5xl mx-auto text-center relative">
           <div className="glass-card p-8 md:p-12">
-            <h2 className="text-5xl font-bold mb-8 font-cyber text-cyan-400 text-heading">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 md:mb-8 font-cyber text-cyan-400 text-heading">
               READY TO START?
             </h2>
-            <p className="text-xl mb-12 text-readable max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl mb-8 md:mb-12 text-readable max-w-3xl mx-auto">
               Let's build something extraordinary.
             </p>
             <div className="flex flex-col lg:flex-row gap-8 justify-center">

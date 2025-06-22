@@ -166,11 +166,11 @@ export default function MoodBoard() {
       <Neural3D intensity="subtle" />
       
       {/* Header */}
-      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4">
+      <section className="pt-12 md:pt-24 pb-6 md:pb-12 px-4">
         <div className="max-w-6xl mx-auto text-center">
 
           
-          <h1 className="text-5xl md:text-6xl font-bold mb-8 leading-tight page-title">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 md:mb-8 leading-tight page-title">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">DESIGN</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">IDEAS</span>
           </h1>
@@ -181,11 +181,11 @@ export default function MoodBoard() {
         </div>
       </section>
 
-      <div className="pb-12 md:pb-16 px-4">
+      <div className="pb-8 md:pb-16 px-4">
         <div className="max-w-7xl mx-auto">
           {!generatedBoard ? (
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 md:space-y-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   {/* Project Information */}
                   <Card className="glass-card">
