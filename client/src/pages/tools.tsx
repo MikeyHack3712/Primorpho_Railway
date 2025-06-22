@@ -353,10 +353,7 @@ export default function Tools() {
               <div className="space-y-12">
                 {/* Google Lighthouse Results Header */}
                 <div className="text-center backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-6">
-                  <div className="flex items-center justify-center space-x-3 mb-4">
-                    <Search className="w-8 h-8 text-cyan-400" />
-                    <h3 className="text-xl text-gray-300">GOOGLE LIGHTHOUSE ANALYSIS</h3>
-                  </div>
+                  <h3 className="text-xl text-gray-300 mb-4">GOOGLE LIGHTHOUSE ANALYSIS</h3>
                   <p className="text-gray-400 text-sm">Powered by Google PageSpeed Insights API</p>
                 </div>
 
