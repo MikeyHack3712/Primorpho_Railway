@@ -213,9 +213,9 @@ export default function ReserveSlot() {
       </section>
 
       {/* Form Section */}
-      <section className="py-12 relative">
+      <section className="py-12 relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="glass-card border-primary/30">
+          <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50">
             <CardContent className="p-8">
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 {/* Step 1: Contact Information */}
@@ -223,21 +223,21 @@ export default function ReserveSlot() {
                   <div className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <Label htmlFor="name" className="text-sm font-cyber white-highlight mb-2 block">
+                        <Label htmlFor="name" className="text-sm text-gray-300 mb-2 block">
                           FULL NAME *
                         </Label>
                         <Input
                           id="name"
                           {...form.register("name")}
                           placeholder="Your Full Name"
-                          className="bg-transparent border-primary/30 text-white"
+                          className="bg-transparent border-gray-600/50 text-white focus:border-cyan-400"
                         />
                         {form.formState.errors.name && (
                           <p className="text-red-400 text-xs mt-1">{form.formState.errors.name.message}</p>
                         )}
                       </div>
                       <div>
-                        <Label htmlFor="email" className="text-sm font-cyber white-highlight mb-2 block">
+                        <Label htmlFor="email" className="text-sm text-gray-300 mb-2 block">
                           EMAIL ADDRESS *
                         </Label>
                         <Input
@@ -245,7 +245,7 @@ export default function ReserveSlot() {
                           type="email"
                           {...form.register("email")}
                           placeholder="your@email.com"
-                          className="bg-transparent border-primary/30 text-white"
+                          className="bg-transparent border-gray-600/50 text-white focus:border-cyan-400"
                         />
                         {form.formState.errors.email && (
                           <p className="text-red-400 text-xs mt-1">{form.formState.errors.email.message}</p>
@@ -255,18 +255,18 @@ export default function ReserveSlot() {
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <Label htmlFor="business" className="text-sm font-cyber white-highlight mb-2 block">
+                        <Label htmlFor="business" className="text-sm text-gray-300 mb-2 block">
                           BUSINESS/ORGANIZATION
                         </Label>
                         <Input
                           id="business"
                           {...form.register("business")}
                           placeholder="Your Business Name"
-                          className="bg-transparent border-primary/30 text-white"
+                          className="bg-transparent border-gray-600/50 text-white focus:border-cyan-400"
                         />
                       </div>
                       <div>
-                        <Label htmlFor="phone" className="text-sm font-cyber white-highlight mb-2 block">
+                        <Label htmlFor="phone" className="text-sm text-gray-300 mb-2 block">
                           PHONE NUMBER
                         </Label>
                         <Input
@@ -274,7 +274,7 @@ export default function ReserveSlot() {
                           type="tel"
                           {...form.register("phone")}
                           placeholder="+1 (555) 123-4567"
-                          className="bg-transparent border-primary/30 text-white"
+                          className="bg-transparent border-gray-600/50 text-white focus:border-cyan-400"
                         />
                       </div>
                     </div>
@@ -285,14 +285,14 @@ export default function ReserveSlot() {
                 {currentStep === 2 && (
                   <div className="space-y-6">
                     <div>
-                      <Label htmlFor="package" className="text-sm font-cyber white-highlight mb-2 block">
+                      <Label htmlFor="package" className="text-sm text-gray-300 mb-2 block">
                         SELECT PACKAGE *
                       </Label>
                       <Select onValueChange={(value) => form.setValue("package", value)}>
-                        <SelectTrigger className="bg-transparent border-primary/30 text-white">
-                          <SelectValue placeholder="Choose your quantum enhancement level" />
+                        <SelectTrigger className="bg-transparent border-gray-600/50 text-white focus:border-cyan-400">
+                          <SelectValue placeholder="Choose your package" />
                         </SelectTrigger>
-                        <SelectContent className="glass-card border-primary/30">
+                        <SelectContent className="backdrop-blur-sm bg-gray-900/90 border border-gray-600/50">
                           <SelectItem value="launchpad">LaunchPad - $2,500 (1-2 weeks)</SelectItem>
                           <SelectItem value="pro-presence">Pro Presence - $5,500 (2-3 weeks)</SelectItem>
                           <SelectItem value="smart-business">Smart Business - $12,000 + $800/month (3-4 weeks)</SelectItem>
@@ -304,14 +304,14 @@ export default function ReserveSlot() {
                     </div>
 
                     <div>
-                      <Label htmlFor="preferredSlot" className="text-sm font-cyber white-highlight mb-2 block">
+                      <Label htmlFor="preferredSlot" className="text-sm text-gray-300 mb-2 block">
                         PREFERRED DEVELOPMENT SLOT *
                       </Label>
                       <Select onValueChange={(value) => form.setValue("preferredSlot", value)}>
-                        <SelectTrigger className="bg-transparent border-primary/30 text-white">
+                        <SelectTrigger className="bg-transparent border-gray-600/50 text-white focus:border-cyan-400">
                           <SelectValue placeholder="Select your preferred timeline" />
                         </SelectTrigger>
-                        <SelectContent className="glass-card border-primary/30">
+                        <SelectContent className="backdrop-blur-sm bg-gray-900/90 border border-gray-600/50">
                           {availableSlots.map((slot) => (
                             <SelectItem 
                               key={slot.id} 
@@ -329,14 +329,14 @@ export default function ReserveSlot() {
                       )}
                     </div>
 
-                    <div className="glass-card p-6 rounded-xl border-yellow-400/30">
-                      <h3 className="text-lg font-cyber text-yellow-400 mb-4">SLOT AVAILABILITY</h3>
+                    <div className="backdrop-blur-sm bg-gray-900/50 border border-yellow-400/30 rounded-lg p-6">
+                      <h3 className="text-lg text-yellow-400 mb-4">SLOT AVAILABILITY</h3>
                       <div className="grid md:grid-cols-2 gap-4">
                         {availableSlots.map((slot) => (
                           <div key={slot.id} className="flex items-center justify-between">
-                            <span className="white-highlight text-sm">{slot.label}</span>
+                            <span className="text-gray-300 text-sm">{slot.label}</span>
                             <Badge className={slot.available 
-                              ? "bg-primary/20 text-primary border-primary/30" 
+                              ? "bg-cyan-400/20 text-cyan-400 border-cyan-400/30" 
                               : "bg-red-500/20 text-red-400 border-red-500/30"
                             }>
                               {slot.available ? "AVAILABLE" : "BOOKED"}
@@ -352,7 +352,7 @@ export default function ReserveSlot() {
                 {currentStep === 3 && (
                   <div className="space-y-6">
                     <div>
-                      <Label htmlFor="projectDetails" className="text-sm font-cyber white-highlight mb-2 block">
+                      <Label htmlFor="projectDetails" className="text-sm text-gray-300 mb-2 block">
                         PROJECT DETAILS *
                       </Label>
                       <Textarea
@@ -360,7 +360,7 @@ export default function ReserveSlot() {
                         {...form.register("projectDetails")}
                         rows={6}
                         placeholder="Describe your project goals, target audience, required features, design preferences, and any specific requirements..."
-                        className="bg-transparent border-primary/30 text-white"
+                        className="bg-transparent border-gray-600/50 text-white focus:border-cyan-400"
                       />
                       {form.formState.errors.projectDetails && (
                         <p className="text-red-400 text-xs mt-1">{form.formState.errors.projectDetails.message}</p>
@@ -369,14 +369,14 @@ export default function ReserveSlot() {
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <Label htmlFor="budget" className="text-sm font-cyber white-highlight mb-2 block">
+                        <Label htmlFor="budget" className="text-sm text-gray-300 mb-2 block">
                           TOTAL BUDGET RANGE
                         </Label>
                         <Select onValueChange={(value) => form.setValue("budget", value)}>
-                          <SelectTrigger className="bg-transparent border-primary/30 text-white">
+                          <SelectTrigger className="bg-transparent border-gray-600/50 text-white focus:border-cyan-400">
                             <SelectValue placeholder="Select budget range" />
                           </SelectTrigger>
-                          <SelectContent className="glass-card border-primary/30">
+                          <SelectContent className="backdrop-blur-sm bg-gray-900/90 border border-gray-600/50">
                             <SelectItem value="2500-5000">$2,500 - $5,000</SelectItem>
                             <SelectItem value="5000-10000">$5,000 - $10,000</SelectItem>
                             <SelectItem value="10000-20000">$10,000 - $20,000</SelectItem>
@@ -385,14 +385,14 @@ export default function ReserveSlot() {
                         </Select>
                       </div>
                       <div>
-                        <Label htmlFor="timeline" className="text-sm font-cyber white-highlight mb-2 block">
+                        <Label htmlFor="timeline" className="text-sm text-gray-300 mb-2 block">
                           LAUNCH URGENCY
                         </Label>
                         <Select onValueChange={(value) => form.setValue("timeline", value)}>
-                          <SelectTrigger className="bg-transparent border-primary/30 text-white">
+                          <SelectTrigger className="bg-transparent border-gray-600/50 text-white focus:border-cyan-400">
                             <SelectValue placeholder="Select timeline urgency" />
                           </SelectTrigger>
-                          <SelectContent className="glass-card border-primary/30">
+                          <SelectContent className="backdrop-blur-sm bg-gray-900/90 border border-gray-600/50">
                             <SelectItem value="flexible">Flexible Timeline</SelectItem>
                             <SelectItem value="moderate">Moderate Urgency</SelectItem>
                             <SelectItem value="urgent">High Priority</SelectItem>
