@@ -484,6 +484,66 @@ export async function registerRoutes(app: Express): Promise<Server> {
   return httpServer;
 }
 
+// Core Web Vitals calculation functions
+function calculateEstimatedLCP($: cheerio.CheerioAPI, loadTime: number): number {
+  let estimatedLCP = loadTime;
+  
+  // Check for hero images
+  const heroImage = $('img').first();
+  if (heroImage.length && heroImage.attr('src')) {
+    const imgSrc = heroImage.attr('src') || '';
+    if (!imgSrc.includes('webp') && !imgSrc.includes('avif')) {
+      estimatedLCP += 800;
+    }
+    if (!heroImage.attr('width') || !heroImage.attr('height')) {
+      estimatedLCP += 300;
+    }
+  }
+  
+  // Check for render-blocking resources
+  const blockingResources = $('script[src]:not([async]):not([defer]), link[rel="stylesheet"]:not([media])').length;
+  estimatedLCP += blockingResources * 200;
+  
+  return Math.min(estimatedLCP, 8000);
+}
+
+function calculateEstimatedCLS($: cheerio.CheerioAPI): number {
+  let estimatedCLS = 0;
+  
+  // Images without dimensions
+  const imagesWithoutDimensions = $('img:not([width]):not([height])').length;
+  estimatedCLS += imagesWithoutDimensions * 0.08;
+  
+  // Ads and dynamic content
+  const dynamicContent = $('[class*="ad"], [id*="ad"], iframe:not([width])').length;
+  estimatedCLS += dynamicContent * 0.15;
+  
+  // Web fonts without optimization
+  if ($('link[href*="fonts"]').length && !$('link[rel="preload"][as="font"]').length) {
+    estimatedCLS += 0.12;
+  }
+  
+  return Math.min(estimatedCLS, 0.8);
+}
+
+function calculateEstimatedFID($: cheerio.CheerioAPI): number {
+  let estimatedFID = 50;
+  
+  // JavaScript complexity
+  const scriptCount = $('script').length;
+  estimatedFID += scriptCount * 25;
+  
+  // Inline scripts
+  const inlineScriptLength = $('script:not([src])').text().length;
+  estimatedFID += inlineScriptLength / 1000;
+  
+  // Third-party scripts
+  const thirdPartyScripts = $('script[src*="analytics"], script[src*="facebook"], script[src*="google"]').length;
+  estimatedFID += thirdPartyScripts * 60;
+  
+  return Math.min(estimatedFID, 2000);
+}
+
 // Helper functions for website audit
 function calculatePerformanceScore($: cheerio.CheerioAPI, html: string, loadTime?: number, response?: Response): { score: number; recommendations: string[] } {
   let score = 100;
