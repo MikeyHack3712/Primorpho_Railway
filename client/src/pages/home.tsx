@@ -32,7 +32,7 @@ export default function Home() {
           
           <div className="max-w-3xl mx-auto mb-8 md:mb-12 px-4">
             <p className="text-base md:text-xl text-readable leading-relaxed">
-              From vision to velocity, we code <span className="text-cyan-300 font-semibold">TRANSFORMATION</span>.
+              We code <span className="text-cyan-300 font-semibold">TRANSFORMATION</span>.
             </p>
           </div>
 

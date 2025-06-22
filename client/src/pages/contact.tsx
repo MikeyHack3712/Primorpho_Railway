@@ -85,7 +85,7 @@ export default function Contact() {
           
           <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-6 md:p-8 mb-12 md:mb-16">
             <p className="text-lg md:text-xl text-readable leading-relaxed">
-              Ready to transform your digital <span className="text-cyan-300 font-semibold">presence</span>? Let's build something extraordinary.
+              Ready to transform your digital <span className="text-cyan-300 font-semibold">presence</span>?
             </p>
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function Contact() {
                 ONLY <span className="text-yellow-300">2 SLOTS</span> REMAINING THIS MONTH
               </h2>
               <p className="text-readable mb-4 md:mb-6 text-sm md:text-base">
-                High demand for neural-enhanced development. Secure your project slot before they're gone.
+                Secure your project slot before they're gone.
               </p>
               <div className="grid grid-cols-3 gap-2 md:gap-4">
                 <div className="text-center">

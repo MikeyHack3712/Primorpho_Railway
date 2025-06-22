@@ -37,25 +37,17 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-12 md:mb-16">
             <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-6 md:p-8">
               <h2 className="text-cyan-300 text-xl md:text-2xl tracking-wide mb-4 md:mb-6 text-subheading">OUR MISSION</h2>
-              <p className="text-readable leading-relaxed mb-3 md:mb-4 text-sm md:text-base">
-                Founded with a vision to bridge the gap between cutting-edge technology and business success, 
-                Primorpho crafts custom web solutions that deliver measurable results.
-              </p>
               <p className="text-readable leading-relaxed text-sm md:text-base">
-                We believe every business deserves a website that not only looks stunning but also converts 
-                visitors into customers. Performance, user experience, and growth-driven design are our core focus.
+                Custom web solutions that look stunning and convert visitors into customers. 
+                Performance, user experience, and growth-driven design are our core focus.
               </p>
             </div>
 
             <div className="backdrop-blur-sm bg-gray-900/30 border border-purple-300/20 rounded-lg p-6 md:p-8">
               <h2 className="text-purple-300 text-2xl tracking-wide mb-6 text-subheading">OUR EXPERTISE</h2>
-              <p className="text-readable leading-relaxed mb-4">
-                Our team combines years of development expertise with deep understanding of digital marketing 
-                to create websites that work as hard as you do.
-              </p>
-              <p className="text-gray-300 leading-relaxed">
-                From custom development to performance optimization, we handle every aspect of your digital presence 
-                with precision and innovation.
+              <p className="text-readable leading-relaxed">
+                Development expertise meets digital marketing strategy. 
+                Custom development to performance optimization - we handle your digital presence with precision.
               </p>
             </div>
           </div>

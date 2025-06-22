@@ -76,7 +76,7 @@ export default function Portfolio() {
           
           <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-6 md:p-8 mb-12 md:mb-16">
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-              Showcasing our latest <span className="text-cyan-300">digital transformations</span>.
+              Latest <span className="text-cyan-300">digital transformations</span>.
             </p>
           </div>
         </div>

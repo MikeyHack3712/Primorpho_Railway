@@ -100,7 +100,7 @@ export default function Services() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PACKAGES</span>
           </h1>
           <p className="text-lg md:text-xl text-readable mb-6 md:mb-8 max-w-3xl mx-auto px-4">
-            Choose the perfect package for your digital transformation. Each solution is designed to deliver measurable results and accelerate your business growth.
+            Choose your transformation package. Built for measurable results.
           </p>
         </div>
       </section>
@@ -112,7 +112,7 @@ export default function Services() {
             <h2 className="text-2xl md:text-3xl font-bold font-cyber text-purple-400 mb-3 md:mb-4 text-subheading">
               CHOOSE YOUR TRANSFORMATION
             </h2>
-            <p className="text-readable text-sm md:text-base">Click on any package to customize it with powerful add-ons</p>
+            <p className="text-readable text-sm md:text-base">Click to customize with add-ons</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
             {packages.map((pkg) => (
