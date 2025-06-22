@@ -118,6 +118,45 @@
       padding-bottom: 0.5rem !important;
     }
   }
+
+  /* Mobile text overflow fixes */
+  @media (max-width: 768px) {
+    /* Ensure all text wraps properly */
+    .break-words {
+      word-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+      overflow-wrap: break-word;
+    }
+    
+    /* Prevent horizontal scrolling */
+    body, html {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+    
+    /* Fix card content overflow */
+    .grid > * {
+      min-width: 0;
+      word-wrap: break-word;
+    }
+    
+    /* Ensure proper spacing in cards */
+    .space-y-2 > * + * {
+      margin-top: 0.5rem;
+    }
+    
+    /* Mobile-friendly text sizing */
+    .text-xs {
+      font-size: 0.75rem;
+      line-height: 1.3;
+    }
+    
+    .text-sm {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+  }
 }
 
 /* Select Dropdown Fixes */

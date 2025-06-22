@@ -309,25 +309,25 @@ export default function Tools() {
                         <div className="text-xl md:text-2xl font-bold text-cyan-300 mb-2">
                           {(auditResult as any).lighthouseData.fcp ? `${((auditResult as any).lighthouseData.fcp / 1000).toFixed(1)}s` : 'N/A'}
                         </div>
-                        <div className="text-xs md:text-sm text-gray-400">First Contentful Paint</div>
+                        <div className="text-xs md:text-sm text-gray-400 break-words">First Contentful Paint</div>
                       </div>
                       <div className="text-center">
                         <div className="text-xl md:text-2xl font-bold text-purple-300 mb-2">
                           {(auditResult as any).lighthouseData.lcp ? `${((auditResult as any).lighthouseData.lcp / 1000).toFixed(1)}s` : 'N/A'}
                         </div>
-                        <div className="text-xs md:text-sm text-gray-400">Largest Contentful Paint</div>
+                        <div className="text-xs md:text-sm text-gray-400 break-words">Largest Contentful Paint</div>
                       </div>
                       <div className="text-center">
                         <div className="text-xl md:text-2xl font-bold text-yellow-300 mb-2">
                           {(auditResult as any).lighthouseData.cls ? (auditResult as any).lighthouseData.cls.toFixed(3) : 'N/A'}
                         </div>
-                        <div className="text-xs md:text-sm text-gray-400">Cumulative Layout Shift</div>
+                        <div className="text-xs md:text-sm text-gray-400 break-words">Layout Shift</div>
                       </div>
                       <div className="text-center">
                         <div className="text-xl md:text-2xl font-bold text-green-300 mb-2">
                           {(auditResult as any).lighthouseData.tbt ? `${(auditResult as any).lighthouseData.tbt}ms` : 'N/A'}
                         </div>
-                        <div className="text-xs md:text-sm text-gray-400">Total Blocking Time</div>
+                        <div className="text-xs md:text-sm text-gray-400 break-words">Blocking Time</div>
                       </div>
                     </div>
                   </div>
@@ -351,22 +351,25 @@ export default function Tools() {
                 {/* Performance Metrics */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                   {[
-                    { label: "PERFORMANCE", score: auditResult.performanceScore, icon: <Zap className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
-                    { label: "SEO", score: auditResult.seoScore, icon: <Search className="w-5 md:w-6 h-5 md:h-6" />, color: "purple-300" },
-                    { label: "BEST PRACTICES", score: auditResult.securityScore, icon: <Shield className="w-5 md:w-6 h-5 md:h-6" />, color: "yellow-300" },
-                    { label: "MOBILE", score: auditResult.mobileScore, icon: <Smartphone className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
-                    { label: "ACCESSIBILITY", score: auditResult.accessibilityScore, icon: <Eye className="w-5 md:w-6 h-5 md:h-6" />, color: "purple-300" },
-                    ...(auditResult.technicalScore ? [{ label: "TECHNICAL", score: auditResult.technicalScore, icon: <Target className="w-5 md:w-6 h-5 md:h-6" />, color: "pink-300" }] : [])
+                    { label: "PERFORMANCE", mobileLabel: "PERF", score: auditResult.performanceScore, icon: <Zap className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
+                    { label: "SEO", mobileLabel: "SEO", score: auditResult.seoScore, icon: <Search className="w-5 md:w-6 h-5 md:h-6" />, color: "purple-300" },
+                    { label: "BEST PRACTICES", mobileLabel: "PRACTICES", score: auditResult.securityScore, icon: <Shield className="w-5 md:w-6 h-5 md:h-6" />, color: "yellow-300" },
+                    { label: "MOBILE", mobileLabel: "MOBILE", score: auditResult.mobileScore, icon: <Smartphone className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
+                    { label: "ACCESSIBILITY", mobileLabel: "ACCESS", score: auditResult.accessibilityScore, icon: <Eye className="w-5 md:w-6 h-5 md:h-6" />, color: "purple-300" },
+                    ...(auditResult.technicalScore ? [{ label: "TECHNICAL", mobileLabel: "TECH", score: auditResult.technicalScore, icon: <Target className="w-5 md:w-6 h-5 md:h-6" />, color: "pink-300" }] : [])
                   ].map((metric, index) => (
                     <Card key={index} className="backdrop-blur-sm bg-gray-900/50 border-gray-700/50">
-                      <CardContent className="p-4 md:p-6 text-center">
-                        <div className={`w-10 md:w-12 h-10 md:h-12 mx-auto mb-3 md:mb-4 bg-${metric.color}/20 border border-${metric.color}/30 rounded-lg flex items-center justify-center`}>
+                      <CardContent className="p-3 md:p-6 text-center">
+                        <div className={`w-10 md:w-12 h-10 md:h-12 mx-auto mb-2 md:mb-4 bg-${metric.color}/20 border border-${metric.color}/30 rounded-lg flex items-center justify-center`}>
                           <div className={`text-${metric.color}`}>
                             {metric.icon}
                           </div>
                         </div>
-                        <h3 className={`text-sm md:text-lg text-${metric.color} mb-2 font-semibold`}>{metric.label}</h3>
-                        <div className={`text-2xl md:text-3xl font-bold mb-2 ${getScoreColor(metric.score)}`}>
+                        <h3 className={`text-xs md:text-lg text-${metric.color} mb-2 font-semibold break-words leading-tight`}>
+                          <span className="md:hidden">{metric.mobileLabel}</span>
+                          <span className="hidden md:inline">{metric.label}</span>
+                        </h3>
+                        <div className={`text-xl md:text-3xl font-bold mb-2 ${getScoreColor(metric.score)}`}>
                           {metric.score}
                         </div>
                         <Progress value={metric.score} className="mb-2 h-2" />
@@ -390,7 +393,7 @@ export default function Tools() {
                         {auditResult.recommendations.priority.map((rec, index) => (
                           <li key={index} className="flex items-start space-x-2 md:space-x-3">
                             <AlertTriangle className="w-4 md:w-5 h-4 md:h-5 text-red-400 mt-0.5 flex-shrink-0" />
-                            <span className="text-gray-300 text-sm md:text-base">{rec}</span>
+                            <span className="text-gray-300 text-sm md:text-base break-words leading-relaxed">{rec}</span>
                           </li>
                         ))}
                       </ul>
@@ -399,28 +402,31 @@ export default function Tools() {
                 )}
 
                 {/* Detailed Recommendations */}
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   {[
-                    { key: 'performance', title: 'PERFORMANCE', icon: <Zap className="w-5 h-5" />, color: 'yellow-300' },
-                    { key: 'seo', title: 'SEO', icon: <Search className="w-5 h-5" />, color: 'purple-300' },
-                    { key: 'security', title: 'BEST PRACTICES', icon: <Shield className="w-5 h-5" />, color: 'cyan-300' },
-                    { key: 'mobile', title: 'MOBILE', icon: <Smartphone className="w-5 h-5" />, color: 'green-300' },
-                    { key: 'accessibility', title: 'ACCESSIBILITY', icon: <Eye className="w-5 h-5" />, color: 'orange-300' },
-                    { key: 'technical', title: 'TECHNICAL', icon: <Target className="w-5 h-5" />, color: 'pink-300' }
+                    { key: 'performance', title: 'PERFORMANCE', mobileTitle: 'PERF', icon: <Zap className="w-4 md:w-5 h-4 md:h-5" />, color: 'yellow-300' },
+                    { key: 'seo', title: 'SEO', mobileTitle: 'SEO', icon: <Search className="w-4 md:w-5 h-4 md:h-5" />, color: 'purple-300' },
+                    { key: 'security', title: 'BEST PRACTICES', mobileTitle: 'PRACTICES', icon: <Shield className="w-4 md:w-5 h-4 md:h-5" />, color: 'cyan-300' },
+                    { key: 'mobile', title: 'MOBILE', mobileTitle: 'MOBILE', icon: <Smartphone className="w-4 md:w-5 h-4 md:h-5" />, color: 'green-300' },
+                    { key: 'accessibility', title: 'ACCESSIBILITY', mobileTitle: 'ACCESS', icon: <Eye className="w-4 md:w-5 h-4 md:h-5" />, color: 'orange-300' },
+                    { key: 'technical', title: 'TECHNICAL', mobileTitle: 'TECH', icon: <Target className="w-4 md:w-5 h-4 md:h-5" />, color: 'pink-300' }
                   ].filter(category => {
                     const recs = auditResult.recommendations[category.key as keyof typeof auditResult.recommendations];
                     return Array.isArray(recs) && recs.length > 0;
                   }).map((category) => (
-                    <div key={category.key} className="bg-gray-800/30 border border-gray-600/30 rounded-lg p-6">
-                      <div className="flex items-center space-x-2 mb-4">
+                    <div key={category.key} className="bg-gray-800/30 border border-gray-600/30 rounded-lg p-4 md:p-6">
+                      <div className="flex items-center space-x-2 mb-3 md:mb-4">
                         {category.icon}
-                        <h4 className={`text-lg font-semibold text-${category.color}`}>{category.title}</h4>
+                        <h4 className={`text-base md:text-lg font-semibold text-${category.color} break-words`}>
+                          <span className="md:hidden">{category.mobileTitle}</span>
+                          <span className="hidden md:inline">{category.title}</span>
+                        </h4>
                       </div>
                       <ul className="space-y-2">
                         {(auditResult.recommendations[category.key as keyof typeof auditResult.recommendations] as string[])?.map((rec, index) => (
                           <li key={index} className="flex items-start space-x-2">
-                            <ArrowRight className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-                            <span className="text-gray-300 text-sm">{rec}</span>
+                            <ArrowRight className="w-3 md:w-4 h-3 md:h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-300 text-xs md:text-sm break-words leading-relaxed">{rec}</span>
                           </li>
                         ))}
                       </ul>
