@@ -292,11 +292,53 @@ export default function Tools() {
               </div>
             ) : (
               <div className="space-y-12">
+                {/* Google Lighthouse Results Header */}
+                <div className="text-center backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-6">
+                  <div className="flex items-center justify-center space-x-3 mb-4">
+                    <img src="https://developers.google.com/web/tools/lighthouse/images/lh-logo.svg" alt="Lighthouse" className="w-8 h-8" />
+                    <h3 className="text-xl text-gray-300">GOOGLE LIGHTHOUSE ANALYSIS</h3>
+                  </div>
+                  <p className="text-gray-400 text-sm">Powered by Google PageSpeed Insights API</p>
+                </div>
+
+                {/* Core Web Vitals */}
+                {auditResult.lighthouseData && (
+                  <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-8">
+                    <h3 className="text-xl text-gray-300 mb-6 text-center">CORE WEB VITALS</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-cyan-300 mb-2">
+                          {auditResult.lighthouseData.fcp ? `${(auditResult.lighthouseData.fcp / 1000).toFixed(1)}s` : 'N/A'}
+                        </div>
+                        <div className="text-sm text-gray-400">First Contentful Paint</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-purple-300 mb-2">
+                          {auditResult.lighthouseData.lcp ? `${(auditResult.lighthouseData.lcp / 1000).toFixed(1)}s` : 'N/A'}
+                        </div>
+                        <div className="text-sm text-gray-400">Largest Contentful Paint</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-yellow-300 mb-2">
+                          {auditResult.lighthouseData.cls ? auditResult.lighthouseData.cls.toFixed(3) : 'N/A'}
+                        </div>
+                        <div className="text-sm text-gray-400">Cumulative Layout Shift</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-green-300 mb-2">
+                          {auditResult.lighthouseData.tbt ? `${auditResult.lighthouseData.tbt}ms` : 'N/A'}
+                        </div>
+                        <div className="text-sm text-gray-400">Total Blocking Time</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Overall Score */}
                 {auditResult.overallScore && (
                   <div className="text-center">
                     <div className="inline-block backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-8">
-                      <h3 className="text-xl text-gray-300 mb-4">OVERALL LIGHTHOUSE SCORE</h3>
+                      <h3 className="text-xl text-gray-300 mb-4">OVERALL PERFORMANCE SCORE</h3>
                       <div className={`text-6xl font-bold mb-4 ${getScoreColor(auditResult.overallScore)}`}>
                         {auditResult.overallScore}
                       </div>

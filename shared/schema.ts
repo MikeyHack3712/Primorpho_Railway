@@ -80,6 +80,7 @@ export const auditResults = pgTable("audit_results", {
   technicalScore: integer("technical_score"),
   contentScore: integer("content_score"),
   recommendations: jsonb("recommendations"),
+  lighthouseData: jsonb("lighthouse_data"),
   metrics: jsonb("metrics"),
   metadata: jsonb("metadata"),
   createdAt: timestamp("created_at").defaultNow(),

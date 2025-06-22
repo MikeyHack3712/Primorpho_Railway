@@ -104,7 +104,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Instant website analysis with basic metrics
+  // Google Lighthouse API website analysis
   app.post('/api/audit', async (req, res) => {
     const { websiteUrl: rawUrl } = auditFormSchema.parse(req.body);
     
@@ -124,80 +124,135 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
     
-    console.log(`Running instant analysis for: ${websiteUrl}`);
+    console.log(`Running Google Lighthouse analysis for: ${websiteUrl}`);
+
+    // Check if we have the Google PageSpeed API key
+    const apiKey = process.env.GOOGLE_PAGESPEED_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ 
+        success: false,
+        message: "Google PageSpeed Insights API key not configured" 
+      });
+    }
     
     try {
-      // Fetch website content for analysis
-      const startTime = Date.now();
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000);
-      
-      const response = await fetch(websiteUrl, {
-        method: 'GET',
-        signal: controller.signal,
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; Primorpho-Audit/1.0)'
+      // Call Google PageSpeed Insights API for both mobile and desktop
+      const mobileUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(websiteUrl)}&key=${apiKey}&strategy=mobile&category=performance&category=seo&category=accessibility&category=best-practices`;
+      const desktopUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(websiteUrl)}&key=${apiKey}&strategy=desktop&category=performance&category=seo&category=accessibility&category=best-practices`;
+
+      console.log('Calling Google PageSpeed Insights API...');
+      const [mobileResponse, desktopResponse] = await Promise.all([
+        fetch(mobileUrl),
+        fetch(desktopUrl)
+      ]);
+
+      if (!mobileResponse.ok || !desktopResponse.ok) {
+        const errorData = !mobileResponse.ok ? await mobileResponse.json() : await desktopResponse.json();
+        console.error('PageSpeed API error:', errorData);
+        
+        if (errorData.error?.message?.includes('unreachable')) {
+          return res.status(400).json({ 
+            success: false,
+            message: "Website is unreachable. Please check if the URL is correct and accessible." 
+          });
         }
-      });
-      clearTimeout(timeoutId);
-      const loadTime = Date.now() - startTime;
-      
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        
+        return res.status(400).json({ 
+          success: false,
+          message: "Unable to analyze website. Please check if the URL is accessible and try again." 
+        });
       }
 
-      const html = await response.text();
-      const $ = cheerio.load(html);
+      const mobileData = await mobileResponse.json();
+      const desktopData = await desktopResponse.json();
 
-      // Basic performance analysis
-      const performanceScore = calculateBasicPerformanceScore(loadTime, html.length);
+      // Extract Lighthouse scores (using desktop scores as primary, mobile for mobile-specific)
+      const lighthouseResult = desktopData.lighthouseResult;
+      const mobileLighthouseResult = mobileData.lighthouseResult;
       
-      // SEO analysis
-      const seoAnalysis = analyzeSEO($, html);
-      
-      // Security analysis
-      const securityAnalysis = analyzeBasicSecurity($, response);
-      
-      // Mobile analysis
-      const mobileAnalysis = analyzeMobile($);
-      
-      // Accessibility analysis
-      const accessibilityAnalysis = analyzeAccessibility($);
-      
+      const performanceScore = Math.round((lighthouseResult.categories.performance?.score || 0) * 100);
+      const seoScore = Math.round((lighthouseResult.categories.seo?.score || 0) * 100);
+      const accessibilityScore = Math.round((lighthouseResult.categories.accessibility?.score || 0) * 100);
+      const bestPracticesScore = Math.round((lighthouseResult.categories['best-practices']?.score || 0) * 100);
+      const mobilePerformanceScore = Math.round((mobileLighthouseResult.categories.performance?.score || 0) * 100);
+
       // Calculate overall score
-      const overallScore = Math.round((performanceScore.score + seoAnalysis.score + securityAnalysis.score + mobileAnalysis.score + accessibilityAnalysis.score) / 5);
+      const overallScore = Math.round(
+        (performanceScore * 0.25) +
+        (seoScore * 0.25) +
+        (bestPracticesScore * 0.20) +
+        (mobilePerformanceScore * 0.15) +
+        (accessibilityScore * 0.15)
+      );
 
+      // Extract key metrics
+      const audits = lighthouseResult.audits;
+      const mobileAudits = mobileLighthouseResult.audits;
+
+      // Performance metrics from Lighthouse
+      const loadTime = Math.round(audits['largest-contentful-paint']?.numericValue || 0);
+      const fcp = Math.round(audits['first-contentful-paint']?.numericValue || 0);
+      const lcp = Math.round(audits['largest-contentful-paint']?.numericValue || 0);
+      const cls = Math.round((audits['cumulative-layout-shift']?.numericValue || 0) * 1000) / 1000;
+      const tbt = Math.round(audits['total-blocking-time']?.numericValue || 0);
+      const speedIndex = Math.round(audits['speed-index']?.numericValue || 0);
+
+      // Extract recommendations from failed audits
+      const recommendations = {
+        performance: extractLighthouseRecommendations(lighthouseResult, 'performance'),
+        seo: extractLighthouseRecommendations(lighthouseResult, 'seo'),
+        accessibility: extractLighthouseRecommendations(lighthouseResult, 'accessibility'),
+        security: extractLighthouseRecommendations(lighthouseResult, 'best-practices'),
+        mobile: extractLighthouseRecommendations(mobileLighthouseResult, 'performance'),
+        technical: extractLighthouseRecommendations(lighthouseResult, 'best-practices'),
+        priority: [
+          ...extractLighthouseRecommendations(lighthouseResult, 'performance').slice(0, 2),
+          ...extractLighthouseRecommendations(lighthouseResult, 'seo').slice(0, 2),
+          ...extractLighthouseRecommendations(lighthouseResult, 'best-practices').slice(0, 1)
+        ].slice(0, 5)
+      };
+
+      console.log(`Google Lighthouse analysis completed for ${websiteUrl}. Overall score: ${overallScore}`);
+      
+      // Store audit result with Lighthouse data
       const auditResult = await storage.createAuditResult({
         websiteUrl,
         loadTime,
         overallScore,
-        performanceScore: performanceScore.score,
-        seoScore: seoAnalysis.score,
-        securityScore: securityAnalysis.score,
-        mobileScore: mobileAnalysis.score,
-        accessibilityScore: accessibilityAnalysis.score,
-        technicalScore: securityAnalysis.score,
-        contentScore: seoAnalysis.score,
-        recommendations: {
-          performance: performanceScore.recommendations,
-          seo: seoAnalysis.recommendations,
-          security: securityAnalysis.recommendations,
-          mobile: mobileAnalysis.recommendations,
-          accessibility: accessibilityAnalysis.recommendations,
-          technical: securityAnalysis.recommendations,
-          priority: [
-            ...performanceScore.priority,
-            ...seoAnalysis.priority,
-            ...securityAnalysis.priority
-          ].slice(0, 5)
+        performanceScore,
+        seoScore,
+        securityScore: bestPracticesScore,
+        mobileScore: mobilePerformanceScore,
+        accessibilityScore,
+        technicalScore: bestPracticesScore,
+        contentScore: seoScore,
+        recommendations,
+        lighthouseData: {
+          fcp,
+          lcp,
+          cls,
+          tbt,
+          speedIndex,
+          finalUrl: lighthouseResult.finalUrl,
+          fetchTime: lighthouseResult.fetchTime
         }
       });
 
-      console.log(`Instant analysis completed for ${websiteUrl}. Overall score: ${overallScore}`);
-      res.json({ success: true, audit: auditResult });
+      res.json({ 
+        success: true, 
+        audit: auditResult,
+        lighthouseData: {
+          fcp,
+          lcp,
+          cls,
+          tbt,
+          speedIndex,
+          finalUrl: lighthouseResult.finalUrl
+        }
+      });
 
     } catch (error: any) {
-      console.error("Analysis error:", error);
+      console.error("Google Lighthouse API error:", error);
       
       // Provide helpful error messages
       let errorMessage = "Unable to analyze website.";
