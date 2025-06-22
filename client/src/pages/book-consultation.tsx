@@ -53,27 +53,27 @@ export default function BookConsultation() {
       <section className="py-20 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-cyber font-bold mb-6 white-highlight">
-              BOOK.<span className="text-primary animate-glow-pulse">CONSULTATION</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 bg-clip-text text-transparent">
+              BOOK CONSULTATION
             </h1>
-            <p className="text-xl white-highlight max-w-3xl mx-auto font-futura">
-              Schedule a direct neural link with our development team. 
-              Get expert insights and quantum-enhanced project analysis.
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Schedule a direct call with our development team. 
+              Get expert insights and detailed project analysis.
             </p>
           </div>
         </div>
       </section>
 
       {/* Value Proposition */}
-      <section className="py-12 relative">
+      <section className="py-12 relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass-card p-8 rounded-xl scan-line">
+          <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-8">
             <div className="text-center mb-8">
-              <Badge className="mb-4 bg-primary/20 text-primary border-primary/30 text-lg px-4 py-2">
+              <Badge className="mb-4 bg-yellow-400/20 text-yellow-400 border-yellow-400/30 text-lg px-4 py-2">
                 ⚡ FREE CONSULTATION ⚡
               </Badge>
-              <h2 className="text-2xl md:text-3xl font-cyber font-bold mb-4 white-highlight">
-                GET EXPERT <span className="text-primary animate-glow-pulse">ANALYSIS</span>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-300">
+                GET EXPERT <span className="text-cyan-400">ANALYSIS</span>
               </h2>
             </div>
             
@@ -82,9 +82,9 @@ export default function BookConsultation() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary to-purple-400 rounded-lg flex items-center justify-center">
                   <Zap className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="text-lg font-cyber text-primary mb-2">PROJECT ANALYSIS</h3>
-                <p className="white-highlight text-sm">
-                  Detailed assessment of your requirements and quantum optimization opportunities
+                <h3 className="text-lg text-cyan-400 mb-2">PROJECT ANALYSIS</h3>
+                <p className="text-gray-300 text-sm">
+                  Detailed assessment of your requirements and technical optimization opportunities
                 </p>
               </div>
               
@@ -92,8 +92,8 @@ export default function BookConsultation() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-400 to-yellow-400 rounded-lg flex items-center justify-center">
                   <Video className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="text-lg font-cyber text-purple-400 mb-2">TECHNICAL STRATEGY</h3>
-                <p className="white-highlight text-sm">
+                <h3 className="text-lg text-purple-400 mb-2">TECHNICAL STRATEGY</h3>
+                <p className="text-gray-300 text-sm">
                   Custom technology stack recommendations and performance optimization strategies
                 </p>
               </div>
@@ -102,8 +102,8 @@ export default function BookConsultation() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-yellow-400 to-primary rounded-lg flex items-center justify-center">
                   <CheckCircle className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="text-lg font-cyber text-yellow-400 mb-2">GROWTH ROADMAP</h3>
-                <p className="white-highlight text-sm">
+                <h3 className="text-lg text-yellow-400 mb-2">GROWTH ROADMAP</h3>
+                <p className="text-gray-300 text-sm">
                   Comprehensive digital transformation plan with measurable milestones
                 </p>
               </div>
@@ -113,23 +113,23 @@ export default function BookConsultation() {
       </section>
 
       {/* Booking Interface */}
-      <section className="py-20 relative">
+      <section className="py-20 relative z-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Consultation Types */}
             <div>
-              <h2 className="text-3xl font-cyber font-bold mb-8 white-highlight">
-                SELECT <span className="text-yellow-400 animate-glow-pulse">CONSULTATION TYPE</span>
+              <h2 className="text-3xl font-bold mb-8 text-gray-300">
+                SELECT <span className="text-yellow-400">CONSULTATION TYPE</span>
               </h2>
               
               <div className="space-y-6">
                 {consultationTypes.map((type) => (
                   <Card 
                     key={type.id}
-                    className={`glass-card cursor-pointer transition-all duration-300 hover:animate-neural-pulse ${
+                    className={`backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg cursor-pointer transition-all duration-300 hover:border-cyan-400/50 ${
                       consultationType === type.id 
-                        ? `border-2 border-${type.color}` 
-                        : "border-primary/30"
+                        ? `border-2 border-cyan-400` 
+                        : "border-gray-700/50"
                     }`}
                     onClick={() => setConsultationType(type.id)}
                   >
@@ -140,14 +140,14 @@ export default function BookConsultation() {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-2">
-                            <h3 className={`text-lg font-cyber text-${type.color}`}>
+                            <h3 className="text-lg text-cyan-400">
                               {type.name}
                             </h3>
-                            <Badge className={`bg-${type.color}/20 text-${type.color} border-${type.color}/30`}>
+                            <Badge className="bg-cyan-400/20 text-cyan-400 border-cyan-400/30">
                               {type.duration}
                             </Badge>
                           </div>
-                          <p className="white-highlight text-sm">{type.description}</p>
+                          <p className="text-gray-300 text-sm">{type.description}</p>
                         </div>
                       </div>
                     </CardContent>
@@ -158,14 +158,14 @@ export default function BookConsultation() {
 
             {/* Calendar & Time Slots */}
             <div>
-              <h2 className="text-3xl font-cyber font-bold mb-8 white-highlight">
-                AVAILABLE <span className="text-primary animate-glow-pulse">TIME SLOTS</span>
+              <h2 className="text-3xl font-bold mb-8 text-gray-300">
+                AVAILABLE <span className="text-cyan-400">TIME SLOTS</span>
               </h2>
 
               {/* Calendar Widget */}
-              <Card className="glass-card border-primary/30 mb-8">
+              <Card className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg mb-8">
                 <CardHeader>
-                  <CardTitle className="text-xl font-cyber text-primary flex items-center">
+                  <CardTitle className="text-xl text-cyan-400 flex items-center">
                     <Calendar className="w-5 h-5 mr-2" />
                     TODAY - DECEMBER 20, 2024
                   </CardTitle>
@@ -177,11 +177,11 @@ export default function BookConsultation() {
                         key={slot.id}
                         onClick={() => slot.available && setSelectedTime(slot.id)}
                         disabled={!slot.available}
-                        className={`cyber-button-hover p-4 rounded-lg font-cyber transition-all duration-300 ${
+                        className={`p-4 rounded-lg transition-all duration-300 ${
                           selectedTime === slot.id
-                            ? "bg-primary/20 border-2 border-primary text-white"
+                            ? "bg-cyan-400/20 border-2 border-cyan-400 text-white"
                             : slot.available
-                            ? "bg-transparent border border-primary/30 text-white hover:bg-primary/10"
+                            ? "bg-transparent border border-gray-600/50 text-gray-300 hover:bg-cyan-400/10 hover:border-cyan-400/50"
                             : "bg-gray-600/20 border border-gray-600 text-gray-400 cursor-not-allowed"
                         }`}
                       >
