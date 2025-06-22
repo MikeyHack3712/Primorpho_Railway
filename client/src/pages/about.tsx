@@ -10,16 +10,16 @@ export default function About() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D intensity="subtle" />
       {/* Header Section */}
-      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4">
+      <section className="pt-12 md:pt-24 pb-6 md:pb-12 px-4">
         <div className="max-w-6xl mx-auto text-center">
 
           
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight page-title">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-8 leading-tight page-title">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">ABOUT</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PRIMORPHO</span>
           </h1>
           
-          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-4 md:p-6 mb-8 md:mb-12">
+          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-4 md:p-6 mb-6 md:mb-12">
             <p className="text-lg md:text-xl text-readable leading-relaxed">
               We build websites that help your business <span className="text-cyan-300 font-semibold">grow</span>.
             </p>
@@ -28,10 +28,10 @@ export default function About() {
       </section>
 
       {/* Main Content */}
-      <section className="pb-12 md:pb-16 px-4">
+      <section className="pb-8 md:pb-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-12">
-            <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-6 md:p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-6 md:mb-12">
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-4 md:p-8">
               <h2 className="text-cyan-300 text-xl md:text-2xl tracking-wide mb-4 md:mb-6 text-subheading">WHAT WE DO</h2>
               <p className="text-readable leading-relaxed text-sm md:text-base">
                 We build beautiful websites that turn visitors into customers. 

@@ -10,11 +10,11 @@ export default function Home() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D />
       {/* Hero Section */}
-      <section className="relative pt-16 md:pt-24 pb-12 md:pb-16 px-4">
+      <section className="relative pt-12 md:pt-24 pb-8 md:pb-16 px-4">
         <div className="max-w-7xl mx-auto text-center relative">
 
           
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight page-title px-2">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-8 leading-tight page-title px-2">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">
               UPGRADE
             </span>
@@ -23,13 +23,13 @@ export default function Home() {
             </span>
           </h1>
           
-          <div className="max-w-3xl mx-auto mb-6 md:mb-8 px-4">
+          <div className="max-w-3xl mx-auto mb-4 md:mb-8 px-4">
             <p className="text-base md:text-xl text-readable leading-relaxed">
               We build websites that <span className="text-cyan-300 font-semibold">actually work</span>.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center mb-8 md:mb-12 px-4">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-6 justify-center mb-6 md:mb-12 px-4">
             <Button 
               size="lg" 
               className="relative bg-cyan-300/10 border border-cyan-300/20 text-cyan-300 hover:bg-cyan-300/20 hover:border-cyan-300/40 hover:shadow-[0_0_20px_rgba(103,232,249,0.3)] hover:text-cyan-200 px-6 md:px-8 py-3 md:py-4 tracking-wide transition-all duration-300 group overflow-hidden w-full sm:w-auto"
@@ -56,7 +56,7 @@ export default function Home() {
 
           {/* System Status Dashboard */}
           <div className="backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-4 md:p-6 max-w-5xl mx-auto">
-            <div className="flex items-center justify-center mb-6 md:mb-8">
+            <div className="flex items-center justify-center mb-4 md:mb-8">
               <div className="flex items-center space-x-2 md:space-x-3">
                 <div className="w-2 h-2 bg-green-400 rounded-full opacity-80"></div>
                 <span className="text-green-400 text-xs md:text-sm tracking-wide opacity-90">SYSTEM STATUS: OPERATIONAL</span>
