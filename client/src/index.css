@@ -44,6 +44,45 @@
     color: #f8fafc;
     line-height: 1.6;
   }
+
+  /* Mobile Optimizations */
+  @media (max-width: 768px) {
+    .neural-bg {
+      background-size: 100% auto;
+    }
+    
+    /* Ensure text doesn't overflow on mobile */
+    h1, h2, h3 {
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+    
+    /* Improve touch targets */
+    button, a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Better spacing for mobile */
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  /* Small mobile devices */
+  @media (max-width: 480px) {
+    /* Reduce large text sizes for very small screens */
+    .page-title {
+      font-size: 2.25rem !important;
+      line-height: 1.2;
+    }
+    
+    /* Ensure forms are mobile-friendly */
+    input, textarea, select {
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
+  }
 }
 
 /* Select Dropdown Fixes */

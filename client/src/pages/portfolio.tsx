@@ -61,21 +61,21 @@ export default function Portfolio() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D />
       {/* Header Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-24 md:pt-32 pb-12 md:pb-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="mb-8">
-            <span className="text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-6 py-2 rounded-md bg-cyan-300/5">
+          <div className="mb-6 md:mb-8">
+            <span className="text-xs md:text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-4 md:px-6 py-2 rounded-md bg-cyan-300/5">
               NEURAL WEB SOLUTIONS
             </span>
           </div>
           
-          <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight page-title">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight page-title">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PROJECT</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PORTFOLIO</span>
           </h1>
           
-          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 mb-16">
-            <p className="text-xl text-gray-300 leading-relaxed">
+          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-6 md:p-8 mb-12 md:mb-16">
+            <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
               Showcasing our latest <span className="text-cyan-300">digital transformations</span>.
             </p>
           </div>
@@ -83,15 +83,15 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Grid */}
-      <section className="pb-24 px-4">
+      <section className="pb-16 md:pb-24 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {projects.map((project, index) => (
               <Card 
                 key={project.title} 
                 className="backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg hover:bg-gray-900/40 transition-all duration-300 group"
               >
-                <CardContent className="p-6 space-y-6">
+                <CardContent className="p-4 md:p-6 space-y-4 md:space-y-6">
                   <div className="space-y-2">
                     <div className={`text-xs text-${project.color} opacity-80 tracking-wider`}>
                       {project.category}

@@ -380,17 +380,17 @@ export default function Tools() {
 
                 {/* Priority Recommendations */}
                 {auditResult.recommendations.priority && auditResult.recommendations.priority.length > 0 && (
-                  <div className="mb-8">
-                    <h3 className="text-lg text-red-400 mb-4 flex items-center">
-                      <AlertTriangle className="w-5 h-5 mr-2" />
+                  <div className="mb-6 md:mb-8">
+                    <h3 className="text-base md:text-lg text-red-400 mb-3 md:mb-4 flex items-center">
+                      <AlertTriangle className="w-4 md:w-5 h-4 md:h-5 mr-2" />
                       PRIORITY FIXES
                     </h3>
-                    <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-6">
-                      <ul className="space-y-2">
+                    <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-4 md:p-6">
+                      <ul className="space-y-2 md:space-y-3">
                         {auditResult.recommendations.priority.map((rec, index) => (
-                          <li key={index} className="flex items-start space-x-3">
-                            <AlertTriangle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
-                            <span className="text-gray-300">{rec}</span>
+                          <li key={index} className="flex items-start space-x-2 md:space-x-3">
+                            <AlertTriangle className="w-4 md:w-5 h-4 md:h-5 text-red-400 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-300 text-sm md:text-base">{rec}</span>
                           </li>
                         ))}
                       </ul>

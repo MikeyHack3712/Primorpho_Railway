@@ -93,13 +93,13 @@ export default function Services() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D />
       {/* Header */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-24 md:pt-32 pb-12 md:pb-16 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-6xl font-bold mb-6 page-title">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 page-title">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">SERVICE</span>{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PACKAGES</span>
           </h1>
-          <p className="text-xl text-readable mb-8 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-readable mb-6 md:mb-8 max-w-3xl mx-auto px-4">
             Choose the perfect package for your digital transformation. Each solution is designed to deliver measurable results and accelerate your business growth.
           </p>
         </div>

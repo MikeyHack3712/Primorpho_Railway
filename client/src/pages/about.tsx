@@ -10,21 +10,21 @@ export default function About() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D />
       {/* Header Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-24 md:pt-32 pb-12 md:pb-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="mb-8">
-            <span className="text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-6 py-2 rounded-md bg-cyan-300/5">
+          <div className="mb-6 md:mb-8">
+            <span className="text-xs md:text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-4 md:px-6 py-2 rounded-md bg-cyan-300/5">
               NEURAL WEB SOLUTIONS
             </span>
           </div>
           
-          <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight page-title">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight page-title">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">ABOUT</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PRIMORPHO</span>
           </h1>
           
-          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 mb-16">
-            <p className="text-xl text-readable leading-relaxed">
+          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-6 md:p-8 mb-12 md:mb-16">
+            <p className="text-lg md:text-xl text-readable leading-relaxed">
               Creating the future of digital <span className="text-cyan-300 font-semibold">experiences</span>.
             </p>
           </div>
@@ -32,22 +32,22 @@ export default function About() {
       </section>
 
       {/* Main Content */}
-      <section className="pb-24 px-4">
+      <section className="pb-16 md:pb-24 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-            <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-8">
-              <h2 className="text-cyan-300 text-2xl tracking-wide mb-6 text-subheading">OUR MISSION</h2>
-              <p className="text-readable leading-relaxed mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-12 md:mb-16">
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-6 md:p-8">
+              <h2 className="text-cyan-300 text-xl md:text-2xl tracking-wide mb-4 md:mb-6 text-subheading">OUR MISSION</h2>
+              <p className="text-readable leading-relaxed mb-3 md:mb-4 text-sm md:text-base">
                 Founded with a vision to bridge the gap between cutting-edge technology and business success, 
                 Primorpho crafts custom web solutions that deliver measurable results.
               </p>
-              <p className="text-readable leading-relaxed">
+              <p className="text-readable leading-relaxed text-sm md:text-base">
                 We believe every business deserves a website that not only looks stunning but also converts 
                 visitors into customers. Performance, user experience, and growth-driven design are our core focus.
               </p>
             </div>
 
-            <div className="backdrop-blur-sm bg-gray-900/30 border border-purple-300/20 rounded-lg p-8">
+            <div className="backdrop-blur-sm bg-gray-900/30 border border-purple-300/20 rounded-lg p-6 md:p-8">
               <h2 className="text-purple-300 text-2xl tracking-wide mb-6 text-subheading">OUR EXPERTISE</h2>
               <p className="text-readable leading-relaxed mb-4">
                 Our team combines years of development expertise with deep understanding of digital marketing 
