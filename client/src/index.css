@@ -83,6 +83,41 @@
       font-size: 16px; /* Prevents zoom on iOS */
     }
   }
+
+  /* iPhone SE specific optimizations */
+  @media (max-width: 375px) and (max-height: 667px) {
+    /* Cover page specific fixes for iPhone SE */
+    .min-h-screen {
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+    }
+    
+    /* Tighter spacing on very small screens */
+    .page-title {
+      font-size: 2rem !important;
+      line-height: 1.1;
+      margin-bottom: 1rem !important;
+    }
+    
+    /* Smaller buttons on iPhone SE */
+    button {
+      padding: 0.75rem 1.5rem !important;
+      font-size: 0.875rem !important;
+    }
+  }
+
+  /* iPhone XR/12 Pro landscape optimizations */
+  @media (max-height: 414px) and (orientation: landscape) {
+    /* Reduce vertical spacing in landscape */
+    .mb-6, .mb-8 {
+      margin-bottom: 1rem !important;
+    }
+    
+    .py-4, .py-6 {
+      padding-top: 0.5rem !important;
+      padding-bottom: 0.5rem !important;
+    }
+  }
 }
 
 /* Select Dropdown Fixes */

@@ -23,11 +23,11 @@ export default function Cover() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
         {/* Logo/Brand */}
-        <div className="mb-8 relative">
-          <div className="inline-block p-6 rounded-full border border-cyan-300/30 bg-cyan-300/5 backdrop-blur-sm">
-            <Code className="w-16 h-16 text-cyan-300 animate-pulse" />
+        <div className="mb-6 md:mb-8 relative">
+          <div className="inline-block p-4 md:p-6 rounded-full border border-cyan-300/30 bg-cyan-300/5 backdrop-blur-sm">
+            <Code className="w-12 md:w-16 h-12 md:h-16 text-cyan-300 animate-pulse" />
           </div>
           {/* Orbital rings */}
           <div className="absolute inset-0 rounded-full border border-purple-300/20 animate-spin-slow"></div>
@@ -35,36 +35,36 @@ export default function Cover() {
         </div>
 
         {/* Main Heading */}
-        <h1 className="text-7xl md:text-8xl font-bold mb-6 page-title tracking-wider">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-4 md:mb-6 page-title tracking-wider">
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">
             PRIMORPHO
           </span>
         </h1>
 
         {/* Subtitle */}
-        <div className="mb-8">
-          <p className="text-2xl md:text-3xl text-cyan-200/90 font-medium tracking-wide mb-4">
+        <div className="mb-6 md:mb-8">
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-cyan-200/90 font-medium tracking-wide mb-3 md:mb-4">
             Neural Web Solutions
           </p>
-          <div className="flex items-center justify-center gap-4 text-lg text-slate-300">
-            <Globe className="w-5 h-5 text-purple-300" />
+          <div className="flex items-center justify-center gap-2 md:gap-4 text-sm md:text-lg text-slate-300">
+            <Globe className="w-4 md:w-5 h-4 md:h-5 text-purple-300" />
             <span>Transforming Digital Presence</span>
-            <Zap className="w-5 h-5 text-yellow-300" />
+            <Zap className="w-4 md:w-5 h-4 md:h-5 text-yellow-300" />
           </div>
         </div>
 
         {/* Description */}
-        <p className="text-xl text-slate-200/80 mb-12 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-lg md:text-xl text-slate-200/80 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
           Build a website that works as hard as you do. <span className="text-cyan-300 font-semibold">Custom-designed</span> to 
           tell your story, powered by <span className="text-purple-300 font-semibold">smart tech</span> that drives results — 
           fast, stunning, and <span className="text-yellow-300 font-semibold">built to convert</span>.
         </p>
 
         {/* Enter Button */}
-        <div className="relative mb-8">
+        <div className="relative mb-6 md:mb-8">
           <Button
             size="lg"
-            className="relative group bg-gradient-to-r from-cyan-600/20 via-purple-600/20 to-cyan-600/20 border-2 border-cyan-300/40 text-cyan-200 hover:border-cyan-300/80 hover:text-white px-12 py-6 text-xl font-semibold tracking-wide transition-all duration-500 rounded-xl backdrop-blur-sm overflow-hidden"
+            className="relative group bg-gradient-to-r from-cyan-600/20 via-purple-600/20 to-cyan-600/20 border-2 border-cyan-300/40 text-cyan-200 hover:border-cyan-300/80 hover:text-white px-6 sm:px-8 md:px-12 py-4 md:py-6 text-base sm:text-lg md:text-xl font-semibold tracking-wide transition-all duration-500 rounded-xl backdrop-blur-sm overflow-hidden"
             asChild
           >
             <Link href="/home">
@@ -75,9 +75,10 @@ export default function Cover() {
               <div className="absolute inset-0 rounded-xl border-2 border-cyan-300/0 group-hover:border-cyan-300/60 group-hover:shadow-[0_0_40px_rgba(103,232,249,0.4)] transition-all duration-500"></div>
               
               {/* Content */}
-              <div className="relative z-10 flex items-center gap-3">
-                <span>INITIATE TRANSFORMATION</span>
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" />
+              <div className="relative z-10 flex items-center gap-2 md:gap-3">
+                <span className="hidden sm:inline">INITIATE TRANSFORMATION</span>
+                <span className="sm:hidden">START PROJECT</span>
+                <ArrowRight className="w-5 md:w-6 h-5 md:h-6 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
             </Link>
           </Button>
@@ -91,10 +92,10 @@ export default function Cover() {
         </div>
 
         {/* Custom Development Statement */}
-        <div className="mb-8 max-w-4xl mx-auto">
-          <div className="backdrop-blur-sm bg-gray-900/20 border border-cyan-300/20 rounded-lg p-6">
-            <div className="text-center space-y-3">
-              <p className="text-slate-300 text-lg leading-relaxed">
+        <div className="mb-6 md:mb-8 max-w-4xl mx-auto">
+          <div className="backdrop-blur-sm bg-gray-900/20 border border-cyan-300/20 rounded-lg p-4 md:p-6">
+            <div className="text-center space-y-2 md:space-y-3">
+              <p className="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed">
                 No templates. No drag-and-drop. Just <span className="text-cyan-300 font-semibold">handcrafted code</span>, 
                 shaped around your vision — designed to <span className="text-purple-300 font-semibold">stand out</span> and{" "}
                 <span className="text-yellow-300 font-semibold">perform</span>.
@@ -104,18 +105,19 @@ export default function Cover() {
         </div>
 
         {/* Status indicators */}
-        <div className="flex justify-center gap-8 text-sm text-slate-400">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 md:gap-8 text-xs md:text-sm text-slate-400">
+          <div className="flex items-center justify-center gap-2">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
             <span>SYSTEMS ONLINE</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse delay-300"></div>
             <span>NEURAL LINK ACTIVE</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-700"></div>
-            <span>READY FOR TRANSFORMATION</span>
+            <span className="hidden sm:inline">READY FOR TRANSFORMATION</span>
+            <span className="sm:hidden">READY</span>
           </div>
         </div>
       </div>
