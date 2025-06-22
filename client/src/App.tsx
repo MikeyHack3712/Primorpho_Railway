@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navigation from "@/components/layout/navigation";
 import Footer from "@/components/layout/footer";
+import { useEffect } from "react";
 
 // Pages
 import Cover from "@/pages/cover";
@@ -29,9 +30,15 @@ import Admin from "@/pages/admin";
 import NotFound from "@/pages/not-found";
 
 function Router() {
+  const [location] = useLocation();
   const urlParams = new URLSearchParams(window.location.search);
   const style = urlParams.get('style');
   const isConservative = style === 'conservative';
+  
+  // Scroll to top when route changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   
   return (
     <Switch>
