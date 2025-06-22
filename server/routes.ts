@@ -449,7 +449,68 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status: "pending"
       });
 
-      res.json({ success: true, message: "Slot reserved successfully!", reservation });
+      // Send email notification
+      const emailSubject = `🎯 NEW PROJECT SLOT RESERVED: ${formData.package} - ${formData.name}`;
+
+      const emailContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 30px; border-radius: 15px;">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #00ffff; font-size: 28px; margin: 0; text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);">PRIMORPHO</h1>
+            <div style="color: #b266ff; font-size: 14px; margin-top: 5px;">NEURAL WEB SOLUTIONS</div>
+          </div>
+          
+          <div style="background: rgba(255, 215, 0, 0.1); padding: 15px; margin: 20px 0; border: 2px solid #ffd700; border-radius: 10px; text-align: center;">
+            <h2 style="color: #ffd700; margin: 0; font-size: 20px;">🚀 PROJECT SLOT RESERVED 🚀</h2>
+            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 18px;">Package: <strong>${formData.package}</strong></p>
+            <p style="color: #ffffff; margin: 5px 0 0 0; font-size: 16px;">Preferred Slot: <strong>${formData.preferredSlot}</strong></p>
+          </div>
+          
+          <div style="background: rgba(0, 255, 255, 0.1); padding: 20px; margin: 20px 0; border: 1px solid #00ffff; border-radius: 10px;">
+            <h3 style="color: #00ffff; margin-top: 0;">CLIENT DETAILS:</h3>
+            <p><strong>Name:</strong> ${formData.name}</p>
+            <p><strong>Email:</strong> ${formData.email}</p>
+            ${formData.business ? `<p><strong>Business:</strong> ${formData.business}</p>` : ''}
+            ${formData.phone ? `<p><strong>Phone:</strong> ${formData.phone}</p>` : ''}
+            ${formData.timeline ? `<p><strong>Timeline:</strong> ${formData.timeline}</p>` : ''}
+            ${formData.budget ? `<p><strong>Budget:</strong> ${formData.budget}</p>` : ''}
+          </div>
+          
+          ${formData.projectDetails ? `
+          <div style="background: rgba(178, 102, 255, 0.1); padding: 20px; margin: 20px 0; border: 1px solid #b266ff; border-radius: 10px;">
+            <h3 style="color: #b266ff; margin-top: 0;">PROJECT DETAILS:</h3>
+            <p style="line-height: 1.6;">${formData.projectDetails}</p>
+          </div>
+          ` : ''}
+          
+          <div style="background: rgba(255, 215, 0, 0.1); padding: 15px; margin: 20px 0; border: 1px solid #ffd700; border-radius: 10px;">
+            <h3 style="color: #ffd700; margin-top: 0;">URGENT ACTIONS REQUIRED:</h3>
+            <ul style="margin: 10px 0;">
+              <li><strong>Response deadline: 24 hours</strong></li>
+              <li>Send confirmation email to client</li>
+              <li>Schedule discovery call within 2 days</li>
+              <li>Admin panel: <a href="${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000'}/admin" style="color: #00ffff;">View reservation</a></li>
+              <li>Update project pipeline and availability</li>
+            </ul>
+          </div>
+          
+          <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(0, 255, 255, 0.05); border-radius: 10px;">
+            <p style="color: #00ffff; font-size: 16px; margin: 0;">
+              <strong>Reservation ID:</strong> #${reservation.id}
+            </p>
+            <p style="color: #ffffff; font-size: 14px; margin: 10px 0 0 0;">
+              Time to convert this lead into a paying client! 💼
+            </p>
+          </div>
+        </div>
+      `;
+
+      await sendEmail({
+        to: 'primorpho.solutions@gmail.com',
+        subject: emailSubject,
+        html: emailContent
+      });
+
+      res.json({ success: true, message: "Slot reserved successfully! We'll confirm your booking within 24 hours.", reservation });
     } catch (error: any) {
       console.error("Slot reservation error:", error);
       res.status(400).json({ success: false, error: error.message || "Failed to reserve slot" });
@@ -467,6 +528,66 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...formData,
         generatedBoard,
         status: "generated"
+      });
+
+      // Send email notification
+      const emailSubject = `🎨 NEW MOOD BOARD GENERATED: ${formData.projectName}`;
+
+      const emailContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 30px; border-radius: 15px;">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #00ffff; font-size: 28px; margin: 0; text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);">PRIMORPHO</h1>
+            <div style="color: #b266ff; font-size: 14px; margin-top: 5px;">NEURAL WEB SOLUTIONS</div>
+          </div>
+          
+          <div style="background: rgba(255, 20, 147, 0.1); padding: 15px; margin: 20px 0; border: 2px solid #ff1493; border-radius: 10px; text-align: center;">
+            <h2 style="color: #ff1493; margin: 0; font-size: 20px;">🎨 MOOD BOARD GENERATED 🎨</h2>
+            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 18px;">Project: <strong>${formData.projectName}</strong></p>
+            <p style="color: #ffffff; margin: 5px 0 0 0; font-size: 16px;">Type: <strong>${formData.projectType}</strong></p>
+          </div>
+          
+          <div style="background: rgba(0, 255, 255, 0.1); padding: 20px; margin: 20px 0; border: 1px solid #00ffff; border-radius: 10px;">
+            <h3 style="color: #00ffff; margin-top: 0;">PROJECT DETAILS:</h3>
+            <p><strong>Target Audience:</strong> ${formData.targetAudience}</p>
+            <p><strong>Business Goals:</strong> ${formData.businessGoals}</p>
+            <p><strong>Brand Personality:</strong> ${Array.isArray(formData.brandPersonality) ? formData.brandPersonality.join(', ') : formData.brandPersonality}</p>
+            <p><strong>Color Preferences:</strong> ${Array.isArray(formData.colorPreferences) ? formData.colorPreferences.join(', ') : formData.colorPreferences}</p>
+            <p><strong>Style Preferences:</strong> ${Array.isArray(formData.stylePreferences) ? formData.stylePreferences.join(', ') : formData.stylePreferences}</p>
+            ${formData.clientEmail ? `<p><strong>Client Email:</strong> ${formData.clientEmail}</p>` : ''}
+          </div>
+          
+          ${formData.inspirationDescription ? `
+          <div style="background: rgba(178, 102, 255, 0.1); padding: 20px; margin: 20px 0; border: 1px solid #b266ff; border-radius: 10px;">
+            <h3 style="color: #b266ff; margin-top: 0;">INSPIRATION DETAILS:</h3>
+            <p style="line-height: 1.6;">${formData.inspirationDescription}</p>
+          </div>
+          ` : ''}
+          
+          <div style="background: rgba(255, 20, 147, 0.1); padding: 15px; margin: 20px 0; border: 1px solid #ff1493; border-radius: 10px;">
+            <h3 style="color: #ff1493; margin-top: 0;">NEXT ACTIONS:</h3>
+            <ul style="margin: 10px 0;">
+              <li>Review generated mood board in admin panel</li>
+              <li>Contact client if email provided</li>
+              <li>Use insights for project proposal</li>
+              <li>Admin panel: <a href="${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000'}/admin" style="color: #00ffff;">View mood board</a></li>
+            </ul>
+          </div>
+          
+          <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(0, 255, 255, 0.05); border-radius: 10px;">
+            <p style="color: #00ffff; font-size: 16px; margin: 0;">
+              <strong>Mood Board ID:</strong> #${moodBoard.id}
+            </p>
+            <p style="color: #ffffff; font-size: 14px; margin: 10px 0 0 0;">
+              Creative vision captured! 🎨
+            </p>
+          </div>
+        </div>
+      `;
+
+      await sendEmail({
+        to: 'primorpho.solutions@gmail.com',
+        subject: emailSubject,
+        html: emailContent
       });
 
       res.json({ success: true, moodBoard });
