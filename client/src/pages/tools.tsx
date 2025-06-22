@@ -302,31 +302,31 @@ export default function Tools() {
                 </div>
 
                 {/* Core Web Vitals */}
-                {auditResult.lighthouseData && (
+                {(auditResult as any).lighthouseData && (
                   <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-8">
                     <h3 className="text-xl text-gray-300 mb-6 text-center">CORE WEB VITALS</h3>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                       <div className="text-center">
                         <div className="text-2xl font-bold text-cyan-300 mb-2">
-                          {auditResult.lighthouseData.fcp ? `${(auditResult.lighthouseData.fcp / 1000).toFixed(1)}s` : 'N/A'}
+                          {(auditResult as any).lighthouseData.fcp ? `${((auditResult as any).lighthouseData.fcp / 1000).toFixed(1)}s` : 'N/A'}
                         </div>
                         <div className="text-sm text-gray-400">First Contentful Paint</div>
                       </div>
                       <div className="text-center">
                         <div className="text-2xl font-bold text-purple-300 mb-2">
-                          {auditResult.lighthouseData.lcp ? `${(auditResult.lighthouseData.lcp / 1000).toFixed(1)}s` : 'N/A'}
+                          {(auditResult as any).lighthouseData.lcp ? `${((auditResult as any).lighthouseData.lcp / 1000).toFixed(1)}s` : 'N/A'}
                         </div>
                         <div className="text-sm text-gray-400">Largest Contentful Paint</div>
                       </div>
                       <div className="text-center">
                         <div className="text-2xl font-bold text-yellow-300 mb-2">
-                          {auditResult.lighthouseData.cls ? auditResult.lighthouseData.cls.toFixed(3) : 'N/A'}
+                          {(auditResult as any).lighthouseData.cls ? (auditResult as any).lighthouseData.cls.toFixed(3) : 'N/A'}
                         </div>
                         <div className="text-sm text-gray-400">Cumulative Layout Shift</div>
                       </div>
                       <div className="text-center">
                         <div className="text-2xl font-bold text-green-300 mb-2">
-                          {auditResult.lighthouseData.tbt ? `${auditResult.lighthouseData.tbt}ms` : 'N/A'}
+                          {(auditResult as any).lighthouseData.tbt ? `${(auditResult as any).lighthouseData.tbt}ms` : 'N/A'}
                         </div>
                         <div className="text-sm text-gray-400">Total Blocking Time</div>
                       </div>

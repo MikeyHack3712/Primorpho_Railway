@@ -114,7 +114,16 @@ export type InsertSlotReservation = typeof slotReservations.$inferInsert;
 export type SlotReservation = typeof slotReservations.$inferSelect;
 
 export type InsertAuditResult = typeof auditResults.$inferInsert;
-export type AuditResult = typeof auditResults.$inferSelect;
+export type AuditResult = typeof auditResults.$inferSelect & {
+  lighthouseData?: {
+    fcp?: number;
+    lcp?: number;
+    cls?: number;
+    tbt?: number;
+    speedIndex?: number;
+    finalUrl?: string;
+  };
+};
 
 export type InsertMoodBoard = typeof moodBoards.$inferInsert;
 export type MoodBoard = typeof moodBoards.$inferSelect;
