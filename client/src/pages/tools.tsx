@@ -115,12 +115,12 @@ export default function Tools() {
             NEURAL WEB SOLUTIONS
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-8 page-title">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">GOOGLE</span>{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">LIGHTHOUSE</span>{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">AUDIT</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PROFESSIONAL</span>{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WEBSITE</span>{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">ANALYSIS</span>
           </h1>
           <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-            Get real Google Lighthouse analysis with authentic performance scores, Core Web Vitals, and professional recommendations.
+            Request professional website analysis using Google Lighthouse, GTmetrix, and expert evaluation methods. Detailed reports delivered within 24 hours.
           </p>
         </div>
       </section>
@@ -136,17 +136,17 @@ export default function Tools() {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-6">
+                <div className="bg-cyan-900/20 border border-cyan-500/30 rounded-lg p-6">
                   <div className="flex items-center justify-center mb-4">
-                    <Shield className="w-8 h-8 text-green-400 mr-3" />
-                    <h3 className="text-xl text-green-400 font-semibold">AUTHENTIC LIGHTHOUSE DATA</h3>
+                    <Shield className="w-8 h-8 text-cyan-400 mr-3" />
+                    <h3 className="text-xl text-cyan-400 font-semibold">PROFESSIONAL ANALYSIS REQUEST</h3>
                   </div>
                   <p className="text-gray-300 mb-4">
-                    Our audit tool uses real Google Lighthouse engine to provide authentic performance scores, 
-                    Core Web Vitals measurements, and professional recommendations.
+                    Submit your website for expert analysis using industry-standard tools including Google Lighthouse, 
+                    GTmetrix, and custom evaluation methods.
                   </p>
                   <p className="text-gray-300">
-                    Same analysis used by Google PageSpeed Insights and web performance professionals worldwide.
+                    Receive a comprehensive report within 24 hours with actionable insights and recommendations.
                   </p>
                 </div>
 
@@ -174,7 +174,7 @@ export default function Tools() {
                       disabled={auditMutation.isPending}
                       className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white py-3 text-lg font-semibold"
                     >
-                      {auditMutation.isPending ? "RUNNING LIGHTHOUSE..." : "START LIGHTHOUSE AUDIT"}
+                      {auditMutation.isPending ? "SUBMITTING REQUEST..." : "REQUEST PROFESSIONAL ANALYSIS"}
                     </Button>
                   </form>
                 </Form>
@@ -190,12 +190,12 @@ export default function Tools() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">
-                LIGHTHOUSE RESULTS FOR <span className="text-cyan-300">{auditResult.websiteUrl}</span>
+                ANALYSIS REQUEST FOR <span className="text-cyan-300">{auditResult.websiteUrl}</span>
               </h2>
-              {auditResult.loadTime && (
+              {auditResult.loadTime && auditResult.loadTime > 0 && (
                 <div className="flex justify-center items-center space-x-4 text-gray-300">
                   <Clock className="w-5 h-5" />
-                  <span>Largest Contentful Paint: {auditResult.loadTime}ms</span>
+                  <span>Initial Response Time: {auditResult.loadTime}ms</span>
                 </div>
               )}
             </div>

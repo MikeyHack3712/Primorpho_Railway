@@ -104,7 +104,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Website audit tool using Google Lighthouse
+  // Professional website analysis request system
   app.post('/api/audit', async (req, res) => {
     const { websiteUrl: rawUrl } = auditFormSchema.parse(req.body);
     
@@ -124,112 +124,129 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
     
-    console.log(`Starting Lighthouse audit for: ${websiteUrl}`);
+    console.log(`Processing analysis request for: ${websiteUrl}`);
     
-    // Launch Chrome and run Lighthouse
-    let chrome;
     try {
-      chrome = await chromeLauncher.launch({
-        chromeFlags: ['--headless', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage']
+      // Check if website is accessible
+      const startTime = Date.now();
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+      
+      const response = await fetch(websiteUrl, {
+        method: 'HEAD',
+        signal: controller.signal,
+        headers: {
+          'User-Agent': 'Primorpho-Analysis-Bot/1.0'
+        }
       });
-
-      const options = {
-        logLevel: 'info' as const,
-        output: 'json' as const,
-        onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'],
-        port: chrome.port,
-      };
-
-      const runnerResult = await lighthouse(websiteUrl, options);
+      clearTimeout(timeoutId);
+      const loadTime = Date.now() - startTime;
       
-      if (!runnerResult || !runnerResult.lhr) {
-        throw new Error('Lighthouse analysis failed');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      const { lhr } = runnerResult;
-      
-      // Extract scores from Lighthouse categories
-      const performanceScore = Math.round((lhr.categories.performance?.score || 0) * 100);
-      const accessibilityScore = Math.round((lhr.categories.accessibility?.score || 0) * 100);
-      const bestPracticesScore = Math.round((lhr.categories['best-practices']?.score || 0) * 100);
-      const seoScore = Math.round((lhr.categories.seo?.score || 0) * 100);
-
-      // Extract Core Web Vitals metrics
-      const metrics = lhr.audits;
-      const lcp = metrics['largest-contentful-paint']?.numericValue || 0;
-      const loadTime = Math.round(lcp); // LCP in milliseconds
-
-      // Calculate overall score
-      const overallScore = Math.round((performanceScore + accessibilityScore + bestPracticesScore + seoScore) / 4);
-
-      // Extract recommendations from Lighthouse audits
-      const recommendations = {
-        performance: extractLighthouseRecommendations(lhr, 'performance'),
-        seo: extractLighthouseRecommendations(lhr, 'seo'),
-        accessibility: extractLighthouseRecommendations(lhr, 'accessibility'),
-        security: extractLighthouseRecommendations(lhr, 'best-practices').filter((r: string) => 
-          r.toLowerCase().includes('security') || r.toLowerCase().includes('https')
-        ),
-        mobile: [] as string[],
-        technical: extractLighthouseRecommendations(lhr, 'best-practices'),
-        content: [] as string[],
-        priority: [] as string[]
-      };
-
-      // Add mobile responsiveness check
-      const mobileScore = metrics['viewport']?.score === 1 ? 100 : 
-                         Math.round((metrics['viewport']?.score || 0) * 100);
-      if (mobileScore < 100) {
-        recommendations.mobile.push('Add viewport meta tag for mobile responsiveness');
-      }
-
-      // Create priority recommendations from failed audits
-      const priorityIssues = Object.values(metrics)
-        .filter((audit: any) => audit.score !== null && audit.score < 0.9 && audit.title)
-        .slice(0, 3)
-        .map((audit: any) => audit.title);
-      recommendations.priority = priorityIssues;
-
-      const auditResult = await storage.createAuditResult({
+      // Create analysis request record
+      const analysisRequest = await storage.createAuditResult({
         websiteUrl,
         loadTime,
-        overallScore,
-        performanceScore,
-        seoScore,
-        securityScore: bestPracticesScore,
-        mobileScore,
-        accessibilityScore,
-        technicalScore: bestPracticesScore,
-        contentScore: seoScore > 80 ? 100 : 75,
-        recommendations
+        overallScore: 0, // Will be filled by professional analysis
+        performanceScore: 0,
+        seoScore: 0,
+        securityScore: 0,
+        mobileScore: 0,
+        accessibilityScore: 0,
+        technicalScore: 0,
+        contentScore: 0,
+        recommendations: {
+          analysis: ["Professional analysis requested"],
+          status: ["Analysis queued for expert review"],
+          timeline: ["Detailed report will be delivered within 24 hours"],
+          included: [
+            "Google Lighthouse performance audit",
+            "Core Web Vitals assessment", 
+            "SEO optimization review",
+            "Security vulnerability scan",
+            "Mobile responsiveness check",
+            "Accessibility compliance audit",
+            "Technical best practices review",
+            "Conversion optimization suggestions"
+          ]
+        }
       });
 
-      console.log(`Lighthouse audit completed for ${websiteUrl}. Overall score: ${overallScore}`);
-      res.json({ success: true, audit: auditResult });
+      // Send notification email for analysis request
+      const emailSubject = `Professional Website Analysis Request - ${websiteUrl}`;
+      const emailContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #06b6d4;">Professional Analysis Request</h2>
+          <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #334155; margin-top: 0;">Website Analysis Requested</h3>
+            <p><strong>Website URL:</strong> ${websiteUrl}</p>
+            <p><strong>Initial Load Time:</strong> ${loadTime}ms</p>
+            <p><strong>Request Time:</strong> ${new Date().toLocaleString()}</p>
+          </div>
+          <div style="background: #ecfdf5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #065f46; margin-top: 0;">Analysis Scope</h3>
+            <ul style="color: #374151;">
+              <li>Google Lighthouse performance audit</li>
+              <li>Core Web Vitals measurement</li>
+              <li>SEO optimization review</li>
+              <li>Security vulnerability assessment</li>
+              <li>Mobile responsiveness evaluation</li>
+              <li>Accessibility compliance check</li>
+              <li>Technical best practices audit</li>
+              <li>Conversion optimization recommendations</li>
+            </ul>
+          </div>
+          <p style="color: #6b7280;">Professional analysis will be completed using industry-standard tools including Google Lighthouse, GTmetrix, and custom evaluation methods.</p>
+        </div>
+      `;
+
+      await sendEmail(process.env.SENDGRID_API_KEY || '', {
+        to: 'primorpho.solutions@gmail.com',
+        from: 'primorpho.solutions@gmail.com',
+        subject: emailSubject,
+        html: emailContent
+      });
+
+      console.log(`Analysis request created for ${websiteUrl}`);
+      res.json({ success: true, audit: analysisRequest });
 
     } catch (error: any) {
-      console.error("Lighthouse audit error:", error);
+      console.error("Analysis request error:", error);
       
       // Provide helpful error messages
-      let errorMessage = "Unable to run Lighthouse analysis.";
+      let errorMessage = "Unable to access website for analysis.";
       const suggestions: string[] = [];
 
       if (error.message.includes('ERR_NAME_NOT_RESOLVED') || error.message.includes('ENOTFOUND')) {
         errorMessage = "Website not found. Please check the URL is correct.";
         suggestions.push("Verify the website URL is spelled correctly");
         suggestions.push("Ensure the website is currently accessible");
-      } else if (error.message.includes('ERR_CONNECTION_REFUSED')) {
-        errorMessage = "Connection refused. The website may be blocking requests.";
+        suggestions.push("Check if the domain exists and is active");
+      } else if (error.message.includes('ERR_CONNECTION_REFUSED') || error.message.includes('ECONNREFUSED')) {
+        errorMessage = "Connection refused. The website may be temporarily unavailable.";
         suggestions.push("Try again in a few minutes");
-        suggestions.push("Contact us for manual analysis");
-      } else {
-        suggestions.push("Verify the website is accessible");
+        suggestions.push("Check if the website is experiencing downtime");
+        suggestions.push("Contact us for manual analysis if issue persists");
+      } else if (error.message.includes('timeout')) {
+        errorMessage = "Website took too long to respond.";
+        suggestions.push("Website may be experiencing slow loading times");
         suggestions.push("Try again shortly");
-        suggestions.push("Contact us for professional analysis");
+        suggestions.push("Contact us for comprehensive performance analysis");
+      } else if (error.message.includes('HTTP 4') || error.message.includes('HTTP 5')) {
+        errorMessage = "Website returned an error response.";
+        suggestions.push("Website may be temporarily experiencing issues");
+        suggestions.push("Contact us for detailed error analysis");
+      } else {
+        suggestions.push("Verify the website is accessible in your browser");
+        suggestions.push("Try again shortly");
+        suggestions.push("Contact us for professional analysis assistance");
       }
 
       try {
-        const errorAudit = await storage.createAuditResult({
+        const errorRecord = await storage.createAuditResult({
           websiteUrl,
           loadTime: 0,
           overallScore: 0,
@@ -246,14 +263,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         });
 
-        res.json({ success: true, audit: errorAudit });
+        res.json({ success: true, audit: errorRecord });
       } catch (dbError) {
         console.error("Database error:", dbError);
         res.status(500).json({ success: false, error: "Internal server error" });
-      }
-    } finally {
-      if (chrome) {
-        await chrome.kill();
       }
     }
   });
