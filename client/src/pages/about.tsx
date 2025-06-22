@@ -21,7 +21,7 @@ export default function About() {
           
           <div className="max-w-3xl mx-auto backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-6 md:p-8 mb-12 md:mb-16">
             <p className="text-lg md:text-xl text-readable leading-relaxed">
-              Creating the future of digital <span className="text-cyan-300 font-semibold">experiences</span>.
+              We build websites that help your business <span className="text-cyan-300 font-semibold">grow</span>.
             </p>
           </div>
         </div>
@@ -32,18 +32,18 @@ export default function About() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-12 md:mb-16">
             <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-6 md:p-8">
-              <h2 className="text-cyan-300 text-xl md:text-2xl tracking-wide mb-4 md:mb-6 text-subheading">OUR MISSION</h2>
+              <h2 className="text-cyan-300 text-xl md:text-2xl tracking-wide mb-4 md:mb-6 text-subheading">WHAT WE DO</h2>
               <p className="text-readable leading-relaxed text-sm md:text-base">
-                Custom web solutions that look stunning and convert visitors into customers. 
-                Performance, user experience, and growth-driven design are our core focus.
+                We build beautiful websites that turn visitors into customers. 
+                Fast, easy to use, and designed to grow your business.
               </p>
             </div>
 
             <div className="backdrop-blur-sm bg-gray-900/30 border border-purple-300/20 rounded-lg p-6 md:p-8">
-              <h2 className="text-purple-300 text-2xl tracking-wide mb-6 text-subheading">OUR EXPERTISE</h2>
+              <h2 className="text-purple-300 text-2xl tracking-wide mb-6 text-subheading">HOW WE HELP</h2>
               <p className="text-readable leading-relaxed">
-                Development expertise meets digital marketing strategy. 
-                Custom development to performance optimization - we handle your digital presence with precision.
+                We know how to build websites and get them found online. 
+                From start to finish - we take care of everything for you.
               </p>
             </div>
           </div>

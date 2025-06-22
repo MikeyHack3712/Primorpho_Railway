@@ -28,7 +28,7 @@ const packages: Package[] = [
     duration: "1-2 WEEKS",
     color: "yellow-400",
     icon: <Rocket className="w-8 h-8 text-yellow-400" />,
-    description: "Get your business online quickly with professional presence.",
+    description: "Get your business online fast with a professional website.",
     features: [
       "3-5 Page Website",
       "Mobile Responsive Design", 
@@ -46,7 +46,7 @@ const packages: Package[] = [
     duration: "2-3 WEEKS",
     color: "purple-400",
     icon: <Zap className="w-8 h-8 text-purple-400" />,
-    description: "Premium digital presence for established businesses.",
+    description: "A complete website solution for growing businesses.",
     features: [
       "8-12 Page Website",
       "Custom Design System",
@@ -67,7 +67,7 @@ const packages: Package[] = [
     duration: "3-4 WEEKS + ONGOING",
     color: "cyan-400", 
     icon: <Shield className="w-8 h-8 text-cyan-400" />,
-    description: "Enterprise-level with AI integration and ongoing optimization.",
+    description: "Advanced website with smart features and ongoing support.",
     features: [
       "Unlimited Pages",
       "Custom Web Application",
@@ -96,11 +96,11 @@ export default function Services() {
       <section className="pt-24 md:pt-32 pb-12 md:pb-16 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 page-title">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">SERVICE</span>{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">WEBSITE</span>{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PACKAGES</span>
           </h1>
           <p className="text-lg md:text-xl text-readable mb-6 md:mb-8 max-w-3xl mx-auto px-4">
-            Choose your transformation package. Built for measurable results.
+            Choose the right package for your business.
           </p>
         </div>
       </section>
@@ -110,9 +110,9 @@ export default function Services() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl font-bold font-cyber text-purple-400 mb-3 md:mb-4 text-subheading">
-              CHOOSE YOUR TRANSFORMATION
+              PICK YOUR PACKAGE
             </h2>
-            <p className="text-readable text-sm md:text-base">Click to customize with add-ons</p>
+            <p className="text-readable text-sm md:text-base">Click to add extras to any package</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
             {packages.map((pkg) => (

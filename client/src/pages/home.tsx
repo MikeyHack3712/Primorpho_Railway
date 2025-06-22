@@ -16,19 +16,16 @@ export default function Home() {
           
           <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight page-title px-2">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">
-              TRANSFORM
+              UPGRADE
             </span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">
-              YOUR DIGITAL
-            </span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">
-              PRESENCE
+              YOUR WEBSITE
             </span>
           </h1>
           
           <div className="max-w-3xl mx-auto mb-8 md:mb-12 px-4">
             <p className="text-base md:text-xl text-readable leading-relaxed">
-              We code <span className="text-cyan-300 font-semibold">TRANSFORMATION</span>.
+              We build websites that <span className="text-cyan-300 font-semibold">actually work</span>.
             </p>
           </div>
 
@@ -41,7 +38,7 @@ export default function Home() {
               <Link href="/contact">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-300/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                 <ArrowRight className="w-4 md:w-5 h-4 md:h-5 mr-2 relative z-10" />
-                <span className="relative z-10 text-sm md:text-base">INITIATE PROJECT</span>
+                <span className="relative z-10 text-sm md:text-base">START PROJECT</span>
               </Link>
             </Button>
             <Button 
