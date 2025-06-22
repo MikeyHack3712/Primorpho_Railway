@@ -92,98 +92,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Service Showcase */}
-      <section className="py-16 md:py-24 px-4 relative">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 font-cyber text-cyan-400 text-heading">
-              PREMIUM PACKAGES
-            </h2>
-            <p className="text-lg md:text-xl text-readable">
-              Choose your transformation level.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {[
-              {
-                name: "LAUNCHPAD",
-                price: "$2,500",
-                duration: "1-2 WEEKS",
-                description: "Perfect entry into the digital realm",
-                color: "yellow-400"
-              },
-              {
-                name: "PRO PRESENCE",
-                price: "$5,500", 
-                duration: "2-3 WEEKS",
-                description: "Professional transformation package",
-                popular: true,
-                color: "purple-400"
-              },
-              {
-                name: "SMART BUSINESS",
-                price: "$12,000",
-                monthly: "+ $800/MONTH",
-                duration: "3-4 WEEKS + ONGOING",
-                description: "Complete digital metamorphosis",
-                color: "cyan-400"
-              }
-            ].map((service, index) => (
-              <Card 
-                key={index} 
-                className={`glass-card ${service.popular ? 'ring-2 ring-purple-400' : ''}`}
-              >
-                {service.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                    <span className="bg-gradient-to-r from-purple-500 to-cyan-400 text-black px-6 py-2 rounded-full text-sm font-cyber tracking-wider">
-                      MOST POPULAR
-                    </span>
-                  </div>
-                )}
-                
-                <CardContent className="pt-8 pb-8 text-center">
-                  <h3 className={`text-2xl font-bold font-cyber text-${service.color} mb-4 tracking-wider`}>
-                    {service.name}
-                  </h3>
-                  <div className="mb-6">
-                    <div className={`text-4xl font-bold font-cyber text-${service.color} mb-2`}>
-                      {service.price}
-                    </div>
-                    {service.monthly && (
-                      <div className="text-lg text-gray-400 font-cyber mb-1">{service.monthly}</div>
-                    )}
-                    <div className="text-sm text-gray-500 font-cyber tracking-wider">
-                      {service.duration}
-                    </div>
-                  </div>
-                  <p className="text-readable mb-8">{service.description}</p>
-                  
-                  <Button 
-                    className={`w-full cyber-button bg-${service.color}/20 border-${service.color} text-${service.color} font-cyber py-3 tracking-wider`}
-                    asChild
-                  >
-                    <Link href="/services">
-                      EXPLORE PACKAGE
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Call to Action */}
       <section className="py-24 px-4 relative overflow-hidden">
         <div className="max-w-5xl mx-auto text-center relative">
           <div className="glass-card p-16">
             <h2 className="text-5xl font-bold mb-8 font-cyber text-cyan-400 text-heading">
-              READY TO TRANSCEND?
+              READY TO START?
             </h2>
             <p className="text-xl mb-12 text-readable max-w-3xl mx-auto">
-              Join the elite who chose premium digital transformation.
+              Let's build something extraordinary.
             </p>
             <div className="flex flex-col lg:flex-row gap-8 justify-center">
               <Button 

@@ -28,7 +28,7 @@ const packages: Package[] = [
     duration: "1-2 WEEKS",
     color: "yellow-400",
     icon: <Rocket className="w-8 h-8 text-yellow-400" />,
-    description: "Perfect for getting your business online quickly with professional presence.",
+    description: "Get your business online quickly with professional presence.",
     features: [
       "3-5 Page Website",
       "Mobile Responsive Design", 
@@ -46,7 +46,7 @@ const packages: Package[] = [
     duration: "2-3 WEEKS",
     color: "purple-400",
     icon: <Zap className="w-8 h-8 text-purple-400" />,
-    description: "Comprehensive solution for established businesses seeking premium digital presence.",
+    description: "Premium digital presence for established businesses.",
     features: [
       "8-12 Page Website",
       "Custom Design System",
@@ -67,7 +67,7 @@ const packages: Package[] = [
     duration: "3-4 WEEKS + ONGOING",
     color: "cyan-400", 
     icon: <Shield className="w-8 h-8 text-cyan-400" />,
-    description: "Enterprise-level solution with AI integration and ongoing optimization.",
+    description: "Enterprise-level with AI integration and ongoing optimization.",
     features: [
       "Unlimited Pages",
       "Custom Web Application",
