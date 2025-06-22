@@ -337,6 +337,12 @@ Changelog:
   * Added email fallback system for graceful handling of SMTP authentication issues
   * All forms successfully save to database while email notifications await Gmail App Password configuration
   * Created troubleshooting documentation for Gmail 2FA and App Password setup requirements
+  * Gmail SMTP authentication successfully resolved with fresh credentials
+  * Email notifications now fully operational for all form submissions (contact, slots, mood boards)
+- June 22, 2025. Simplified cover page messaging for better user engagement
+  * Updated main description from complex multi-sentence statement to concise "A website that works. Fast, stunning, and built to convert."
+  * Reduced cognitive load for visitors while maintaining key value propositions with color-coded emphasis
+  * Improved first impression and reduced overwhelming text per user feedback
 ```
 
 ## User Preferences

@@ -55,9 +55,7 @@ export default function Cover() {
 
         {/* Description */}
         <p className="text-base sm:text-lg md:text-xl text-slate-200/80 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
-          Build a website that works as hard as you do. <span className="text-cyan-300 font-semibold">Custom-designed</span> to 
-          tell your story, powered by <span className="text-purple-300 font-semibold">smart tech</span> that drives results — 
-          fast, stunning, and <span className="text-yellow-300 font-semibold">built to convert</span>.
+          A website that works. <span className="text-cyan-300 font-semibold">Fast</span>, <span className="text-purple-300 font-semibold">stunning</span>, and <span className="text-yellow-300 font-semibold">built to convert</span>.
         </p>
 
         {/* Enter Button */}
