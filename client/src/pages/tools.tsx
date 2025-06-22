@@ -60,6 +60,7 @@ interface AuditResult {
 
 export default function Tools() {
   const [auditResult, setAuditResult] = useState<AuditResult | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const { toast } = useToast();
   
   const form = useForm<AuditFormData>({
@@ -71,6 +72,7 @@ export default function Tools() {
 
   const auditMutation = useMutation({
     mutationFn: async (data: AuditFormData) => {
+      setIsAnalyzing(true);
       const response = await apiRequest("/api/audit", {
         method: "POST",
         body: JSON.stringify(data),
@@ -78,6 +80,7 @@ export default function Tools() {
       return response;
     },
     onSuccess: (data) => {
+      setIsAnalyzing(false);
       setAuditResult(data.audit || data);
       toast({
         title: "Analysis Complete",
@@ -85,6 +88,7 @@ export default function Tools() {
       });
     },
     onError: (error: any) => {
+      setIsAnalyzing(false);
       toast({
         title: "Analysis Failed",
         description: error.message || "Failed to analyze website. Please try again.",
@@ -180,6 +184,68 @@ export default function Tools() {
           </Card>
         </div>
       </section>
+
+      {/* Loading Indicator */}
+      {isAnalyzing && (
+        <section className="relative z-10 py-12 px-4">
+          <div className="max-w-4xl mx-auto">
+            <Card className="backdrop-blur-sm bg-gray-900/50 border-cyan-500/30">
+              <CardContent className="pt-8 pb-8">
+                <div className="text-center">
+                  {/* Animated Loading Icon */}
+                  <div className="flex justify-center mb-6">
+                    <div className="relative">
+                      <div className="w-16 h-16 border-4 border-cyan-500/20 rounded-full"></div>
+                      <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-cyan-400 rounded-full animate-spin"></div>
+                      <div className="absolute top-2 left-2 w-12 h-12 border-4 border-transparent border-t-purple-400 rounded-full animate-spin" style={{animationDirection: 'reverse', animationDuration: '1.5s'}}></div>
+                    </div>
+                  </div>
+                  
+                  {/* Loading Text */}
+                  <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 mb-4">
+                    ANALYZING WEBSITE...
+                  </h3>
+                  
+                  <p className="text-gray-300 mb-6 text-lg">
+                    Running Google Lighthouse analysis to check your website's performance
+                  </p>
+                  
+                  {/* Progress Steps */}
+                  <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+                    <div className="bg-cyan-900/20 border border-cyan-500/30 rounded-lg p-4">
+                      <div className="flex items-center justify-center mb-2">
+                        <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
+                      </div>
+                      <h4 className="text-cyan-300 font-semibold text-sm">Performance Check</h4>
+                      <p className="text-gray-400 text-xs mt-1">Testing load speed and Core Web Vitals</p>
+                    </div>
+                    
+                    <div className="bg-purple-900/20 border border-purple-500/30 rounded-lg p-4">
+                      <div className="flex items-center justify-center mb-2">
+                        <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                      </div>
+                      <h4 className="text-purple-300 font-semibold text-sm">SEO Analysis</h4>
+                      <p className="text-gray-400 text-xs mt-1">Checking search engine optimization</p>
+                    </div>
+                    
+                    <div className="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-4">
+                      <div className="flex items-center justify-center mb-2">
+                        <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+                      </div>
+                      <h4 className="text-yellow-300 font-semibold text-sm">Mobile & Security</h4>
+                      <p className="text-gray-400 text-xs mt-1">Testing mobile responsiveness and security</p>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-8 text-sm text-gray-400">
+                    <p>This usually takes 10-20 seconds. Please wait while we gather authentic data from Google Lighthouse.</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      )}
 
       {/* Results */}
       {auditResult && (
