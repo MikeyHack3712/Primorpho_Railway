@@ -10,15 +10,15 @@ export default function Home() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D />
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4">
+      <section className="relative pt-20 md:pt-32 pb-16 md:pb-20 px-4">
         <div className="max-w-7xl mx-auto text-center relative">
-          <div className="mb-8">
-            <span className="text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-6 py-2 rounded-md bg-cyan-300/5">
+          <div className="mb-6 md:mb-8">
+            <span className="text-xs md:text-sm text-cyan-300 tracking-wider border border-cyan-300/30 px-4 md:px-6 py-2 rounded-md bg-cyan-300/5">
               NEURAL WEB SOLUTIONS
             </span>
           </div>
           
-          <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight page-title">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight page-title px-2">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">
               TRANSFORM
             </span>
@@ -30,65 +30,65 @@ export default function Home() {
             </span>
           </h1>
           
-          <div className="max-w-3xl mx-auto mb-12">
-            <p className="text-xl text-readable leading-relaxed">
+          <div className="max-w-3xl mx-auto mb-8 md:mb-12 px-4">
+            <p className="text-base md:text-xl text-readable leading-relaxed">
               From vision to velocity, we code <span className="text-cyan-300 font-semibold">TRANSFORMATION</span>.
             </p>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-6 justify-center mb-20">
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center mb-12 md:mb-20 px-4">
             <Button 
               size="lg" 
-              className="relative bg-cyan-300/10 border border-cyan-300/20 text-cyan-300 hover:bg-cyan-300/20 hover:border-cyan-300/40 hover:shadow-[0_0_20px_rgba(103,232,249,0.3)] hover:text-cyan-200 px-8 py-4 tracking-wide transition-all duration-300 group overflow-hidden"
+              className="relative bg-cyan-300/10 border border-cyan-300/20 text-cyan-300 hover:bg-cyan-300/20 hover:border-cyan-300/40 hover:shadow-[0_0_20px_rgba(103,232,249,0.3)] hover:text-cyan-200 px-6 md:px-8 py-3 md:py-4 tracking-wide transition-all duration-300 group overflow-hidden w-full sm:w-auto"
               asChild
             >
               <Link href="/contact">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-300/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                <ArrowRight className="w-5 h-5 mr-2 relative z-10" />
-                <span className="relative z-10">INITIATE PROJECT</span>
+                <ArrowRight className="w-4 md:w-5 h-4 md:h-5 mr-2 relative z-10" />
+                <span className="relative z-10 text-sm md:text-base">INITIATE PROJECT</span>
               </Link>
             </Button>
             <Button 
               size="lg" 
-              className="relative bg-purple-300/10 border border-purple-300/20 text-purple-300 hover:bg-purple-300/20 hover:border-purple-300/40 hover:shadow-[0_0_20px_rgba(196,181,253,0.3)] hover:text-purple-200 px-8 py-4 tracking-wide transition-all duration-300 group overflow-hidden"
+              className="relative bg-purple-300/10 border border-purple-300/20 text-purple-300 hover:bg-purple-300/20 hover:border-purple-300/40 hover:shadow-[0_0_20px_rgba(196,181,253,0.3)] hover:text-purple-200 px-6 md:px-8 py-3 md:py-4 tracking-wide transition-all duration-300 group overflow-hidden w-full sm:w-auto"
               asChild
             >
               <Link href="/portfolio">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-300/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                <Zap className="w-5 h-5 mr-2 relative z-10" />
-                <span className="relative z-10">VIEW PORTFOLIO</span>
+                <Zap className="w-4 md:w-5 h-4 md:h-5 mr-2 relative z-10" />
+                <span className="relative z-10 text-sm md:text-base">VIEW PORTFOLIO</span>
               </Link>
             </Button>
           </div>
 
           {/* System Status Dashboard */}
-          <div className="backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-8 max-w-5xl mx-auto">
-            <div className="flex items-center justify-center mb-8">
-              <div className="flex items-center space-x-3">
+          <div className="backdrop-blur-sm bg-gray-900/30 border border-gray-700/30 rounded-lg p-4 md:p-8 max-w-5xl mx-auto">
+            <div className="flex items-center justify-center mb-6 md:mb-8">
+              <div className="flex items-center space-x-2 md:space-x-3">
                 <div className="w-2 h-2 bg-green-400 rounded-full opacity-80"></div>
-                <span className="text-green-400 text-sm tracking-wide opacity-90">SYSTEM STATUS: OPERATIONAL</span>
+                <span className="text-green-400 text-xs md:text-sm tracking-wide opacity-90">SYSTEM STATUS: OPERATIONAL</span>
               </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
               <div className="text-center">
-                <Clock className="w-8 h-8 text-yellow-300 mx-auto mb-4 opacity-80" />
-                <div className="text-3xl font-bold text-yellow-300 mb-2">7+</div>
-                <div className="text-yellow-300/70 text-sm tracking-wide mb-1">YEARS</div>
+                <Clock className="w-6 md:w-8 h-6 md:h-8 text-yellow-300 mx-auto mb-3 md:mb-4 opacity-80" />
+                <div className="text-2xl md:text-3xl font-bold text-yellow-300 mb-1 md:mb-2">7+</div>
+                <div className="text-yellow-300/70 text-xs md:text-sm tracking-wide mb-1">YEARS</div>
                 <div className="text-yellow-300/50 text-xs">EXPERIENCE</div>
               </div>
               
               <div className="text-center">
-                <CheckCircle className="w-8 h-8 text-green-300 mx-auto mb-4 opacity-80" />
-                <div className="text-3xl font-bold text-green-300 mb-2">100%</div>
-                <div className="text-green-300/70 text-sm tracking-wide mb-1">SATISFACTION</div>
+                <CheckCircle className="w-6 md:w-8 h-6 md:h-8 text-green-300 mx-auto mb-3 md:mb-4 opacity-80" />
+                <div className="text-2xl md:text-3xl font-bold text-green-300 mb-1 md:mb-2">100%</div>
+                <div className="text-green-300/70 text-xs md:text-sm tracking-wide mb-1">SATISFACTION</div>
                 <div className="text-green-300/50 text-xs">GUARANTEED</div>
               </div>
               
               <div className="text-center">
-                <Zap className="w-8 h-8 text-purple-300 mx-auto mb-4 opacity-80" />
-                <div className="text-3xl font-bold text-purple-300 mb-2">2-4</div>
-                <div className="text-purple-300/70 text-sm tracking-wide mb-1">WEEKS</div>
+                <Zap className="w-6 md:w-8 h-6 md:h-8 text-purple-300 mx-auto mb-3 md:mb-4 opacity-80" />
+                <div className="text-2xl md:text-3xl font-bold text-purple-300 mb-1 md:mb-2">2-4</div>
+                <div className="text-purple-300/70 text-xs md:text-sm tracking-wide mb-1">WEEKS</div>
                 <div className="text-purple-400/60 font-cyber text-xs">DELIVERY</div>
               </div>
             </div>
@@ -97,18 +97,18 @@ export default function Home() {
       </section>
 
       {/* Service Showcase */}
-      <section className="py-24 px-4 relative">
+      <section className="py-16 md:py-24 px-4 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-6 font-cyber text-cyan-400 text-heading">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 font-cyber text-cyan-400 text-heading">
               PREMIUM PACKAGES
             </h2>
-            <p className="text-xl text-readable">
+            <p className="text-lg md:text-xl text-readable">
               Choose your transformation level.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {[
               {
                 name: "LAUNCHPAD",
