@@ -42,42 +42,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
         : `📬 New Contact: ${formData.name}`;
 
       const emailContent = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 30px; border-radius: 15px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #00ffff; font-size: 28px; margin: 0; text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);">PRIMORPHO</h1>
-            <div style="color: #b266ff; font-size: 14px; margin-top: 5px;">NEURAL WEB SOLUTIONS</div>
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; color: #333333; padding: 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%); padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="color: #ffffff; font-size: 32px; margin: 0; font-weight: 700; letter-spacing: 1px;">PRIMORPHO</h1>
+            <div style="color: rgba(255, 255, 255, 0.9); font-size: 16px; margin-top: 8px; font-weight: 500;">Website Design & Development</div>
           </div>
           
-          ${isAuditRequest ? `
-          <div style="background: rgba(255, 0, 100, 0.1); padding: 15px; margin: 20px 0; border: 2px solid #ff0064; border-radius: 10px; text-align: center;">
-            <h2 style="color: #ff0064; margin: 0; font-size: 20px;">⚡ PRIORITY AUDIT REQUEST ⚡</h2>
-            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 16px;">Website: <strong>${formData.websiteUrl}</strong></p>
+          <!-- Main Content -->
+          <div style="padding: 30px;">
+            ${isAuditRequest ? `
+            <div style="background: #fef2f2; padding: 20px; margin-bottom: 25px; border: 2px solid #dc2626; border-radius: 8px; text-align: center;">
+              <h2 style="color: #dc2626; margin: 0; font-size: 20px; font-weight: 700;">⚡ PRIORITY AUDIT REQUEST</h2>
+              <p style="color: #374151; margin: 12px 0 0 0; font-size: 16px; font-weight: 500;">Website: <strong style="color: #1f2937;">${formData.websiteUrl}</strong></p>
+            </div>
+            ` : ''}
+            
+            <div style="background: #f0f9ff; padding: 25px; margin-bottom: 25px; border: 1px solid #0ea5e9; border-radius: 8px;">
+              <h3 style="color: #0369a1; margin: 0 0 15px 0; font-size: 18px; font-weight: 700;">CLIENT DETAILS</h3>
+              <p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Name:</strong> ${formData.name}</p>
+              <p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Email:</strong> ${formData.email}</p>
+              ${formData.business ? `<p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Business:</strong> ${formData.business}</p>` : ''}
+              ${formData.phone ? `<p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Phone:</strong> ${formData.phone}</p>` : ''}
+              ${formData.package ? `<p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Package Interest:</strong> ${formData.package}</p>` : ''}
+            </div>
+            
+            ${formData.details ? `
+            <div style="background: #f3f4f6; padding: 25px; margin-bottom: 25px; border: 1px solid #d1d5db; border-radius: 8px;">
+              <h3 style="color: #374151; margin: 0 0 15px 0; font-size: 18px; font-weight: 700;">PROJECT DETAILS</h3>
+              <p style="color: #4b5563; line-height: 1.6; font-size: 15px; margin: 0;">${formData.details}</p>
+            </div>
+            ` : ''}
+            
+            <div style="background: #fef3c7; padding: 25px; border: 1px solid #f59e0b; border-radius: 8px;">
+              <h3 style="color: #92400e; margin: 0 0 15px 0; font-size: 18px; font-weight: 700;">NEXT ACTIONS</h3>
+              <ul style="color: #78350f; margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.6;">
+                <li style="margin-bottom: 8px;"><strong>Response deadline:</strong> ${isAuditRequest ? '1 hour' : '24 hours'}</li>
+                <li style="margin-bottom: 8px;"><a href="${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000'}/admin" style="color: #0ea5e9; text-decoration: none; font-weight: 600;">View submission in admin panel</a></li>
+                ${isAuditRequest ? '<li style="margin-bottom: 8px;"><strong>Conduct website audit immediately</strong></li>' : ''}
+              </ul>
+            </div>
           </div>
-          ` : ''}
           
-          <div style="background: rgba(0, 255, 255, 0.1); padding: 20px; margin: 20px 0; border: 1px solid #00ffff; border-radius: 10px;">
-            <h3 style="color: #00ffff; margin-top: 0;">CLIENT DETAILS:</h3>
-            <p><strong>Name:</strong> ${formData.name}</p>
-            <p><strong>Email:</strong> ${formData.email}</p>
-            ${formData.business ? `<p><strong>Business:</strong> ${formData.business}</p>` : ''}
-            ${formData.phone ? `<p><strong>Phone:</strong> ${formData.phone}</p>` : ''}
-            ${formData.package ? `<p><strong>Package Interest:</strong> ${formData.package}</p>` : ''}
-          </div>
-          
-          ${formData.details ? `
-          <div style="background: rgba(178, 102, 255, 0.1); padding: 20px; margin: 20px 0; border: 1px solid #b266ff; border-radius: 10px;">
-            <h3 style="color: #b266ff; margin-top: 0;">PROJECT DETAILS:</h3>
-            <p style="line-height: 1.6;">${formData.details}</p>
-          </div>
-          ` : ''}
-          
-          <div style="background: rgba(178, 102, 255, 0.1); padding: 15px; margin: 10px 0; border: 1px solid #b266ff;">
-            <h3 style="color: #b266ff;">NEXT ACTIONS:</h3>
-            <ul>
-              <li>Response deadline: ${isAuditRequest ? '1 hour' : '24 hours'}</li>
-              <li>Admin panel: <a href="${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000'}/admin" style="color: #00ffff;">View submission</a></li>
-              ${isAuditRequest ? '<li>Conduct website audit immediately</li>' : ''}
-            </ul>
+          <!-- Footer -->
+          <div style="background: #f9fafb; padding: 20px; text-align: center; border-radius: 0 0 8px 8px; border-top: 1px solid #e5e7eb;">
+            <p style="color: #6b7280; font-size: 14px; margin: 0;">Professional web development services</p>
           </div>
         </div>
       `;
@@ -452,53 +461,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const emailSubject = `🎯 NEW PROJECT SLOT RESERVED: ${formData.package} - ${formData.name}`;
 
       const emailContent = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 30px; border-radius: 15px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #00ffff; font-size: 28px; margin: 0; text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);">PRIMORPHO</h1>
-            <div style="color: #b266ff; font-size: 14px; margin-top: 5px;">NEURAL WEB SOLUTIONS</div>
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; color: #333333; padding: 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%); padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="color: #ffffff; font-size: 32px; margin: 0; font-weight: 700; letter-spacing: 1px;">PRIMORPHO</h1>
+            <div style="color: rgba(255, 255, 255, 0.9); font-size: 16px; margin-top: 8px; font-weight: 500;">Website Design & Development</div>
           </div>
           
-          <div style="background: rgba(255, 215, 0, 0.1); padding: 15px; margin: 20px 0; border: 2px solid #ffd700; border-radius: 10px; text-align: center;">
-            <h2 style="color: #ffd700; margin: 0; font-size: 20px;">🚀 PROJECT SLOT RESERVED 🚀</h2>
-            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 18px;">Package: <strong>${formData.package}</strong></p>
-            <p style="color: #ffffff; margin: 5px 0 0 0; font-size: 16px;">Preferred Slot: <strong>${formData.preferredSlot}</strong></p>
+          <!-- Main Content -->
+          <div style="padding: 30px;">
+            <div style="background: #fef3c7; padding: 20px; margin-bottom: 25px; border: 2px solid #f59e0b; border-radius: 8px; text-align: center;">
+              <h2 style="color: #92400e; margin: 0; font-size: 20px; font-weight: 700;">🚀 PROJECT SLOT RESERVED</h2>
+              <p style="color: #78350f; margin: 12px 0 0 0; font-size: 16px; font-weight: 500;">Package: <strong style="color: #451a03;">${formData.package}</strong></p>
+              <p style="color: #78350f; margin: 8px 0 0 0; font-size: 15px;">Preferred Slot: <strong style="color: #451a03;">${formData.preferredSlot}</strong></p>
+            </div>
+            
+            <div style="background: #f0f9ff; padding: 25px; margin-bottom: 25px; border: 1px solid #0ea5e9; border-radius: 8px;">
+              <h3 style="color: #0369a1; margin: 0 0 15px 0; font-size: 18px; font-weight: 700;">CLIENT DETAILS</h3>
+              <p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Name:</strong> ${formData.name}</p>
+              <p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Email:</strong> ${formData.email}</p>
+              ${formData.business ? `<p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Business:</strong> ${formData.business}</p>` : ''}
+              ${formData.phone ? `<p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Phone:</strong> ${formData.phone}</p>` : ''}
+              ${formData.timeline ? `<p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Timeline:</strong> ${formData.timeline}</p>` : ''}
+              ${formData.budget ? `<p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Budget:</strong> ${formData.budget}</p>` : ''}
+            </div>
+            
+            ${formData.projectDetails ? `
+            <div style="background: #f3f4f6; padding: 25px; margin-bottom: 25px; border: 1px solid #d1d5db; border-radius: 8px;">
+              <h3 style="color: #374151; margin: 0 0 15px 0; font-size: 18px; font-weight: 700;">PROJECT DETAILS</h3>
+              <p style="color: #4b5563; line-height: 1.6; font-size: 15px; margin: 0;">${formData.projectDetails}</p>
+            </div>
+            ` : ''}
+            
+            <div style="background: #fef2f2; padding: 25px; margin-bottom: 25px; border: 1px solid #dc2626; border-radius: 8px;">
+              <h3 style="color: #991b1b; margin: 0 0 15px 0; font-size: 18px; font-weight: 700;">URGENT ACTIONS REQUIRED</h3>
+              <ul style="color: #7f1d1d; margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.6;">
+                <li style="margin-bottom: 8px;"><strong>Response deadline: 24 hours</strong></li>
+                <li style="margin-bottom: 8px;">Send confirmation email to client</li>
+                <li style="margin-bottom: 8px;">Schedule discovery call within 2 days</li>
+                <li style="margin-bottom: 8px;"><a href="${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000'}/admin" style="color: #0ea5e9; text-decoration: none; font-weight: 600;">View reservation in admin panel</a></li>
+                <li style="margin-bottom: 8px;">Update project pipeline and availability</li>
+              </ul>
+            </div>
+            
+            <div style="background: #f0f9ff; padding: 25px; border: 1px solid #0ea5e9; border-radius: 8px; text-align: center;">
+              <p style="color: #0369a1; font-size: 16px; margin: 0; font-weight: 600;">
+                Reservation ID: #${reservation.id}
+              </p>
+              <p style="color: #374151; font-size: 14px; margin: 12px 0 0 0;">
+                Time to convert this lead into a paying client!
+              </p>
+            </div>
           </div>
           
-          <div style="background: rgba(0, 255, 255, 0.1); padding: 20px; margin: 20px 0; border: 1px solid #00ffff; border-radius: 10px;">
-            <h3 style="color: #00ffff; margin-top: 0;">CLIENT DETAILS:</h3>
-            <p><strong>Name:</strong> ${formData.name}</p>
-            <p><strong>Email:</strong> ${formData.email}</p>
-            ${formData.business ? `<p><strong>Business:</strong> ${formData.business}</p>` : ''}
-            ${formData.phone ? `<p><strong>Phone:</strong> ${formData.phone}</p>` : ''}
-            ${formData.timeline ? `<p><strong>Timeline:</strong> ${formData.timeline}</p>` : ''}
-            ${formData.budget ? `<p><strong>Budget:</strong> ${formData.budget}</p>` : ''}
-          </div>
-          
-          ${formData.projectDetails ? `
-          <div style="background: rgba(178, 102, 255, 0.1); padding: 20px; margin: 20px 0; border: 1px solid #b266ff; border-radius: 10px;">
-            <h3 style="color: #b266ff; margin-top: 0;">PROJECT DETAILS:</h3>
-            <p style="line-height: 1.6;">${formData.projectDetails}</p>
-          </div>
-          ` : ''}
-          
-          <div style="background: rgba(255, 215, 0, 0.1); padding: 15px; margin: 20px 0; border: 1px solid #ffd700; border-radius: 10px;">
-            <h3 style="color: #ffd700; margin-top: 0;">URGENT ACTIONS REQUIRED:</h3>
-            <ul style="margin: 10px 0;">
-              <li><strong>Response deadline: 24 hours</strong></li>
-              <li>Send confirmation email to client</li>
-              <li>Schedule discovery call within 2 days</li>
-              <li>Admin panel: <a href="${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000'}/admin" style="color: #00ffff;">View reservation</a></li>
-              <li>Update project pipeline and availability</li>
-            </ul>
-          </div>
-          
-          <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(0, 255, 255, 0.05); border-radius: 10px;">
-            <p style="color: #00ffff; font-size: 16px; margin: 0;">
-              <strong>Reservation ID:</strong> #${reservation.id}
-            </p>
-            <p style="color: #ffffff; font-size: 14px; margin: 10px 0 0 0;">
-              Time to convert this lead into a paying client! 💼
-            </p>
+          <!-- Footer -->
+          <div style="background: #f9fafb; padding: 20px; text-align: center; border-radius: 0 0 8px 8px; border-top: 1px solid #e5e7eb;">
+            <p style="color: #6b7280; font-size: 14px; margin: 0;">Professional web development services</p>
           </div>
         </div>
       `;
@@ -533,52 +551,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const emailSubject = `🎨 NEW MOOD BOARD GENERATED: ${formData.projectName}`;
 
       const emailContent = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 30px; border-radius: 15px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #00ffff; font-size: 28px; margin: 0; text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);">PRIMORPHO</h1>
-            <div style="color: #b266ff; font-size: 14px; margin-top: 5px;">NEURAL WEB SOLUTIONS</div>
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; color: #333333; padding: 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%); padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="color: #ffffff; font-size: 32px; margin: 0; font-weight: 700; letter-spacing: 1px;">PRIMORPHO</h1>
+            <div style="color: rgba(255, 255, 255, 0.9); font-size: 16px; margin-top: 8px; font-weight: 500;">Website Design & Development</div>
           </div>
           
-          <div style="background: rgba(255, 20, 147, 0.1); padding: 15px; margin: 20px 0; border: 2px solid #ff1493; border-radius: 10px; text-align: center;">
-            <h2 style="color: #ff1493; margin: 0; font-size: 20px;">🎨 MOOD BOARD GENERATED 🎨</h2>
-            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 18px;">Project: <strong>${formData.projectName}</strong></p>
-            <p style="color: #ffffff; margin: 5px 0 0 0; font-size: 16px;">Type: <strong>${formData.projectType}</strong></p>
+          <!-- Main Content -->
+          <div style="padding: 30px;">
+            <div style="background: #f0fdf4; padding: 20px; margin-bottom: 25px; border: 2px solid #22c55e; border-radius: 8px; text-align: center;">
+              <h2 style="color: #15803d; margin: 0; font-size: 20px; font-weight: 700;">🎨 MOOD BOARD GENERATED</h2>
+              <p style="color: #166534; margin: 12px 0 0 0; font-size: 16px; font-weight: 500;">Project: <strong style="color: #14532d;">${formData.projectName}</strong></p>
+              <p style="color: #166534; margin: 8px 0 0 0; font-size: 15px;">Type: <strong style="color: #14532d;">${formData.projectType}</strong></p>
+            </div>
+            
+            <div style="background: #f0f9ff; padding: 25px; margin-bottom: 25px; border: 1px solid #0ea5e9; border-radius: 8px;">
+              <h3 style="color: #0369a1; margin: 0 0 15px 0; font-size: 18px; font-weight: 700;">PROJECT DETAILS</h3>
+              <p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Target Audience:</strong> ${formData.targetAudience}</p>
+              <p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Business Goals:</strong> ${formData.businessGoals}</p>
+              <p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Brand Personality:</strong> ${Array.isArray(formData.brandPersonality) ? formData.brandPersonality.join(', ') : formData.brandPersonality}</p>
+              <p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Color Preferences:</strong> ${Array.isArray(formData.colorPreferences) ? formData.colorPreferences.join(', ') : formData.colorPreferences}</p>
+              <p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Style Preferences:</strong> ${Array.isArray(formData.stylePreferences) ? formData.stylePreferences.join(', ') : formData.stylePreferences}</p>
+              ${formData.clientEmail ? `<p style="color: #374151; margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong style="color: #1f2937;">Client Email:</strong> ${formData.clientEmail}</p>` : ''}
+            </div>
+            
+            ${formData.inspirationDescription ? `
+            <div style="background: #f3f4f6; padding: 25px; margin-bottom: 25px; border: 1px solid #d1d5db; border-radius: 8px;">
+              <h3 style="color: #374151; margin: 0 0 15px 0; font-size: 18px; font-weight: 700;">INSPIRATION DETAILS</h3>
+              <p style="color: #4b5563; line-height: 1.6; font-size: 15px; margin: 0;">${formData.inspirationDescription}</p>
+            </div>
+            ` : ''}
+            
+            <div style="background: #fef3c7; padding: 25px; margin-bottom: 25px; border: 1px solid #f59e0b; border-radius: 8px;">
+              <h3 style="color: #92400e; margin: 0 0 15px 0; font-size: 18px; font-weight: 700;">NEXT ACTIONS</h3>
+              <ul style="color: #78350f; margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.6;">
+                <li style="margin-bottom: 8px;">Review generated mood board in admin panel</li>
+                <li style="margin-bottom: 8px;">Contact client if email provided</li>
+                <li style="margin-bottom: 8px;">Use insights for project proposal</li>
+                <li style="margin-bottom: 8px;"><a href="${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000'}/admin" style="color: #0ea5e9; text-decoration: none; font-weight: 600;">View mood board in admin panel</a></li>
+              </ul>
+            </div>
+            
+            <div style="background: #f0fdf4; padding: 25px; border: 1px solid #22c55e; border-radius: 8px; text-align: center;">
+              <p style="color: #15803d; font-size: 16px; margin: 0; font-weight: 600;">
+                Mood Board ID: #${moodBoard.id}
+              </p>
+              <p style="color: #374151; font-size: 14px; margin: 12px 0 0 0;">
+                Creative vision captured!
+              </p>
+            </div>
           </div>
           
-          <div style="background: rgba(0, 255, 255, 0.1); padding: 20px; margin: 20px 0; border: 1px solid #00ffff; border-radius: 10px;">
-            <h3 style="color: #00ffff; margin-top: 0;">PROJECT DETAILS:</h3>
-            <p><strong>Target Audience:</strong> ${formData.targetAudience}</p>
-            <p><strong>Business Goals:</strong> ${formData.businessGoals}</p>
-            <p><strong>Brand Personality:</strong> ${Array.isArray(formData.brandPersonality) ? formData.brandPersonality.join(', ') : formData.brandPersonality}</p>
-            <p><strong>Color Preferences:</strong> ${Array.isArray(formData.colorPreferences) ? formData.colorPreferences.join(', ') : formData.colorPreferences}</p>
-            <p><strong>Style Preferences:</strong> ${Array.isArray(formData.stylePreferences) ? formData.stylePreferences.join(', ') : formData.stylePreferences}</p>
-            ${formData.clientEmail ? `<p><strong>Client Email:</strong> ${formData.clientEmail}</p>` : ''}
-          </div>
-          
-          ${formData.inspirationDescription ? `
-          <div style="background: rgba(178, 102, 255, 0.1); padding: 20px; margin: 20px 0; border: 1px solid #b266ff; border-radius: 10px;">
-            <h3 style="color: #b266ff; margin-top: 0;">INSPIRATION DETAILS:</h3>
-            <p style="line-height: 1.6;">${formData.inspirationDescription}</p>
-          </div>
-          ` : ''}
-          
-          <div style="background: rgba(255, 20, 147, 0.1); padding: 15px; margin: 20px 0; border: 1px solid #ff1493; border-radius: 10px;">
-            <h3 style="color: #ff1493; margin-top: 0;">NEXT ACTIONS:</h3>
-            <ul style="margin: 10px 0;">
-              <li>Review generated mood board in admin panel</li>
-              <li>Contact client if email provided</li>
-              <li>Use insights for project proposal</li>
-              <li>Admin panel: <a href="${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000'}/admin" style="color: #00ffff;">View mood board</a></li>
-            </ul>
-          </div>
-          
-          <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(0, 255, 255, 0.05); border-radius: 10px;">
-            <p style="color: #00ffff; font-size: 16px; margin: 0;">
-              <strong>Mood Board ID:</strong> #${moodBoard.id}
-            </p>
-            <p style="color: #ffffff; font-size: 14px; margin: 10px 0 0 0;">
-              Creative vision captured! 🎨
-            </p>
+          <!-- Footer -->
+          <div style="background: #f9fafb; padding: 20px; text-align: center; border-radius: 0 0 8px 8px; border-top: 1px solid #e5e7eb;">
+            <p style="color: #6b7280; font-size: 14px; margin: 0;">Professional web development services</p>
           </div>
         </div>
       `;
