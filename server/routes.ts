@@ -503,7 +503,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         </div>
       `;
 
-      await sendEmail({
+      await sendEmailViaGmail({
         to: 'primorpho.solutions@gmail.com',
         subject: emailSubject,
         html: emailContent
@@ -583,7 +583,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         </div>
       `;
 
-      await sendEmail({
+      await sendEmailViaGmail({
         to: 'primorpho.solutions@gmail.com',
         subject: emailSubject,
         html: emailContent

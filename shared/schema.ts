@@ -170,4 +170,5 @@ export const moodBoardFormSchema = insertMoodBoardSchema.pick({
   colorPreferences: true,
   stylePreferences: true,
   inspirationDescription: true,
+  clientEmail: true,
 });
