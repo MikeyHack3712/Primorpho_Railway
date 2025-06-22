@@ -450,7 +450,7 @@ export default function Tools() {
                         {auditResult.recommendations.priority.map((rec, index) => (
                           <li key={index} className="flex items-start space-x-2 md:space-x-3">
                             <AlertTriangle className="w-4 md:w-5 h-4 md:h-5 text-red-400 mt-0.5 flex-shrink-0" />
-                            <span className="text-gray-300 text-sm md:text-base break-words leading-relaxed">{rec}</span>
+                            <span className="text-gray-300 text-sm md:text-base leading-relaxed audit-text">{rec}</span>
                           </li>
                         ))}
                       </ul>
@@ -459,7 +459,7 @@ export default function Tools() {
                 )}
 
                 {/* Detailed Recommendations */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 auto-rows-fr">
                   {[
                     { key: 'performance', title: 'PERFORMANCE', mobileTitle: 'PERF', icon: <Zap className="w-4 md:w-5 h-4 md:h-5" />, color: 'yellow-300' },
                     { key: 'seo', title: 'SEO', mobileTitle: 'SEO', icon: <Search className="w-4 md:w-5 h-4 md:h-5" />, color: 'purple-300' },
@@ -471,7 +471,7 @@ export default function Tools() {
                     const recs = auditResult.recommendations[category.key as keyof typeof auditResult.recommendations];
                     return Array.isArray(recs) && recs.length > 0;
                   }).map((category) => (
-                    <div key={category.key} className="bg-gray-800/30 border border-gray-600/30 rounded-lg p-4 md:p-6">
+                    <div key={category.key} className="bg-gray-800/30 border border-gray-600/30 rounded-lg p-4 md:p-6 min-w-0 overflow-hidden">
                       <div className="flex items-center space-x-2 mb-3 md:mb-4">
                         {category.icon}
                         <h4 className={`text-base md:text-lg font-semibold text-${category.color} break-words`}>
@@ -483,7 +483,7 @@ export default function Tools() {
                         {(auditResult.recommendations[category.key as keyof typeof auditResult.recommendations] as string[])?.map((rec, index) => (
                           <li key={index} className="flex items-start space-x-2">
                             <ArrowRight className="w-3 md:w-4 h-3 md:h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-                            <span className="text-gray-300 text-xs md:text-sm break-words leading-relaxed">{rec}</span>
+                            <span className="text-gray-300 text-xs md:text-sm leading-relaxed audit-text">{rec}</span>
                           </li>
                         ))}
                       </ul>

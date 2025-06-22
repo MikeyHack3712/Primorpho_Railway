@@ -45,6 +45,23 @@
     line-height: 1.6;
   }
 
+  /* Text Wrapping Utilities */
+  .text-wrap-safe {
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    word-break: break-word;
+  }
+
+  /* Audit Results Text Formatting */
+  .audit-text {
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    word-break: break-word;
+    max-width: 100%;
+  }
+
   /* Mobile Optimizations */
   @media (max-width: 768px) {
     .neural-bg {
