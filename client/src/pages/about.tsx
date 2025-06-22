@@ -53,23 +53,23 @@ export default function About() {
             {[
               {
                 icon: <User className="w-8 h-8 text-cyan-300 opacity-80" />,
-                number: "100+",
-                label: "PROJECTS DELIVERED",
-                description: "Custom solutions built",
+                number: "7+",
+                label: "YEARS EXPERIENCE",
+                description: "Building websites",
                 color: "cyan-300"
               },
               {
                 icon: <Award className="w-8 h-8 text-yellow-300 opacity-80" />,
-                number: "99%",
-                label: "CLIENT SATISFACTION",
-                description: "Happy customers guaranteed",
+                number: "100%",
+                label: "COMMITMENT",
+                description: "Quality guaranteed",
                 color: "yellow-300"
               },
               {
                 icon: <Globe className="w-8 h-8 text-purple-300 opacity-80" />,
-                number: "7+",
-                label: "YEARS EXPERIENCE",
-                description: "Industry expertise",
+                number: "24H",
+                label: "RESPONSE TIME",
+                description: "Quick communication",
                 color: "purple-400"
               }
             ].map((stat, index) => (
