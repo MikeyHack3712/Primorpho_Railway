@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
-import { sendEmail } from "./sendgrid";
+import { sendEmailViaGmail } from "./gmail";
 import {
   contactFormSchema,
   slotReservationFormSchema,
@@ -82,9 +82,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         </div>
       `;
 
-      await sendEmail({
+      await sendEmailViaGmail({
         to: 'primorpho.solutions@gmail.com',
-        from: 'primorpho.solutions@gmail.com',
         subject: emailSubject,
         html: emailContent
       });
