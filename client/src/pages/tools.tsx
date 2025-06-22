@@ -51,6 +51,10 @@ interface AuditResult {
     priority?: string[];
     error?: string;
     suggestions?: string[];
+    analysis?: string[];
+    status?: string[];
+    timeline?: string[];
+    included?: string[];
   };
 }
 
@@ -203,7 +207,7 @@ export default function Tools() {
             {auditResult.recommendations.error ? (
               <div className="backdrop-blur-sm bg-red-900/30 border border-red-500/30 rounded-lg p-8 text-center">
                 <AlertTriangle className="w-16 h-16 text-red-400 mx-auto mb-4" />
-                <h3 className="text-2xl text-red-400 font-bold mb-4">ANALYSIS ERROR</h3>
+                <h3 className="text-2xl text-red-400 font-bold mb-4">WEBSITE ACCESS ERROR</h3>
                 <p className="text-gray-300 mb-6">{auditResult.recommendations.error}</p>
                 {auditResult.recommendations.suggestions && auditResult.recommendations.suggestions.length > 0 && (
                   <div className="text-left max-w-2xl mx-auto">
@@ -218,6 +222,73 @@ export default function Tools() {
                     </ul>
                   </div>
                 )}
+                <div className="mt-8">
+                  <Button
+                    className="bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white"
+                    onClick={() => window.location.href = '/contact?service=analysis'}
+                  >
+                    CONTACT FOR MANUAL ANALYSIS
+                  </Button>
+                </div>
+              </div>
+            ) : auditResult.recommendations.analysis ? (
+              <div className="backdrop-blur-sm bg-green-900/30 border border-green-500/30 rounded-lg p-8 text-center">
+                <Shield className="w-16 h-16 text-green-400 mx-auto mb-4" />
+                <h3 className="text-2xl text-green-400 font-bold mb-4">ANALYSIS REQUEST SUBMITTED</h3>
+                <p className="text-gray-300 mb-6">Your website analysis request has been successfully submitted for professional review.</p>
+                
+                <div className="grid md:grid-cols-2 gap-8 mt-8 text-left">
+                  <div className="bg-cyan-900/20 border border-cyan-500/30 rounded-lg p-6">
+                    <h4 className="text-lg text-cyan-300 font-semibold mb-4 flex items-center">
+                      <Clock className="w-5 h-5 mr-2" />
+                      TIMELINE
+                    </h4>
+                    <ul className="space-y-2">
+                      {auditResult.recommendations.timeline?.map((item, index) => (
+                        <li key={index} className="flex items-start space-x-2">
+                          <ArrowRight className="w-4 h-4 text-cyan-300 mt-0.5 flex-shrink-0" />
+                          <span className="text-gray-300">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-purple-900/20 border border-purple-500/30 rounded-lg p-6">
+                    <h4 className="text-lg text-purple-300 font-semibold mb-4 flex items-center">
+                      <Target className="w-5 h-5 mr-2" />
+                      ANALYSIS SCOPE
+                    </h4>
+                    <ul className="space-y-2">
+                      {auditResult.recommendations.included?.slice(0, 4).map((item, index) => (
+                        <li key={index} className="flex items-start space-x-2">
+                          <ArrowRight className="w-4 h-4 text-purple-300 mt-0.5 flex-shrink-0" />
+                          <span className="text-gray-300">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-8 space-y-4">
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Button
+                      className="bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white"
+                      onClick={() => window.location.href = '/contact?service=analysis'}
+                    >
+                      PROVIDE ADDITIONAL DETAILS
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="border-cyan-300/30 text-cyan-300 hover:bg-cyan-300/10"
+                      onClick={() => window.location.href = '/reserve-slot'}
+                    >
+                      BOOK CONSULTATION
+                    </Button>
+                  </div>
+                  <p className="text-sm text-gray-400">
+                    Check your email for confirmation and next steps. Our team will contact you within 24 hours.
+                  </p>
+                </div>
               </div>
             ) : (
               <div className="space-y-12">
