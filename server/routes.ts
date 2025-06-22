@@ -11,8 +11,7 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 import * as cheerio from "cheerio";
-import lighthouse from 'lighthouse';
-import * as chromeLauncher from 'chrome-launcher';
+// Lighthouse imports removed - using Google PageSpeed Insights API instead
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
