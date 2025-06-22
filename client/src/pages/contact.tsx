@@ -70,7 +70,7 @@ export default function Contact() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D intensity="subtle" />
       {/* Header Section */}
-      <section className="pt-24 md:pt-32 pb-12 md:pb-16 px-4">
+      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4">
         <div className="max-w-6xl mx-auto text-center">
 
           
@@ -88,7 +88,7 @@ export default function Contact() {
       </section>
 
       {/* Urgency Section */}
-      <section className="pb-12 md:pb-16 px-4">
+      <section className="pb-8 md:pb-12 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="backdrop-blur-sm bg-gray-900/30 border border-yellow-300/20 rounded-lg p-6 md:p-8 mb-12 md:mb-16">
             <div className="text-center">

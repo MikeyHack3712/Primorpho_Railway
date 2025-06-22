@@ -61,7 +61,7 @@ export default function Portfolio() {
     <div className="min-h-screen bg-background neural-bg relative">
       <Neural3D />
       {/* Header Section */}
-      <section className="pt-24 md:pt-32 pb-12 md:pb-16 px-4">
+      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4">
         <div className="max-w-6xl mx-auto text-center">
 
           
@@ -79,7 +79,7 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Grid */}
-      <section className="pb-16 md:pb-24 px-4">
+      <section className="pb-8 md:pb-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {projects.map((project, index) => (

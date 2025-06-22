@@ -166,7 +166,7 @@ export default function MoodBoard() {
       <Neural3D intensity="subtle" />
       
       {/* Header */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4">
         <div className="max-w-6xl mx-auto text-center">
 
           
@@ -181,7 +181,7 @@ export default function MoodBoard() {
         </div>
       </section>
 
-      <div className="pb-24 px-4">
+      <div className="pb-12 md:pb-16 px-4">
         <div className="max-w-7xl mx-auto">
           {!generatedBoard ? (
             <Form {...form}>

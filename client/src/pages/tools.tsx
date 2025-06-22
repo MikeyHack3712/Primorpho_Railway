@@ -113,7 +113,7 @@ export default function Tools() {
       <Neural3D intensity="subtle" />
       
       {/* Header */}
-      <section className="relative z-10 pt-20 md:pt-24 pb-12 md:pb-16 px-4">
+      <section className="relative z-10 pt-16 md:pt-20 pb-8 md:pb-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 page-title leading-tight">
@@ -127,7 +127,7 @@ export default function Tools() {
       </section>
 
       {/* Audit Form */}
-      <section className="relative z-10 py-12 md:py-16 px-4">
+      <section className="relative z-10 py-8 md:py-12 px-4">
         <div className="max-w-2xl mx-auto">
           <Card className="backdrop-blur-sm bg-gray-900/50 border-gray-700/50">
             <CardHeader className="pb-4 md:pb-6">
