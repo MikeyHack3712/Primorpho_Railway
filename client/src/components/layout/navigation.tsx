@@ -58,14 +58,7 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* Desktop CTA Button */}
-          <div className="hidden md:flex items-center">
-            <Button className="relative tracking-wide transition-all duration-300 bg-cyan-300/10 border border-cyan-300/20 text-cyan-300 hover:bg-cyan-300/15 hover:border-cyan-300/30 hover:text-cyan-200" asChild>
-              <Link href="/contact">
-                GET STARTED
-              </Link>
-            </Button>
-          </div>
+
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -103,13 +96,7 @@ export default function Navigation() {
                   </div>
                 </Link>
               ))}
-              <div className="pt-4">
-                <Button className="w-full bg-cyan-300/10 border border-cyan-300/20 text-cyan-300 hover:bg-cyan-300/15" asChild>
-                  <Link href="/contact" onClick={() => setIsOpen(false)}>
-                    GET STARTED
-                  </Link>
-                </Button>
-              </div>
+
             </div>
           </div>
         )}
