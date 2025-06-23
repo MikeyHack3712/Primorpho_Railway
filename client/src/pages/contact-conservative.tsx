@@ -235,23 +235,23 @@ export default function ContactConservative() {
               </div>
 
               <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Project Status</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Performance Metrics</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Available Slots</span>
-                    <span className="text-blue-600 font-semibold">02</span>
+                    <span className="text-gray-600">Average ROI Increase</span>
+                    <span className="text-green-600 font-semibold">247%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Project Success Rate</span>
+                    <span className="text-blue-600 font-semibold">100%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Client Retention</span>
+                    <span className="text-purple-600 font-semibold">95%</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Response Time</span>
-                    <span className="text-green-600 font-semibold">&lt; 24H</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Next Available</span>
-                    <span className="text-orange-600 font-semibold">IMMEDIATE</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Success Rate</span>
-                    <span className="text-blue-600 font-semibold">100%</span>
+                    <span className="text-green-600 font-semibold">&lt; 4H</span>
                   </div>
                 </div>
               </div>

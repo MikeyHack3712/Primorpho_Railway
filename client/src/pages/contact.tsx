@@ -288,24 +288,24 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="backdrop-blur-sm bg-gray-900/30 border border-yellow-300/20 rounded-lg p-8">
-                <h3 className="text-yellow-300 text-2xl tracking-wide mb-6 text-subheading">NEURAL STATUS</h3>
+              <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-8">
+                <h3 className="text-cyan-300 text-2xl tracking-wide mb-6 text-subheading">STRATEGIC METRICS</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-readable">Available Slots</span>
-                    <span className="text-cyan-300 font-semibold">02</span>
+                    <span className="text-readable">Average ROI Increase</span>
+                    <span className="text-green-300 font-semibold">247%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-readable">Project Success Rate</span>
+                    <span className="text-cyan-300 font-semibold">100%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-readable">Client Retention</span>
+                    <span className="text-purple-300 font-semibold">95%</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-readable">Response Time</span>
-                    <span className="text-yellow-300 font-semibold">&lt; 24H</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-readable">Next Available</span>
-                    <span className="text-purple-300 font-semibold">IMMEDIATE</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-readable">Success Rate</span>
-                    <span className="text-cyan-300 font-semibold">100%</span>
+                    <span className="text-yellow-300 font-semibold">&lt; 4H</span>
                   </div>
                 </div>
               </div>
