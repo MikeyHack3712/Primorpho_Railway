@@ -66,18 +66,13 @@ export default function BookConsultation() {
       const selectedSlot = timeSlots.find(t => t.id === selectedTime);
       
       // Make API call to book the consultation
-      const response = await apiRequest("/api/book-consultation", {
+      const result = await apiRequest("/api/book-consultation", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           consultationType,
           selectedTime,
         }),
       });
-
-      const result = await response.json();
       
       if (result.success) {
         toast({
