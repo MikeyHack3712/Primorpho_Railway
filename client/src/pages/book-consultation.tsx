@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Video, Phone, CheckCircle, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 import Neural3D from "@/components/ui/neural-3d";
 
 export default function BookConsultation() {
@@ -64,23 +65,38 @@ export default function BookConsultation() {
       const selectedConsultation = consultationTypes.find(t => t.id === consultationType);
       const selectedSlot = timeSlots.find(t => t.id === selectedTime);
       
-      // Here you would typically make an API call to book the consultation
-      // For now, we'll simulate a successful booking
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      toast({
-        title: "Booking Confirmed!",
-        description: `Your ${selectedConsultation?.name} for ${selectedSlot?.label} has been booked. You'll receive a confirmation email shortly.`,
+      // Make API call to book the consultation
+      const response = await apiRequest("/api/book-consultation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          consultationType,
+          selectedTime,
+        }),
       });
+
+      const result = await response.json();
       
-      // Reset the form
-      setConsultationType("");
-      setSelectedTime("");
+      if (result.success) {
+        toast({
+          title: "Booking Confirmed!",
+          description: `Your ${selectedConsultation?.name} for ${selectedSlot?.label} has been booked. You'll receive a confirmation email shortly.`,
+        });
+        
+        // Reset the form
+        setConsultationType("");
+        setSelectedTime("");
+      } else {
+        throw new Error(result.error || "Booking failed");
+      }
       
-    } catch (error) {
+    } catch (error: any) {
+      console.error("Booking error:", error);
       toast({
         title: "Booking Failed",
-        description: "There was an error booking your consultation. Please try again or contact us directly.",
+        description: error.message || "There was an error booking your consultation. Please try again or contact us directly.",
         variant: "destructive",
       });
     } finally {

@@ -111,6 +111,107 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Book consultation endpoint
+  app.post("/api/book-consultation", async (req, res) => {
+    try {
+      const bookingSchema = z.object({
+        consultationType: z.string(),
+        selectedTime: z.string(),
+        name: z.string().optional(),
+        email: z.string().email().optional()
+      });
+
+      const { consultationType, selectedTime, name, email } = bookingSchema.parse(req.body);
+      
+      // For now, we'll use placeholder values for name and email if not provided
+      const clientName = name || "Consultation Client";
+      const clientEmail = email || "client@example.com";
+      
+      const consultationTypes = {
+        "project-consultation": { name: "PROJECT CONSULTATION", duration: "30 minutes" },
+        "technical-review": { name: "TECHNICAL REVIEW", duration: "45 minutes" },
+        "strategy-session": { name: "STRATEGY SESSION", duration: "60 minutes" }
+      };
+
+      const timeSlots = {
+        "9am": "9:00 AM EST",
+        "11am": "11:00 AM EST", 
+        "2pm": "2:00 PM EST",
+        "3pm": "3:00 PM EST"
+      };
+
+      const selectedConsultation = consultationTypes[consultationType as keyof typeof consultationTypes];
+      const selectedSlot = timeSlots[selectedTime as keyof typeof timeSlots];
+
+      // Send confirmation email
+      const emailSubject = `🎯 Consultation Booked: ${selectedConsultation?.name}`;
+      const emailContent = `
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; color: #333333; padding: 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%); padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="color: #ffffff; font-size: 32px; margin: 0; font-weight: 700; letter-spacing: 1px;">PRIMORPHO</h1>
+            <div style="color: rgba(255, 255, 255, 0.9); font-size: 16px; margin-top: 8px; font-weight: 500;">Consultation Booking Confirmed</div>
+          </div>
+          
+          <!-- Content -->
+          <div style="padding: 40px;">
+            <div style="background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 8px; padding: 30px; margin-bottom: 30px;">
+              <h2 style="color: #1e293b; font-size: 24px; margin: 0 0 20px 0; font-weight: 600;">Booking Details</h2>
+              
+              <div style="display: grid; gap: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                  <span style="font-weight: 600; color: #475569;">Client:</span>
+                  <span style="color: #1e293b;">${clientName}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                  <span style="font-weight: 600; color: #475569;">Type:</span>
+                  <span style="color: #0ea5e9; font-weight: 600;">${selectedConsultation?.name}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+                  <span style="font-weight: 600; color: #475569;">Time:</span>
+                  <span style="color: #f59e0b; font-weight: 600;">${selectedSlot}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+                  <span style="font-weight: 600; color: #475569;">Duration:</span>
+                  <span style="color: #8b5cf6; font-weight: 600;">${selectedConsultation?.duration}</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+              <h3 style="color: #92400e; font-size: 18px; margin: 0 0 10px 0; font-weight: 600;">⚡ Action Required</h3>
+              <p style="color: #92400e; margin: 0; font-weight: 500;">Calendar invite and meeting details will be sent within 2 hours.</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+              <div style="background: #f1f5f9; border-radius: 8px; padding: 20px;">
+                <p style="color: #475569; margin: 0; font-size: 14px;">Questions? Reply to this email or call us directly.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      await sendEmailViaGmail({
+        to: process.env.GMAIL_USER || 'your-email@gmail.com',
+        subject: emailSubject,
+        html: emailContent
+      });
+
+      res.json({ 
+        success: true, 
+        message: "Consultation booked successfully! You'll receive a confirmation email shortly."
+      });
+
+    } catch (error: any) {
+      console.error("Booking consultation error:", error);
+      res.status(400).json({ 
+        success: false, 
+        error: error.message || "Failed to book consultation" 
+      });
+    }
+  });
+
   // Test endpoint to demonstrate authentic Lighthouse data structure
   app.post('/api/audit-demo', async (req, res) => {
     const { websiteUrl: rawUrl } = auditFormSchema.parse(req.body);
