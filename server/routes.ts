@@ -338,18 +338,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     try {
-      // Call Google PageSpeed Insights API for both mobile and desktop
-      const mobileUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(websiteUrl)}&key=${apiKey}&strategy=mobile&category=performance&category=seo&category=accessibility&category=best-practices`;
+      // Call Google PageSpeed Insights API for desktop (matches standard Lighthouse reports)
       const desktopUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(websiteUrl)}&key=${apiKey}&strategy=desktop&category=performance&category=seo&category=accessibility&category=best-practices`;
 
       console.log('Calling Google PageSpeed Insights API...');
-      const [mobileResponse, desktopResponse] = await Promise.all([
-        fetch(mobileUrl),
-        fetch(desktopUrl)
-      ]);
+      const desktopResponse = await fetch(desktopUrl);
 
-      if (!mobileResponse.ok || !desktopResponse.ok) {
-        const errorData = !mobileResponse.ok ? await mobileResponse.json() : await desktopResponse.json();
+      if (!desktopResponse.ok) {
+        const errorData = await desktopResponse.json();
         console.error('PageSpeed API error:', errorData);
         
         if (errorData.error?.message?.includes('API key not valid')) {
@@ -402,31 +398,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      const mobileData = await mobileResponse.json();
       const desktopData = await desktopResponse.json();
 
-      // Extract Lighthouse scores (using desktop scores as primary, mobile for mobile-specific)
+      // Extract authentic Lighthouse scores exactly as Google reports them
       const lighthouseResult = desktopData.lighthouseResult;
-      const mobileLighthouseResult = mobileData.lighthouseResult;
       
       const performanceScore = Math.round((lighthouseResult.categories.performance?.score || 0) * 100);
       const seoScore = Math.round((lighthouseResult.categories.seo?.score || 0) * 100);
       const accessibilityScore = Math.round((lighthouseResult.categories.accessibility?.score || 0) * 100);
       const bestPracticesScore = Math.round((lighthouseResult.categories['best-practices']?.score || 0) * 100);
-      const mobilePerformanceScore = Math.round((mobileLighthouseResult.categories.performance?.score || 0) * 100);
 
-      // Calculate overall score
-      const overallScore = Math.round(
-        (performanceScore * 0.25) +
-        (seoScore * 0.25) +
-        (bestPracticesScore * 0.20) +
-        (mobilePerformanceScore * 0.15) +
-        (accessibilityScore * 0.15)
-      );
+      // Use Google's standard overall score calculation (performance score as primary indicator)
+      const overallScore = performanceScore;
 
       // Extract key metrics
       const audits = lighthouseResult.audits;
-      const mobileAudits = mobileLighthouseResult.audits;
 
       // Performance metrics from Lighthouse
       const loadTime = Math.round(audits['largest-contentful-paint']?.numericValue || 0);
@@ -442,7 +428,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         seo: extractLighthouseRecommendations(lighthouseResult, 'seo'),
         accessibility: extractLighthouseRecommendations(lighthouseResult, 'accessibility'),
         security: extractLighthouseRecommendations(lighthouseResult, 'best-practices'),
-        mobile: extractLighthouseRecommendations(mobileLighthouseResult, 'performance'),
+        mobile: extractLighthouseRecommendations(lighthouseResult, 'accessibility'),
         technical: extractLighthouseRecommendations(lighthouseResult, 'best-practices'),
         priority: [
           ...extractLighthouseRecommendations(lighthouseResult, 'performance').slice(0, 2),
@@ -461,7 +447,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         performanceScore,
         seoScore,
         securityScore: bestPracticesScore,
-        mobileScore: mobilePerformanceScore,
+        mobileScore: accessibilityScore,
         accessibilityScore,
         technicalScore: bestPracticesScore,
         contentScore: seoScore,
