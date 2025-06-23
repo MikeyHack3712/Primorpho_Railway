@@ -32,7 +32,10 @@ export default function ContactConservative() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: ContactFormData & { isAuditRequest?: boolean }) => {
-      return await apiRequest("/api/contact", "POST", data);
+      return await apiRequest("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(data)
+      });
     },
     onSuccess: () => {
       form.reset();

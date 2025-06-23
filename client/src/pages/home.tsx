@@ -113,11 +113,11 @@ export default function Home() {
               </Button>
               <Button 
                 size="lg" 
-                className="cyber-button bg-yellow-400/20 border-yellow-400 text-yellow-400 hover:bg-yellow-400/30 font-cyber px-12 py-6 text-lg"
+                className="cyber-button bg-purple-400/20 border-purple-400 text-purple-400 hover:bg-purple-400/30 font-cyber px-12 py-6 text-lg"
                 asChild
               >
-                <Link href="/tools">
-                  WEBSITE ANALYSIS
+                <Link href="/portfolio">
+                  VIEW PORTFOLIO
                 </Link>
               </Button>
             </div>
