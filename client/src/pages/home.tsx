@@ -99,7 +99,7 @@ export default function Home() {
               SMART INVESTMENT IN YOUR SUCCESS
             </h2>
             <p className="text-lg md:text-xl mb-8 md:mb-12 text-readable max-w-3xl mx-auto">
-              Strategic websites that deliver measurable ROI. <span className="text-yellow-300">Accelerated growth</span>, <span className="text-purple-300">premium positioning</span>, and <span className="text-cyan-300">competitive advantage</span>.
+              Your website becomes your best salesperson - working 24/7 to tell your story, showcase your expertise, and convert visitors into customers. <span className="text-yellow-300">Automated credibility</span>, <span className="text-purple-300">always-on sales</span>, and <span className="text-cyan-300">hands-free growth</span>.
             </p>
             <div className="flex flex-col lg:flex-row gap-8 justify-center">
               <Button 
