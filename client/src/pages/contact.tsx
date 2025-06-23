@@ -87,19 +87,19 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Urgency Section */}
+      {/* Excellence Section */}
       <section className="pb-6 md:pb-12 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="backdrop-blur-sm bg-gray-900/30 border border-yellow-300/20 rounded-lg p-4 md:p-6 mb-6 md:mb-12">
+          <div className="backdrop-blur-sm bg-gray-900/30 border border-cyan-300/20 rounded-lg p-4 md:p-6 mb-6 md:mb-12">
             <div className="text-center">
-              <Badge className="mb-3 md:mb-4 bg-yellow-300/20 text-yellow-300 border-yellow-300/50 text-sm md:text-lg px-3 md:px-4 py-1 md:py-2">
-                LIMITED AVAILABILITY
+              <Badge className="mb-3 md:mb-4 bg-cyan-300/20 text-cyan-300 border-cyan-300/50 text-sm md:text-lg px-3 md:px-4 py-1 md:py-2">
+                PREMIUM PARTNERSHIP
               </Badge>
               <h2 className="text-cyan-300 text-xl md:text-2xl tracking-wide mb-4 md:mb-6 text-subheading">
-                ONLY <span className="text-yellow-300">2 SLOTS</span> REMAINING THIS MONTH
+                STRATEGIC DEVELOPMENT FOR <span className="text-yellow-300">GROWTH-FOCUSED</span> BUSINESSES
               </h2>
               <p className="text-readable mb-4 md:mb-6 text-sm md:text-base">
-                Secure your project slot before they're gone.
+                Dedicated expertise for leaders who value measurable results and competitive advantage.
               </p>
               <div className="grid grid-cols-3 gap-2 md:gap-4">
                 <div className="text-center">

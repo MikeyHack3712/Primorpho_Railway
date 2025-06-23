@@ -323,7 +323,7 @@ export default function ReserveSlot() {
                               disabled={!slot.available}
                               className={!slot.available ? "opacity-50" : ""}
                             >
-                              {slot.label} {!slot.available && "(FULLY BOOKED)"}
+                              {slot.label} {!slot.available && "(RESERVED)"}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -333,17 +333,18 @@ export default function ReserveSlot() {
                       )}
                     </div>
 
-                    <div className="backdrop-blur-sm bg-gray-900/50 border border-yellow-400/30 rounded-lg p-6">
-                      <h3 className="text-lg text-yellow-400 mb-4">SLOT AVAILABILITY</h3>
+                    <div className="backdrop-blur-sm bg-gray-900/50 border border-cyan-400/30 rounded-lg p-6">
+                      <h3 className="text-lg text-cyan-400 mb-4">DEVELOPMENT SCHEDULING</h3>
+                      <p className="text-gray-300 text-sm mb-4">Choose your preferred project timeline based on your strategic objectives and launch goals.</p>
                       <div className="grid md:grid-cols-2 gap-4">
                         {availableSlots.map((slot) => (
                           <div key={slot.id} className="flex items-center justify-between">
                             <span className="text-gray-300 text-sm">{slot.label}</span>
                             <Badge className={slot.available 
                               ? "bg-cyan-400/20 text-cyan-400 border-cyan-400/30" 
-                              : "bg-red-500/20 text-red-400 border-red-500/30"
+                              : "bg-gray-500/20 text-gray-400 border-gray-500/30"
                             }>
-                              {slot.available ? "AVAILABLE" : "BOOKED"}
+                              {slot.available ? "OPEN" : "RESERVED"}
                             </Badge>
                           </div>
                         ))}
