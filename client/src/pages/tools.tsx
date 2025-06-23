@@ -125,7 +125,7 @@ export default function Tools() {
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">CHECKER</span>
           </h1>
           <p className="text-base md:text-xl text-gray-300 mb-8 md:mb-12 max-w-3xl mx-auto px-4">
-            Check how your website is performing and get tips to improve it.
+            <span className="text-yellow-300 font-semibold">Already have a website?</span> Analyze your existing site's performance, SEO, and mobile optimization to identify improvement opportunities.
           </p>
         </div>
       </section>
@@ -147,7 +147,7 @@ export default function Tools() {
                     <h3 className="text-lg md:text-xl text-green-400 font-semibold">QUICK CHECK</h3>
                   </div>
                   <p className="text-gray-300 text-sm md:text-base">
-                    See how fast your site loads, how well it shows up in Google, and if it works on phones.
+                    <span className="text-cyan-300 font-medium">For existing websites:</span> See how fast your site loads, how well it shows up in Google, and if it works on phones.
                   </p>
                 </div>
 

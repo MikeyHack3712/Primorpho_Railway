@@ -13,7 +13,7 @@ export default function Navigation() {
     { href: "/services", label: "Services" },
     { href: "/portfolio", label: "Portfolio" },
     { href: "/mood-board", label: "Vision Board", special: true },
-    { href: "/tools", label: "Free Audit", special: true },
+    { href: "/tools", label: "Website Audit", special: true },
     { href: "/contact", label: "Contact" }
   ];
 
