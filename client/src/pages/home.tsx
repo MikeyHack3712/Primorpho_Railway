@@ -96,10 +96,10 @@ export default function Home() {
         <div className="max-w-5xl mx-auto text-center relative">
           <div className="glass-card p-8 md:p-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 md:mb-8 font-cyber text-cyan-400 text-heading">
-              READY TO START?
+              SMART INVESTMENT IN YOUR SUCCESS
             </h2>
             <p className="text-lg md:text-xl mb-8 md:mb-12 text-readable max-w-3xl mx-auto">
-              Let's build something extraordinary.
+              Strategic websites that deliver measurable ROI. <span className="text-yellow-300">Accelerated growth</span>, <span className="text-purple-300">premium positioning</span>, and <span className="text-cyan-300">competitive advantage</span>.
             </p>
             <div className="flex flex-col lg:flex-row gap-8 justify-center">
               <Button 

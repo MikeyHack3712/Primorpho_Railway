@@ -111,8 +111,7 @@ export default function BookConsultation() {
               BOOK CONSULTATION
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Schedule a direct call with our development team. 
-              Get expert insights and detailed project analysis.
+              Strategic consultation for business leaders who value expert guidance and efficient solutions.
             </p>
           </div>
         </div>

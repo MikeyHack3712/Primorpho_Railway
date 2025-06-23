@@ -28,7 +28,7 @@ const packages: Package[] = [
     duration: "1-2 WEEKS",
     color: "yellow-400",
     icon: <Rocket className="w-8 h-8 text-yellow-400" />,
-    description: "Get your business online fast with a professional website.",
+    description: "Fast market entry with professional digital presence that converts visitors to customers.",
     features: [
       "3-5 Page Website",
       "Mobile Responsive Design", 
@@ -46,7 +46,7 @@ const packages: Package[] = [
     duration: "2-3 WEEKS",
     color: "purple-400",
     icon: <Zap className="w-8 h-8 text-purple-400" />,
-    description: "A complete website solution for growing businesses.",
+    description: "Comprehensive digital platform that drives revenue growth and establishes market authority.",
     features: [
       "8-12 Page Website",
       "Custom Design System",
@@ -67,7 +67,7 @@ const packages: Package[] = [
     duration: "3-4 WEEKS + ONGOING",
     color: "cyan-400", 
     icon: <Shield className="w-8 h-8 text-cyan-400" />,
-    description: "Advanced website with smart features and ongoing support.",
+    description: "Premium digital infrastructure for market leaders who demand exceptional performance and ROI.",
     features: [
       "Unlimited Pages",
       "Custom Web Application",
@@ -100,7 +100,7 @@ export default function Services() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">PACKAGES</span>
           </h1>
           <p className="text-lg md:text-xl text-readable mb-6 md:mb-8 max-w-3xl mx-auto px-4">
-            Choose the right package for your business.
+            Strategic website solutions designed for businesses that value efficiency and measurable results.
           </p>
         </div>
       </section>
