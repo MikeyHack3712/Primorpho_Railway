@@ -35,6 +35,7 @@ export default function Footer() {
               <li><Link href="/services" className="hover:text-cyan-400 transition-colors">LaunchPad</Link></li>
               <li><Link href="/services" className="hover:text-cyan-400 transition-colors">Pro Presence</Link></li>
               <li><Link href="/services" className="hover:text-cyan-400 transition-colors">Smart Business</Link></li>
+              <li><Link href="/tools" className="hover:text-yellow-400 transition-colors">Website Audit</Link></li>
             </ul>
           </div>
 

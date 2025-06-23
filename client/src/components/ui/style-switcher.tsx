@@ -25,7 +25,7 @@ export default function StyleSwitcher() {
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" className="gap-2">
           <Palette className="h-4 w-4" />
-          {currentStyle === 'conservative' ? 'Business' : 'Tech'}
+          {currentStyle === 'conservative' ? 'Business' : 'Cyberpunk'}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -33,7 +33,7 @@ export default function StyleSwitcher() {
           onClick={() => switchStyle('cyberpunk')}
           className={currentStyle === 'cyberpunk' ? 'bg-accent' : ''}
         >
-          Tech Style (Current)
+          Cyberpunk Style
         </DropdownMenuItem>
         <DropdownMenuItem 
           onClick={() => switchStyle('conservative')}
