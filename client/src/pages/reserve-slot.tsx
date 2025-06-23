@@ -155,27 +155,27 @@ export default function ReserveSlot() {
               BOOK PROJECT SLOT
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Reserve your website development slot. Limited availability - only 2 spots remaining this month.
+              Strategic project planning and development partnership for businesses seeking premium digital solutions.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Urgency Alert */}
+      {/* Value Proposition */}
       <section className="py-8 relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="backdrop-blur-sm bg-gray-900/50 border border-yellow-400/50 rounded-lg p-6">
+          <div className="backdrop-blur-sm bg-gray-900/50 border border-cyan-400/50 rounded-lg p-6">
             <div className="flex items-center justify-center gap-4">
-              <AlertTriangle className="w-6 h-6 text-yellow-400" />
+              <Zap className="w-6 h-6 text-cyan-400" />
               <div className="text-center">
-                <Badge className="mb-2 bg-yellow-400/20 text-yellow-400 border-yellow-400/50">
-                  HIGH DEMAND
+                <Badge className="mb-2 bg-cyan-400/20 text-cyan-400 border-cyan-400/50">
+                  STRATEGIC PARTNERSHIP
                 </Badge>
                 <p className="text-gray-300">
-                  <span className="text-yellow-400 font-bold">2 SLOTS REMAINING</span> - Reserve now for January/February
+                  <span className="text-cyan-400 font-bold">PREMIUM DEVELOPMENT</span> - Tailored solutions for business growth
                 </p>
               </div>
-              <Clock className="w-6 h-6 text-yellow-400" />
+              <CheckCircle className="w-6 h-6 text-cyan-400" />
             </div>
           </div>
         </div>

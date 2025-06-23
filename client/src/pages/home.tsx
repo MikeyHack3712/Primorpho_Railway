@@ -108,7 +108,7 @@ export default function Home() {
                 asChild
               >
                 <Link href="/contact">
-                  START TRANSFORMATION
+                  GET STARTED
                 </Link>
               </Button>
               <Button 
@@ -117,7 +117,7 @@ export default function Home() {
                 asChild
               >
                 <Link href="/tools">
-                  FREE NEURAL AUDIT
+                  WEBSITE ANALYSIS
                 </Link>
               </Button>
             </div>

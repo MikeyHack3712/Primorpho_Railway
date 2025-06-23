@@ -27,7 +27,7 @@ export default function BookConsultation() {
       id: "project-consultation",
       name: "PROJECT CONSULTATION",
       duration: "30 minutes",
-      description: "Discuss your project requirements and get detailed technical analysis",
+      description: "Strategic project assessment with ROI analysis and efficiency optimization recommendations",
       color: "primary",
       icon: <Zap className="w-5 h-5" />,
     },
@@ -35,7 +35,7 @@ export default function BookConsultation() {
       id: "technical-review",
       name: "TECHNICAL REVIEW",
       duration: "45 minutes", 
-      description: "In-depth technical discussion about architecture and implementation",
+      description: "Comprehensive technical planning focused on scalability, performance, and cost efficiency",
       color: "purple-400",
       icon: <Video className="w-5 h-5" />,
     },
@@ -43,7 +43,7 @@ export default function BookConsultation() {
       id: "strategy-session",
       name: "STRATEGY SESSION",
       duration: "60 minutes",
-      description: "Comprehensive business strategy and digital transformation planning",
+      description: "Executive-level strategic planning for digital transformation and competitive positioning",
       color: "yellow-400",
       icon: <CheckCircle className="w-5 h-5" />,
     },
@@ -122,11 +122,11 @@ export default function BookConsultation() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-8">
             <div className="text-center mb-8">
-              <Badge className="mb-4 bg-yellow-400/20 text-yellow-400 border-yellow-400/30 text-lg px-4 py-2">
-                ⚡ FREE CONSULTATION ⚡
+              <Badge className="mb-4 bg-cyan-400/20 text-cyan-400 border-cyan-400/30 text-lg px-4 py-2">
+                STRATEGIC CONSULTATION
               </Badge>
               <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-300">
-                GET EXPERT <span className="text-cyan-400">ANALYSIS</span>
+                PROFESSIONAL <span className="text-cyan-400">ASSESSMENT</span>
               </h2>
             </div>
             
