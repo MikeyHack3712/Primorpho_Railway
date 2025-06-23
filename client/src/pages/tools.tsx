@@ -406,14 +406,12 @@ export default function Tools() {
                 )}
 
                 {/* Performance Metrics */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                   {[
-                    { label: "SPEED", mobileLabel: "SPEED", score: auditResult.performanceScore, icon: <Zap className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
-                    { label: "GOOGLE RANKING", mobileLabel: "GOOGLE", score: auditResult.seoScore, icon: <Search className="w-5 md:w-6 h-5 md:h-6" />, color: "purple-300" },
-                    { label: "SECURITY", mobileLabel: "SECURE", score: auditResult.securityScore, icon: <Shield className="w-5 md:w-6 h-5 md:h-6" />, color: "yellow-300" },
-                    { label: "MOBILE FRIENDLY", mobileLabel: "MOBILE", score: auditResult.mobileScore, icon: <Smartphone className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
+                    { label: "PERFORMANCE", mobileLabel: "PERF", score: auditResult.performanceScore, icon: <Zap className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
                     { label: "ACCESSIBILITY", mobileLabel: "ACCESS", score: auditResult.accessibilityScore, icon: <Eye className="w-5 md:w-6 h-5 md:h-6" />, color: "purple-300" },
-                    ...(auditResult.technicalScore ? [{ label: "TECHNICAL", mobileLabel: "TECH", score: auditResult.technicalScore, icon: <Target className="w-5 md:w-6 h-5 md:h-6" />, color: "pink-300" }] : [])
+                    { label: "BEST PRACTICES", mobileLabel: "BEST", score: auditResult.securityScore, icon: <Shield className="w-5 md:w-6 h-5 md:h-6" />, color: "yellow-300" },
+                    { label: "SEO", mobileLabel: "SEO", score: auditResult.seoScore, icon: <Search className="w-5 md:w-6 h-5 md:h-6" />, color: "green-300" }
                   ].map((metric, index) => (
                     <Card key={index} className="backdrop-blur-sm bg-gray-900/50 border-gray-700/50">
                       <CardContent className="p-3 md:p-6 text-center">
