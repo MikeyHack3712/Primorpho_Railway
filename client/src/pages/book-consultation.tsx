@@ -107,8 +107,8 @@ export default function BookConsultation() {
       <section className="py-20 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 bg-clip-text text-transparent">
-              BOOK CONSULTATION
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 page-title leading-tight">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-yellow-300 animate-gradient">BOOK CONSULTATION</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Strategic consultation for business leaders who value expert guidance and efficient solutions.

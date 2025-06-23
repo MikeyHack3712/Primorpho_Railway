@@ -437,6 +437,7 @@ Changelog:
   * Removed all outdated font-cyber classes and white-highlight text in favor of standardized color palette
   * Fixed form inputs, buttons, badges, and navigation elements to use unified design system
   * All pages now display with professional coordination and consistent visual hierarchy
+  * Fixed "BOOK CONSULTATION" page title to use animated gradient styling matching all other page headers
 - June 23, 2025. Pivoted marketing strategy from FOMO tactics to value-driven messaging for wealthy clients
   * Removed all "limited slots" and scarcity-based messaging that targets FOMO behavior
   * Updated home page call-to-action: "SMART INVESTMENT IN YOUR SUCCESS" with ROI-focused benefits
