@@ -353,38 +353,38 @@ export default function Tools() {
               <div className="space-y-12">
                 {/* Google Lighthouse Results Header */}
                 <div className="text-center backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-6">
-                  <h3 className="text-xl text-gray-300 mb-4">GOOGLE LIGHTHOUSE ANALYSIS</h3>
-                  <p className="text-gray-400 text-sm">Powered by Google PageSpeed Insights API</p>
+                  <h3 className="text-xl text-gray-300 mb-4">YOUR WEBSITE REPORT</h3>
+                  <p className="text-gray-400 text-sm">Powered by Google's website testing tools</p>
                 </div>
 
                 {/* Core Web Vitals */}
                 {(auditResult as any).lighthouseData && (
                   <div className="backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-4 md:p-8">
-                    <h3 className="text-lg md:text-xl text-gray-300 mb-4 md:mb-6 text-center">CORE WEB VITALS</h3>
+                    <h3 className="text-lg md:text-xl text-gray-300 mb-4 md:mb-6 text-center">SPEED METRICS</h3>
                     <div className="grid grid-cols-2 gap-4 md:gap-6">
                       <div className="text-center">
                         <div className="text-xl md:text-2xl font-bold text-cyan-300 mb-2">
                           {(auditResult as any).lighthouseData.fcp ? `${((auditResult as any).lighthouseData.fcp / 1000).toFixed(1)}s` : 'N/A'}
                         </div>
-                        <div className="text-xs md:text-sm text-gray-400 break-words">First Contentful Paint</div>
+                        <div className="text-xs md:text-sm text-gray-400 break-words">First Content Shows</div>
                       </div>
                       <div className="text-center">
                         <div className="text-xl md:text-2xl font-bold text-purple-300 mb-2">
                           {(auditResult as any).lighthouseData.lcp ? `${((auditResult as any).lighthouseData.lcp / 1000).toFixed(1)}s` : 'N/A'}
                         </div>
-                        <div className="text-xs md:text-sm text-gray-400 break-words">Largest Contentful Paint</div>
+                        <div className="text-xs md:text-sm text-gray-400 break-words">Main Content Loads</div>
                       </div>
                       <div className="text-center">
                         <div className="text-xl md:text-2xl font-bold text-yellow-300 mb-2">
                           {(auditResult as any).lighthouseData.cls ? (auditResult as any).lighthouseData.cls.toFixed(3) : 'N/A'}
                         </div>
-                        <div className="text-xs md:text-sm text-gray-400 break-words">Layout Shift</div>
+                        <div className="text-xs md:text-sm text-gray-400 break-words">Page Stability</div>
                       </div>
                       <div className="text-center">
                         <div className="text-xl md:text-2xl font-bold text-green-300 mb-2">
                           {(auditResult as any).lighthouseData.tbt ? `${(auditResult as any).lighthouseData.tbt}ms` : 'N/A'}
                         </div>
-                        <div className="text-xs md:text-sm text-gray-400 break-words">Blocking Time</div>
+                        <div className="text-xs md:text-sm text-gray-400 break-words">Response Speed</div>
                       </div>
                     </div>
                   </div>
@@ -394,7 +394,7 @@ export default function Tools() {
                 {auditResult.overallScore && (
                   <div className="text-center">
                     <div className="inline-block backdrop-blur-sm bg-gray-900/50 border border-gray-700/50 rounded-lg p-6 md:p-8 w-full sm:w-auto">
-                      <h3 className="text-lg md:text-xl text-gray-300 mb-3 md:mb-4">OVERALL PERFORMANCE SCORE</h3>
+                      <h3 className="text-lg md:text-xl text-gray-300 mb-3 md:mb-4">OVERALL WEBSITE SCORE</h3>
                       <div className={`text-6xl font-bold mb-4 ${getScoreColor(auditResult.overallScore)}`}>
                         {auditResult.overallScore}
                       </div>
@@ -408,10 +408,10 @@ export default function Tools() {
                 {/* Performance Metrics */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                   {[
-                    { label: "PERFORMANCE", mobileLabel: "PERF", score: auditResult.performanceScore, icon: <Zap className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
-                    { label: "SEO", mobileLabel: "SEO", score: auditResult.seoScore, icon: <Search className="w-5 md:w-6 h-5 md:h-6" />, color: "purple-300" },
-                    { label: "BEST PRACTICES", mobileLabel: "PRACTICES", score: auditResult.securityScore, icon: <Shield className="w-5 md:w-6 h-5 md:h-6" />, color: "yellow-300" },
-                    { label: "MOBILE", mobileLabel: "MOBILE", score: auditResult.mobileScore, icon: <Smartphone className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
+                    { label: "SPEED", mobileLabel: "SPEED", score: auditResult.performanceScore, icon: <Zap className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
+                    { label: "GOOGLE RANKING", mobileLabel: "GOOGLE", score: auditResult.seoScore, icon: <Search className="w-5 md:w-6 h-5 md:h-6" />, color: "purple-300" },
+                    { label: "SECURITY", mobileLabel: "SECURE", score: auditResult.securityScore, icon: <Shield className="w-5 md:w-6 h-5 md:h-6" />, color: "yellow-300" },
+                    { label: "MOBILE FRIENDLY", mobileLabel: "MOBILE", score: auditResult.mobileScore, icon: <Smartphone className="w-5 md:w-6 h-5 md:h-6" />, color: "cyan-300" },
                     { label: "ACCESSIBILITY", mobileLabel: "ACCESS", score: auditResult.accessibilityScore, icon: <Eye className="w-5 md:w-6 h-5 md:h-6" />, color: "purple-300" },
                     ...(auditResult.technicalScore ? [{ label: "TECHNICAL", mobileLabel: "TECH", score: auditResult.technicalScore, icon: <Target className="w-5 md:w-6 h-5 md:h-6" />, color: "pink-300" }] : [])
                   ].map((metric, index) => (
