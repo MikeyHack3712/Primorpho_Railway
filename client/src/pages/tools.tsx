@@ -207,7 +207,7 @@ export default function Tools() {
                   </h3>
                   
                   <p className="text-gray-300 mb-6 text-lg">
-                    Running Google Lighthouse analysis to check your website's performance
+                    Checking your website with Google's tools to see how it's performing
                   </p>
                   
                   {/* Progress Steps */}
@@ -216,16 +216,16 @@ export default function Tools() {
                       <div className="flex items-center justify-center mb-2">
                         <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
                       </div>
-                      <h4 className="text-cyan-300 font-semibold text-sm">Performance Check</h4>
-                      <p className="text-gray-400 text-xs mt-1">Testing load speed and Core Web Vitals</p>
+                      <h4 className="text-cyan-300 font-semibold text-sm">Speed Test</h4>
+                      <p className="text-gray-400 text-xs mt-1">How fast your website loads</p>
                     </div>
                     
                     <div className="bg-purple-900/20 border border-purple-500/30 rounded-lg p-4">
                       <div className="flex items-center justify-center mb-2">
                         <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
                       </div>
-                      <h4 className="text-purple-300 font-semibold text-sm">SEO Analysis</h4>
-                      <p className="text-gray-400 text-xs mt-1">Checking search engine optimization</p>
+                      <h4 className="text-purple-300 font-semibold text-sm">Google Ranking</h4>
+                      <p className="text-gray-400 text-xs mt-1">How well you show up in search</p>
                     </div>
                     
                     <div className="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-4">
@@ -233,12 +233,12 @@ export default function Tools() {
                         <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
                       </div>
                       <h4 className="text-yellow-300 font-semibold text-sm">Mobile & Security</h4>
-                      <p className="text-gray-400 text-xs mt-1">Testing mobile responsiveness and security</p>
+                      <p className="text-gray-400 text-xs mt-1">Phone compatibility and safety</p>
                     </div>
                   </div>
                   
                   <div className="mt-8 text-sm text-gray-400">
-                    <p>This usually takes 10-20 seconds. Please wait while we gather authentic data from Google Lighthouse.</p>
+                    <p>This usually takes 10-20 seconds. Please wait while we get real data from Google's testing tools.</p>
                   </div>
                 </div>
               </CardContent>
@@ -443,7 +443,7 @@ export default function Tools() {
                   <div className="mb-6 md:mb-8">
                     <h3 className="text-base md:text-lg text-red-400 mb-3 md:mb-4 flex items-center">
                       <AlertTriangle className="w-4 md:w-5 h-4 md:h-5 mr-2" />
-                      PRIORITY FIXES
+                      MOST IMPORTANT ISSUES
                     </h3>
                     <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-4 md:p-6">
                       <ul className="space-y-2 md:space-y-3">
