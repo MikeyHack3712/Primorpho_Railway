@@ -5,8 +5,8 @@
 - Railway will automatically detect Node.js project
 
 ## 2. Railway Settings
-**Build Command:** `node build.js`
-**Start Command:** `node railway-start.js`
+**Build Command:** `npm ci && npx vite build && npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --target=node18`
+**Start Command:** `cd dist && node index.js`
 
 ## 3. Environment Variables (copy from railway-secrets.txt)
 ```

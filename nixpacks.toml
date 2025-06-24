@@ -1,11 +1,14 @@
 [phases.setup]
-nixPkgs = ['nodejs-18_x', 'npm-9_x']
+nixPkgs = ['nodejs-18_x']
 
 [phases.install]
 cmds = ['npm ci']
 
 [phases.build]
-cmds = ['node build.js']
+cmds = [
+  'npx vite build',
+  'npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --target=node18'
+]
 
 [start]
-cmd = 'cd dist && npm ci --production && node index.js'
+cmd = 'cd dist && node index.js'
